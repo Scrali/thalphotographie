@@ -560,7 +560,7 @@
     async function loadHomeCarousels(){
       let data;
       try{
-        const res = await fetch(HOME_JSON, { cache:"no-store" });
+        const res = await fetch(new URL("./photos/gallery_auto.json", window.location.href), { cache:"no-store" });
         if(!res.ok) throw new Error("HTTP " + res.status);
         data = await res.json();
       }catch(err){
