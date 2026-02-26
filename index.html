@@ -8,102 +8,6 @@
   <meta name="theme-color" content="#0b0f19" />
 
   <style>
-    /* ===== Carousel (services) ===== */
-.service {
-  display: grid;
-  gap: 12px;
-}
-
-.svcTop h3 { margin:0 0 6px; font-size:16px }
-.svcTop p  { margin:0; color:var(--muted); font-size:14px; line-height:1.5 }
-
-.carousel{
-  position: relative;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.02);
-  min-height: 180px;
-}
-
-.carouselTrack{
-  display:flex;
-  width:100%;
-  height:100%;
-  transform: translateX(0);
-  transition: transform .45s ease;
-  will-change: transform;
-}
-
-.carouselSlide{
-  min-width: 100%;
-  height: 100%;
-}
-
-.carouselSlide img{
-  width:100%;
-  height: 220px;
-  display:block;
-  object-fit: cover;
-}
-
-@media (max-width: 520px){
-  .carouselSlide img{ height: 190px; }
-}
-
-.cNav{
-  position:absolute;
-  inset: 0;
-  pointer-events:none;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding: 10px;
-}
-
-.cBtn{
-  pointer-events:auto;
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.35);
-  color: rgba(255,255,255,.92);
-  font-weight:900;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
-.cBtn:hover{ background: rgba(0,0,0,.50); }
-
-.cDots{
-  position:absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 10px;
-  display:flex;
-  justify-content:center;
-  gap:6px;
-  pointer-events:none;
-}
-
-.dot{
-  width: 7px;
-  height: 7px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.12);
-  opacity:.75;
-}
-.dot.on{
-  background: rgba(110,168,255,.45);
-  border-color: rgba(110,168,255,.55);
-  opacity:1;
-}
     :root{
       --bg:#070a12;
       --bg2:#0b1020;
@@ -120,7 +24,6 @@
       --radius2:24px;
       --max:1100px;
 
-      /* Safe areas iPhone + spacing fluid */
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-right: env(safe-area-inset-right, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
@@ -129,7 +32,6 @@
       --pad: clamp(14px, 2.6vw, 22px);
       --gap: clamp(12px, 2.2vw, 18px);
 
-      /* Typo fluide */
       --h1: clamp(34px, 7vw, 56px);
       --lead: clamp(15px, 2.9vw, 18px);
     }
@@ -186,7 +88,6 @@
       min-width: 0;
     }
 
-    /* ✅ Logo header : responsive (plus énorme sur mobile) */
     .brand img{
       width: clamp(42px, 8vw, 58px);
       height: auto;
@@ -230,7 +131,7 @@
       font-weight:600;
       font-size:14px;
       transition: transform .15s ease, background .2s ease, border-color .2s ease;
-      min-height:44px; /* tap target */
+      min-height:44px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -250,7 +151,7 @@
       font-weight:750;
       font-size:14px;
       transition: transform .15s ease, filter .2s ease, border-color .2s ease;
-      min-height:44px; /* tap target */
+      min-height:44px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -268,7 +169,6 @@
       padding: clamp(30px, 5vw, 54px) 0 26px;
     }
 
-    /* ✅ logo en fond penché */
     .bg-logo{
       position:absolute;
       top:52%;
@@ -375,20 +275,128 @@
     }
     @media (max-width: 900px){ .grid3{grid-template-columns:1fr} }
 
+    /* ===== Service cards + carousel ===== */
     .service{
       padding:16px;
       border-radius: var(--radius);
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.03);
       transition: transform .16s ease, background .2s ease, border-color .2s ease;
+      display:grid;
+      gap:12px;
     }
     .service:hover{
       transform: translateY(-2px);
       background: rgba(255,255,255,.05);
       border-color: rgba(255,255,255,.18);
     }
-    .service h3{margin:0 0 6px; font-size:16px}
-    .service p{margin:0; color:var(--muted); font-size:14px; line-height:1.5}
+
+    .svcTop h3 { margin:0 0 6px; font-size:16px }
+    .svcTop p  { margin:0; color:var(--muted); font-size:14px; line-height:1.5 }
+
+    .carousel{
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      min-height: 180px;
+      cursor:pointer;
+    }
+
+    .carouselTrack{
+      display:flex;
+      width:100%;
+      height:100%;
+      transform: translateX(0);
+      transition: transform .45s ease;
+      will-change: transform;
+    }
+
+    .carouselSlide{
+      min-width: 100%;
+      height: 100%;
+      position:relative;
+    }
+
+    .carouselSlide img{
+      width:100%;
+      height: 220px;
+      display:block;
+      object-fit: cover;
+    }
+
+    @media (max-width: 520px){
+      .carouselSlide img{ height: 190px; }
+    }
+
+    .svcBadge{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      padding:8px 10px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.92);
+      font-weight:800;
+      font-size:12px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .cNav{
+      position:absolute;
+      inset: 0;
+      pointer-events:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 10px;
+    }
+
+    .cBtn{
+      pointer-events:auto;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.35);
+      color: rgba(255,255,255,.92);
+      font-weight:900;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .cBtn:hover{ background: rgba(0,0,0,.50); }
+
+    .cDots{
+      position:absolute;
+      left: 12px;
+      right: 12px;
+      bottom: 10px;
+      display:flex;
+      justify-content:center;
+      gap:6px;
+      pointer-events:none;
+    }
+
+    .dot{
+      width: 7px;
+      height: 7px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.12);
+      opacity:.75;
+    }
+    .dot.on{
+      background: rgba(110,168,255,.45);
+      border-color: rgba(110,168,255,.55);
+      opacity:1;
+    }
 
     /* Gallery */
     .galleryHeader{
@@ -434,7 +442,6 @@
       background: rgba(110,168,255,.12);
     }
 
-    /* Grille galerie : auto-fit (meilleur sur toutes tailles d'écran) */
     .masonry{
       margin-top:12px;
       display:grid;
@@ -443,7 +450,7 @@
     }
     @media (max-width: 420px){
       .masonry{grid-template-columns: repeat(2, minmax(0, 1fr));}
-      .navlinks .chip{display:none;} /* option : sur très petit écran, on garde CTA principal */
+      .navlinks .chip{display:none;}
       .navlinks .btn{padding:10px 12px;}
     }
 
@@ -486,7 +493,6 @@
       transition: opacity .25s ease, transform .25s ease;
     }
     .shot:hover .cap{opacity:1; transform: translateY(0)}
-    /* Sur mobile : cap visible sans hover */
     @media (hover: none){
       .shot .cap{opacity:1; transform:none; background:rgba(0,0,0,.35);}
     }
@@ -613,54 +619,54 @@
       <div class="sectionTitle reveal">Ce que je propose</div>
 
       <section class="grid3">
-  <div class="service reveal" data-carousel="Portraits">
-    <div class="svcTop">
-      <h3>Portraits</h3>
-      <p>Individuel, couple, famille — en extérieur ou intérieur.</p>
-    </div>
+        <div class="service reveal" data-carousel="portraits">
+          <div class="svcTop">
+            <h3>Portraits</h3>
+            <p>Individuel, couple, famille — en extérieur ou intérieur.</p>
+          </div>
 
-    <div class="carousel" aria-label="Galerie portraits">
-      <div class="carouselTrack"></div>
-      <div class="cNav">
-        <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-        <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-      </div>
-      <div class="cDots" aria-hidden="true"></div>
-    </div>
-  </div>
+          <div class="carousel" aria-label="Galerie portraits">
+            <div class="carouselTrack"></div>
+            <div class="cNav">
+              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
+              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
+            </div>
+            <div class="cDots" aria-hidden="true"></div>
+          </div>
+        </div>
 
-  <div class="service reveal" data-carousel="Événements">
-    <div class="svcTop">
-      <h3>Événements</h3>
-      <p>Anniversaire, soirée, association — reportage discret.</p>
-    </div>
+        <div class="service reveal" data-carousel="evenements">
+          <div class="svcTop">
+            <h3>Événements</h3>
+            <p>Anniversaire, soirée, association — reportage discret.</p>
+          </div>
 
-    <div class="carousel" aria-label="Galerie événements">
-      <div class="carouselTrack"></div>
-      <div class="cNav">
-        <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-        <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-      </div>
-      <div class="cDots" aria-hidden="true"></div>
-    </div>
-  </div>
+          <div class="carousel" aria-label="Galerie événements">
+            <div class="carouselTrack"></div>
+            <div class="cNav">
+              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
+              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
+            </div>
+            <div class="cDots" aria-hidden="true"></div>
+          </div>
+        </div>
 
-  <div class="service reveal" data-carousel="Projets">
-    <div class="svcTop">
-      <h3>Projets</h3>
-      <p>Marques, produits, contenu réseau — pack prêt à publier.</p>
-    </div>
+        <div class="service reveal" data-carousel="projets">
+          <div class="svcTop">
+            <h3>Projets</h3>
+            <p>Marques, produits, contenu réseau — pack prêt à publier.</p>
+          </div>
 
-    <div class="carousel" aria-label="Galerie projets">
-      <div class="carouselTrack"></div>
-      <div class="cNav">
-        <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-        <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-      </div>
-      <div class="cDots" aria-hidden="true"></div>
-    </div>
-  </div>
-</section>
+          <div class="carousel" aria-label="Galerie projets">
+            <div class="carouselTrack"></div>
+            <div class="cNav">
+              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
+              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
+            </div>
+            <div class="cDots" aria-hidden="true"></div>
+          </div>
+        </div>
+      </section>
 
       <section id="galerie" style="margin-top:18px">
         <div class="galleryHeader reveal">
@@ -695,9 +701,9 @@
       <div class="lbTop">
         <div id="lbTitle">Photo</div>
         <div class="lbBtns">
-          <button class="lbBtn" id="prev" type="button" aria-label="Photo précédente">←</button>
-          <button class="lbBtn" id="next" type="button" aria-label="Photo suivante">→</button>
-          <button class="lbBtn" id="close" type="button" aria-label="Fermer">✕</button>
+          <button class="lbBtn" id="lbPrev" type="button" aria-label="Photo précédente">←</button>
+          <button class="lbBtn" id="lbNext" type="button" aria-label="Photo suivante">→</button>
+          <button class="lbBtn" id="lbClose" type="button" aria-label="Fermer">✕</button>
         </div>
       </div>
       <div class="lbImgWrap">
@@ -707,10 +713,35 @@
   </div>
 
   <script>
-    // Year
+    // ===== Config =====
+    const SERVICE_MAP = {
+      portraits: ["Portraits"],
+      evenements: ["Evenements", "Événements"],
+      projets: ["Projets"]
+    };
+    const SERVICE_LIMIT = 6;
+    const SERVICE_ROTATE_MS = 3500;
+
+    // ===== Utils =====
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, (m)=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[m]));
+    }
+
+    function shuffle(arr){
+      const a = [...arr];
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    // ===== Year =====
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Reveal on scroll
+    // ===== Reveal on scroll =====
     const revealEls = [...document.querySelectorAll(".reveal")];
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
@@ -725,14 +756,17 @@
       if (a) a.blur();
     }, { passive: true });
 
-    // Gallery
+    // ===== Gallery state =====
     const catsEl = document.getElementById("cats");
     const gridEl = document.getElementById("grid");
 
     let galleryData = {};
-    let allShots = [];   // {cat, file}
-    let filtered = [];
+    let allShots = [];     // {cat, file}
+    let filtered = [];     // current list in gallery grid/lightbox
     let currentCat = "Tous";
+
+    // ===== Service carousels state =====
+    const serviceState = {}; // key -> { items, idx, timer, track, dotsEl }
 
     async function loadGallery(){
       try{
@@ -749,9 +783,9 @@
 
         renderCats();
         applyFilter("Tous");
+
         renderServiceCarousels();
         startServiceCarousels();
-        
       }catch(err){
         gridEl.innerHTML = `
           <div style="grid-column:1/-1; color:rgba(255,255,255,.75); border:1px solid rgba(255,255,255,.12);
@@ -760,10 +794,10 @@
             ${escapeHtml(err.message)}<br/>
             Vérifie que <code>photos/gallery.json</code> existe sur le site.
           </div>`;
-      
       }
     }
 
+    // ===== Gallery pills =====
     function renderCats(){
       const cats = ["Tous", ...Object.keys(galleryData)];
       catsEl.innerHTML = "";
@@ -808,86 +842,127 @@
         gridEl.appendChild(card);
       });
     }
-    let serviceState = {}; // { serviceId: { items:[], idx:0, timer:null } }
 
-function pickServiceItems(serviceId){
-  const cats = SERVICE_MAP[serviceId] || [];
-  let items = [];
+    // ===== Services: picking + render =====
+    function pickServiceItems(serviceKey){
+      const cats = SERVICE_MAP[serviceKey] || [];
+      let items = [];
 
-  cats.forEach(cat=>{
-    const files = (galleryData[cat] || []);
-    files.forEach(file=>{
-      items.push({ cat, file });
-    });
-  });
+      cats.forEach(cat=>{
+        const files = (galleryData[cat] || []);
+        files.forEach(file => items.push({cat, file}));
+      });
 
-  // mélange léger pour éviter toujours la même 1ère photo
-  items = items.sort(()=>Math.random()-0.5);
-
-  // limite
-  return items.slice(0, SERVICE_LIMIT);
-}
-
-function renderServiceCarousels(){
-  const carousels = document.querySelectorAll(".svcCarousel");
-  carousels.forEach(c=>{
-    const serviceId = c.getAttribute("data-service");
-    const track = c.querySelector(".svcTrack");
-    const items = pickServiceItems(serviceId);
-
-    serviceState[serviceId] = { items, idx:0, timer:null, track };
-
-    if(!items.length){
-      track.innerHTML = `
-        <div class="svcSlide" style="display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-weight:700">
-          Aucune photo
-        </div>`;
-      return;
+      items = shuffle(items);
+      return items.slice(0, SERVICE_LIMIT);
     }
 
-    track.innerHTML = items.map(s=>{
-      const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
-      return `
-        <div class="svcSlide">
-          <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}">
-          <div class="svcBadge">${escapeHtml(s.cat)}</div>
-        </div>`;
-    }).join("");
+    function renderServiceCarousels(){
+      const serviceCards = document.querySelectorAll(".service[data-carousel]");
+      serviceCards.forEach(card=>{
+        const serviceKey = card.getAttribute("data-carousel");
+        const carousel = card.querySelector(".carousel");
+        const track = carousel.querySelector(".carouselTrack");
+        const dotsEl = carousel.querySelector(".cDots");
+        const prevBtn = carousel.querySelector(".prev");
+        const nextBtn = carousel.querySelector(".next");
 
-    // clic => ouvre la lightbox sur cette image (dans le contexte "Tous")
-    c.addEventListener("click", ()=>{
-      // Trouver l'index dans allShots pour ouvrir la lightbox sur la galerie principale
-      const current = items[serviceState[serviceId].idx];
-      const mainIndex = allShots.findIndex(x=>x.cat===current.cat && x.file===current.file);
-      if(mainIndex >= 0){
-        applyFilter("Tous");
-        // Après renderGrid, ouvre au bon index dans la grille filtrée (= allShots)
-        openLightbox(mainIndex);
-      }
-    });
-  });
-}
+        const items = pickServiceItems(serviceKey);
+        serviceState[serviceKey] = { items, idx: 0, timer: null, track, dotsEl, carousel };
 
-function startServiceCarousels(){
-  Object.keys(serviceState).forEach(serviceId=>{
-    const st = serviceState[serviceId];
-    if(!st.items || st.items.length <= 1) return;
+        // No items fallback
+        if(!items.length){
+          track.innerHTML = `
+            <div class="carouselSlide" style="display:flex;align-items:center;justify-content:center;height:190px;color:rgba(255,255,255,.6);font-weight:800">
+              Aucune photo
+            </div>`;
+          dotsEl.innerHTML = "";
+          prevBtn.disabled = true;
+          nextBtn.disabled = true;
+          return;
+        }
 
-    // rotation toutes les 3.5s
-    st.timer = setInterval(()=>{
-      st.idx = (st.idx + 1) % st.items.length;
-      st.track.style.transform = `translateX(-${st.idx * 100}%)`;
-    }, 3500);
-  });
-}
+        track.innerHTML = items.map(s=>{
+          const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+          return `
+            <div class="carouselSlide">
+              <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}">
+              <div class="svcBadge">${escapeHtml(s.cat)}</div>
+            </div>`;
+        }).join("");
 
-    // Lightbox
+        // dots
+        dotsEl.innerHTML = items.map((_,i)=>`<span class="dot ${i===0?"on":""}"></span>`).join("");
+
+        function setIndex(i){
+          const st = serviceState[serviceKey];
+          if(!st.items.length) return;
+          st.idx = (i + st.items.length) % st.items.length;
+          st.track.style.transform = `translateX(-${st.idx * 100}%)`;
+          const dots = st.dotsEl.querySelectorAll(".dot");
+          dots.forEach((d,di)=>d.classList.toggle("on", di === st.idx));
+        }
+
+        // Buttons (stop click bubbling to carousel click)
+        prevBtn.addEventListener("click", (e)=>{ e.stopPropagation(); setIndex(serviceState[serviceKey].idx - 1); });
+        nextBtn.addEventListener("click", (e)=>{ e.stopPropagation(); setIndex(serviceState[serviceKey].idx + 1); });
+
+        // Swipe (mobile)
+        let startX = 0, dx = 0, isDown = false;
+        carousel.addEventListener("pointerdown", (e)=>{
+          isDown = true;
+          startX = e.clientX;
+          dx = 0;
+          carousel.setPointerCapture(e.pointerId);
+        });
+        carousel.addEventListener("pointermove", (e)=>{
+          if(!isDown) return;
+          dx = e.clientX - startX;
+        });
+        carousel.addEventListener("pointerup", ()=>{
+          if(!isDown) return;
+          isDown = false;
+          if(Math.abs(dx) > 40){
+            setIndex(serviceState[serviceKey].idx + (dx < 0 ? 1 : -1));
+          }
+        });
+
+        // Click => open in lightbox (switch to "Tous" first for consistent index)
+        carousel.addEventListener("click", ()=>{
+          const st = serviceState[serviceKey];
+          const current = st.items[st.idx];
+          if(!current) return;
+
+          const mainIndex = allShots.findIndex(x => x.cat === current.cat && x.file === current.file);
+          if(mainIndex >= 0){
+            applyFilter("Tous");
+            openLightbox(mainIndex);
+          }
+        });
+
+        // Save setter
+        serviceState[serviceKey].setIndex = setIndex;
+      });
+    }
+
+    function startServiceCarousels(){
+      Object.keys(serviceState).forEach(serviceKey=>{
+        const st = serviceState[serviceKey];
+        if(!st.items || st.items.length <= 1) return;
+
+        st.timer = setInterval(()=>{
+          st.setIndex(st.idx + 1);
+        }, SERVICE_ROTATE_MS);
+      });
+    }
+
+    // ===== Lightbox =====
     const lb = document.getElementById("lb");
     const lbImg = document.getElementById("lbImg");
     const lbTitle = document.getElementById("lbTitle");
-    const closeBtn = document.getElementById("close");
-    const prevBtn = document.getElementById("prev");
-    const nextBtn = document.getElementById("next");
+    const closeBtn = document.getElementById("lbClose");
+    const prevBtn = document.getElementById("lbPrev");
+    const nextBtn = document.getElementById("lbNext");
     let lbIndex = 0;
 
     function openLightbox(idx){
@@ -913,33 +988,27 @@ function startServiceCarousels(){
       lbTitle.textContent = `${s.cat} — ${s.file}`;
     }
 
-    function prev(){
+    function lbPrev(){
       lbIndex = (lbIndex - 1 + filtered.length) % filtered.length;
       updateLightbox();
     }
 
-    function next(){
+    function lbNext(){
       lbIndex = (lbIndex + 1) % filtered.length;
       updateLightbox();
     }
 
     closeBtn.addEventListener("click", closeLightbox);
-    prevBtn.addEventListener("click", prev);
-    nextBtn.addEventListener("click", next);
+    prevBtn.addEventListener("click", lbPrev);
+    nextBtn.addEventListener("click", lbNext);
     lb.addEventListener("click", (e)=>{ if(e.target === lb) closeLightbox(); });
 
     window.addEventListener("keydown", (e)=>{
       if(!lb.classList.contains("open")) return;
       if(e.key === "Escape") closeLightbox();
-      if(e.key === "ArrowLeft") prev();
-      if(e.key === "ArrowRight") next();
+      if(e.key === "ArrowLeft") lbPrev();
+      if(e.key === "ArrowRight") lbNext();
     });
-
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, (m)=>({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-      }[m]));
-    }
 
     loadGallery();
   </script>
