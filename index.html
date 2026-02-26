@@ -415,59 +415,75 @@
       *{animation-duration:0.001ms!important; animation-iteration-count:1!important; transition-duration:0.001ms!important; scroll-behavior:auto!important;}
     }
 /* Contact form – compact (accepte .contactForm OU .contactform) */
-.contactForm, .contactform{
+.contactInner{
+  max-width: 620px;
+  margin: 0 auto;
+}
+
+.contactForm{
   display:grid;
   gap:12px;
-  margin-top:10px;
 }
 
-.contactForm .row2, .contactform .row2{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:12px;
-}
-
-@media (max-width: 700px){
-  .contactForm .row2, .contactform .row2{ grid-template-columns: 1fr; }
-}
-
-.contactForm input, .contactform input,
-.contactForm textarea, .contactform textarea{
+.contactForm input,
+.contactForm textarea{
   width:100%;
   border-radius:12px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.04);
   color:var(--text);
   font-family:inherit;
-  font-size:13px;     /* ↓ un peu plus petit */
-  line-height:1.2;    /* ↓ évite la hauteur “gonflée” */
+  font-size:13px;
+  line-height:1.2;
 }
 
-.contactForm input, .contactform input{
-  padding:8px 12px;   /* ↓ plus fin */
-  height:36px;        /* ↓ force une vraie hauteur compacte */
+.contactForm input{
+  padding:8px 12px;
+  height:36px;
 }
 
-.contactForm textarea, .contactform textarea{
+.contactForm textarea{
   padding:10px 12px;
   min-height:140px;
   resize:vertical;
 }
 
-.contactForm input:focus, .contactform input:focus,
-.contactForm textarea:focus, .contactform textarea:focus{
+.contactForm input::placeholder,
+.contactForm textarea::placeholder{
+  color: rgba(255,255,255,.45);
+}
+
+.contactForm input:focus,
+.contactForm textarea:focus{
   outline:none;
   border-color:rgba(110,168,255,.6);
   background:rgba(255,255,255,.06);
-  /* Largeur contrôlée du formulaire */
-.contactForm{
-  max-width: 620px;
-  margin: 14px auto 0;   /* centré horizontalement */
 }
-  .contactForm{
-  max-width: 620px;
-  margin: 18px auto 0;
+
+/* Honeypot invisible */
+.contactForm .hp{
+  position:absolute;
+  left:-9999px;
+  width:1px;
+  height:1px;
+  opacity:0;
+  pointer-events:none;
 }
+
+/* Note + statut */
+.formNote{
+  color: rgba(255,255,255,.55);
+  font-size: 13px;
+  margin-top: -2px;
+}
+
+.formStatus{
+  margin-top: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,.75);
+}
+.formStatus.ok{ color: rgba(170,255,210,.92); }
+.formStatus.err{ color: rgba(255,170,170,.92); }
 }
 }
   </style>
@@ -860,10 +876,6 @@ if(form){
       sendBtn.disabled = false;
       sendBtn.textContent = "Envoyer le message";
     }
-    .contactInner{
-  max-width: 620px;
-  margin: 0 auto;
-}
   });
 }
 
