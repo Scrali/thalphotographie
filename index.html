@@ -15,7 +15,6 @@
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.65);
       --muted2:rgba(255,255,255,.48);
-      --accent:#6ea8ff;
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius:18px;
       --radius2:24px;
@@ -33,10 +32,9 @@
       --lead: clamp(15px, 2.9vw, 18px);
     }
 
-    *{box-sizing:border-box; max-width:100%;}
+    *{box-sizing:border-box; max-width:100%}
     html,body{height:100%}
     html{-webkit-text-size-adjust:100%}
-
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
@@ -54,13 +52,13 @@
     }
 
     a{color:inherit; text-decoration:none}
+
     .wrap{
       max-width:var(--max);
       margin:0 auto;
       padding: var(--pad) var(--pad) 70px;
     }
 
-    /* Top nav */
     .nav{
       display:flex;
       align-items:center;
@@ -83,11 +81,11 @@
       align-items:center;
       gap:10px;
       padding:6px 10px;
-      min-width: 0;
+      min-width:0;
     }
     .brand img{
       width: clamp(42px, 8vw, 58px);
-      height: auto;
+      height:auto;
       display:block;
       filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
     }
@@ -97,16 +95,15 @@
       display:flex;
       align-items:baseline;
       gap:8px;
-      min-width: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      min-width:0;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
     }
     .brand .name span{
       font-size: clamp(12px, 2.8vw, 14px);
       color:var(--muted);
       font-weight:500;
-      letter-spacing:.2px;
     }
 
     .navlinks{
@@ -114,51 +111,43 @@
       align-items:center;
       gap:10px;
       padding:6px 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      flex-wrap:wrap;
+      justify-content:flex-end;
     }
-
     .chip, .btn, .ghost{
       min-height:44px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
       border-radius:999px;
+      padding:10px 14px;
       font-size:14px;
-      font-weight:700;
-      transition: transform .15s ease, background .2s ease, border-color .2s ease, filter .2s ease;
+      font-weight:750;
       border:1px solid var(--stroke);
       background:rgba(255,255,255,.03);
+      transition: transform .15s ease, background .2s ease, border-color .2s ease, filter .2s ease;
     }
-
-    .chip{ color:var(--muted); padding:10px 14px; }
-    .chip:hover{ transform: translateY(-1px); background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.18); }
-
+    .chip{color:var(--muted); font-weight:650}
     .btn{
-      padding:10px 14px;
       border-color: rgba(110,168,255,.42);
       background: linear-gradient(180deg, rgba(110,168,255,.24), rgba(110,168,255,.10));
-      font-weight:800;
+      color:var(--text);
     }
-    .btn:hover{ transform: translateY(-1px); filter: brightness(1.05); border-color:rgba(110,168,255,.65); }
+    .chip:hover,.btn:hover,.ghost:hover{transform:translateY(-1px); background:rgba(255,255,255,.06)}
+    .btn:hover{filter:brightness(1.05); border-color:rgba(110,168,255,.65)}
 
-    .ghost{ padding:10px 14px; font-weight:800; color:var(--text); }
-    .ghost:hover{ transform: translateY(-1px); background:rgba(255,255,255,.06); }
-
-    /* Hero */
     .hero{
       position:relative;
       overflow:hidden;
       padding: clamp(30px, 5vw, 54px) 0 26px;
     }
-
     .bg-logo{
       position:absolute;
       top:52%;
       left:58%;
       transform:translate(-50%,-50%) rotate(-12deg);
       width:min(720px, 92vw);
-      opacity:0.045;
+      opacity:.045;
       pointer-events:none;
       z-index:0;
       filter: blur(1px);
@@ -173,7 +162,7 @@
       gap: var(--gap);
       align-items:stretch;
     }
-    @media (max-width: 900px){
+    @media (max-width:900px){
       .heroGrid{grid-template-columns:1fr}
       .bg-logo{left:50%; width:min(820px, 96vw); opacity:.04}
     }
@@ -184,7 +173,6 @@
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
     }
-
     .heroMain{
       padding: clamp(16px, 2.6vw, 22px);
       min-height: 190px;
@@ -202,13 +190,7 @@
       line-height:1.55;
       font-size: var(--lead);
     }
-
-    .actions{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
 
     .heroSide{
       padding: clamp(14px, 2.2vw, 18px);
@@ -219,7 +201,7 @@
       border:1px solid rgba(255,255,255,.10);
       border-radius: 16px;
       background: rgba(255,255,255,.03);
-      padding:12px 12px;
+      padding:12px;
     }
     .mini b{display:block; font-size:13px; margin-bottom:4px}
     .mini span{color:var(--muted2); font-size:13px}
@@ -227,21 +209,20 @@
     .sectionTitle{
       margin:18px 2px 10px;
       color:var(--muted);
-      font-weight:800;
+      font-weight:700;
       font-size:13px;
       letter-spacing:.12em;
       text-transform:uppercase;
     }
 
-    /* Services grid */
     .grid3{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--gap);
     }
-    @media (max-width: 900px){ .grid3{grid-template-columns:1fr} }
+    @media (max-width:900px){ .grid3{grid-template-columns:1fr} }
 
-    /* ===== Carousel (services) ===== */
+    /* ===== Service card + carousel ===== */
     .service{
       padding:16px;
       border-radius: var(--radius);
@@ -256,9 +237,8 @@
       background: rgba(255,255,255,.05);
       border-color: rgba(255,255,255,.18);
     }
-
-    .svcTop h3{ margin:0 0 6px; font-size:16px }
-    .svcTop p { margin:0; color:var(--muted); font-size:14px; line-height:1.5 }
+    .svcTop h3{margin:0 0 6px; font-size:16px}
+    .svcTop p{margin:0; color:var(--muted); font-size:14px; line-height:1.5}
 
     .carousel{
       position: relative;
@@ -267,8 +247,9 @@
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.02);
       min-height: 180px;
-      cursor:pointer;
+      touch-action: pan-y; /* important pour swipe horizontal */
     }
+
     .carouselTrack{
       display:flex;
       width:100%;
@@ -277,27 +258,27 @@
       transition: transform .45s ease;
       will-change: transform;
     }
-    .carouselSlide{ min-width:100%; height:100%; }
+    .carouselSlide{min-width:100%}
     .carouselSlide img{
       width:100%;
       height: 220px;
       display:block;
       object-fit: cover;
     }
-    @media (max-width: 520px){
-      .carouselSlide img{ height: 190px; }
-      .navlinks .chip{display:none;}
-      .navlinks .btn{padding:10px 12px;}
+    @media (max-width:520px){
+      .carouselSlide img{height:190px}
+      .navlinks .chip{display:none}
+      .navlinks .btn{padding:10px 12px}
     }
 
     .cNav{
       position:absolute;
-      inset: 0;
+      inset:0;
       pointer-events:none;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding: 10px;
+      padding:10px;
     }
     .cBtn{
       pointer-events:auto;
@@ -319,9 +300,9 @@
 
     .cDots{
       position:absolute;
-      left: 12px;
-      right: 12px;
-      bottom: 10px;
+      left:12px;
+      right:12px;
+      bottom:10px;
       display:flex;
       justify-content:center;
       gap:6px;
@@ -341,7 +322,7 @@
       opacity:1;
     }
 
-    /* Gallery menus only */
+    /* Galerie (sur index: menus uniquement) */
     .galleryHeader{
       display:flex;
       justify-content:space-between;
@@ -350,30 +331,17 @@
       flex-wrap:wrap;
       margin-top:24px;
     }
-    .galleryHeader h2{
-      margin:0;
-      font-size:20px;
-      letter-spacing:-.2px;
-    }
-    .galleryHeader p{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:14px;
-    }
+    .galleryHeader h2{margin:0; font-size:20px; letter-spacing:-.2px}
+    .galleryHeader p{margin:6px 0 0; color:var(--muted); font-size:14px}
 
-    .pillRow{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
+    .pillRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
     .pill{
       padding:8px 12px;
       border-radius:999px;
       border:1px solid var(--stroke);
       background:rgba(255,255,255,.03);
       color:var(--muted);
-      font-weight:800;
+      font-weight:700;
       font-size:13px;
       cursor:pointer;
       transition: background .2s ease, transform .15s ease, border-color .2s ease;
@@ -387,30 +355,68 @@
       background: rgba(110,168,255,.12);
     }
 
-    .note{
-      margin-top:10px;
-      color:var(--muted2);
+    .footer{margin-top:26px; color:var(--muted2); font-size:13px; text-align:center}
+
+    /* Lightbox (utilisé quand on clique sur un carrousel) */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.78);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:200;
+    }
+    .lightbox.open{display:flex}
+    .lbCard{
+      width:min(1100px, 100%);
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10,14,24,.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 30px 110px rgba(0,0,0,.65);
+      position:relative;
+    }
+    .lbTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      color:rgba(255,255,255,.85);
+      font-weight:700;
       font-size:13px;
-      line-height:1.5;
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.03);
-      border-radius: 16px;
-      padding: 12px 14px;
+    }
+    .lbBtns{display:flex; gap:8px}
+    .lbBtn{
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+      color:rgba(255,255,255,.92);
+      font-weight:800;
+      min-height:44px;
+    }
+    .lbBtn:hover{background: rgba(255,255,255,.08)}
+    .lbImgWrap{background:#000}
+    .lbImg{
+      width:100%;
+      height:min(76vh, 760px);
+      object-fit:contain;
+      display:block;
+      background:#000;
+      touch-action: pan-y;
     }
 
-    .footer{
-      margin-top:26px;
-      color:var(--muted2);
-      font-size:13px;
-      text-align:center;
-    }
-
-    /* Reveal */
     .reveal{opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease}
     .reveal.on{opacity:1; transform: translateY(0)}
-
     @media (prefers-reduced-motion: reduce){
-      *{animation-duration:0.001ms!important; animation-iteration-count:1!important; transition-duration:0.001ms!important; scroll-behavior:auto!important;}
+      *{transition-duration:0.001ms!important; scroll-behavior:auto!important;}
     }
   </style>
 </head>
@@ -435,43 +441,29 @@
       <div class="heroGrid">
         <section class="card heroMain reveal">
           <h1>Des images propres,<br/>modernes, et vivantes.</h1>
-          <p>
-            Photographie — portraits, évènements, projets. Une approche simple : lumière,
-            émotion, et rendu net.
-          </p>
+          <p>Photographie — portraits, évènements, projets. Une approche simple : lumière, émotion, et rendu net.</p>
 
           <div class="actions">
-            <a class="btn" href="#galerie">Voir la galerie</a>
+            <a class="btn" href="galerie.html">Voir la galerie</a>
             <a class="ghost" href="#contact">Demander un devis</a>
           </div>
         </section>
 
         <aside class="card heroSide reveal">
-          <div class="mini">
-            <b>Disponibilités</b>
-            <span>Vaud / Suisse romande</span>
-          </div>
-          <div class="mini">
-            <b>Livraison</b>
-            <span>Galerie web + fichiers HD</span>
-          </div>
-          <div class="mini">
-            <b>Style</b>
-            <span>Sobre, contrasté, naturel</span>
-          </div>
+          <div class="mini"><b>Disponibilités</b><span>Vaud / Suisse romande</span></div>
+          <div class="mini"><b>Livraison</b><span>Galerie web + fichiers HD</span></div>
+          <div class="mini"><b>Style</b><span>Sobre, contrasté, naturel</span></div>
         </aside>
       </div>
 
       <div class="sectionTitle reveal">Ce que je propose</div>
 
-      <!-- Services (carrousels auto depuis gallery.json) -->
       <section class="grid3">
         <div class="service reveal" data-carousel="Portraits">
           <div class="svcTop">
             <h3>Portraits</h3>
             <p>Individuel, couple, famille — en extérieur ou intérieur.</p>
           </div>
-
           <div class="carousel" aria-label="Galerie portraits">
             <div class="carouselTrack"></div>
             <div class="cNav">
@@ -484,11 +476,10 @@
 
         <div class="service reveal" data-carousel="Evenements">
           <div class="svcTop">
-            <h3>Événements</h3>
+            <h3>Evenements</h3>
             <p>Anniversaire, soirée, association — reportage discret.</p>
           </div>
-
-          <div class="carousel" aria-label="Galerie événements">
+          <div class="carousel" aria-label="Galerie evenements">
             <div class="carouselTrack"></div>
             <div class="cNav">
               <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
@@ -503,7 +494,6 @@
             <h3>Projets</h3>
             <p>Marques, produits, contenu réseau — pack prêt à publier.</p>
           </div>
-
           <div class="carousel" aria-label="Galerie projets">
             <div class="carouselTrack"></div>
             <div class="cNav">
@@ -515,21 +505,19 @@
         </div>
       </section>
 
-      <!-- Galerie : MENUS UNIQUEMENT -->
+      <!-- Galerie sur index : MENUS uniquement + lien vers galerie.html -->
       <section id="galerie" style="margin-top:18px">
         <div class="galleryHeader reveal">
           <div>
             <h2>Galerie</h2>
-            <p>Choisis une catégorie puis une sous-catégorie.</p>
+            <p>Choisis une catégorie puis ouvre la galerie.</p>
+          </div>
+          <div class="actions">
+            <a class="btn" id="openGalleryBtn" href="galerie.html">Ouvrir la galerie</a>
           </div>
         </div>
 
         <div class="pillRow reveal" id="cats"></div>
-        <div class="pillRow reveal" id="subcats"></div>
-
-        <div class="note reveal" id="hint">
-          Sélectionne une sous-catégorie pour préparer l’affichage (ensuite on pourra ouvrir une page dédiée).
-        </div>
       </section>
 
       <section id="contact" class="card reveal" style="margin-top:16px; padding:18px">
@@ -537,15 +525,31 @@
         <p style="margin:0 0 10px; color:var(--muted); line-height:1.55">
           Envoie-moi un message (ou clique sur le bouton) et je te réponds rapidement.
         </p>
-
         <div class="actions">
           <a class="btn" href="mailto:contact@thalphotographie.ch?subject=Demande%20de%20devis">Envoyer un email</a>
-          <a class="ghost" href="#galerie">Retour galerie</a>
+          <a class="ghost" href="#top">Retour haut</a>
         </div>
       </section>
 
       <div class="footer">© <span id="y"></span> THAL — Photographie</div>
     </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lb" aria-hidden="true">
+    <div class="lbCard" role="dialog" aria-modal="true">
+      <div class="lbTop">
+        <div id="lbTitle">Photo</div>
+        <div class="lbBtns">
+          <button class="lbBtn" id="prev" type="button" aria-label="Photo précédente">←</button>
+          <button class="lbBtn" id="next" type="button" aria-label="Photo suivante">→</button>
+          <button class="lbBtn" id="close" type="button" aria-label="Fermer">✕</button>
+        </div>
+      </div>
+      <div class="lbImgWrap">
+        <img class="lbImg" id="lbImg" alt="" />
+      </div>
+    </div>
   </div>
 
   <script>
@@ -555,26 +559,245 @@
     // Reveal on scroll
     const revealEls = [...document.querySelectorAll(".reveal")];
     const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting) e.target.classList.add("on");
-      });
+      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("on"); });
     }, {threshold: .12});
     revealEls.forEach(el=>io.observe(el));
 
-    // Small mobile polish: avoid sticky focus after tap
+    // small mobile polish: avoid sticky focus after tap
     document.addEventListener("click", (e) => {
       const a = e.target.closest("a,button");
       if (a) a.blur();
     }, { passive: true });
 
-    // ===== Data =====
-    const catsEl = document.getElementById("cats");
-    const subcatsEl = document.getElementById("subcats");
-    const hintEl = document.getElementById("hint");
-
-    let galleryData = {}; // { Cat: { Sub: [files...] } }
+    // ---- Data ----
+    let galleryData = {};
+    let allShots = []; // [{cat,file}]
     let currentCat = null;
-    let currentSub = null;
+
+    // ---- Index: categories pills (menus only) ----
+    const catsEl = document.getElementById("cats");
+    const openGalleryBtn = document.getElementById("openGalleryBtn");
+
+    function renderCatsMenu(){
+      const cats = Object.keys(galleryData);
+      catsEl.innerHTML = "";
+      cats.forEach(cat=>{
+        const b = document.createElement("button");
+        b.className = "pill" + (cat === currentCat ? " active" : "");
+        b.type = "button";
+        b.textContent = cat;
+        b.addEventListener("click", ()=>{
+          currentCat = cat;
+          [...catsEl.querySelectorAll(".pill")].forEach(p=>{
+            p.classList.toggle("active", p.textContent === cat);
+          });
+          // lien vers galerie filtrée
+          openGalleryBtn.href = `galerie.html?cat=${encodeURIComponent(cat)}`;
+        });
+        catsEl.appendChild(b);
+      });
+      // défaut: bouton "galerie.html" simple si pas de sélection
+      openGalleryBtn.href = "galerie.html";
+    }
+
+    // ===== Lightbox (utilisée quand on clique un carrousel service) =====
+    const lb = document.getElementById("lb");
+    const lbImg = document.getElementById("lbImg");
+    const lbTitle = document.getElementById("lbTitle");
+    const closeBtn = document.getElementById("close");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+    let lbIndex = 0;
+    let lbList = []; // liste courante pour la lightbox (ex: items carrousel)
+
+    function openLightboxFrom(list, idx){
+      lbList = list;
+      lbIndex = idx;
+      updateLightbox();
+      lb.classList.add("open");
+      lb.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
+    }
+    function closeLightbox(){
+      lb.classList.remove("open");
+      lb.setAttribute("aria-hidden","true");
+      lbImg.src = "";
+      document.body.style.overflow = "";
+    }
+    function updateLightbox(){
+      const s = lbList[lbIndex];
+      if(!s) return;
+      const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+      lbImg.src = src;
+      lbTitle.textContent = `${s.cat} — ${s.file}`;
+    }
+    function lbPrev(){ lbIndex = (lbIndex - 1 + lbList.length) % lbList.length; updateLightbox(); }
+    function lbNext(){ lbIndex = (lbIndex + 1) % lbList.length; updateLightbox(); }
+
+    closeBtn.addEventListener("click", closeLightbox);
+    prevBtn.addEventListener("click", lbPrev);
+    nextBtn.addEventListener("click", lbNext);
+    lb.addEventListener("click", (e)=>{ if(e.target === lb) closeLightbox(); });
+    window.addEventListener("keydown", (e)=>{
+      if(!lb.classList.contains("open")) return;
+      if(e.key === "Escape") closeLightbox();
+      if(e.key === "ArrowLeft") lbPrev();
+      if(e.key === "ArrowRight") lbNext();
+    });
+
+    // swipe dans la lightbox
+    (function enableLightboxSwipe(){
+      let startX=0, curX=0, dragging=false;
+      const onStart=(x)=>{dragging=true; startX=x; curX=x;};
+      const onMove=(x)=>{ if(!dragging) return; curX=x; };
+      const onEnd=()=>{
+        if(!dragging) return;
+        dragging=false;
+        const dx=curX-startX;
+        const thr=Math.max(50, window.innerWidth*0.12);
+        if(dx>thr) lbPrev();
+        else if(dx<-thr) lbNext();
+      };
+      lbImg.addEventListener("touchstart",(e)=>onStart(e.touches[0].clientX),{passive:true});
+      lbImg.addEventListener("touchmove",(e)=>onMove(e.touches[0].clientX),{passive:true});
+      lbImg.addEventListener("touchend",onEnd);
+    })();
+
+    // ===== Services carousels + swipe =====
+    const SERVICE_LIMIT = 8;
+    const SERVICE_INTERVAL = 3500;
+    const serviceState = new Map(); // carouselEl -> {items, idx, timer}
+
+    function shuffle(arr){
+      return arr.map(v=>[Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
+    }
+
+    function getServiceItems(catName){
+      const files = (galleryData?.[catName] || []);
+      const items = files.map(file => ({ cat: catName, file }));
+      return shuffle(items).slice(0, SERVICE_LIMIT);
+    }
+
+    function setCarouselIndex(carouselEl, idx){
+      const st = serviceState.get(carouselEl);
+      if(!st || !st.items.length) return;
+
+      st.idx = (idx + st.items.length) % st.items.length;
+      const track = carouselEl.querySelector(".carouselTrack");
+      const dots = carouselEl.querySelectorAll(".dot");
+
+      track.style.transform = `translateX(-${st.idx * 100}%)`;
+      dots.forEach((d,i)=>d.classList.toggle("on", i === st.idx));
+    }
+
+    function nextCarousel(carouselEl){ const st = serviceState.get(carouselEl); if(st) setCarouselIndex(carouselEl, st.idx+1); }
+    function prevCarousel(carouselEl){ const st = serviceState.get(carouselEl); if(st) setCarouselIndex(carouselEl, st.idx-1); }
+
+    function stopAuto(carouselEl){
+      const st = serviceState.get(carouselEl);
+      if(st?.timer){ clearInterval(st.timer); st.timer=null; }
+    }
+    function startAuto(carouselEl){
+      const st = serviceState.get(carouselEl);
+      if(!st || st.items.length<=1) return;
+      stopAuto(carouselEl);
+      st.timer = setInterval(()=>nextCarousel(carouselEl), SERVICE_INTERVAL);
+    }
+
+    function enableSwipe(carouselEl){
+      const track = carouselEl.querySelector(".carouselTrack");
+      let startX=0, currentX=0, dragging=false;
+
+      const onStart = (x)=>{
+        dragging=true;
+        startX=x; currentX=x;
+        stopAuto(carouselEl);
+        track.style.transition="none";
+      };
+      const onMove = (x)=>{
+        if(!dragging) return;
+        currentX=x;
+        const dx=currentX-startX;
+        const st = serviceState.get(carouselEl);
+        if(!st) return;
+        const percent=(dx / carouselEl.clientWidth) * 100;
+        track.style.transform = `translateX(calc(-${st.idx * 100}% + ${percent}%))`;
+      };
+      const onEnd = ()=>{
+        if(!dragging) return;
+        dragging=false;
+
+        const dx=currentX-startX;
+        const threshold = Math.max(40, carouselEl.clientWidth*0.12);
+
+        track.style.transition="transform .45s ease";
+
+        if(dx>threshold) prevCarousel(carouselEl);
+        else if(dx<-threshold) nextCarousel(carouselEl);
+        else {
+          const st = serviceState.get(carouselEl);
+          if(st) setCarouselIndex(carouselEl, st.idx);
+        }
+
+        startAuto(carouselEl);
+      };
+
+      carouselEl.addEventListener("touchstart",(e)=>onStart(e.touches[0].clientX),{passive:true});
+      carouselEl.addEventListener("touchmove",(e)=>onMove(e.touches[0].clientX),{passive:true});
+      carouselEl.addEventListener("touchend",onEnd);
+
+      // souris (bonus desktop)
+      carouselEl.addEventListener("mousedown",(e)=>{ e.preventDefault(); onStart(e.clientX); });
+      window.addEventListener("mousemove",(e)=>onMove(e.clientX));
+      window.addEventListener("mouseup",onEnd);
+    }
+
+    function renderServiceCarousels(){
+      const serviceCards = document.querySelectorAll(".service[data-carousel]");
+      serviceCards.forEach(serviceEl=>{
+        const catName = serviceEl.getAttribute("data-carousel");
+        const carouselEl = serviceEl.querySelector(".carousel");
+        const track = carouselEl.querySelector(".carouselTrack");
+        const dotsEl = carouselEl.querySelector(".cDots");
+        const prevBtn = carouselEl.querySelector(".cBtn.prev");
+        const nextBtn = carouselEl.querySelector(".cBtn.next");
+
+        const items = getServiceItems(catName);
+        serviceState.set(carouselEl, {items, idx:0, timer:null});
+
+        if(!items.length){
+          track.innerHTML = `
+            <div class="carouselSlide" style="display:flex;align-items:center;justify-content:center;height:220px;color:rgba(255,255,255,.65);font-weight:700">
+              Aucune photo dans “${escapeHtml(catName)}”
+            </div>`;
+          dotsEl.innerHTML="";
+          prevBtn.style.display="none";
+          nextBtn.style.display="none";
+          return;
+        }
+
+        track.innerHTML = items.map(s=>{
+          const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+          return `<div class="carouselSlide"><img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}"></div>`;
+        }).join("");
+
+        dotsEl.innerHTML = items.map((_,i)=>`<span class="dot ${i===0?'on':''}"></span>`).join("");
+
+        prevBtn.addEventListener("click",(e)=>{ e.preventDefault(); prevCarousel(carouselEl); startAuto(carouselEl); });
+        nextBtn.addEventListener("click",(e)=>{ e.preventDefault(); nextCarousel(carouselEl); startAuto(carouselEl); });
+
+        // clic sur le carrousel => lightbox sur les items du carrousel
+        carouselEl.addEventListener("click",(e)=>{
+          if(e.target.closest("button")) return;
+          const st = serviceState.get(carouselEl);
+          openLightboxFrom(st.items, st.idx);
+        });
+
+        enableSwipe(carouselEl);
+        setCarouselIndex(carouselEl, 0);
+        startAuto(carouselEl);
+      });
+    }
 
     function escapeHtml(str){
       return String(str).replace(/[&<>"']/g, (m)=>({
@@ -582,178 +805,23 @@
       }[m]));
     }
 
-    // ===== Load gallery.json =====
     async function loadGallery(){
       try{
-        const res = await fetch("photos/gallery.json", { cache: "no-store" });
+        const res = await fetch("photos/gallery.json", { cache:"no-store" });
         if(!res.ok) throw new Error("gallery.json introuvable (HTTP " + res.status + ")");
         galleryData = await res.json();
 
-        renderMainCats();
+        // build allShots (si tu veux plus tard)
+        allShots = [];
+        Object.keys(galleryData).forEach(cat=>{
+          (galleryData[cat]||[]).forEach(file=>allShots.push({cat,file}));
+        });
+
+        renderCatsMenu();
         renderServiceCarousels();
       }catch(err){
         console.error(err);
-        hintEl.textContent = "Erreur chargement galerie : " + err.message;
       }
-    }
-
-    // ===== Menus galerie =====
-    function renderMainCats(){
-      catsEl.innerHTML = "";
-      subcatsEl.innerHTML = "";
-      currentCat = null;
-      currentSub = null;
-
-      Object.keys(galleryData).forEach(cat=>{
-        const b = document.createElement("button");
-        b.className = "pill";
-        b.type = "button";
-        b.textContent = cat;
-        b.addEventListener("click", ()=>selectCat(cat));
-        catsEl.appendChild(b);
-      });
-    }
-
-    function selectCat(cat){
-      currentCat = cat;
-      currentSub = null;
-
-      [...catsEl.querySelectorAll(".pill")].forEach(p=>{
-        p.classList.toggle("active", p.textContent === cat);
-      });
-
-      renderSubcats(cat);
-      hintEl.textContent = "Choisis une sous-catégorie pour : " + cat;
-    }
-
-    function renderSubcats(cat){
-      subcatsEl.innerHTML = "";
-      const node = galleryData[cat] || {};
-      const subs = Object.keys(node);
-
-      subs.forEach(sub=>{
-        const b = document.createElement("button");
-        b.className = "pill";
-        b.type = "button";
-        b.textContent = sub;
-        b.addEventListener("click", ()=>selectSubcat(sub));
-        subcatsEl.appendChild(b);
-      });
-    }
-
-    function selectSubcat(sub){
-      currentSub = sub;
-
-      [...subcatsEl.querySelectorAll(".pill")].forEach(p=>{
-        p.classList.toggle("active", p.textContent === sub);
-      });
-
-      const count = (galleryData[currentCat]?.[currentSub] || []).length;
-      hintEl.innerHTML = `
-        <b>${escapeHtml(currentCat)}</b> → <b>${escapeHtml(currentSub)}</b><br/>
-        ${count} photo(s) dans cette sous-catégorie.
-        <br/>Prochaine étape possible : ouvrir une page dédiée ou un lightbox filtré.
-      `;
-    }
-
-    // ===== Services carrousels (auto depuis la catégorie correspondante) =====
-    // Règle simple :
-    // - Portraits : prend toutes les photos de galleryData["Portraits"] (toutes sous-cats)
-    // - Evenements : pareil
-    // - Projets : pareil
-    const SERVICE_KEYS = ["Portraits", "Evenements", "Projets"];
-    const SERVICE_LIMIT = 8;
-    const ROTATE_MS = 3500;
-
-    function flattenCategory(cat){
-      const node = galleryData[cat];
-      if(!node || typeof node !== "object") return [];
-      const items = [];
-      Object.keys(node).forEach(sub=>{
-        (node[sub] || []).forEach(file=>{
-          items.push({ cat, sub, file });
-        });
-      });
-      return items;
-    }
-
-    function pickCarouselItems(cat){
-      let items = flattenCategory(cat);
-      // shuffle léger
-      items = items.sort(()=>Math.random()-0.5);
-      return items.slice(0, SERVICE_LIMIT);
-    }
-
-    function renderServiceCarousels(){
-      const blocks = document.querySelectorAll("[data-carousel]");
-      blocks.forEach(block=>{
-        const key = block.getAttribute("data-carousel");
-        // On mappe "Evenements" (sans accent) vers le JSON "Evenements"
-        const cat = SERVICE_KEYS.includes(key) ? key : key;
-
-        const carousel = block.querySelector(".carousel");
-        const track = carousel.querySelector(".carouselTrack");
-        const dots = carousel.querySelector(".cDots");
-        const prev = carousel.querySelector(".prev");
-        const next = carousel.querySelector(".next");
-
-        const items = pickCarouselItems(cat);
-
-        if(items.length === 0){
-          track.innerHTML = `
-            <div class="carouselSlide" style="display:flex;align-items:center;justify-content:center;height:220px;color:rgba(255,255,255,.65);font-weight:800">
-              Aucune photo
-            </div>`;
-          dots.innerHTML = "";
-          return;
-        }
-
-        track.innerHTML = items.map(s=>{
-          const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.sub)}/${encodeURIComponent(s.file)}`;
-          return `
-            <div class="carouselSlide">
-              <img loading="lazy" src="${src}" alt="">
-            </div>`;
-        }).join("");
-
-        dots.innerHTML = items.map((_,i)=>`<span class="dot ${i===0?"on":""}"></span>`).join("");
-
-        let idx = 0;
-        let timer = null;
-
-        const update = ()=>{
-          track.style.transform = `translateX(-${idx * 100}%)`;
-          [...dots.children].forEach((d,i)=>d.classList.toggle("on", i===idx));
-        };
-
-        const goPrev = (e)=>{ e.stopPropagation(); idx = (idx-1+items.length)%items.length; update(); restart(); };
-        const goNext = (e)=>{ e.stopPropagation(); idx = (idx+1)%items.length; update(); restart(); };
-
-        prev.addEventListener("click", goPrev);
-        next.addEventListener("click", goNext);
-
-        const start = ()=>{
-          if(items.length <= 1) return;
-          timer = setInterval(()=>{ idx = (idx+1)%items.length; update(); }, ROTATE_MS);
-        };
-
-        const stop = ()=>{ if(timer) clearInterval(timer); timer=null; };
-        const restart = ()=>{ stop(); start(); };
-
-        // Pause on hover (desktop)
-        carousel.addEventListener("mouseenter", stop);
-        carousel.addEventListener("mouseleave", start);
-
-        // Tap => va directement à la section galerie + sélection auto de la catégorie
-        carousel.addEventListener("click", ()=>{
-          // Active catégorie dans menus
-          selectCat(cat);
-          // scroll
-          document.getElementById("galerie").scrollIntoView({behavior:"smooth", block:"start"});
-        });
-
-        start();
-      });
     }
 
     loadGallery();
