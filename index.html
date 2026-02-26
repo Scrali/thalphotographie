@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>THAL — Photographie</title>
   <meta name="description" content="Photographie — portraits, évènements, projets. Galerie moderne et rapide." />
   <meta name="theme-color" content="#0b0f19" />
@@ -23,10 +23,24 @@
       --radius:18px;
       --radius2:24px;
       --max:1100px;
+
+      /* Safe areas iPhone + spacing fluid */
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-right: env(safe-area-inset-right, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --safe-left: env(safe-area-inset-left, 0px);
+
+      --pad: clamp(14px, 2.6vw, 22px);
+      --gap: clamp(12px, 2.2vw, 18px);
+
+      /* Typo fluide */
+      --h1: clamp(34px, 7vw, 56px);
+      --lead: clamp(15px, 2.9vw, 18px);
     }
 
-    *{box-sizing:border-box}
+    *{box-sizing:border-box; max-width:100%;}
     html,body{height:100%}
+    html{-webkit-text-size-adjust:100%}
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
@@ -37,25 +51,34 @@
         radial-gradient(900px 600px at 30% 110%, rgba(110,168,255,.10), transparent 60%),
         linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
       overflow-x:hidden;
+      padding-top: var(--safe-top);
+      padding-right: var(--safe-right);
+      padding-bottom: calc(var(--safe-bottom) + 10px);
+      padding-left: var(--safe-left);
     }
 
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 70px}
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: var(--pad) var(--pad) 70px;
+    }
 
     /* Top nav */
     .nav{
       display:flex;
       align-items:center;
       justify-content:space-between;
-      gap:16px;
+      gap:12px;
       padding:10px 12px;
       border:1px solid var(--stroke);
       background:rgba(255,255,255,.03);
       border-radius:999px;
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       box-shadow: 0 14px 45px rgba(0,0,0,.35);
       position:sticky;
-      top:14px;
+      top: calc(10px + var(--safe-top));
       z-index:50;
     }
 
@@ -64,12 +87,13 @@
       align-items:center;
       gap:10px;
       padding:6px 10px;
+      min-width: 0;
     }
 
-    /* ✅ logo en haut à gauche */
+    /* ✅ Logo header : responsive (plus énorme sur mobile) */
     .brand img{
-      width:120px;
-      height:120px;
+      width: clamp(42px, 8vw, 58px);
+      height: auto;
       display:block;
       filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
     }
@@ -80,9 +104,13 @@
       display:flex;
       align-items:baseline;
       gap:8px;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .brand .name span{
-      font-size:14px;
+      font-size: clamp(12px, 2.8vw, 14px);
       color:var(--muted);
       font-weight:500;
       letter-spacing:.2px;
@@ -93,6 +121,8 @@
       align-items:center;
       gap:10px;
       padding:6px 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     .chip{
@@ -104,6 +134,10 @@
       font-weight:600;
       font-size:14px;
       transition: transform .15s ease, background .2s ease, border-color .2s ease;
+      min-height:44px; /* tap target */
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
     .chip:hover{
       transform: translateY(-1px);
@@ -120,6 +154,10 @@
       font-weight:750;
       font-size:14px;
       transition: transform .15s ease, filter .2s ease, border-color .2s ease;
+      min-height:44px; /* tap target */
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
     .btn:hover{
       transform: translateY(-1px);
@@ -131,21 +169,20 @@
     .hero{
       position:relative;
       overflow:hidden;
-      padding:54px 0 26px;
+      padding: clamp(30px, 5vw, 54px) 0 26px;
     }
 
     /* ✅ logo en fond penché */
     .bg-logo{
       position:absolute;
-      top:50%;
+      top:52%;
       left:58%;
       transform:translate(-50%,-50%) rotate(-12deg);
-      width:720px;
-      max-width:92vw;
+      width:min(720px, 92vw);
       opacity:0.045;
       pointer-events:none;
       z-index:0;
-      filter:blur(1px);
+      filter: blur(1px);
       user-select:none;
     }
 
@@ -154,13 +191,13 @@
       z-index:1;
       display:grid;
       grid-template-columns: 1.35fr .95fr;
-      gap:16px;
+      gap: var(--gap);
       align-items:stretch;
     }
 
     @media (max-width: 900px){
       .heroGrid{grid-template-columns:1fr}
-      .bg-logo{left:50%; width:820px; opacity:.04}
+      .bg-logo{left:50%; width:min(820px, 96vw); opacity:.04}
     }
 
     .card{
@@ -169,22 +206,25 @@
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
     }
+
     .heroMain{
-      padding:22px 22px;
+      padding: clamp(16px, 2.6vw, 22px);
       min-height: 190px;
     }
     .heroMain h1{
       margin:0 0 10px;
-      font-size: 38px;
-      line-height:1.05;
+      font-size: var(--h1);
+      line-height:1.03;
       letter-spacing:-.6px;
     }
     .heroMain p{
       margin:0 0 16px;
       color:var(--muted);
-      max-width: 58ch;
+      max-width: 62ch;
       line-height:1.55;
+      font-size: var(--lead);
     }
+
     .actions{
       display:flex;
       gap:10px;
@@ -201,11 +241,15 @@
       font-weight:750;
       font-size:14px;
       transition: transform .15s ease, background .2s ease;
+      min-height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
     .ghost:hover{transform: translateY(-1px); background:rgba(255,255,255,.06)}
 
     .heroSide{
-      padding:18px;
+      padding: clamp(14px, 2.2vw, 18px);
       display:grid;
       gap:10px;
     }
@@ -231,7 +275,7 @@
     .grid3{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap:12px;
+      gap: var(--gap);
     }
     @media (max-width: 900px){ .grid3{grid-template-columns:1fr} }
 
@@ -285,6 +329,7 @@
       cursor:pointer;
       transition: background .2s ease, transform .15s ease, border-color .2s ease;
       user-select:none;
+      min-height:40px;
     }
     .pill:hover{transform: translateY(-1px); background:rgba(255,255,255,.06)}
     .pill.active{
@@ -293,14 +338,18 @@
       background: rgba(110,168,255,.12);
     }
 
+    /* Grille galerie : auto-fit (meilleur sur toutes tailles d'écran) */
     .masonry{
       margin-top:12px;
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
       gap:10px;
     }
-    @media (max-width: 900px){ .masonry{grid-template-columns: repeat(2, 1fr)} }
-    @media (max-width: 520px){ .masonry{grid-template-columns: 1fr} }
+    @media (max-width: 420px){
+      .masonry{grid-template-columns: repeat(2, minmax(0, 1fr));}
+      .navlinks .chip{display:none;} /* option : sur très petit écran, on garde CTA principal */
+      .navlinks .btn{padding:10px 12px;}
+    }
 
     .shot{
       border-radius: 16px;
@@ -309,6 +358,7 @@
       background: rgba(255,255,255,.02);
       position:relative;
       min-height: 160px;
+      cursor:pointer;
     }
     .shot img{
       width:100%;
@@ -329,6 +379,7 @@
       background: rgba(0,0,0,.45);
       border:1px solid rgba(255,255,255,.12);
       backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
       color:rgba(255,255,255,.92);
       font-size:13px;
       display:flex;
@@ -339,6 +390,10 @@
       transition: opacity .25s ease, transform .25s ease;
     }
     .shot:hover .cap{opacity:1; transform: translateY(0)}
+    /* Sur mobile : cap visible sans hover */
+    @media (hover: none){
+      .shot .cap{opacity:1; transform:none; background:rgba(0,0,0,.35);}
+    }
 
     /* Lightbox */
     .lightbox{
@@ -359,6 +414,7 @@
       border:1px solid rgba(255,255,255,.14);
       background: rgba(10,14,24,.85);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       box-shadow: 0 30px 110px rgba(0,0,0,.65);
       position:relative;
     }
@@ -375,13 +431,14 @@
     }
     .lbBtns{display:flex; gap:8px}
     .lbBtn{
-      padding:8px 10px;
+      padding:10px 12px;
       border-radius:12px;
       border:1px solid rgba(255,255,255,.12);
       background: rgba(255,255,255,.04);
       cursor:pointer;
       color:rgba(255,255,255,.92);
       font-weight:800;
+      min-height:44px;
     }
     .lbBtn:hover{background: rgba(255,255,255,.08)}
     .lbImgWrap{background:#000}
@@ -403,6 +460,10 @@
     /* Smooth reveal */
     .reveal{opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease}
     .reveal.on{opacity:1; transform: translateY(0)}
+
+    @media (prefers-reduced-motion: reduce){
+      *{animation-duration:0.001ms!important; animation-iteration-count:1!important; transition-duration:0.001ms!important; scroll-behavior:auto!important;}
+    }
   </style>
 </head>
 
@@ -410,7 +471,6 @@
   <div class="wrap">
     <header class="nav">
       <a class="brand" href="#top" aria-label="Accueil">
-        <!-- ✅ Logo header (en haut à gauche) -->
         <img src="assets/logo.svg" alt="THAL" />
         <div class="name">THAL <span>— Photographie</span></div>
       </a>
@@ -422,7 +482,6 @@
     </header>
 
     <main id="top" class="hero">
-      <!-- ✅ Logo en fond penché -->
       <img class="bg-logo" src="assets/logo-bg.svg" alt="" />
 
       <div class="heroGrid">
@@ -506,9 +565,9 @@
       <div class="lbTop">
         <div id="lbTitle">Photo</div>
         <div class="lbBtns">
-          <button class="lbBtn" id="prev" type="button">←</button>
-          <button class="lbBtn" id="next" type="button">→</button>
-          <button class="lbBtn" id="close" type="button">✕</button>
+          <button class="lbBtn" id="prev" type="button" aria-label="Photo précédente">←</button>
+          <button class="lbBtn" id="next" type="button" aria-label="Photo suivante">→</button>
+          <button class="lbBtn" id="close" type="button" aria-label="Fermer">✕</button>
         </div>
       </div>
       <div class="lbImgWrap">
@@ -530,6 +589,12 @@
     }, {threshold: .12});
     revealEls.forEach(el=>io.observe(el));
 
+    // Small mobile polish: avoid sticky focus after tap
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("a,button");
+      if (a) a.blur();
+    }, { passive: true });
+
     // Gallery
     const catsEl = document.getElementById("cats");
     const gridEl = document.getElementById("grid");
@@ -545,7 +610,6 @@
         if(!res.ok) throw new Error("gallery.json introuvable (HTTP " + res.status + ")");
         galleryData = await res.json();
 
-        // Normalize -> array
         allShots = [];
         Object.keys(galleryData).forEach(cat=>{
           (galleryData[cat] || []).forEach(file=>{
@@ -625,12 +689,14 @@
       updateLightbox();
       lb.classList.add("open");
       lb.setAttribute("aria-hidden","false");
+      document.body.style.overflow = "hidden";
     }
 
     function closeLightbox(){
       lb.classList.remove("open");
       lb.setAttribute("aria-hidden","true");
       lbImg.src = "";
+      document.body.style.overflow = "";
     }
 
     function updateLightbox(){
@@ -655,6 +721,7 @@
     prevBtn.addEventListener("click", prev);
     nextBtn.addEventListener("click", next);
     lb.addEventListener("click", (e)=>{ if(e.target === lb) closeLightbox(); });
+
     window.addEventListener("keydown", (e)=>{
       if(!lb.classList.contains("open")) return;
       if(e.key === "Escape") closeLightbox();
