@@ -556,6 +556,7 @@
   // ===============================
 
   const HOME_JSON_URL = new URL("./photos/gallery.auto.json", window.location.href);
+    HOME_JSON_URL.searchParams.set("v", Date.now());
   const HOME_LIMIT = 10;
   const AUTO_MS = 3500;
 
