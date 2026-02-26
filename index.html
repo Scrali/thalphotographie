@@ -805,6 +805,78 @@
         gridEl.appendChild(card);
       });
     }
+    let serviceState = {}; // { serviceId: { items:[], idx:0, timer:null } }
+
+function pickServiceItems(serviceId){
+  const cats = SERVICE_MAP[serviceId] || [];
+  let items = [];
+
+  cats.forEach(cat=>{
+    const files = (galleryData[cat] || []);
+    files.forEach(file=>{
+      items.push({ cat, file });
+    });
+  });
+
+  // mélange léger pour éviter toujours la même 1ère photo
+  items = items.sort(()=>Math.random()-0.5);
+
+  // limite
+  return items.slice(0, SERVICE_LIMIT);
+}
+
+function renderServiceCarousels(){
+  const carousels = document.querySelectorAll(".svcCarousel");
+  carousels.forEach(c=>{
+    const serviceId = c.getAttribute("data-service");
+    const track = c.querySelector(".svcTrack");
+    const items = pickServiceItems(serviceId);
+
+    serviceState[serviceId] = { items, idx:0, timer:null, track };
+
+    if(!items.length){
+      track.innerHTML = `
+        <div class="svcSlide" style="display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.6);font-weight:700">
+          Aucune photo
+        </div>`;
+      return;
+    }
+
+    track.innerHTML = items.map(s=>{
+      const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+      return `
+        <div class="svcSlide">
+          <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}">
+          <div class="svcBadge">${escapeHtml(s.cat)}</div>
+        </div>`;
+    }).join("");
+
+    // clic => ouvre la lightbox sur cette image (dans le contexte "Tous")
+    c.addEventListener("click", ()=>{
+      // Trouver l'index dans allShots pour ouvrir la lightbox sur la galerie principale
+      const current = items[serviceState[serviceId].idx];
+      const mainIndex = allShots.findIndex(x=>x.cat===current.cat && x.file===current.file);
+      if(mainIndex >= 0){
+        applyFilter("Tous");
+        // Après renderGrid, ouvre au bon index dans la grille filtrée (= allShots)
+        openLightbox(mainIndex);
+      }
+    });
+  });
+}
+
+function startServiceCarousels(){
+  Object.keys(serviceState).forEach(serviceId=>{
+    const st = serviceState[serviceId];
+    if(!st.items || st.items.length <= 1) return;
+
+    // rotation toutes les 3.5s
+    st.timer = setInterval(()=>{
+      st.idx = (st.idx + 1) % st.items.length;
+      st.track.style.transform = `translateX(-${st.idx * 100}%)`;
+    }, 3500);
+  });
+}
 
     // Lightbox
     const lb = document.getElementById("lb");
