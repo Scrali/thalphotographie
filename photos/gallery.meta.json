@@ -1,1 +1,43 @@
-
+{
+  "Portraits": {
+    "Individuel": {
+      "Exterieur": {
+        "DSC7299.jpg": ["lumiere-naturelle", "portrait"]
+      },
+      "Interieur": {}
+    },
+    "Couple-Famille": {
+      "Exterieur": {},
+      "Interieur": {}
+    }
+  },
+  "Evenements": {
+    "Anniversaire": {
+      "Exterieur": {
+        "DSC_5017.jpg": ["reportage", "groupe"]
+      }
+    }
+  },
+  "Projets": {
+    "Produit": {
+      "Interieur": {
+        "DSC7465.jpg": ["packshot"]
+      }
+    }
+  },
+  "Warhammer": {
+    "Figurines": {
+      "Interieur": {
+        "Nurgle.png": ["macro"],
+        "Rat.png": ["macro"]
+      }
+    }
+  },
+  "ville": {
+    "Rue": {
+      "Exterieur": {
+        "yverdon.jpg": ["urban"]
+      }
+    }
+  }
+}
