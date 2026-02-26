@@ -1,19 +1,11 @@
 {
-  "Portraits": [
-    { "file": "DSC7299.jpg", "type": "Individuel", "lieu": "Exterieur", "tags": ["lumiere-naturelle"] },
-    { "file": "DSC7300.jpg", "type": "Couple/Famille", "lieu": "Interieur", "tags": ["studio"] }
-  ],
-  "Evenements": [
-    { "file": "DSC_5017.jpg", "type": "Anniversaire", "lieu": "Exterieur", "tags": ["reportage"] }
-  ],
-  "Projets": [
-    { "file": "DSC7465.jpg", "type": "Produit", "lieu": "Interieur", "tags": ["packshot"] }
-  ],
-  "Warhammer": [
-    { "file": "Nurgle.png", "type": "Figurine", "lieu": "Interieur", "tags": ["macro"] },
-    { "file": "Rat.png", "type": "Figurine", "lieu": "Interieur", "tags": ["macro"] }
-  ],
-  "ville": [
-    { "file": "yverdon.jpg", "type": "Rue", "lieu": "Exterieur", "tags": ["urban"] }
-  ]
+  "Evenements": ["DSC_5017.jpg"]
+,
+  "Portraits": ["_DSC7299.jpg"]
+,
+  "Projets": ["_DSC7465.jpg"]
+,
+  "Warhammer": ["Nurgel.png","Rat.png","Sans titre_HDR-2.png","_DSC9864.png","_DSC9878.png","_DSC9879.png","_DSC9886.jpg","_DSC9887.jpg","_DSC9888.png"]
+,
+  "ville": ["_DSC7472.jpg","yverdon.jpg"]
 }
