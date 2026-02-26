@@ -533,222 +533,201 @@
   </div>
 
   <script>
-    // Footer year
-    document.getElementById("y").textContent = new Date().getFullYear();
+  // Footer year
+  document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Reveal on scroll
-    const revealEls = [...document.querySelectorAll(".reveal")];
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("on"); });
-    }, {threshold: .12});
-    revealEls.forEach(el=>io.observe(el));
+  // Reveal on scroll
+  const revealEls = [...document.querySelectorAll(".reveal")];
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting) e.target.classList.add("on");
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el=>io.observe(el));
 
-    // Small mobile polish: avoid sticky focus after tap
-    document.addEventListener("click", (e) => {
-      const a = e.target.closest("a,button");
-      if (a) a.blur();
-    }, { passive: true });
+  // Mobile tap polish
+  document.addEventListener("click", (e)=>{
+    const a = e.target.closest("a,button");
+    if(a) a.blur();
+  }, { passive:true });
 
-    // ===== HOME carousels (NE PAS utiliser loadGallery ici) =====
-    const HOME_JSON = "photos/gallery_auto.json"; // source des catégories -> fichiers
-    const HOME_LIMIT = 10;                        // nb d'images max par carrousel
-    const AUTO_MS = 3500;                         // auto-rotation
-
-    const carousels = [...document.querySelectorAll(".js-carousel")];
-    const timers = new WeakMap();
-
-async function loadHomeCarousels(){
+  // ===============================
+  // HOME CAROUSELS
+  // ===============================
 
   const HOME_JSON_URL = new URL("./photos/gallery_auto.json", window.location.href);
-  let data;
+  const HOME_LIMIT = 10;
+  const AUTO_MS = 3500;
 
-  try{
-    const res = await fetch(HOME_JSON_URL, { cache: "no-store" });
-    console.log("HOME JSON status:", res.status, "URL:", HOME_JSON_URL.toString());
+  const carousels = [...document.querySelectorAll(".js-carousel")];
 
-    if(!res.ok) throw new Error("HTTP " + res.status);
-    data = await res.json();
+  async function loadHomeCarousels(){
 
-  }catch(err){
+    let data;
+
+    try{
+      const res = await fetch(HOME_JSON_URL, { cache:"no-store" });
+      console.log("HOME JSON status:", res.status);
+
+      if(!res.ok) throw new Error("HTTP " + res.status);
+      data = await res.json();
+
+    }catch(err){
+      carousels.forEach(c=>{
+        const track = c.querySelector(".carouselTrack");
+        track.innerHTML =
+          `<div class="carouselSlide">
+             <div class="carouselEmpty">Galerie indisponible</div>
+           </div>`;
+      });
+
+      console.warn("Erreur chargement:", HOME_JSON_URL.toString(), err);
+      return;
+    }
+
     carousels.forEach(c=>{
-      const track = c.querySelector(".carouselTrack");
-      track.innerHTML =
-        `<div class="carouselSlide"><div class="carouselEmpty">Galerie indisponible</div></div>`;
-    });
+      const cat = c.getAttribute("data-service");
+      const files = Array.isArray(data?.[cat]) ? data[cat] : [];
 
-    console.warn("Erreur chargement home carousels:", HOME_JSON_URL.toString(), err);
-    return;
+      const items = shuffle(files)
+        .slice(0, HOME_LIMIT)
+        .map(file => ({ cat, file }));
+
+      renderCarousel(c, items);
+
+      c.addEventListener("click", (e)=>{
+        if(e.target.closest("button")) return;
+        const url = new URL("galerie.html", window.location.href);
+        url.searchParams.set("cat", cat);
+        window.location.href = url.toString();
+      });
+
+      if(items.length > 1){
+        setInterval(()=>next(c), AUTO_MS);
+      }
+
+      attachSwipe(c, {
+        onLeft: ()=>next(c),
+        onRight: ()=>prev(c)
+      });
+    });
   }
 
-  // === ICI on utilise data correctement ===
-  carousels.forEach(c=>{
-    const cat = c.getAttribute("data-service");
-    const files = Array.isArray(data?.[cat]) ? data[cat] : [];
+  function renderCarousel(root, items){
+    const track = root.querySelector(".carouselTrack");
+    const dotsWrap = root.querySelector(".cDots");
+    const prevBtn = root.querySelector(".prev");
+    const nextBtn = root.querySelector(".next");
 
-    const items = shuffle(files)
-      .slice(0, HOME_LIMIT)
-      .map(file => ({ cat, file }));
+    root.dataset.idx = "0";
 
-    renderCarousel(c, items);
-
-    c.addEventListener("click", (e)=>{
-      if(e.target.closest("button")) return;
-      const url = new URL("galerie.html", window.location.href);
-      url.searchParams.set("cat", cat);
-      window.location.href = url.toString();
-    });
-
-    if(items.length > 1){
-      const t = setInterval(()=>next(c), AUTO_MS);
-      timers.set(c, t);
+    if(!items.length){
+      track.innerHTML =
+        `<div class="carouselSlide">
+           <div class="carouselEmpty">Aucune photo</div>
+         </div>`;
+      dotsWrap.innerHTML = "";
+      prevBtn.disabled = true;
+      nextBtn.disabled = true;
+      return;
     }
 
-    attachSwipe(c, {
-      onLeft: ()=>next(c),
-      onRight: ()=>prev(c),
-    });
-  });
-}
+    track.innerHTML = items.map(s=>{
+      const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+      return `
+        <div class="carouselSlide">
+          <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}">
+          <div class="svcBadge">${escapeHtml(s.cat)}</div>
+        </div>`;
+    }).join("");
 
-      carousels.forEach(c=>{
-        const cat = c.getAttribute("data-service");
-        const files = Array.isArray(data?.[cat]) ? data[cat] : [];
+    dotsWrap.innerHTML = items.map((_,i)=>
+      `<span class="dot ${i===0?'on':''}"></span>`
+    ).join("");
 
-        const items = shuffle(files).slice(0, HOME_LIMIT).map(file => ({ cat, file }));
-        renderCarousel(c, items);
+    prevBtn.disabled = items.length <= 1;
+    nextBtn.disabled = items.length <= 1;
 
-        // clic sur le carrousel => ouvre galerie filtrée sur la catégorie
-        c.addEventListener("click", (e)=>{
-          if(e.target.closest("button")) return; // si clic sur flèche
-          const url = new URL("galerie.html", window.location.href);
-          url.searchParams.set("cat", cat);
-          window.location.href = url.toString();
-        });
+    prevBtn.onclick = (e)=>{ e.stopPropagation(); prev(root); };
+    nextBtn.onclick = (e)=>{ e.stopPropagation(); next(root); };
 
-        // auto-rotate
-        if(items.length > 1){
-          const t = setInterval(()=>next(c), AUTO_MS);
-          timers.set(c, t);
-        }
+    root._items = items;
+    update(root);
+  }
 
-        // swipe mobile
-        attachSwipe(c, {
-          onLeft: ()=>next(c),
-          onRight: ()=>prev(c),
-        });
-      });
-    }
+  function prev(root){
+    const items = root._items || [];
+    if(items.length <= 1) return;
+    const idx = Number(root.dataset.idx || 0);
+    root.dataset.idx = String((idx - 1 + items.length) % items.length);
+    update(root);
+  }
 
-    function renderCarousel(root, items){
-      const track = root.querySelector(".carouselTrack");
-      const dotsWrap = root.querySelector(".cDots");
-      const prevBtn = root.querySelector(".prev");
-      const nextBtn = root.querySelector(".next");
+  function next(root){
+    const items = root._items || [];
+    if(items.length <= 1) return;
+    const idx = Number(root.dataset.idx || 0);
+    root.dataset.idx = String((idx + 1) % items.length);
+    update(root);
+  }
 
-      root.dataset.idx = "0";
+  function update(root){
+    const idx = Number(root.dataset.idx || 0);
+    const track = root.querySelector(".carouselTrack");
+    const dots = [...root.querySelectorAll(".dot")];
 
-      if(!items.length){
-        track.innerHTML = `<div class="carouselSlide"><div class="carouselEmpty">Aucune photo</div></div>`;
-        dotsWrap.innerHTML = "";
-        prevBtn.disabled = true;
-        nextBtn.disabled = true;
-        return;
+    track.style.transform = `translateX(-${idx * 100}%)`;
+    dots.forEach((d,i)=>d.classList.toggle("on", i===idx));
+  }
+
+  function attachSwipe(el, { onLeft, onRight }){
+    let sx=0, sy=0, dx=0, dy=0, active=false;
+
+    el.addEventListener("touchstart", e=>{
+      if(!e.touches || e.touches.length!==1) return;
+      active=true;
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      dx=0; dy=0;
+    }, { passive:true });
+
+    el.addEventListener("touchmove", e=>{
+      if(!active || !e.touches || e.touches.length!==1) return;
+      dx = e.touches[0].clientX - sx;
+      dy = e.touches[0].clientY - sy;
+    }, { passive:true });
+
+    el.addEventListener("touchend", ()=>{
+      if(!active) return;
+      active=false;
+
+      if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)*1.2){
+        if(dx < 0) onLeft && onLeft();
+        else onRight && onRight();
       }
+    }, { passive:true });
+  }
 
-      track.innerHTML = items.map(s=>{
-        const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
-        return `
-          <div class="carouselSlide">
-            <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}">
-            <div class="svcBadge">${escapeHtml(s.cat)}</div>
-          </div>`;
-      }).join("");
-
-      dotsWrap.innerHTML = items.map((_,i)=>`<span class="dot ${i===0?'on':''}"></span>`).join("");
-
-      prevBtn.disabled = items.length <= 1;
-      nextBtn.disabled = items.length <= 1;
-
-      prevBtn.addEventListener("click", (e)=>{ e.stopPropagation(); prev(root); });
-      nextBtn.addEventListener("click", (e)=>{ e.stopPropagation(); next(root); });
-
-      // stock items sur l’élément
-      root._items = items;
-      update(root);
+  function shuffle(arr){
+    const a = [...arr];
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i], a[j]] = [a[j], a[i]];
     }
+    return a;
+  }
 
-    function prev(root){
-      const items = root._items || [];
-      if(items.length <= 1) return;
-      const idx = Number(root.dataset.idx || 0);
-      root.dataset.idx = String((idx - 1 + items.length) % items.length);
-      update(root);
-    }
+  function escapeHtml(str){
+    return String(str).replace(/[&<>"']/g, m=>({
+      "&":"&amp;",
+      "<":"&lt;",
+      ">":"&gt;",
+      '"':"&quot;",
+      "'":"&#39;"
+    }[m]));
+  }
 
-    function next(root){
-      const items = root._items || [];
-      if(items.length <= 1) return;
-      const idx = Number(root.dataset.idx || 0);
-      root.dataset.idx = String((idx + 1) % items.length);
-      update(root);
-    }
-
-    function update(root){
-      const items = root._items || [];
-      const idx = Number(root.dataset.idx || 0);
-      const track = root.querySelector(".carouselTrack");
-      const dots = [...root.querySelectorAll(".dot")];
-
-      track.style.transform = `translateX(-${idx * 100}%)`;
-      dots.forEach((d,i)=>d.classList.toggle("on", i===idx));
-    }
-
-    // Swipe helper (simple & robuste)
-    function attachSwipe(el, { onLeft, onRight }){
-      let sx=0, sy=0, dx=0, dy=0, active=false;
-
-      el.addEventListener("touchstart", (e)=>{
-        if(!e.touches || e.touches.length!==1) return;
-        active=true;
-        sx = e.touches[0].clientX;
-        sy = e.touches[0].clientY;
-        dx=0; dy=0;
-      }, { passive:true });
-
-      el.addEventListener("touchmove", (e)=>{
-        if(!active || !e.touches || e.touches.length!==1) return;
-        dx = e.touches[0].clientX - sx;
-        dy = e.touches[0].clientY - sy;
-      }, { passive:true });
-
-      el.addEventListener("touchend", ()=>{
-        if(!active) return;
-        active=false;
-
-        // swipe horizontal dominant + seuil
-        if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)*1.2){
-          if(dx < 0) onLeft && onLeft();
-          else onRight && onRight();
-        }
-      }, { passive:true });
-    }
-
-    function shuffle(arr){
-      const a = [...arr];
-      for(let i=a.length-1;i>0;i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, (m)=>({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-      }[m]));
-    }
-
-    loadHomeCarousels();
-  </script>
+  loadHomeCarousels();
+</script>
 </body>
 </html>
