@@ -414,53 +414,48 @@
     @media (prefers-reduced-motion: reduce){
       *{animation-duration:0.001ms!important; animation-iteration-count:1!important; transition-duration:0.001ms!important; scroll-behavior:auto!important;}
     }
-  /* Contact form – version plus compacte */
-.contactForm{
+/* Contact form – compact (accepte .contactForm OU .contactform) */
+.contactForm, .contactform{
   display:grid;
   gap:12px;
   margin-top:10px;
 }
 
-.contactForm .row2{
+.contactForm .row2, .contactform .row2{
   display:grid;
   grid-template-columns: 1fr 1fr;
   gap:12px;
 }
 
 @media (max-width: 700px){
-  .contactForm .row2{ grid-template-columns: 1fr; }
+  .contactForm .row2, .contactform .row2{ grid-template-columns: 1fr; }
 }
 
-.contactForm input,
-.contactForm textarea{
+.contactForm input, .contactform input,
+.contactForm textarea, .contactform textarea{
   width:100%;
-  border-radius:14px;
+  border-radius:12px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.04);
   color:var(--text);
   font-family:inherit;
-  font-size:14px;
-  transition:border-color .2s ease, background .2s ease;
+  font-size:13px;     /* ↓ un peu plus petit */
+  line-height:1.2;    /* ↓ évite la hauteur “gonflée” */
 }
 
-.contactForm input{
-  padding:10px 12px;     /* ↓ moins haut */
-  min-height: 40px;      /* ↓ moins haut */
+.contactForm input, .contactform input{
+  padding:8px 12px;   /* ↓ plus fin */
+  height:36px;        /* ↓ force une vraie hauteur compacte */
 }
 
-.contactForm textarea{
-  padding:12px 12px;
-  min-height: 140px;
-  resize: vertical;
+.contactForm textarea, .contactform textarea{
+  padding:10px 12px;
+  min-height:140px;
+  resize:vertical;
 }
 
-.contactForm input::placeholder,
-.contactForm textarea::placeholder{
-  color: rgba(255,255,255,.45);
-}
-
-.contactForm input:focus,
-.contactForm textarea:focus{
+.contactForm input:focus, .contactform input:focus,
+.contactForm textarea:focus, .contactform textarea:focus{
   outline:none;
   border-color:rgba(110,168,255,.6);
   background:rgba(255,255,255,.06);
@@ -575,7 +570,7 @@
     Parlons de votre projet. Chaque collaboration commence par un échange clair et personnalisé.
   </p>
 
-  <form action="https://formspree.io/f/https://formspree.io/f/maqdvzww" method="POST" class="contactForm">
+  <form action="https://formspree.io/f/https://formspree.io/f/maqdvzww" method="POST" class="contactForm" id="contactForm">
     
     <div class="formRow">
       <input type="text" name="nom" placeholder="Nom et prénom" required>
@@ -813,6 +808,44 @@ const items = shuffle(files)
       "'":"&#39;"
     }[m]));
   }
+    // Contact form: submit sans rechargement + message confirmation
+const form = document.getElementById("contactForm");
+const statusEl = document.getElementById("formStatus");
+const sendBtn = document.getElementById("sendBtn");
+
+if(form){
+  form.addEventListener("submit", async (e)=>{
+    e.preventDefault();
+
+    statusEl.className = "formStatus";
+    statusEl.textContent = "";
+    sendBtn.disabled = true;
+    sendBtn.textContent = "Envoi…";
+
+    try{
+      const res = await fetch(form.action, {
+        method: "POST",
+        body: new FormData(form),
+        headers: { "Accept": "application/json" }
+      });
+
+      if(res.ok){
+        form.reset();
+        statusEl.classList.add("ok");
+        statusEl.textContent = "Merci pour votre message. Je vous répondrai sous 24h (jours ouvrés).";
+      }else{
+        statusEl.classList.add("err");
+        statusEl.textContent = "Votre message n’a pas pu être envoyé. Vous pouvez aussi écrire à contact@thalphotographie.ch.";
+      }
+    }catch(err){
+      statusEl.classList.add("err");
+      statusEl.textContent = "Erreur réseau. Vous pouvez aussi écrire à contact@thalphotographie.ch.";
+    }finally{
+      sendBtn.disabled = false;
+      sendBtn.textContent = "Envoyer le message";
+    }
+  });
+}
 
   loadHomeCarousels();
 </script>
