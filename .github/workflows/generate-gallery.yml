@@ -8,11 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
- 
+        
       - name: Generate gallery.json
         run: |
           echo "{" > photos/gallery.json
