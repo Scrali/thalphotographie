@@ -526,7 +526,19 @@
       }[m]));
     }
 
-    loadGallery();
+    async function loadHomeCarousels(){
+  try{
+    const res = await fetch(`photos/gallery.auto.json?v=${Date.now()}`, { cache: "no-store" });
+    if(!res.ok) throw new Error("gallery.auto.json introuvable (HTTP " + res.status + ")");
+    const galleryData = await res.json();
+
+    initHomeCarousels(galleryData);
+  }catch(err){
+    console.error(err);
+  }
+}
+
+loadHomeCarousels();
   </script>
 </body>
 </html>
