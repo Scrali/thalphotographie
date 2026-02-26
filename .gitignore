@@ -1,0 +1,9 @@
+# Fichiers Windows inutiles
+Thumbs.db
+Desktop.ini
+
+# Mac
+.DS_Store
+
+# Logs
+*.log
