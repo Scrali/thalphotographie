@@ -4,202 +4,671 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>THAL — Photographie</title>
-  <meta name="description" content="THAL Photographie — portraits, événements, lifestyle." />
+  <meta name="description" content="Photographie — portraits, évènements, projets. Galerie moderne et rapide." />
+  <meta name="theme-color" content="#0b0f19" />
 
   <style>
     :root{
-      --bg:#0b0f19;
-      --card:#0f1629;
-      --text:#e8eefc;
-      --muted:#a9b6d6;
+      --bg:#070a12;
+      --bg2:#0b1020;
+      --card:rgba(255,255,255,.06);
+      --card2:rgba(255,255,255,.08);
+      --stroke:rgba(255,255,255,.12);
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.65);
+      --muted2:rgba(255,255,255,.48);
       --accent:#6ea8ff;
-      --line:rgba(255,255,255,.08);
-      --shadow: 0 20px 60px rgba(0,0,0,.35);
-      --r:18px;
+      --accent2:#a7d2ff;
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius:18px;
+      --radius2:24px;
       --max:1100px;
     }
+
     *{box-sizing:border-box}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial;
-      background:
-        radial-gradient(900px 500px at 15% 10%, rgba(110,168,255,.22), transparent 60%),
-        radial-gradient(700px 400px at 85% 20%, rgba(162,110,255,.18), transparent 60%),
-        radial-gradient(700px 500px at 50% 100%, rgba(0,255,200,.08), transparent 60%),
-        var(--bg);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
-      line-height:1.5;
+      background:
+        radial-gradient(1200px 700px at 20% -10%, rgba(110,168,255,.20), transparent 55%),
+        radial-gradient(1000px 600px at 90% 10%, rgba(167,210,255,.14), transparent 55%),
+        radial-gradient(900px 600px at 30% 110%, rgba(110,168,255,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      overflow-x:hidden;
     }
+
     a{color:inherit; text-decoration:none}
-    .container{max-width:var(--max); margin:0 auto; padding:24px}
-    header{
-      position:sticky; top:0; z-index:10;
-      backdrop-filter: blur(10px);
-      background: rgba(11,15,25,.55);
-      border-bottom:1px solid var(--line);
-    }
+    .wrap{max-width:var(--max); margin:0 auto; padding:22px 18px 70px}
+
+    /* Top nav */
     .nav{
-      display:flex; align-items:center; justify-content:space-between;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
       gap:16px;
+      padding:10px 12px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
+      border-radius:999px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 14px 45px rgba(0,0,0,.35);
+      position:sticky;
+      top:14px;
+      z-index:50;
     }
+
     .brand{
-      display:flex; align-items:center; gap:12px;
-      font-weight:700; letter-spacing:.2px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:6px 10px;
     }
-    .dot{
-      width:10px; height:10px; border-radius:50%;
-      background: var(--accent);
-      box-shadow: 0 0 0 6px rgba(110,168,255,.15);
+
+    /* ✅ logo en haut à gauche */
+    .brand img{
+      width:26px;
+      height:26px;
+      display:block;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
     }
-    .links{display:flex; gap:14px; align-items:center; flex-wrap:wrap}
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
+
+    .brand .name{
+      font-weight:650;
+      letter-spacing:.2px;
+      display:flex;
+      align-items:baseline;
+      gap:8px;
+    }
+    .brand .name span{
+      font-size:14px;
+      color:var(--muted);
+      font-weight:500;
+      letter-spacing:.2px;
+    }
+
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:6px 8px;
+    }
+
+    .chip{
       padding:10px 14px;
       border-radius:999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.04);
-      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
       font-weight:600;
+      font-size:14px;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
     }
-    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.14)}
-    .btn.primary{
-      background: linear-gradient(135deg, rgba(110,168,255,.95), rgba(110,168,255,.55));
-      border-color: transparent;
-      color:#071022;
+    .chip:hover{
+      transform: translateY(-1px);
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.18);
     }
-    .hero{padding:54px 0 26px}
-    .hero-grid{
+
+    .btn{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(110,168,255,.42);
+      background: linear-gradient(180deg, rgba(110,168,255,.24), rgba(110,168,255,.10));
+      color:var(--text);
+      font-weight:750;
+      font-size:14px;
+      transition: transform .15s ease, filter .2s ease, border-color .2s ease;
+    }
+    .btn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      border-color:rgba(110,168,255,.65);
+    }
+
+    /* Hero */
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding:54px 0 26px;
+    }
+
+    /* ✅ logo en fond penché */
+    .bg-logo{
+      position:absolute;
+      top:50%;
+      left:58%;
+      transform:translate(-50%,-50%) rotate(-12deg);
+      width:720px;
+      max-width:92vw;
+      opacity:0.045;
+      pointer-events:none;
+      z-index:0;
+      filter:blur(1px);
+      user-select:none;
+    }
+
+    .heroGrid{
+      position:relative;
+      z-index:1;
       display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap:18px;
+      grid-template-columns: 1.35fr .95fr;
+      gap:16px;
       align-items:stretch;
     }
+
+    @media (max-width: 900px){
+      .heroGrid{grid-template-columns:1fr}
+      .bg-logo{left:50%; width:820px; opacity:.04}
+    }
+
     .card{
+      border:1px solid var(--stroke);
       background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid var(--line);
-      border-radius: var(--r);
+      border-radius: var(--radius2);
       box-shadow: var(--shadow);
-      overflow:hidden;
     }
-    .hero-main{padding:28px}
-    h1{margin:0 0 10px; font-size:clamp(28px,4.2vw,44px); line-height:1.1}
-    .sub{color:var(--muted); margin:0 0 18px; font-size:clamp(14px,1.5vw,16px)}
-    .hero-actions{display:flex; gap:12px; flex-wrap:wrap}
-    .hero-side{
+    .heroMain{
+      padding:22px 22px;
+      min-height: 190px;
+    }
+    .heroMain h1{
+      margin:0 0 10px;
+      font-size: 38px;
+      line-height:1.05;
+      letter-spacing:-.6px;
+    }
+    .heroMain p{
+      margin:0 0 16px;
+      color:var(--muted);
+      max-width: 58ch;
+      line-height:1.55;
+    }
+    .actions{
       display:flex;
-      flex-direction:column;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .ghost{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:750;
+      font-size:14px;
+      transition: transform .15s ease, background .2s ease;
+    }
+    .ghost:hover{transform: translateY(-1px); background:rgba(255,255,255,.06)}
+
+    .heroSide{
       padding:18px;
-      gap:12px;
-    }
-    .pill{
-      border:1px solid var(--line);
-      border-radius: 14px;
-      padding:12px 12px;
-      background: rgba(0,0,0,.18);
-    }
-    .pill b{display:block; margin-bottom:4px}
-    .pill span{color:var(--muted); font-size:14px}
-    .section{padding:18px 0 10px}
-    .section h2{margin:0 0 10px; font-size:18px}
-    .grid{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap:14px;
+      gap:10px;
     }
     .mini{
-      padding:16px;
-      border-radius: var(--r);
-      border:1px solid var(--line);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
       background: rgba(255,255,255,.03);
+      padding:12px 12px;
     }
-    .mini h3{margin:0 0 6px; font-size:16px}
-    .mini p{margin:0; color:var(--muted); font-size:14px}
-    footer{
-      padding:30px 0 40px;
+    .mini b{display:block; font-size:13px; margin-bottom:4px}
+    .mini span{color:var(--muted2); font-size:13px}
+
+    /* Sections */
+    .sectionTitle{
+      margin:18px 2px 10px;
       color:var(--muted);
+      font-weight:700;
       font-size:13px;
-      border-top:1px solid var(--line);
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:12px;
+    }
+    @media (max-width: 900px){ .grid3{grid-template-columns:1fr} }
+
+    .service{
+      padding:16px;
+      border-radius: var(--radius);
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      transition: transform .16s ease, background .2s ease, border-color .2s ease;
+    }
+    .service:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.18);
+    }
+    .service h3{margin:0 0 6px; font-size:16px}
+    .service p{margin:0; color:var(--muted); font-size:14px; line-height:1.5}
+
+    /* Gallery */
+    .galleryHeader{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:24px;
+    }
+    .galleryHeader h2{
+      margin:0;
+      font-size:20px;
+      letter-spacing:-.2px;
+    }
+    .galleryHeader p{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .pillRow{
+      display:flex; gap:8px; flex-wrap:wrap;
+      margin-top:10px;
+    }
+    .pill{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+      cursor:pointer;
+      transition: background .2s ease, transform .15s ease, border-color .2s ease;
+      user-select:none;
+    }
+    .pill:hover{transform: translateY(-1px); background:rgba(255,255,255,.06)}
+    .pill.active{
+      color:var(--text);
+      border-color: rgba(110,168,255,.55);
+      background: rgba(110,168,255,.12);
+    }
+
+    .masonry{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+    }
+    @media (max-width: 900px){ .masonry{grid-template-columns: repeat(2, 1fr)} }
+    @media (max-width: 520px){ .masonry{grid-template-columns: 1fr} }
+
+    .shot{
+      border-radius: 16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      position:relative;
+      min-height: 160px;
+    }
+    .shot img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit: cover;
+      transform: scale(1.01);
+      transition: transform .35s ease, filter .35s ease;
+    }
+    .shot:hover img{transform: scale(1.05); filter: contrast(1.02) saturate(1.05)}
+    .shot .cap{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      right:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+      color:rgba(255,255,255,.92);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      opacity:0;
+      transform: translateY(6px);
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .shot:hover .cap{opacity:1; transform: translateY(0)}
+
+    /* Lightbox */
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.78);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:18px;
+      z-index:200;
+    }
+    .lightbox.open{display:flex}
+    .lbCard{
+      width:min(1100px, 100%);
+      border-radius: 18px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(10,14,24,.85);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 30px 110px rgba(0,0,0,.65);
+      position:relative;
+    }
+    .lbTop{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:12px;
+      padding:12px 14px;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      color:rgba(255,255,255,.85);
+      font-weight:700;
+      font-size:13px;
+    }
+    .lbBtns{display:flex; gap:8px}
+    .lbBtn{
+      padding:8px 10px;
+      border-radius:12px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      cursor:pointer;
+      color:rgba(255,255,255,.92);
+      font-weight:800;
+    }
+    .lbBtn:hover{background: rgba(255,255,255,.08)}
+    .lbImgWrap{background:#000}
+    .lbImg{
+      width:100%;
+      height:min(76vh, 760px);
+      object-fit:contain;
+      display:block;
+      background:#000;
+    }
+
+    .footer{
       margin-top:26px;
+      color:var(--muted2);
+      font-size:13px;
+      text-align:center;
     }
-    @media (max-width: 900px){
-      .hero-grid{grid-template-columns:1fr}
-      .grid{grid-template-columns:1fr}
-    }
+
+    /* Smooth reveal */
+    .reveal{opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease}
+    .reveal.on{opacity:1; transform: translateY(0)}
   </style>
 </head>
 
 <body>
-  <header>
-    <div class="container nav">
-      <div class="brand">
-        <span class="dot"></span>
-        <span>THAL — Photographie</span>
-      </div>
-      <div class="links">
-        <a class="btn" href="galerie.html">Galerie</a>
-        <a class="btn primary" href="mailto:contact@thalphotographie.ch?subject=Demande%20de%20shooting">Me contacter</a>
-      </div>
-    </div>
-  </header>
+  <div class="wrap">
+    <header class="nav">
+      <a class="brand" href="#top" aria-label="Accueil">
+        <!-- ✅ Logo header (en haut à gauche) -->
+        <img src="assets/logo.svg" alt="THAL" />
+        <div class="name">THAL <span>— Photographie</span></div>
+      </a>
 
-  <main class="container">
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="card hero-main">
-          <h1>Des images propres, modernes, et vivantes.</h1>
-          <p class="sub">
-            Photographie — portraits, événements, lifestyle. Une approche simple : lumière, émotion, et un rendu net.
+      <nav class="navlinks">
+        <a class="chip" href="#galerie">Galerie</a>
+        <a class="btn" href="#contact">Me contacter</a>
+      </nav>
+    </header>
+
+    <main id="top" class="hero">
+      <!-- ✅ Logo en fond penché -->
+      <img class="bg-logo" src="assets/logo-bg.svg" alt="" />
+
+      <div class="heroGrid">
+        <section class="card heroMain reveal">
+          <h1>Des images propres,<br/>modernes, et vivantes.</h1>
+          <p>
+            Photographie — portraits, évènements, projets. Une approche simple : lumière,
+            émotion, et rendu net.
           </p>
-          <div class="hero-actions">
-            <a class="btn primary" href="galerie.html">Voir la galerie</a>
-            <a class="btn" href="mailto:contact@thalphotographie.ch?subject=Infos%20et%20disponibilit%C3%A9s">Demander un devis</a>
-          </div>
-        </div>
 
-        <div class="card hero-side">
-          <div class="pill">
+          <div class="actions">
+            <a class="btn" href="#galerie">Voir la galerie</a>
+            <a class="ghost" href="#contact">Demander un devis</a>
+          </div>
+        </section>
+
+        <aside class="card heroSide reveal">
+          <div class="mini">
             <b>Disponibilités</b>
             <span>Vaud / Suisse romande</span>
           </div>
-          <div class="pill">
+          <div class="mini">
             <b>Livraison</b>
             <span>Galerie web + fichiers HD</span>
           </div>
-          <div class="pill">
+          <div class="mini">
             <b>Style</b>
             <span>Sobre, contrasté, naturel</span>
           </div>
-        </div>
+        </aside>
       </div>
-    </section>
 
-    <section class="section">
-      <h2>Ce que je propose</h2>
-      <div class="grid">
-        <div class="mini">
+      <div class="sectionTitle reveal">Ce que je propose</div>
+
+      <section class="grid3">
+        <div class="service reveal">
           <h3>Portraits</h3>
           <p>Individuel, couple, famille — en extérieur ou intérieur.</p>
         </div>
-        <div class="mini">
+        <div class="service reveal">
           <h3>Événements</h3>
-          <p>Anniversaires, soirées, associations — reportage discret.</p>
+          <p>Anniversaire, soirée, association — reportage discret.</p>
         </div>
-        <div class="mini">
+        <div class="service reveal">
           <h3>Projets</h3>
-          <p>Marques, produits, contenu réseaux — pack prêt à publier.</p>
+          <p>Marques, produits, contenu réseau — pack prêt à publier.</p>
+        </div>
+      </section>
+
+      <section id="galerie" style="margin-top:18px">
+        <div class="galleryHeader reveal">
+          <div>
+            <h2>Galerie</h2>
+            <p>Générée automatiquement depuis <code>photos/gallery.json</code>.</p>
+          </div>
+        </div>
+
+        <div class="pillRow reveal" id="cats"></div>
+        <div class="masonry reveal" id="grid"></div>
+      </section>
+
+      <section id="contact" class="card reveal" style="margin-top:16px; padding:18px">
+        <h2 style="margin:0 0 8px; font-size:20px">Contact</h2>
+        <p style="margin:0 0 10px; color:var(--muted); line-height:1.55">
+          Envoie-moi un message (ou clique sur le bouton) et je te réponds rapidement.
+        </p>
+
+        <div class="actions">
+          <a class="btn" href="mailto:contact@thalphotographie.ch?subject=Demande%20de%20devis">Envoyer un email</a>
+          <a class="ghost" href="#galerie">Retour galerie</a>
+        </div>
+      </section>
+
+      <div class="footer">© <span id="y"></span> THAL — Photographie</div>
+    </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lb" aria-hidden="true">
+    <div class="lbCard" role="dialog" aria-modal="true">
+      <div class="lbTop">
+        <div id="lbTitle">Photo</div>
+        <div class="lbBtns">
+          <button class="lbBtn" id="prev" type="button">←</button>
+          <button class="lbBtn" id="next" type="button">→</button>
+          <button class="lbBtn" id="close" type="button">✕</button>
         </div>
       </div>
-    </section>
-
-    <footer>
-      © <span id="y"></span> THAL — Photographie ·
-      <a href="galerie.html" style="text-decoration:underline; text-underline-offset:3px;">Galerie</a>
-    </footer>
-  </main>
+      <div class="lbImgWrap">
+        <img class="lbImg" id="lbImg" alt="" />
+      </div>
+    </div>
+  </div>
 
   <script>
+    // Year
     document.getElementById("y").textContent = new Date().getFullYear();
+
+    // Reveal on scroll
+    const revealEls = [...document.querySelectorAll(".reveal")];
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting) e.target.classList.add("on");
+      });
+    }, {threshold: .12});
+    revealEls.forEach(el=>io.observe(el));
+
+    // Gallery
+    const catsEl = document.getElementById("cats");
+    const gridEl = document.getElementById("grid");
+
+    let galleryData = {};
+    let allShots = [];   // {cat, file}
+    let filtered = [];
+    let currentCat = "Tous";
+
+    async function loadGallery(){
+      try{
+        const res = await fetch("photos/gallery.json", { cache: "no-store" });
+        if(!res.ok) throw new Error("gallery.json introuvable (HTTP " + res.status + ")");
+        galleryData = await res.json();
+
+        // Normalize -> array
+        allShots = [];
+        Object.keys(galleryData).forEach(cat=>{
+          (galleryData[cat] || []).forEach(file=>{
+            allShots.push({cat, file});
+          });
+        });
+
+        renderCats();
+        applyFilter("Tous");
+      }catch(err){
+        gridEl.innerHTML = `
+          <div style="grid-column:1/-1; color:rgba(255,255,255,.75); border:1px solid rgba(255,255,255,.12);
+                      background:rgba(255,255,255,.03); border-radius:16px; padding:14px; line-height:1.5">
+            <b>Erreur chargement galerie</b><br/>
+            ${escapeHtml(err.message)}<br/>
+            Vérifie que <code>photos/gallery.json</code> existe sur le site.
+          </div>`;
+      }
+    }
+
+    function renderCats(){
+      const cats = ["Tous", ...Object.keys(galleryData)];
+      catsEl.innerHTML = "";
+      cats.forEach(cat=>{
+        const b = document.createElement("button");
+        b.className = "pill" + (cat === currentCat ? " active" : "");
+        b.type = "button";
+        b.textContent = cat;
+        b.addEventListener("click", ()=>applyFilter(cat));
+        catsEl.appendChild(b);
+      });
+    }
+
+    function applyFilter(cat){
+      currentCat = cat;
+      [...catsEl.querySelectorAll(".pill")].forEach(p=>{
+        p.classList.toggle("active", p.textContent === cat);
+      });
+
+      filtered = (cat === "Tous") ? [...allShots] : allShots.filter(s=>s.cat === cat);
+      renderGrid();
+    }
+
+    function renderGrid(){
+      gridEl.innerHTML = "";
+      if(filtered.length === 0){
+        gridEl.innerHTML = `<div style="grid-column:1/-1; color:var(--muted)">Aucune photo pour cette catégorie.</div>`;
+        return;
+      }
+
+      filtered.forEach((s, idx)=>{
+        const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+        const card = document.createElement("div");
+        card.className = "shot";
+        card.innerHTML = `
+          <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}" />
+          <div class="cap">
+            <span>${escapeHtml(s.cat)}</span>
+            <span style="color:rgba(255,255,255,.75)">${escapeHtml(s.file)}</span>
+          </div>`;
+        card.addEventListener("click", ()=>openLightbox(idx));
+        gridEl.appendChild(card);
+      });
+    }
+
+    // Lightbox
+    const lb = document.getElementById("lb");
+    const lbImg = document.getElementById("lbImg");
+    const lbTitle = document.getElementById("lbTitle");
+    const closeBtn = document.getElementById("close");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+    let lbIndex = 0;
+
+    function openLightbox(idx){
+      lbIndex = idx;
+      updateLightbox();
+      lb.classList.add("open");
+      lb.setAttribute("aria-hidden","false");
+    }
+
+    function closeLightbox(){
+      lb.classList.remove("open");
+      lb.setAttribute("aria-hidden","true");
+      lbImg.src = "";
+    }
+
+    function updateLightbox(){
+      const s = filtered[lbIndex];
+      if(!s) return;
+      const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+      lbImg.src = src;
+      lbTitle.textContent = `${s.cat} — ${s.file}`;
+    }
+
+    function prev(){
+      lbIndex = (lbIndex - 1 + filtered.length) % filtered.length;
+      updateLightbox();
+    }
+
+    function next(){
+      lbIndex = (lbIndex + 1) % filtered.length;
+      updateLightbox();
+    }
+
+    closeBtn.addEventListener("click", closeLightbox);
+    prevBtn.addEventListener("click", prev);
+    nextBtn.addEventListener("click", next);
+    lb.addEventListener("click", (e)=>{ if(e.target === lb) closeLightbox(); });
+    window.addEventListener("keydown", (e)=>{
+      if(!lb.classList.contains("open")) return;
+      if(e.key === "Escape") closeLightbox();
+      if(e.key === "ArrowLeft") prev();
+      if(e.key === "ArrowRight") next();
+    });
+
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, (m)=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[m]));
+    }
+
+    loadGallery();
   </script>
 </body>
 </html>
