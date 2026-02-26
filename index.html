@@ -578,32 +578,30 @@
   <p style="margin:0 0 16px; color:var(--muted); line-height:1.55">
     Parlons de votre projet. Chaque collaboration commence par un échange clair et personnalisé.
   </p>
-<div class="contactInner">
 
-  <form 
-    action="https://formspree.io/f/maqdvzww"
-    method="POST"
-    class="contactForm"
-    id="contactForm"
-  >
+  <div class="contactInner">
+    <form action="https://formspree.io/f/maqdvzww" method="POST" class="contactForm" id="contactForm">
+      <!-- Honeypot anti-spam -->
+      <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
 
-    <div class="formRow">
-      <input type="text" name="nom" placeholder="Nom et prénom" required>
-    </div>
+      <div class="formRow">
+        <input type="text" name="nom" placeholder="Nom et prénom" required>
+      </div>
 
-    <div class="formRow">
-      <input type="email" name="email" placeholder="Adresse e-mail" required>
-    </div>
+      <div class="formRow">
+        <input type="email" name="email" placeholder="Adresse e-mail" required>
+      </div>
 
-    <div class="formRow">
-      <textarea name="message" rows="5" placeholder="Votre message..." required></textarea>
-    </div>
+      <div class="formRow">
+        <textarea name="message" rows="5" placeholder="Votre message..." required></textarea>
+      </div>
 
-    <button class="btn" type="submit">Envoyer le message</button>
+      <button class="btn" type="submit" id="sendBtn">Envoyer le message</button>
 
-  </form>
-
-</div>
+      <div class="formNote">Merci. Je vous répondrai sous 24h (jours ouvrés).</div>
+      <div class="formStatus" id="formStatus" role="status" aria-live="polite"></div>
+    </form>
+  </div>
 </section>
 
       <div class="footer">© <span id="y"></span> THAL — Photographie</div>
