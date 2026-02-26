@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>THAL — Photographie</title>
-  <meta name="description" content="Photographie — portraits, évènements, projets. Galerie moderne et rapide." />
+  <title>Galerie — THAL</title>
+  <meta name="description" content="Galerie THAL — filtres dynamiques et tags." />
   <meta name="theme-color" content="#0b0f19" />
 
   <style>
@@ -27,12 +27,9 @@
 
       --pad: clamp(14px, 2.6vw, 22px);
       --gap: clamp(12px, 2.2vw, 18px);
-
-      --h1: clamp(34px, 7vw, 56px);
-      --lead: clamp(15px, 2.9vw, 18px);
     }
 
-    *{box-sizing:border-box; max-width:100%}
+    *{box-sizing:border-box; max-width:100%;}
     html,body{height:100%}
     html{-webkit-text-size-adjust:100%}
     body{
@@ -52,19 +49,11 @@
     }
 
     a{color:inherit; text-decoration:none}
-
-    .wrap{
-      max-width:var(--max);
-      margin:0 auto;
-      padding: var(--pad) var(--pad) 70px;
-    }
+    .wrap{max-width:var(--max); margin:0 auto; padding: var(--pad) var(--pad) 70px;}
 
     .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:10px 12px;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:12px; padding:10px 12px;
       border:1px solid var(--stroke);
       background:rgba(255,255,255,.03);
       border-radius:999px;
@@ -75,97 +64,33 @@
       top: calc(10px + var(--safe-top));
       z-index:50;
     }
+    .brand{display:flex; align-items:center; gap:10px; padding:6px 10px; min-width:0;}
+    .brand img{width: clamp(42px, 8vw, 58px); height:auto; display:block; filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));}
+    .brand .name{font-weight:650; letter-spacing:.2px; display:flex; align-items:baseline; gap:8px; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+    .brand .name span{font-size: clamp(12px, 2.8vw, 14px); color:var(--muted); font-weight:500;}
 
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:6px 10px;
-      min-width:0;
-    }
-    .brand img{
-      width: clamp(42px, 8vw, 58px);
-      height:auto;
-      display:block;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
-    }
-    .brand .name{
-      font-weight:650;
-      letter-spacing:.2px;
-      display:flex;
-      align-items:baseline;
-      gap:8px;
-      min-width:0;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .brand .name span{
-      font-size: clamp(12px, 2.8vw, 14px);
-      color:var(--muted);
-      font-weight:500;
-    }
-
-    .navlinks{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      padding:6px 8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .chip, .btn, .ghost{
+    .navlinks{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .chip,.btn{
+      border-radius:999px;
+      font-weight:800;
+      font-size:14px;
       min-height:44px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      border-radius:999px;
       padding:10px 14px;
-      font-size:14px;
-      font-weight:750;
       border:1px solid var(--stroke);
       background:rgba(255,255,255,.03);
       transition: transform .15s ease, background .2s ease, border-color .2s ease, filter .2s ease;
     }
-    .chip{color:var(--muted); font-weight:650}
+    .chip{color:var(--muted); font-weight:700;}
     .btn{
       border-color: rgba(110,168,255,.42);
       background: linear-gradient(180deg, rgba(110,168,255,.24), rgba(110,168,255,.10));
       color:var(--text);
     }
-    .chip:hover,.btn:hover,.ghost:hover{transform:translateY(-1px); background:rgba(255,255,255,.06)}
-    .btn:hover{filter:brightness(1.05); border-color:rgba(110,168,255,.65)}
-
-    .hero{
-      position:relative;
-      overflow:hidden;
-      padding: clamp(30px, 5vw, 54px) 0 26px;
-    }
-    .bg-logo{
-      position:absolute;
-      top:52%;
-      left:58%;
-      transform:translate(-50%,-50%) rotate(-12deg);
-      width:min(720px, 92vw);
-      opacity:.045;
-      pointer-events:none;
-      z-index:0;
-      filter: blur(1px);
-      user-select:none;
-    }
-
-    .heroGrid{
-      position:relative;
-      z-index:1;
-      display:grid;
-      grid-template-columns: 1.35fr .95fr;
-      gap: var(--gap);
-      align-items:stretch;
-    }
-    @media (max-width:900px){
-      .heroGrid{grid-template-columns:1fr}
-      .bg-logo{left:50%; width:min(820px, 96vw); opacity:.04}
-    }
+    .chip:hover,.btn:hover{transform: translateY(-1px); background:rgba(255,255,255,.06);}
+    .btn:hover{filter:brightness(1.05); border-color: rgba(110,168,255,.65);}
 
     .card{
       border:1px solid var(--stroke);
@@ -173,175 +98,19 @@
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
     }
-    .heroMain{
-      padding: clamp(16px, 2.6vw, 22px);
-      min-height: 190px;
-    }
-    .heroMain h1{
-      margin:0 0 10px;
-      font-size: var(--h1);
-      line-height:1.03;
-      letter-spacing:-.6px;
-    }
-    .heroMain p{
-      margin:0 0 16px;
-      color:var(--muted);
-      max-width: 62ch;
-      line-height:1.55;
-      font-size: var(--lead);
-    }
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
 
-    .heroSide{
-      padding: clamp(14px, 2.2vw, 18px);
-      display:grid;
-      gap:10px;
-    }
-    .mini{
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: 16px;
-      background: rgba(255,255,255,.03);
-      padding:12px;
-    }
-    .mini b{display:block; font-size:13px; margin-bottom:4px}
-    .mini span{color:var(--muted2); font-size:13px}
+    h1{margin:18px 2px 10px; font-size:22px; letter-spacing:-.2px;}
+    p.lead{margin:0 2px 10px; color:var(--muted); line-height:1.6; font-size:14px;}
 
-    .sectionTitle{
-      margin:18px 2px 10px;
-      color:var(--muted);
-      font-weight:700;
-      font-size:13px;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-    }
-
-    .grid3{
-      display:grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--gap);
-    }
-    @media (max-width:900px){ .grid3{grid-template-columns:1fr} }
-
-    /* ===== Service card + carousel ===== */
-    .service{
-      padding:16px;
-      border-radius: var(--radius);
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.03);
-      transition: transform .16s ease, background .2s ease, border-color .2s ease;
-      display:grid;
-      gap:12px;
-    }
-    .service:hover{
-      transform: translateY(-2px);
-      background: rgba(255,255,255,.05);
-      border-color: rgba(255,255,255,.18);
-    }
-    .svcTop h3{margin:0 0 6px; font-size:16px}
-    .svcTop p{margin:0; color:var(--muted); font-size:14px; line-height:1.5}
-
-    .carousel{
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
-      min-height: 180px;
-      touch-action: pan-y; /* important pour swipe horizontal */
-    }
-
-    .carouselTrack{
-      display:flex;
-      width:100%;
-      height:100%;
-      transform: translateX(0);
-      transition: transform .45s ease;
-      will-change: transform;
-    }
-    .carouselSlide{min-width:100%}
-    .carouselSlide img{
-      width:100%;
-      height: 220px;
-      display:block;
-      object-fit: cover;
-    }
-    @media (max-width:520px){
-      .carouselSlide img{height:190px}
-      .navlinks .chip{display:none}
-      .navlinks .btn{padding:10px 12px}
-    }
-
-    .cNav{
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:10px;
-    }
-    .cBtn{
-      pointer-events:auto;
-      width: 42px;
-      height: 42px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.35);
-      color: rgba(255,255,255,.92);
-      font-weight:900;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-    .cBtn:hover{ background: rgba(0,0,0,.50); }
-
-    .cDots{
-      position:absolute;
-      left:12px;
-      right:12px;
-      bottom:10px;
-      display:flex;
-      justify-content:center;
-      gap:6px;
-      pointer-events:none;
-    }
-    .dot{
-      width: 7px;
-      height: 7px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.18);
-      background: rgba(255,255,255,.12);
-      opacity:.75;
-    }
-    .dot.on{
-      background: rgba(110,168,255,.45);
-      border-color: rgba(110,168,255,.55);
-      opacity:1;
-    }
-
-    /* Galerie (sur index: menus uniquement) */
-    .galleryHeader{
-      display:flex;
-      justify-content:space-between;
-      align-items:end;
-      gap:12px;
-      flex-wrap:wrap;
-      margin-top:24px;
-    }
-    .galleryHeader h2{margin:0; font-size:20px; letter-spacing:-.2px}
-    .galleryHeader p{margin:6px 0 0; color:var(--muted); font-size:14px}
-
-    .pillRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+    /* Pills categories */
+    .pillRow{display:flex; gap:8px; flex-wrap:wrap; margin-top:12px;}
     .pill{
       padding:8px 12px;
       border-radius:999px;
       border:1px solid var(--stroke);
       background:rgba(255,255,255,.03);
       color:var(--muted);
-      font-weight:700;
+      font-weight:800;
       font-size:13px;
       cursor:pointer;
       transition: background .2s ease, transform .15s ease, border-color .2s ease;
@@ -355,9 +124,131 @@
       background: rgba(110,168,255,.12);
     }
 
-    .footer{margin-top:26px; color:var(--muted2); font-size:13px; text-align:center}
+    /* Filter bar */
+    .filters{
+      margin-top:12px;
+      padding:14px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:10px;
+    }
+    @media (max-width:700px){ .filters{grid-template-columns:1fr;} }
 
-    /* Lightbox (utilisé quand on clique sur un carrousel) */
+    label{display:block; font-size:12px; color:var(--muted2); font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin:0 0 6px;}
+    select{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: var(--text);
+      font-weight:800;
+      outline:none;
+      min-height:44px;
+    }
+
+    /* Tag chips */
+    .tags{
+      margin-top:12px;
+      padding:14px;
+    }
+    .tagRow{display:flex; flex-wrap:wrap; gap:8px; margin-top:8px;}
+    .tag{
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.85);
+      font-weight:800;
+      font-size:13px;
+      cursor:pointer;
+      user-select:none;
+      min-height:40px;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    }
+    .tag:hover{transform: translateY(-1px); background: rgba(255,255,255,.06);}
+    .tag.on{
+      border-color: rgba(110,168,255,.55);
+      background: rgba(110,168,255,.12);
+      color: var(--text);
+    }
+
+    .toolbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:10px;
+      flex-wrap:wrap;
+    }
+    .smallBtn{
+      padding:10px 12px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      color: rgba(255,255,255,.9);
+      font-weight:900;
+      cursor:pointer;
+      min-height:44px;
+    }
+    .smallBtn:hover{background: rgba(255,255,255,.06);}
+    .count{color: var(--muted); font-weight:800;}
+
+    /* Grid */
+    .masonry{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap:10px;
+    }
+    @media (max-width:420px){
+      .masonry{grid-template-columns: repeat(2, minmax(0, 1fr));}
+    }
+
+    .shot{
+      border-radius: 16px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.02);
+      position:relative;
+      min-height: 160px;
+      cursor:pointer;
+    }
+    .shot img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit: cover;
+      transform: scale(1.01);
+      transition: transform .35s ease, filter .35s ease;
+    }
+    .shot:hover img{transform: scale(1.05); filter: contrast(1.02) saturate(1.05)}
+    .cap{
+      position:absolute;
+      left:10px;
+      bottom:10px;
+      right:10px;
+      padding:10px 12px;
+      border-radius:14px;
+      background: rgba(0,0,0,.45);
+      border:1px solid rgba(255,255,255,.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color:rgba(255,255,255,.92);
+      font-size:12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      opacity:0;
+      transform: translateY(6px);
+      transition: opacity .25s ease, transform .25s ease;
+    }
+    .shot:hover .cap{opacity:1; transform: translateY(0)}
+    @media (hover:none){
+      .cap{opacity:1; transform:none; background:rgba(0,0,0,.35);}
+    }
+
+    /* Lightbox */
     .lightbox{
       position:fixed;
       inset:0;
@@ -367,6 +258,7 @@
       justify-content:center;
       padding:18px;
       z-index:200;
+      touch-action: pan-y;
     }
     .lightbox.open{display:flex}
     .lbCard{
@@ -388,7 +280,7 @@
       padding:12px 14px;
       border-bottom:1px solid rgba(255,255,255,.10);
       color:rgba(255,255,255,.85);
-      font-weight:700;
+      font-weight:800;
       font-size:13px;
     }
     .lbBtns{display:flex; gap:8px}
@@ -399,7 +291,7 @@
       background: rgba(255,255,255,.04);
       cursor:pointer;
       color:rgba(255,255,255,.92);
-      font-weight:800;
+      font-weight:900;
       min-height:44px;
     }
     .lbBtn:hover{background: rgba(255,255,255,.08)}
@@ -410,129 +302,60 @@
       object-fit:contain;
       display:block;
       background:#000;
-      touch-action: pan-y;
     }
 
-    .reveal{opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease}
-    .reveal.on{opacity:1; transform: translateY(0)}
-    @media (prefers-reduced-motion: reduce){
-      *{transition-duration:0.001ms!important; scroll-behavior:auto!important;}
-    }
+    .footer{margin-top:26px; color:var(--muted2); font-size:13px; text-align:center;}
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <header class="nav">
-      <a class="brand" href="#top" aria-label="Accueil">
+      <a class="brand" href="index.html" aria-label="Accueil">
         <img src="assets/logo.svg" alt="THAL" />
-        <div class="name">THAL <span>— Photographie</span></div>
+        <div class="name">THAL <span>— Galerie</span></div>
       </a>
 
       <nav class="navlinks">
-        <a class="chip" href="#galerie">Galerie</a>
-        <a class="btn" href="#contact">Me contacter</a>
+        <a class="chip" href="index.html">Accueil</a>
+        <a class="btn" href="mailto:contact@thalphotographie.ch?subject=Demande%20de%20devis">Me contacter</a>
       </nav>
     </header>
 
-    <main id="top" class="hero">
-      <img class="bg-logo" src="assets/logo-bg.svg" alt="" />
+    <h1>Galerie</h1>
+    <p class="lead">Filtre par catégorie, puis type et lieu. Ajoute des tags en multi-sélection.</p>
 
-      <div class="heroGrid">
-        <section class="card heroMain reveal">
-          <h1>Des images propres,<br/>modernes, et vivantes.</h1>
-          <p>Photographie — portraits, évènements, projets. Une approche simple : lumière, émotion, et rendu net.</p>
+    <div class="pillRow" id="cats"></div>
 
-          <div class="actions">
-            <a class="btn" href="galerie.html">Voir la galerie</a>
-            <a class="ghost" href="#contact">Demander un devis</a>
-          </div>
-        </section>
-
-        <aside class="card heroSide reveal">
-          <div class="mini"><b>Disponibilités</b><span>Vaud / Suisse romande</span></div>
-          <div class="mini"><b>Livraison</b><span>Galerie web + fichiers HD</span></div>
-          <div class="mini"><b>Style</b><span>Sobre, contrasté, naturel</span></div>
-        </aside>
+    <div class="card filters" aria-label="Filtres dynamiques">
+      <div>
+        <label for="typeSelect">Type</label>
+        <select id="typeSelect">
+          <option value="">Tous</option>
+        </select>
+      </div>
+      <div>
+        <label for="lieuSelect">Lieu</label>
+        <select id="lieuSelect">
+          <option value="">Tous</option>
+        </select>
       </div>
 
-      <div class="sectionTitle reveal">Ce que je propose</div>
+      <div class="toolbar" style="grid-column:1/-1">
+        <div class="count" id="count">0 photo</div>
+        <button class="smallBtn" id="clearAll" type="button">Réinitialiser</button>
+      </div>
+    </div>
 
-      <section class="grid3">
-        <div class="service reveal" data-carousel="Portraits">
-          <div class="svcTop">
-            <h3>Portraits</h3>
-            <p>Individuel, couple, famille — en extérieur ou intérieur.</p>
-          </div>
-          <div class="carousel" aria-label="Galerie portraits">
-            <div class="carouselTrack"></div>
-            <div class="cNav">
-              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-            </div>
-            <div class="cDots" aria-hidden="true"></div>
-          </div>
-        </div>
+    <div class="card tags" aria-label="Tags multi-filtrage">
+      <div style="font-weight:900">Tags</div>
+      <div style="color:var(--muted); font-size:13px; margin-top:6px">Clique pour activer plusieurs tags.</div>
+      <div class="tagRow" id="tags"></div>
+    </div>
 
-        <div class="service reveal" data-carousel="Evenements">
-          <div class="svcTop">
-            <h3>Evenements</h3>
-            <p>Anniversaire, soirée, association — reportage discret.</p>
-          </div>
-          <div class="carousel" aria-label="Galerie evenements">
-            <div class="carouselTrack"></div>
-            <div class="cNav">
-              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-            </div>
-            <div class="cDots" aria-hidden="true"></div>
-          </div>
-        </div>
+    <div class="masonry" id="grid"></div>
 
-        <div class="service reveal" data-carousel="Projets">
-          <div class="svcTop">
-            <h3>Projets</h3>
-            <p>Marques, produits, contenu réseau — pack prêt à publier.</p>
-          </div>
-          <div class="carousel" aria-label="Galerie projets">
-            <div class="carouselTrack"></div>
-            <div class="cNav">
-              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-            </div>
-            <div class="cDots" aria-hidden="true"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Galerie sur index : MENUS uniquement + lien vers galerie.html -->
-      <section id="galerie" style="margin-top:18px">
-        <div class="galleryHeader reveal">
-          <div>
-            <h2>Galerie</h2>
-            <p>Choisis une catégorie puis ouvre la galerie.</p>
-          </div>
-          <div class="actions">
-            <a class="btn" id="openGalleryBtn" href="galerie.html">Ouvrir la galerie</a>
-          </div>
-        </div>
-
-        <div class="pillRow reveal" id="cats"></div>
-      </section>
-
-      <section id="contact" class="card reveal" style="margin-top:16px; padding:18px">
-        <h2 style="margin:0 0 8px; font-size:20px">Contact</h2>
-        <p style="margin:0 0 10px; color:var(--muted); line-height:1.55">
-          Envoie-moi un message (ou clique sur le bouton) et je te réponds rapidement.
-        </p>
-        <div class="actions">
-          <a class="btn" href="mailto:contact@thalphotographie.ch?subject=Demande%20de%20devis">Envoyer un email</a>
-          <a class="ghost" href="#top">Retour haut</a>
-        </div>
-      </section>
-
-      <div class="footer">© <span id="y"></span> THAL — Photographie</div>
-    </main>
+    <div class="footer">© <span id="y"></span> THAL — Photographie</div>
   </div>
 
   <!-- Lightbox -->
@@ -553,54 +376,223 @@
   </div>
 
   <script>
-    // Year
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Reveal on scroll
-    const revealEls = [...document.querySelectorAll(".reveal")];
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("on"); });
-    }, {threshold: .12});
-    revealEls.forEach(el=>io.observe(el));
-
-    // small mobile polish: avoid sticky focus after tap
+    // avoid sticky focus after tap
     document.addEventListener("click", (e) => {
-      const a = e.target.closest("a,button");
+      const a = e.target.closest("a,button,select");
       if (a) a.blur();
-    }, { passive: true });
+    }, { passive:true });
 
-    // ---- Data ----
-    let galleryData = {};
-    let allShots = []; // [{cat,file}]
-    let currentCat = null;
-
-    // ---- Index: categories pills (menus only) ----
     const catsEl = document.getElementById("cats");
-    const openGalleryBtn = document.getElementById("openGalleryBtn");
+    const typeSelect = document.getElementById("typeSelect");
+    const lieuSelect = document.getElementById("lieuSelect");
+    const tagsEl = document.getElementById("tags");
+    const gridEl = document.getElementById("grid");
+    const countEl = document.getElementById("count");
+    const clearBtn = document.getElementById("clearAll");
 
-    function renderCatsMenu(){
-      const cats = Object.keys(galleryData);
+    let galleryData = {};
+    let allShots = []; // {cat,file,type,lieu,tags[]}
+    let filtered = [];
+
+    let currentCat = "Tous";
+    let currentType = "";
+    let currentLieu = "";
+    let selectedTags = new Set();
+
+    async function loadGallery(){
+      const res = await fetch("photos/gallery.json", { cache:"no-store" });
+      if(!res.ok){
+        gridEl.innerHTML = errorCard("gallery.json introuvable (HTTP " + res.status + ")");
+        return;
+      }
+      galleryData = await res.json();
+      buildAllShots();
+      renderCats();
+
+      // pré-sélection via URL ?cat=Portraits
+      const params = new URLSearchParams(location.search);
+      const presetCat = params.get("cat");
+      if(presetCat && (presetCat in galleryData)) currentCat = presetCat;
+
+      applyAll();
+    }
+
+    function buildAllShots(){
+      allShots = [];
+      Object.keys(galleryData).forEach(cat=>{
+        const arr = galleryData[cat] || [];
+        arr.forEach(entry=>{
+          if(!entry || !entry.file) return;
+          allShots.push({
+            cat,
+            file: String(entry.file),
+            type: entry.type ? String(entry.type) : "",
+            lieu: entry.lieu ? String(entry.lieu) : "",
+            tags: Array.isArray(entry.tags) ? entry.tags.map(String) : []
+          });
+        });
+      });
+    }
+
+    function renderCats(){
+      const cats = ["Tous", ...Object.keys(galleryData)];
       catsEl.innerHTML = "";
       cats.forEach(cat=>{
         const b = document.createElement("button");
-        b.className = "pill" + (cat === currentCat ? " active" : "");
         b.type = "button";
+        b.className = "pill" + (cat === currentCat ? " active" : "");
         b.textContent = cat;
         b.addEventListener("click", ()=>{
           currentCat = cat;
-          [...catsEl.querySelectorAll(".pill")].forEach(p=>{
-            p.classList.toggle("active", p.textContent === cat);
-          });
-          // lien vers galerie filtrée
-          openGalleryBtn.href = `galerie.html?cat=${encodeURIComponent(cat)}`;
+          currentType = "";
+          currentLieu = "";
+          selectedTags.clear();
+          applyAll();
         });
         catsEl.appendChild(b);
       });
-      // défaut: bouton "galerie.html" simple si pas de sélection
-      openGalleryBtn.href = "galerie.html";
     }
 
-    // ===== Lightbox (utilisée quand on clique un carrousel service) =====
+    function applyAll(){
+      // update active pill
+      [...catsEl.querySelectorAll(".pill")].forEach(p=>{
+        p.classList.toggle("active", p.textContent === currentCat);
+      });
+
+      // base cat filter
+      const base = (currentCat === "Tous")
+        ? [...allShots]
+        : allShots.filter(s => s.cat === currentCat);
+
+      // rebuild dropdown options from base
+      rebuildSelect(typeSelect, unique(base.map(s=>s.type).filter(Boolean)), currentType);
+      rebuildSelect(lieuSelect, unique(base.map(s=>s.lieu).filter(Boolean)), currentLieu);
+
+      // currentType/currentLieu might not exist anymore
+      if(currentType && !hasValue(typeSelect, currentType)) currentType = "";
+      if(currentLieu && !hasValue(lieuSelect, currentLieu)) currentLieu = "";
+      typeSelect.value = currentType;
+      lieuSelect.value = currentLieu;
+
+      // rebuild tags from base (and dropdown selections) to stay relevant
+      const preTagBase = base.filter(s =>
+        (!currentType || s.type === currentType) &&
+        (!currentLieu || s.lieu === currentLieu)
+      );
+
+      rebuildTags(preTagBase);
+
+      // final filter with tags multi
+      filtered = preTagBase.filter(s => matchTags(s, selectedTags));
+
+      renderGrid();
+      countEl.textContent = filtered.length + (filtered.length <= 1 ? " photo" : " photos");
+    }
+
+    function rebuildSelect(selectEl, options, keepValue){
+      const prev = keepValue || "";
+      selectEl.innerHTML = `<option value="">Tous</option>` +
+        options.map(v => `<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join("");
+      selectEl.value = prev;
+    }
+
+    function rebuildTags(baseList){
+      // collect tags from baseList:
+      // - entry.tags
+      // - + type / lieu as tags "type:xxx" "lieu:xxx" ? (optionnel)
+      const tagSet = new Set();
+      baseList.forEach(s=>{
+        (s.tags || []).forEach(t => tagSet.add(String(t)));
+      });
+
+      const tags = [...tagSet].sort((a,b)=>a.localeCompare(b, "fr"));
+      tagsEl.innerHTML = "";
+
+      if(tags.length === 0){
+        tagsEl.innerHTML = `<div style="color:var(--muted);font-weight:800">Aucun tag sur cette sélection.</div>`;
+        return;
+      }
+
+      tags.forEach(t=>{
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "tag" + (selectedTags.has(t) ? " on" : "");
+        btn.textContent = t;
+        btn.addEventListener("click", ()=>{
+          if(selectedTags.has(t)) selectedTags.delete(t);
+          else selectedTags.add(t);
+          applyAll();
+        });
+        tagsEl.appendChild(btn);
+      });
+    }
+
+    function matchTags(shot, set){
+      if(set.size === 0) return true;
+      const tags = new Set((shot.tags || []).map(String));
+      // Tous les tags sélectionnés doivent être présents
+      for(const t of set){
+        if(!tags.has(t)) return false;
+      }
+      return true;
+    }
+
+    function renderGrid(){
+      gridEl.innerHTML = "";
+      if(filtered.length === 0){
+        gridEl.innerHTML = `<div style="grid-column:1/-1;color:var(--muted);font-weight:800">Aucune photo pour cette combinaison.</div>`;
+        return;
+      }
+
+      filtered.forEach((s, idx)=>{
+        const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+        const labelLeft = [s.cat, s.type].filter(Boolean).join(" • ");
+        const labelRight = s.lieu || s.file;
+
+        const card = document.createElement("div");
+        card.className = "shot";
+        card.innerHTML = `
+          <img loading="lazy" src="${src}" alt="${escapeHtml(labelLeft)}" />
+          <div class="cap">
+            <span>${escapeHtml(labelLeft || s.cat)}</span>
+            <span style="color:rgba(255,255,255,.75)">${escapeHtml(labelRight)}</span>
+          </div>
+        `;
+        card.addEventListener("click", ()=>openLightbox(idx));
+        gridEl.appendChild(card);
+      });
+    }
+
+    function unique(arr){
+      return [...new Set(arr.map(String))].filter(Boolean);
+    }
+    function hasValue(selectEl, value){
+      return [...selectEl.options].some(o => o.value === value);
+    }
+
+    // Dropdown events
+    typeSelect.addEventListener("change", ()=>{
+      currentType = typeSelect.value;
+      selectedTags.clear(); // option: on reset tags quand on change type (plus clair)
+      applyAll();
+    });
+    lieuSelect.addEventListener("change", ()=>{
+      currentLieu = lieuSelect.value;
+      selectedTags.clear();
+      applyAll();
+    });
+
+    clearBtn.addEventListener("click", ()=>{
+      currentCat = "Tous";
+      currentType = "";
+      currentLieu = "";
+      selectedTags.clear();
+      applyAll();
+    });
+
+    // ===== Lightbox + swipe =====
     const lb = document.getElementById("lb");
     const lbImg = document.getElementById("lbImg");
     const lbTitle = document.getElementById("lbTitle");
@@ -608,10 +600,8 @@
     const prevBtn = document.getElementById("prev");
     const nextBtn = document.getElementById("next");
     let lbIndex = 0;
-    let lbList = []; // liste courante pour la lightbox (ex: items carrousel)
 
-    function openLightboxFrom(list, idx){
-      lbList = list;
+    function openLightbox(idx){
       lbIndex = idx;
       updateLightbox();
       lb.classList.add("open");
@@ -625,203 +615,78 @@
       document.body.style.overflow = "";
     }
     function updateLightbox(){
-      const s = lbList[lbIndex];
+      const s = filtered[lbIndex];
       if(!s) return;
       const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
       lbImg.src = src;
-      lbTitle.textContent = `${s.cat} — ${s.file}`;
+      const title = [s.cat, s.type, s.lieu].filter(Boolean).join(" — ");
+      lbTitle.textContent = title || s.file;
     }
-    function lbPrev(){ lbIndex = (lbIndex - 1 + lbList.length) % lbList.length; updateLightbox(); }
-    function lbNext(){ lbIndex = (lbIndex + 1) % lbList.length; updateLightbox(); }
+    function prev(){
+      lbIndex = (lbIndex - 1 + filtered.length) % filtered.length;
+      updateLightbox();
+    }
+    function next(){
+      lbIndex = (lbIndex + 1) % filtered.length;
+      updateLightbox();
+    }
 
     closeBtn.addEventListener("click", closeLightbox);
-    prevBtn.addEventListener("click", lbPrev);
-    nextBtn.addEventListener("click", lbNext);
+    prevBtn.addEventListener("click", prev);
+    nextBtn.addEventListener("click", next);
     lb.addEventListener("click", (e)=>{ if(e.target === lb) closeLightbox(); });
+
     window.addEventListener("keydown", (e)=>{
       if(!lb.classList.contains("open")) return;
       if(e.key === "Escape") closeLightbox();
-      if(e.key === "ArrowLeft") lbPrev();
-      if(e.key === "ArrowRight") lbNext();
+      if(e.key === "ArrowLeft") prev();
+      if(e.key === "ArrowRight") next();
     });
 
-    // swipe dans la lightbox
-    (function enableLightboxSwipe(){
-      let startX=0, curX=0, dragging=false;
-      const onStart=(x)=>{dragging=true; startX=x; curX=x;};
-      const onMove=(x)=>{ if(!dragging) return; curX=x; };
-      const onEnd=()=>{
-        if(!dragging) return;
-        dragging=false;
-        const dx=curX-startX;
-        const thr=Math.max(50, window.innerWidth*0.12);
-        if(dx>thr) lbPrev();
-        else if(dx<-thr) lbNext();
-      };
-      lbImg.addEventListener("touchstart",(e)=>onStart(e.touches[0].clientX),{passive:true});
-      lbImg.addEventListener("touchmove",(e)=>onMove(e.touches[0].clientX),{passive:true});
-      lbImg.addEventListener("touchend",onEnd);
-    })();
+    // swipe in lightbox
+    attachSwipe(lb, { onLeft: next, onRight: prev });
 
-    // ===== Services carousels + swipe =====
-    const SERVICE_LIMIT = 8;
-    const SERVICE_INTERVAL = 3500;
-    const serviceState = new Map(); // carouselEl -> {items, idx, timer}
+    function attachSwipe(el, {onLeft, onRight}){
+      let sx=0, sy=0, dx=0, dy=0, active=false;
 
-    function shuffle(arr){
-      return arr.map(v=>[Math.random(), v]).sort((a,b)=>a[0]-b[0]).map(x=>x[1]);
-    }
+      el.addEventListener("touchstart", (e)=>{
+        if(!e.touches || e.touches.length!==1) return;
+        active=true;
+        sx = e.touches[0].clientX;
+        sy = e.touches[0].clientY;
+        dx=dy=0;
+      }, {passive:true});
 
-    function getServiceItems(catName){
-      const files = (galleryData?.[catName] || []);
-      const items = files.map(file => ({ cat: catName, file }));
-      return shuffle(items).slice(0, SERVICE_LIMIT);
-    }
+      el.addEventListener("touchmove", (e)=>{
+        if(!active || !e.touches || e.touches.length!==1) return;
+        dx = e.touches[0].clientX - sx;
+        dy = e.touches[0].clientY - sy;
+      }, {passive:true});
 
-    function setCarouselIndex(carouselEl, idx){
-      const st = serviceState.get(carouselEl);
-      if(!st || !st.items.length) return;
-
-      st.idx = (idx + st.items.length) % st.items.length;
-      const track = carouselEl.querySelector(".carouselTrack");
-      const dots = carouselEl.querySelectorAll(".dot");
-
-      track.style.transform = `translateX(-${st.idx * 100}%)`;
-      dots.forEach((d,i)=>d.classList.toggle("on", i === st.idx));
-    }
-
-    function nextCarousel(carouselEl){ const st = serviceState.get(carouselEl); if(st) setCarouselIndex(carouselEl, st.idx+1); }
-    function prevCarousel(carouselEl){ const st = serviceState.get(carouselEl); if(st) setCarouselIndex(carouselEl, st.idx-1); }
-
-    function stopAuto(carouselEl){
-      const st = serviceState.get(carouselEl);
-      if(st?.timer){ clearInterval(st.timer); st.timer=null; }
-    }
-    function startAuto(carouselEl){
-      const st = serviceState.get(carouselEl);
-      if(!st || st.items.length<=1) return;
-      stopAuto(carouselEl);
-      st.timer = setInterval(()=>nextCarousel(carouselEl), SERVICE_INTERVAL);
-    }
-
-    function enableSwipe(carouselEl){
-      const track = carouselEl.querySelector(".carouselTrack");
-      let startX=0, currentX=0, dragging=false;
-
-      const onStart = (x)=>{
-        dragging=true;
-        startX=x; currentX=x;
-        stopAuto(carouselEl);
-        track.style.transition="none";
-      };
-      const onMove = (x)=>{
-        if(!dragging) return;
-        currentX=x;
-        const dx=currentX-startX;
-        const st = serviceState.get(carouselEl);
-        if(!st) return;
-        const percent=(dx / carouselEl.clientWidth) * 100;
-        track.style.transform = `translateX(calc(-${st.idx * 100}% + ${percent}%))`;
-      };
-      const onEnd = ()=>{
-        if(!dragging) return;
-        dragging=false;
-
-        const dx=currentX-startX;
-        const threshold = Math.max(40, carouselEl.clientWidth*0.12);
-
-        track.style.transition="transform .45s ease";
-
-        if(dx>threshold) prevCarousel(carouselEl);
-        else if(dx<-threshold) nextCarousel(carouselEl);
-        else {
-          const st = serviceState.get(carouselEl);
-          if(st) setCarouselIndex(carouselEl, st.idx);
+      el.addEventListener("touchend", ()=>{
+        if(!active) return;
+        active=false;
+        if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)*1.2){
+          if(dx < 0) onLeft && onLeft();
+          else onRight && onRight();
         }
-
-        startAuto(carouselEl);
-      };
-
-      carouselEl.addEventListener("touchstart",(e)=>onStart(e.touches[0].clientX),{passive:true});
-      carouselEl.addEventListener("touchmove",(e)=>onMove(e.touches[0].clientX),{passive:true});
-      carouselEl.addEventListener("touchend",onEnd);
-
-      // souris (bonus desktop)
-      carouselEl.addEventListener("mousedown",(e)=>{ e.preventDefault(); onStart(e.clientX); });
-      window.addEventListener("mousemove",(e)=>onMove(e.clientX));
-      window.addEventListener("mouseup",onEnd);
-    }
-
-    function renderServiceCarousels(){
-      const serviceCards = document.querySelectorAll(".service[data-carousel]");
-      serviceCards.forEach(serviceEl=>{
-        const catName = serviceEl.getAttribute("data-carousel");
-        const carouselEl = serviceEl.querySelector(".carousel");
-        const track = carouselEl.querySelector(".carouselTrack");
-        const dotsEl = carouselEl.querySelector(".cDots");
-        const prevBtn = carouselEl.querySelector(".cBtn.prev");
-        const nextBtn = carouselEl.querySelector(".cBtn.next");
-
-        const items = getServiceItems(catName);
-        serviceState.set(carouselEl, {items, idx:0, timer:null});
-
-        if(!items.length){
-          track.innerHTML = `
-            <div class="carouselSlide" style="display:flex;align-items:center;justify-content:center;height:220px;color:rgba(255,255,255,.65);font-weight:700">
-              Aucune photo dans “${escapeHtml(catName)}”
-            </div>`;
-          dotsEl.innerHTML="";
-          prevBtn.style.display="none";
-          nextBtn.style.display="none";
-          return;
-        }
-
-        track.innerHTML = items.map(s=>{
-          const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
-          return `<div class="carouselSlide"><img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}"></div>`;
-        }).join("");
-
-        dotsEl.innerHTML = items.map((_,i)=>`<span class="dot ${i===0?'on':''}"></span>`).join("");
-
-        prevBtn.addEventListener("click",(e)=>{ e.preventDefault(); prevCarousel(carouselEl); startAuto(carouselEl); });
-        nextBtn.addEventListener("click",(e)=>{ e.preventDefault(); nextCarousel(carouselEl); startAuto(carouselEl); });
-
-        // clic sur le carrousel => lightbox sur les items du carrousel
-        carouselEl.addEventListener("click",(e)=>{
-          if(e.target.closest("button")) return;
-          const st = serviceState.get(carouselEl);
-          openLightboxFrom(st.items, st.idx);
-        });
-
-        enableSwipe(carouselEl);
-        setCarouselIndex(carouselEl, 0);
-        startAuto(carouselEl);
       });
+    }
+
+    function errorCard(msg){
+      return `
+        <div style="grid-column:1/-1; color:rgba(255,255,255,.75); border:1px solid rgba(255,255,255,.12);
+                    background:rgba(255,255,255,.03); border-radius:16px; padding:14px; line-height:1.5">
+          <b>Erreur chargement galerie</b><br/>
+          ${escapeHtml(msg)}<br/>
+          Vérifie que <code>photos/gallery.json</code> existe et est accessible.
+        </div>`;
     }
 
     function escapeHtml(str){
       return String(str).replace(/[&<>"']/g, (m)=>({
         "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
       }[m]));
-    }
-
-    async function loadGallery(){
-      try{
-        const res = await fetch("photos/gallery.json", { cache:"no-store" });
-        if(!res.ok) throw new Error("gallery.json introuvable (HTTP " + res.status + ")");
-        galleryData = await res.json();
-
-        // build allShots (si tu veux plus tard)
-        allShots = [];
-        Object.keys(galleryData).forEach(cat=>{
-          (galleryData[cat]||[]).forEach(file=>allShots.push({cat,file}));
-        });
-
-        renderCatsMenu();
-        renderServiceCarousels();
-      }catch(err){
-        console.error(err);
-      }
     }
 
     loadGallery();
