@@ -1,121 +1,205 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>THAL — Photographie</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>THAL — Photographie</title>
+  <meta name="description" content="THAL Photographie — portraits, événements, lifestyle." />
 
-<style>
-body{
-  margin:0;
-  font-family: system-ui, -apple-system, sans-serif;
-  background:#0b1220;
-  color:#fff;
-}
-
-header{
-  padding:40px 20px 20px;
-  text-align:center;
-}
-
-h1{
-  margin:0;
-  font-size:28px;
-  letter-spacing:1px;
-}
-
-p{
-  opacity:.7;
-  margin-top:10px;
-}
-
-.wrap{
-  padding:20px;
-  max-width:1200px;
-  margin:auto;
-}
-
-.category{
-  margin-top:40px;
-}
-
-.category h2{
-  font-size:18px;
-  margin-bottom:15px;
-  opacity:.8;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
-  gap:15px;
-}
-
-.grid img{
-  width:100%;
-  height:250px;
-  object-fit:cover;
-  border-radius:10px;
-  transition:transform .3s ease;
-}
-
-.grid img:hover{
-  transform:scale(1.03);
-}
-</style>
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --card:#0f1629;
+      --text:#e8eefc;
+      --muted:#a9b6d6;
+      --accent:#6ea8ff;
+      --line:rgba(255,255,255,.08);
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --r:18px;
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial;
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(110,168,255,.22), transparent 60%),
+        radial-gradient(700px 400px at 85% 20%, rgba(162,110,255,.18), transparent 60%),
+        radial-gradient(700px 500px at 50% 100%, rgba(0,255,200,.08), transparent 60%),
+        var(--bg);
+      color:var(--text);
+      line-height:1.5;
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:24px}
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,25,.55);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      font-weight:700; letter-spacing:.2px;
+    }
+    .dot{
+      width:10px; height:10px; border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 6px rgba(110,168,255,.15);
+    }
+    .links{display:flex; gap:14px; align-items:center; flex-wrap:wrap}
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      font-weight:600;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.14)}
+    .btn.primary{
+      background: linear-gradient(135deg, rgba(110,168,255,.95), rgba(110,168,255,.55));
+      border-color: transparent;
+      color:#071022;
+    }
+    .hero{padding:54px 0 26px}
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap:18px;
+      align-items:stretch;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius: var(--r);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero-main{padding:28px}
+    h1{margin:0 0 10px; font-size:clamp(28px,4.2vw,44px); line-height:1.1}
+    .sub{color:var(--muted); margin:0 0 18px; font-size:clamp(14px,1.5vw,16px)}
+    .hero-actions{display:flex; gap:12px; flex-wrap:wrap}
+    .hero-side{
+      display:flex;
+      flex-direction:column;
+      padding:18px;
+      gap:12px;
+    }
+    .pill{
+      border:1px solid var(--line);
+      border-radius: 14px;
+      padding:12px 12px;
+      background: rgba(0,0,0,.18);
+    }
+    .pill b{display:block; margin-bottom:4px}
+    .pill span{color:var(--muted); font-size:14px}
+    .section{padding:18px 0 10px}
+    .section h2{margin:0 0 10px; font-size:18px}
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+    }
+    .mini{
+      padding:16px;
+      border-radius: var(--r);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .mini h3{margin:0 0 6px; font-size:16px}
+    .mini p{margin:0; color:var(--muted); font-size:14px}
+    footer{
+      padding:30px 0 40px;
+      color:var(--muted);
+      font-size:13px;
+      border-top:1px solid var(--line);
+      margin-top:26px;
+    }
+    @media (max-width: 900px){
+      .hero-grid{grid-template-columns:1fr}
+      .grid{grid-template-columns:1fr}
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <span class="dot"></span>
+        <span>THAL — Photographie</span>
+      </div>
+      <div class="links">
+        <a class="btn" href="galerie.html">Galerie</a>
+        <a class="btn primary" href="mailto:contact@thalphotographie.ch?subject=Demande%20de%20shooting">Me contacter</a>
+      </div>
+    </div>
+  </header>
 
-<header>
-  <h1>THAL — Photographie</h1>
-  <p>Galeries générées automatiquement</p>
-</header>
+  <main class="container">
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="card hero-main">
+          <h1>Des images propres, modernes, et vivantes.</h1>
+          <p class="sub">
+            Photographie — portraits, événements, lifestyle. Une approche simple : lumière, émotion, et un rendu net.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="galerie.html">Voir la galerie</a>
+            <a class="btn" href="mailto:contact@thalphotographie.ch?subject=Infos%20et%20disponibilit%C3%A9s">Demander un devis</a>
+          </div>
+        </div>
 
-<div class="wrap" id="gallery"></div>
+        <div class="card hero-side">
+          <div class="pill">
+            <b>Disponibilités</b>
+            <span>Vaud / Suisse romande</span>
+          </div>
+          <div class="pill">
+            <b>Livraison</b>
+            <span>Galerie web + fichiers HD</span>
+          </div>
+          <div class="pill">
+            <b>Style</b>
+            <span>Sobre, contrasté, naturel</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<script>
-async function loadGallery(){
-  try{
-    const response = await fetch("photos/gallery.json", {cache:"no-store"});
-    const data = await response.json();
+    <section class="section">
+      <h2>Ce que je propose</h2>
+      <div class="grid">
+        <div class="mini">
+          <h3>Portraits</h3>
+          <p>Individuel, couple, famille — en extérieur ou intérieur.</p>
+        </div>
+        <div class="mini">
+          <h3>Événements</h3>
+          <p>Anniversaires, soirées, associations — reportage discret.</p>
+        </div>
+        <div class="mini">
+          <h3>Projets</h3>
+          <p>Marques, produits, contenu réseaux — pack prêt à publier.</p>
+        </div>
+      </div>
+    </section>
 
-    const gallery = document.getElementById("gallery");
+    <footer>
+      © <span id="y"></span> THAL — Photographie ·
+      <a href="galerie.html" style="text-decoration:underline; text-underline-offset:3px;">Galerie</a>
+    </footer>
+  </main>
 
-    Object.keys(data).forEach(category => {
-
-      const section = document.createElement("div");
-      section.className = "category";
-
-      const title = document.createElement("h2");
-      title.textContent = category;
-      section.appendChild(title);
-
-      const grid = document.createElement("div");
-      grid.className = "grid";
-
-      data[category].forEach(file => {
-        const img = document.createElement("img");
-        img.src = `photos/${category}/${file}`;
-        img.loading = "lazy";
-        grid.appendChild(img);
-      });
-
-      section.appendChild(grid);
-      gallery.appendChild(section);
-    });
-
-  }catch(error){
-    document.body.insertAdjacentHTML(
-      "beforeend",
-      "<p style='color:red;padding:20px'>Erreur chargement galerie</p>"
-    );
-    console.error(error);
-  }
-}
-
-loadGallery();
-</script>
-
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
