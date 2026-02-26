@@ -557,21 +557,30 @@
     const carousels = [...document.querySelectorAll(".js-carousel")];
     const timers = new WeakMap();
 
-    async function loadHomeCarousels(){
-      let data;
-      try{
-        const res = await fetch(new URL("./photos/gallery_auto.json", window.location.href), { cache:"no-store" });
-        if(!res.ok) throw new Error("HTTP " + res.status);
-        data = await res.json();
-      }catch(err){
-        // Affiche un état propre (et ne casse pas la page)
-        carousels.forEach(c=>{
-          const track = c.querySelector(".carouselTrack");
-          track.innerHTML = `<div class="carouselSlide"><div class="carouselEmpty">Galerie indisponible</div></div>`;
-        });
-        console.warn("Erreur chargement", HOME_JSON, err);
-        return;
-      }
+   async function loadHomeCarousels(){
+  const HOME_JSON_URL = new URL("./photos/gallery_auto.json", window.location.href);
+
+  let data;
+  try{
+    const res = await fetch(HOME_JSON_URL, { cache: "no-store" });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    data = await res.json();
+
+    // (si tu veux un log de confirmation)
+    // console.log("HOME JSON URL:", HOME_JSON_URL.toString());
+  }catch(err){
+    // Affiche un état propre (et ne casse pas la page)
+    carousels.forEach(c=>{
+      const track = c.querySelector(".carouselTrack");
+      track.innerHTML =
+        `<div class="carouselSlide"><div class="carouselEmpty">Galerie indisponible</div></div>`;
+    });
+    console.warn("Erreur chargement home carousels:", HOME_JSON_URL.toString(), err);
+    return;
+  }
+
+  // ... la suite de ton code qui utilise `data`
+}
 
       carousels.forEach(c=>{
         const cat = c.getAttribute("data-service");
