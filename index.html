@@ -560,6 +560,20 @@
   const AUTO_MS = 3500;
 
   const carousels = [...document.querySelectorAll(".js-carousel")];
+    function normKey(s){
+  return String(s || "")
+    .normalize("NFD")                  // sépare accents
+    .replace(/[\u0300-\u036f]/g, "")   // enlève accents
+    .toLowerCase()
+    .trim();
+}
+
+function findCategoryKey(data, wanted){
+  if(!data || typeof data !== "object") return wanted;
+  const w = normKey(wanted);
+  const keys = Object.keys(data);
+  return keys.find(k => normKey(k) === w) || wanted;
+}
 
   async function loadHomeCarousels(){
 
@@ -587,11 +601,18 @@
 
     carousels.forEach(c=>{
       const cat = c.getAttribute("data-service");
-      const files = Array.isArray(data?.[cat]) ? data[cat] : [];
+      const key = findCategoryKey(data, cat);
+      const raw = Array.isArray(data?.[key]) ? data[key] : [];
+      // accepte ["a.jpg","b.jpg"] OU [{file:"a.jpg"}, ...]
+      const files = raw
+        .map(x => typeof x === "string" ? x : (x && typeof x.file === "string" ? x.file : null))
+        .filter(Boolean);
 
-      const items = shuffle(files)
-        .slice(0, HOME_LIMIT)
-        .map(file => ({ cat, file }));
+console.log("Carousel cat:", cat, "→ key:", key, "files:", files.length);
+
+const items = shuffle(files)
+  .slice(0, HOME_LIMIT)
+  .map(file => ({ cat: key || cat, file }));
 
       renderCarousel(c, items);
 
