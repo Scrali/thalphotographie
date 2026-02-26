@@ -414,16 +414,26 @@
     @media (prefers-reduced-motion: reduce){
       *{animation-duration:0.001ms!important; animation-iteration-count:1!important; transition-duration:0.001ms!important; scroll-behavior:auto!important;}
     }
-    .contactForm{
+  /* Contact form – version plus compacte */
+.contactForm{
   display:grid;
   gap:12px;
   margin-top:10px;
 }
 
+.contactForm .row2{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:12px;
+}
+
+@media (max-width: 700px){
+  .contactForm .row2{ grid-template-columns: 1fr; }
+}
+
 .contactForm input,
 .contactForm textarea{
   width:100%;
-  padding:12px 14px;
   border-radius:14px;
   border:1px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.04);
@@ -433,11 +443,28 @@
   transition:border-color .2s ease, background .2s ease;
 }
 
+.contactForm input{
+  padding:10px 12px;     /* ↓ moins haut */
+  min-height: 40px;      /* ↓ moins haut */
+}
+
+.contactForm textarea{
+  padding:12px 12px;
+  min-height: 140px;
+  resize: vertical;
+}
+
+.contactForm input::placeholder,
+.contactForm textarea::placeholder{
+  color: rgba(255,255,255,.45);
+}
+
 .contactForm input:focus,
 .contactForm textarea:focus{
   outline:none;
   border-color:rgba(110,168,255,.6);
   background:rgba(255,255,255,.06);
+}
 }
   </style>
 </head>
