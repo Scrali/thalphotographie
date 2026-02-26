@@ -1,4 +1,4 @@
-name: Generate gallery.json
+name: Generate gallery.auto.json
 
 on:
   push:
@@ -15,30 +15,30 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
         
-      - name: Generate gallery.json
+      - name: Generate gallery.auto.json
         run: |
           echo "{" > photos/gallery.json
           first=true
           for dir in photos/*/ ; do
             folder=$(basename "$dir")
-            if [ "$folder" != "gallery.json" ]; then
+            if [ "$folder" != "gallery.auto.json" ]; then
               files=$(ls "$dir" | grep -E '\.(jpg|jpeg|png|webp)$' | sed 's/.*/"&"/' | paste -sd, -)
               if [ ! -z "$files" ]; then
                 if [ "$first" = true ]; then
                   first=false
                 else
-                  echo "," >> photos/gallery.json
+                  echo "," >> photos/gallery.auto.json
                 fi
-                echo "  \"$folder\": [$files]" >> photos/gallery.json
+                echo "  \"$folder\": [$files]" >> photos/gallery.auto.json
               fi
             fi
           done
-          echo "}" >> photos/gallery.json
+          echo "}" >> photos/gallery.auto.json
 
-      - name: Commit updated gallery.json
+      - name: Commit updated gallery.auto.json
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
-          git add photos/gallery.json
-          git commit -m "Auto-update gallery.json" || echo "No changes"
+          git add photos/gallery.auto.json
+          git commit -m "Auto-update gallery.auto.json" || echo "No changes"
           git push
