@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>THAL — Photographie</title>
-  <meta name="description" content="Photographie — Portraits, Evenements, Projets. Galerie moderne et rapide." />
+  <meta name="description" content="Photographie — portraits, évènements, projets. Galerie moderne et rapide." />
   <meta name="theme-color" content="#0b0f19" />
 
   <style>
@@ -15,6 +15,7 @@
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.65);
       --muted2:rgba(255,255,255,.48);
+      --accent:#6ea8ff;
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius:18px;
       --radius2:24px;
@@ -58,7 +59,7 @@
       padding: var(--pad) var(--pad) 70px;
     }
 
-    /* Nav */
+    /* Top nav */
     .nav{
       display:flex;
       align-items:center;
@@ -75,29 +76,32 @@
       top: calc(10px + var(--safe-top));
       z-index:50;
     }
+
     .brand{
       display:flex;
       align-items:center;
       gap:10px;
       padding:6px 10px;
-      min-width:0;
+      min-width: 0;
     }
+
     .brand img{
       width: clamp(42px, 8vw, 58px);
-      height:auto;
+      height: auto;
       display:block;
       filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
     }
+
     .brand .name{
       font-weight:650;
       letter-spacing:.2px;
       display:flex;
       align-items:baseline;
       gap:8px;
-      min-width:0;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .brand .name span{
       font-size: clamp(12px, 2.8vw, 14px);
@@ -106,32 +110,78 @@
       letter-spacing:.2px;
     }
 
-    .navlinks{display:flex; align-items:center; gap:10px; flex-wrap:wrap; justify-content:flex-end;}
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      padding:6px 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
 
-    .chip,.btn,.ghost{
+    .chip{
+      padding:10px 14px;
       border-radius:999px;
-      font-weight:800;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
+      color:var(--muted);
+      font-weight:600;
       font-size:14px;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease;
       min-height:44px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      padding:10px 14px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.03);
-      transition: transform .15s ease, background .2s ease, border-color .2s ease, filter .2s ease;
     }
-    .chip{color:var(--muted); font-weight:700;}
+    .chip:hover{
+      transform: translateY(-1px);
+      background:rgba(255,255,255,.06);
+      border-color:rgba(255,255,255,.18);
+    }
+
     .btn{
-      border-color: rgba(110,168,255,.42);
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(110,168,255,.42);
       background: linear-gradient(180deg, rgba(110,168,255,.24), rgba(110,168,255,.10));
       color:var(--text);
+      font-weight:750;
+      font-size:14px;
+      transition: transform .15s ease, filter .2s ease, border-color .2s ease;
+      min-height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
     }
-    .chip:hover,.btn:hover,.ghost:hover{transform: translateY(-1px); background:rgba(255,255,255,.06);}
-    .btn:hover{filter:brightness(1.05); border-color: rgba(110,168,255,.65);}
+    .btn:hover{
+      transform: translateY(-1px);
+      filter: brightness(1.05);
+      border-color:rgba(110,168,255,.65);
+    }
+
+    .ghost{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:750;
+      font-size:14px;
+      transition: transform .15s ease, background .2s ease;
+      min-height:44px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .ghost:hover{transform: translateY(-1px); background:rgba(255,255,255,.06)}
 
     /* Hero */
-    .hero{position:relative; overflow:hidden; padding: clamp(30px, 5vw, 54px) 0 26px;}
+    .hero{
+      position:relative;
+      overflow:hidden;
+      padding: clamp(30px, 5vw, 54px) 0 26px;
+    }
+
     .bg-logo{
       position:absolute;
       top:52%;
@@ -144,6 +194,7 @@
       filter: blur(1px);
       user-select:none;
     }
+
     .heroGrid{
       position:relative;
       z-index:1;
@@ -152,6 +203,7 @@
       gap: var(--gap);
       align-items:stretch;
     }
+
     @media (max-width: 900px){
       .heroGrid{grid-template-columns:1fr}
       .bg-logo{left:50%; width:min(820px, 96vw); opacity:.04}
@@ -164,24 +216,62 @@
       box-shadow: var(--shadow);
     }
 
-    .heroMain{padding: clamp(16px, 2.6vw, 22px);}
-    .heroMain h1{margin:0 0 10px; font-size:var(--h1); line-height:1.03; letter-spacing:-.6px;}
-    .heroMain p{margin:0 0 16px; color:var(--muted); max-width:62ch; line-height:1.55; font-size:var(--lead);}
+    .heroMain{
+      padding: clamp(16px, 2.6vw, 22px);
+      min-height: 190px;
+    }
+    .heroMain h1{
+      margin:0 0 10px;
+      font-size: var(--h1);
+      line-height:1.03;
+      letter-spacing:-.6px;
+    }
+    .heroMain p{
+      margin:0 0 16px;
+      color:var(--muted);
+      max-width: 62ch;
+      line-height:1.55;
+      font-size: var(--lead);
+    }
 
-    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px;}
+    .actions{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
 
-    .heroSide{padding: clamp(14px, 2.2vw, 18px); display:grid; gap:10px;}
-    .mini{border:1px solid rgba(255,255,255,.10); border-radius: 16px; background: rgba(255,255,255,.03); padding:12px;}
+    .heroSide{
+      padding: clamp(14px, 2.2vw, 18px);
+      display:grid;
+      gap:10px;
+    }
+    .mini{
+      border:1px solid rgba(255,255,255,.10);
+      border-radius: 16px;
+      background: rgba(255,255,255,.03);
+      padding:12px 12px;
+    }
     .mini b{display:block; font-size:13px; margin-bottom:4px}
     .mini span{color:var(--muted2); font-size:13px}
 
-    /* Section */
-    .sectionTitle{margin:18px 2px 10px; color:var(--muted); font-weight:800; font-size:13px; letter-spacing:.12em; text-transform:uppercase;}
+    .sectionTitle{
+      margin:18px 2px 10px;
+      color:var(--muted);
+      font-weight:700;
+      font-size:13px;
+      letter-spacing:.12em;
+      text-transform:uppercase;
+    }
 
-    .grid3{display:grid; grid-template-columns:repeat(3, 1fr); gap:var(--gap);}
-    @media (max-width:900px){ .grid3{grid-template-columns:1fr;} }
+    /* Services grid */
+    .grid3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--gap);
+    }
+    @media (max-width: 900px){ .grid3{grid-template-columns:1fr} }
 
-    /* Service card + carousel */
     .service{
       padding:16px;
       border-radius: var(--radius);
@@ -191,10 +281,15 @@
       display:grid;
       gap:12px;
     }
-    .service:hover{transform: translateY(-2px); background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.18);}
+    .service:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.05);
+      border-color: rgba(255,255,255,.18);
+    }
     .svcTop h3{margin:0 0 6px; font-size:16px}
     .svcTop p{margin:0; color:var(--muted); font-size:14px; line-height:1.5}
 
+    /* ===== Carousel (home) ===== */
     .carousel{
       position: relative;
       border-radius: 16px;
@@ -202,7 +297,7 @@
       border: 1px solid rgba(255,255,255,.10);
       background: rgba(255,255,255,.02);
       min-height: 180px;
-      touch-action: pan-y; /* important pour swipe horizontal */
+      touch-action: pan-y; /* permet swipe horizontal sans bloquer le scroll vertical */
     }
     .carouselTrack{
       display:flex;
@@ -212,38 +307,52 @@
       transition: transform .45s ease;
       will-change: transform;
     }
-    .carouselSlide{min-width:100%; height:100%; position:relative;}
-    .carouselSlide img{width:100%; height:220px; display:block; object-fit:cover;}
-    @media (max-width:520px){ .carouselSlide img{height:190px;} }
-
+    .carouselSlide{
+      min-width: 100%;
+      height: 100%;
+      position:relative;
+      background:#000;
+    }
+    .carouselSlide img{
+      width:100%;
+      height: 220px;
+      display:block;
+      object-fit: cover;
+      background:#000;
+    }
+    @media (max-width: 520px){
+      .carouselSlide img{ height: 190px; }
+      .navlinks .chip{display:none;}
+      .navlinks .btn{padding:10px 12px;}
+    }
     .svcBadge{
       position:absolute;
       left:10px;
       bottom:10px;
       padding:8px 10px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.35);
+      border:1px solid rgba(255,255,255,.16);
+      background: rgba(0,0,0,.40);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      color: rgba(255,255,255,.92);
-      font-weight:800;
       font-size:12px;
+      font-weight:800;
+      color: rgba(255,255,255,.92);
     }
-
     .cNav{
       position:absolute;
-      inset:0;
+      inset: 0;
       pointer-events:none;
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:10px;
+      padding: 10px;
     }
     .cBtn{
       pointer-events:auto;
-      width:42px; height:42px;
-      border-radius:999px;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
       border:1px solid rgba(255,255,255,.14);
       background: rgba(0,0,0,.35);
       color: rgba(255,255,255,.92);
@@ -255,30 +364,62 @@
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }
-    .cBtn:hover{background: rgba(0,0,0,.50);}
-
+    .cBtn:hover{ background: rgba(0,0,0,.50); }
     .cDots{
       position:absolute;
-      left:12px; right:12px; bottom:10px;
-      display:flex; justify-content:center; gap:6px;
+      left: 12px;
+      right: 12px;
+      bottom: 10px;
+      display:flex;
+      justify-content:center;
+      gap:6px;
       pointer-events:none;
     }
-    .dot{width:7px; height:7px; border-radius:999px; border:1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.12); opacity:.75;}
-    .dot.on{background: rgba(110,168,255,.45); border-color: rgba(110,168,255,.55); opacity:1;}
+    .dot{
+      width: 7px;
+      height: 7px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.12);
+      opacity:.75;
+    }
+    .dot.on{
+      background: rgba(110,168,255,.45);
+      border-color: rgba(110,168,255,.55);
+      opacity:1;
+    }
+    .carouselEmpty{
+      height: 220px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: rgba(255,255,255,.65);
+      font-weight:800;
+      letter-spacing:.2px;
+      background: rgba(0,0,0,.25);
+    }
 
-    .footer{margin-top:26px; color:var(--muted2); font-size:13px; text-align:center;}
+    /* Contact */
+    .footer{
+      margin-top:26px;
+      color:var(--muted2);
+      font-size:13px;
+      text-align:center;
+    }
+
+    /* Reveal */
     .reveal{opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease}
     .reveal.on{opacity:1; transform: translateY(0)}
-
     @media (prefers-reduced-motion: reduce){
       *{animation-duration:0.001ms!important; animation-iteration-count:1!important; transition-duration:0.001ms!important; scroll-behavior:auto!important;}
     }
   </style>
 </head>
+
 <body>
   <div class="wrap">
     <header class="nav">
-      <a class="brand" href="index.html" aria-label="Accueil">
+      <a class="brand" href="#top" aria-label="Accueil">
         <img src="assets/logo.svg" alt="THAL" />
         <div class="name">THAL <span>— Photographie</span></div>
       </a>
@@ -295,7 +436,11 @@
       <div class="heroGrid">
         <section class="card heroMain reveal">
           <h1>Des images propres,<br/>modernes, et vivantes.</h1>
-          <p>Photographie — portraits, Evenements, projets. Une approche simple : lumière, émotion, et rendu net.</p>
+          <p>
+            Photographie — portraits, évènements, projets. Une approche simple : lumière,
+            émotion, et rendu net.
+          </p>
+
           <div class="actions">
             <a class="btn" href="galerie.html">Voir la galerie</a>
             <a class="ghost" href="#contact">Demander un devis</a>
@@ -303,21 +448,32 @@
         </section>
 
         <aside class="card heroSide reveal">
-          <div class="mini"><b>Disponibilités</b><span>Vaud / Suisse romande</span></div>
-          <div class="mini"><b>Livraison</b><span>Galerie web + fichiers HD</span></div>
-          <div class="mini"><b>Style</b><span>Sobre, contrasté, naturel</span></div>
+          <div class="mini">
+            <b>Disponibilités</b>
+            <span>Vaud / Suisse romande</span>
+          </div>
+          <div class="mini">
+            <b>Livraison</b>
+            <span>Galerie web + fichiers HD</span>
+          </div>
+          <div class="mini">
+            <b>Style</b>
+            <span>Sobre, contrasté, naturel</span>
+          </div>
         </aside>
       </div>
 
       <div class="sectionTitle reveal">Ce que je propose</div>
 
+      <!-- Carrousels HOME: data-service doit matcher la catégorie du JSON -->
       <section class="grid3">
-        <div class="service reveal" data-service="Portraits">
+        <div class="service reveal">
           <div class="svcTop">
             <h3>Portraits</h3>
             <p>Individuel, couple, famille — en extérieur ou intérieur.</p>
           </div>
-          <div class="carousel" aria-label="Aperçu Portraits">
+
+          <div class="carousel js-carousel" data-service="Portraits" aria-label="Galerie portraits">
             <div class="carouselTrack"></div>
             <div class="cNav">
               <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
@@ -327,12 +483,13 @@
           </div>
         </div>
 
-        <div class="service reveal" data-service="Evenements">
+        <div class="service reveal">
           <div class="svcTop">
-            <h3>EvEnements</h3>
+            <h3>Événements</h3>
             <p>Anniversaire, soirée, association — reportage discret.</p>
           </div>
-          <div class="carousel" aria-label="Aperçu Evenements">
+
+          <div class="carousel js-carousel" data-service="Evenements" aria-label="Galerie événements">
             <div class="carouselTrack"></div>
             <div class="cNav">
               <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
@@ -342,12 +499,13 @@
           </div>
         </div>
 
-        <div class="service reveal" data-service="Projets">
+        <div class="service reveal">
           <div class="svcTop">
             <h3>Projets</h3>
             <p>Marques, produits, contenu réseau — pack prêt à publier.</p>
           </div>
-          <div class="carousel" aria-label="Aperçu projets">
+
+          <div class="carousel js-carousel" data-service="Projets" aria-label="Galerie projets">
             <div class="carouselTrack"></div>
             <div class="cNav">
               <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
@@ -363,6 +521,7 @@
         <p style="margin:0 0 10px; color:var(--muted); line-height:1.55">
           Envoie-moi un message (ou clique sur le bouton) et je te réponds rapidement.
         </p>
+
         <div class="actions">
           <a class="btn" href="mailto:contact@thalphotographie.ch?subject=Demande%20de%20devis">Envoyer un email</a>
           <a class="ghost" href="galerie.html">Aller à la galerie</a>
@@ -374,125 +533,141 @@
   </div>
 
   <script>
+    // Footer year
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // Reveal
+    // Reveal on scroll
     const revealEls = [...document.querySelectorAll(".reveal")];
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add("on"); });
-    }, {threshold:.12});
+    }, {threshold: .12});
     revealEls.forEach(el=>io.observe(el));
 
-    // avoid sticky focus after tap
+    // Small mobile polish: avoid sticky focus after tap
     document.addEventListener("click", (e) => {
       const a = e.target.closest("a,button");
       if (a) a.blur();
-    }, { passive:true });
+    }, { passive: true });
 
-    // ===== Services carousels (auto from JSON) =====
-    const SERVICE_LIMIT = 6;      // nb max d'images par service
-    const AUTO_MS = 3500;         // auto-rotation
+    // ===== HOME carousels (NE PAS utiliser loadGallery ici) =====
+    const HOME_JSON = "photos/gallery_auto.json"; // source des catégories -> fichiers
+    const HOME_LIMIT = 10;                        // nb d'images max par carrousel
+    const AUTO_MS = 3500;                         // auto-rotation
 
-    let galleryData = {};
-    let serviceTimers = new Map();
+    const carousels = [...document.querySelectorAll(".js-carousel")];
+    const timers = new WeakMap();
 
-    async function loadGallery(){
-      const res = await fetch("photos/gallery.json", { cache:"no-store" });
-      if(!res.ok) return; // accueil fonctionne même si JSON absent
-      galleryData = await res.json();
-      initServiceCarousels();
-    }
-
-    function normalizeEntries(cat){
-      const arr = galleryData[cat] || [];
-      return arr
-        .filter(e => e && e.file)
-        .map(e => ({
-          cat,
-          file: String(e.file),
-          type: e.type ? String(e.type) : null,
-          lieu: e.lieu ? String(e.lieu) : null,
-          tags: Array.isArray(e.tags) ? e.tags.map(String) : []
-        }));
-    }
-
-    function pickItems(cat){
-      const items = normalizeEntries(cat);
-      // shuffle léger
-      for(let i=items.length-1; i>0; i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [items[i], items[j]] = [items[j], items[i]];
+    async function loadHomeCarousels(){
+      let data;
+      try{
+        const res = await fetch(HOME_JSON, { cache:"no-store" });
+        if(!res.ok) throw new Error("HTTP " + res.status);
+        data = await res.json();
+      }catch(err){
+        // Affiche un état propre (et ne casse pas la page)
+        carousels.forEach(c=>{
+          const track = c.querySelector(".carouselTrack");
+          track.innerHTML = `<div class="carouselSlide"><div class="carouselEmpty">Galerie indisponible</div></div>`;
+        });
+        console.warn("Erreur chargement", HOME_JSON, err);
+        return;
       }
-      return items.slice(0, SERVICE_LIMIT);
-    }
 
-    function initServiceCarousels(){
-      document.querySelectorAll(".service[data-service]").forEach(card=>{
-        const serviceCat = card.getAttribute("data-service");
-        const carousel = card.querySelector(".carousel");
-        const track = carousel.querySelector(".carouselTrack");
-        const dots = carousel.querySelector(".cDots");
-        const prevBtn = carousel.querySelector(".prev");
-        const nextBtn = carousel.querySelector(".next");
+      carousels.forEach(c=>{
+        const cat = c.getAttribute("data-service");
+        const files = Array.isArray(data?.[cat]) ? data[cat] : [];
 
-        const items = pickItems(serviceCat);
-        if(!items.length){
-          track.innerHTML = `<div class="carouselSlide" style="display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.65);font-weight:800">Aucune photo</div>`;
-          return;
-        }
+        const items = shuffle(files).slice(0, HOME_LIMIT).map(file => ({ cat, file }));
+        renderCarousel(c, items);
 
-        let idx = 0;
-
-        track.innerHTML = items.map(s=>{
-          const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
-          const badge = [s.type, s.lieu].filter(Boolean).join(" • ") || s.cat;
-          return `
-            <div class="carouselSlide">
-              <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}">
-              <div class="svcBadge">${escapeHtml(badge)}</div>
-            </div>
-          `;
-        }).join("");
-
-        dots.innerHTML = items.map((_,i)=>`<span class="dot ${i===0?'on':''}"></span>`).join("");
-
-        const dotEls = [...dots.querySelectorAll(".dot")];
-
-        function go(n){
-          idx = (n + items.length) % items.length;
-          track.style.transform = `translateX(-${idx*100}%)`;
-          dotEls.forEach((d,i)=>d.classList.toggle("on", i===idx));
-        }
-
-        function prev(){ go(idx-1); }
-        function next(){ go(idx+1); }
-
-        prevBtn.addEventListener("click", prev);
-        nextBtn.addEventListener("click", next);
-
-        // click => galerie.html avec catégorie pré-sélectionnée
-        carousel.addEventListener("click", (e)=>{
-          // éviter click sur boutons
-          if(e.target.closest("button")) return;
+        // clic sur le carrousel => ouvre galerie filtrée sur la catégorie
+        c.addEventListener("click", (e)=>{
+          if(e.target.closest("button")) return; // si clic sur flèche
           const url = new URL("galerie.html", window.location.href);
-          url.searchParams.set("cat", serviceCat);
+          url.searchParams.set("cat", cat);
           window.location.href = url.toString();
         });
 
-        // auto rotate
-        const t = setInterval(()=>go(idx+1), AUTO_MS);
-        serviceTimers.set(serviceCat, t);
+        // auto-rotate
+        if(items.length > 1){
+          const t = setInterval(()=>next(c), AUTO_MS);
+          timers.set(c, t);
+        }
 
-        // Swipe mobile
-        attachSwipe(carousel, {
-          onLeft: next,
-          onRight: prev
+        // swipe mobile
+        attachSwipe(c, {
+          onLeft: ()=>next(c),
+          onRight: ()=>prev(c),
         });
       });
     }
 
-    // Generic swipe helper
-    function attachSwipe(el, {onLeft, onRight}){
+    function renderCarousel(root, items){
+      const track = root.querySelector(".carouselTrack");
+      const dotsWrap = root.querySelector(".cDots");
+      const prevBtn = root.querySelector(".prev");
+      const nextBtn = root.querySelector(".next");
+
+      root.dataset.idx = "0";
+
+      if(!items.length){
+        track.innerHTML = `<div class="carouselSlide"><div class="carouselEmpty">Aucune photo</div></div>`;
+        dotsWrap.innerHTML = "";
+        prevBtn.disabled = true;
+        nextBtn.disabled = true;
+        return;
+      }
+
+      track.innerHTML = items.map(s=>{
+        const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+        return `
+          <div class="carouselSlide">
+            <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}">
+            <div class="svcBadge">${escapeHtml(s.cat)}</div>
+          </div>`;
+      }).join("");
+
+      dotsWrap.innerHTML = items.map((_,i)=>`<span class="dot ${i===0?'on':''}"></span>`).join("");
+
+      prevBtn.disabled = items.length <= 1;
+      nextBtn.disabled = items.length <= 1;
+
+      prevBtn.addEventListener("click", (e)=>{ e.stopPropagation(); prev(root); });
+      nextBtn.addEventListener("click", (e)=>{ e.stopPropagation(); next(root); });
+
+      // stock items sur l’élément
+      root._items = items;
+      update(root);
+    }
+
+    function prev(root){
+      const items = root._items || [];
+      if(items.length <= 1) return;
+      const idx = Number(root.dataset.idx || 0);
+      root.dataset.idx = String((idx - 1 + items.length) % items.length);
+      update(root);
+    }
+
+    function next(root){
+      const items = root._items || [];
+      if(items.length <= 1) return;
+      const idx = Number(root.dataset.idx || 0);
+      root.dataset.idx = String((idx + 1) % items.length);
+      update(root);
+    }
+
+    function update(root){
+      const items = root._items || [];
+      const idx = Number(root.dataset.idx || 0);
+      const track = root.querySelector(".carouselTrack");
+      const dots = [...root.querySelectorAll(".dot")];
+
+      track.style.transform = `translateX(-${idx * 100}%)`;
+      dots.forEach((d,i)=>d.classList.toggle("on", i===idx));
+    }
+
+    // Swipe helper (simple & robuste)
+    function attachSwipe(el, { onLeft, onRight }){
       let sx=0, sy=0, dx=0, dy=0, active=false;
 
       el.addEventListener("touchstart", (e)=>{
@@ -500,24 +675,34 @@
         active=true;
         sx = e.touches[0].clientX;
         sy = e.touches[0].clientY;
-        dx=dy=0;
-      }, {passive:true});
+        dx=0; dy=0;
+      }, { passive:true });
 
       el.addEventListener("touchmove", (e)=>{
         if(!active || !e.touches || e.touches.length!==1) return;
         dx = e.touches[0].clientX - sx;
         dy = e.touches[0].clientY - sy;
-      }, {passive:true});
+      }, { passive:true });
 
       el.addEventListener("touchend", ()=>{
         if(!active) return;
         active=false;
+
         // swipe horizontal dominant + seuil
         if(Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy)*1.2){
           if(dx < 0) onLeft && onLeft();
           else onRight && onRight();
         }
-      });
+      }, { passive:true });
+    }
+
+    function shuffle(arr){
+      const a = [...arr];
+      for(let i=a.length-1;i>0;i--){
+        const j = Math.floor(Math.random()*(i+1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
     }
 
     function escapeHtml(str){
@@ -526,19 +711,7 @@
       }[m]));
     }
 
-    async function loadHomeCarousels(){
-  try{
-    const res = await fetch(`photos/gallery.auto.json?v=${Date.now()}`, { cache: "no-store" });
-    if(!res.ok) throw new Error("gallery.auto.json introuvable (HTTP " + res.status + ")");
-    const galleryData = await res.json();
-
-    initHomeCarousels(galleryData);
-  }catch(err){
-    console.error(err);
-  }
-}
-
-loadHomeCarousels();
+    loadHomeCarousels();
   </script>
 </body>
 </html>
