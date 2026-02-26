@@ -1,1 +1,42 @@
+name: Generate gallery.json
 
+on:
+  push:
+    paths:
+      - 'photos/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Generate gallery.json
+        run: |
+          echo "{" > photos/gallery.json
+          first=true
+          for dir in photos/*/ ; do
+            folder=$(basename "$dir")
+            if [ "$folder" != "gallery.json" ]; then
+              files=$(ls "$dir" | grep -E '\.(jpg|jpeg|png|webp)$' | sed 's/.*/"&"/' | paste -sd, -)
+              if [ ! -z "$files" ]; then
+                if [ "$first" = true ]; then
+                  first=false
+                else
+                  echo "," >> photos/gallery.json
+                fi
+                echo "  \"$folder\": [$files]" >> photos/gallery.json
+              fi
+            fi
+          done
+          echo "}" >> photos/gallery.json
+
+      - name: Commit updated gallery.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add photos/gallery.json
+          git commit -m "Auto-update gallery.json" || echo "No changes"
+          git push
