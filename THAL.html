@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Portfolio de Hirschi Jonathan — régulation, conduite bus, photographie." />
+  <title>THAL | Hirschi Jonathan</title>
+
+  <style>
+    :root{
+      --bg:#070a12;
+      --panel: rgba(17, 24, 39, .62);
+      --panel2: rgba(255,255,255,.05);
+      --text:#e5e7eb;
+      --muted:#a3aab8;
+      --line:rgba(255,255,255,.10);
+      --shadow: 0 18px 55px rgba(0,0,0,.55);
+      --radius: 20px;
+      --max: 1100px;
+      --blur: 14px;
+      --ring: 0 0 0 1px rgba(255,255,255,.10) inset;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      line-height:1.5;
+
+      /* “2025 vibe”: fond profond + halos */
+      background:
+        radial-gradient(1100px 700px at 18% -8%, rgba(99,102,241,.30), transparent 55%),
+        radial-gradient(900px 550px at 110% 12%, rgba(168,85,247,.22), transparent 55%),
+        radial-gradient(700px 500px at 60% 120%, rgba(56,189,248,.14), transparent 60%),
+        var(--bg);
+    }
+
+    /* OPTION B — Logo THAL en fond sur toute la page (watermark) */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      background: url("./THAL.svg") no-repeat;
+      background-position: center;
+      background-size: min(980px, 92vw);
+      opacity: 0.035;
+      pointer-events:none;
+      z-index: 0;
+      filter: saturate(1.1);
+    }
+
+    /* Noise très léger (aspect “premium” sans image externe) */
+    body::after{
+      content:"";
+      position: fixed;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,.02) 0px,
+          rgba(255,255,255,.02) 1px,
+          transparent 2px,
+          transparent 4px
+        );
+      opacity: .10;
+      mix-blend-mode: overlay;
+      pointer-events:none;
+      z-index: 0;
+    }
+
+    body > *{ position: relative; z-index: 1; }
+
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:24px}
+
+    header{
+      position:sticky; top:0; z-index:10;
+      background: rgba(7,10,18,.62);
+      backdrop-filter: blur(var(--blur));
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    nav{display:flex; align-items:center; justify-content:space-between; gap:16px;}
+    .brand{
+      display:flex; align-items:center; gap:12px; text-decoration:none;
+      font-weight:720; letter-spacing:.2px;
+    }
+ .brand img{
+  width:120px;
+  height:120px;
+  border-radius:20px;
+  padding:12px;
+  background: rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);
+  box-shadow: 0 12px 30px rgba(99,102,241,.25);
+}
+
+    .links{display:flex; gap:10px; flex-wrap:wrap}
+    .links a{
+      text-decoration:none; color:var(--muted);
+      padding:10px 12px; border-radius:999px;
+      transition: background .18s ease, color .18s ease;
+    }
+    .links a:hover{color:var(--text); background:rgba(255,255,255,.06)}
+
+    .cta{display:flex; gap:10px; align-items:center;}
+    .btn{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:10px 14px;
+      border-radius:999px;
+      text-decoration:none;
+      display:inline-flex; gap:8px; align-items:center;
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      box-shadow: 0 10px 22px rgba(0,0,0,.22);
+    }
+    .btn:hover{background:rgba(255,255,255,.10); transform: translateY(-1px)}
+    .btn:active{transform: translateY(0px)}
+    .btn.primary{
+      border-color:transparent;
+      background: linear-gradient(135deg, rgba(99,102,241,.95), rgba(168,85,247,.90));
+      color:#070a12;
+      font-weight:750;
+      box-shadow: 0 18px 45px rgba(99,102,241,.18);
+    }
+    .btn.primary:hover{filter:brightness(1.05)}
+
+    main{padding:38px 0 70px}
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.45fr .55fr;
+      gap:18px;
+      align-items:stretch;
+      margin-top:18px;
+    }
+
+    .card{
+      background: var(--panel);
+      border:1px solid rgba(255,255,255,.10);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* liseré subtil “2025” */
+    .card::before{
+      content:"";
+      position:absolute; inset:0;
+      background: radial-gradient(800px 260px at 20% 0%, rgba(99,102,241,.22), transparent 60%),
+                  radial-gradient(700px 260px at 90% 10%, rgba(168,85,247,.18), transparent 55%);
+      opacity:.55;
+      pointer-events:none;
+    }
+    .card > *{position:relative; z-index:1}
+
+    .hero .left{padding:30px}
+    .hero h1{
+      margin:0 0 10px;
+      font-size:clamp(30px, 3.4vw, 46px);
+      line-height:1.05;
+      letter-spacing:-.02em;
+    }
+    .subtitle{color:var(--muted); margin:0 0 18px; font-size:16px}
+    .two{display:flex; gap:10px; flex-wrap:wrap; align-items:center;}
+
+    .chips{display:flex; gap:10px; flex-wrap:wrap; margin:18px 0 0}
+    .chip{
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.06);
+      color:var(--text);
+      padding:8px 10px;
+      border-radius:999px;
+      font-size:13px;
+      box-shadow: 0 10px 18px rgba(0,0,0,.18);
+    }
+
+    .hero .right{padding:18px; display:flex; flex-direction:column; gap:12px}
+    .mini{
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      box-shadow: 0 12px 28px rgba(0,0,0,.22);
+    }
+    .mini b{display:block; margin-bottom:6px}
+    .mini span{color:var(--muted)}
+
+    section{margin-top:26px}
+
+    .section-title{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:14px;
+      margin:0 0 12px;
+    }
+    .section-title h2{margin:0; font-size:18px; letter-spacing:.2px}
+
+    .grid{display:grid; grid-template-columns: repeat(12, 1fr); gap:14px;}
+    .col-12{grid-column: span 12}
+
+    .proj{
+      padding:16px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      display:flex; flex-direction:column; gap:10px;
+      min-height:160px;
+      box-shadow: 0 18px 40px rgba(0,0,0,.22);
+      transition: transform .16s ease, background .16s ease;
+    }
+    .proj:hover{
+      transform: translateY(-2px);
+      background:rgba(255,255,255,.07);
+    }
+    .proj h3{margin:0; font-size:16px}
+    .proj p{margin:0; color:var(--muted); font-size:14px}
+
+    .proj .tags{display:flex; gap:8px; flex-wrap:wrap; margin-top:auto}
+    .tag{
+      font-size:12px;
+      padding:6px 8px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.18);
+      color:var(--text);
+    }
+
+    .about, .skills, .contact{
+      padding:18px;
+      border-radius:var(--radius);
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(255,255,255,.05);
+      box-shadow: 0 18px 45px rgba(0,0,0,.22);
+    }
+    .skill-list{display:flex; flex-wrap:wrap; gap:10px}
+
+    input, textarea{
+      width:100%;
+      padding:12px 12px;
+      border-radius:14px;
+      border:1px solid rgba(255,255,255,.10);
+      background:rgba(0,0,0,.22);
+      color:var(--text);
+      outline:none;
+      transition: border-color .15s ease, background .15s ease;
+    }
+    input:focus, textarea:focus{
+      border-color: rgba(99,102,241,.55);
+      background:rgba(0,0,0,.26);
+    }
+    textarea{min-height:120px; resize:vertical}
+    label{display:block; font-size:13px; color:var(--muted); margin:10px 0 6px}
+
+    footer{
+      border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted);
+      padding:22px 0;
+      font-size:13px;
+    }
+
+    @media (max-width: 900px){
+      .hero{grid-template-columns: 1fr}
+      header{position:static}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="wrap">
+      <nav>
+        <a class="brand" href="#top" aria-label="Retour en haut">
+          <img src="./THAL.svg" alt="Logo THAL" />
+          <span>Hirschi Jonathan</span>
+        </a>
+
+        <div class="links" aria-label="Navigation">
+          <a href="#portfolio">Portfolio</a>
+          <a href="#apropos">À propos</a>
+          <a href="#competences">Compétences</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div class="cta">
+          <a class="btn" href="./cv.pdf" id="cvLink" aria-label="Télécharger le CV">CV</a>
+          <a class="btn primary" href="#contact">Me contacter</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <div class="wrap">
+
+      <div class="hero">
+        <div class="card left">
+          <h1>Gestion • Régulation • Conduite.<br/>Et la photo qui arrive derrière.</h1>
+
+          <p class="subtitle">
+            <b>Hirschi Jonathan</b> — Gestionnaire de régulation • Conducteur de bus • Photographe en formation.<br/>
+            Basé dans le <span style="color:var(--text)">canton de Vaud</span>.
+          </p>
+
+          <div class="two">
+            <a class="btn primary" href="#portfolio">Voir le portfolio</a>
+            <a class="btn" href="mailto:thal.photographie@bluewin.ch">thal.photographie@bluewin.ch</a>
+            <a class="btn" href="#" id="copyEmail" title="Copier l'email">Copier</a>
+          </div>
+
+          <div class="chips" aria-label="Points forts">
+            <span class="chip">🧠 Organisation</span>
+            <span class="chip">🧭 Sang-froid</span>
+            <span class="chip">📸 Photographie (en progression)</span>
+            <span class="chip">✅ Fiable</span>
+          </div>
+        </div>
+
+        <div class="card right">
+          <div class="mini">
+            <b>Focus actuel</b>
+            <span>Portfolio photo + progression technique</span>
+          </div>
+
+          <div class="mini">
+            <b>Instagram</b>
+            <div class="two">
+              <a class="btn" href="https://www.instagram.com/thal.photographie/" target="_blank" rel="noreferrer">
+                thal.photographie
+              </a>
+            </div>
+          </div>
+
+          <div class="mini">
+            <b>Contact</b>
+            <span>thal.photographie@bluewin.ch</span>
+          </div>
+        </div>
+      </div>
+
+      <section id="portfolio">
+        <div class="section-title">
+          <h2>Portfolio</h2>
+        </div>
+
+        <div class="grid">
+          <article class="proj col-12">
+            <h3>THAL — Photographie</h3>
+            <p>
+              Sélection et séries en cours de construction. Pour le moment, mon travail est publié sur Instagram.
+            </p>
+            <div class="tags">
+              <span class="tag">Photographie</span>
+              <span class="tag">Vaud</span>
+              <span class="tag">Portfolio</span>
+            </div>
+            <div class="two">
+              <a class="btn primary" href="https://www.instagram.com/thal.photographie/" target="_blank" rel="noreferrer">
+                Ouvrir le portfolio Instagram
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="apropos">
+        <div class="section-title">
+          <h2>À propos</h2>
+        </div>
+
+        <div class="about">
+          <p style="margin:0">
+            Je suis <b>Hirschi Jonathan</b>. Mon quotidien tourne autour de la gestion et de la régulation,
+            avec une exigence forte sur la sécurité, la précision et le timing.
+            En parallèle, je développe mon regard et ma technique en <b>photographie</b>, avec l’objectif
+            de construire un portfolio cohérent et professionnel.
+          </p>
+        </div>
+      </section>
+
+      <section id="competences">
+        <div class="section-title">
+          <h2>Compétences</h2>
+        </div>
+
+        <div class="skills">
+          <div class="skill-list">
+            <span class="chip">Régulation / coordination</span>
+            <span class="chip">Gestion des priorités</span>
+            <span class="chip">Communication opérationnelle</span>
+            <span class="chip">Conduite (bus)</span>
+            <span class="chip">Photographie (en formation)</span>
+            <span class="chip">Traitement / tri (en progression)</span>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact">
+        <div class="section-title">
+          <h2>Contact</h2>
+        </div>
+
+        <div class="contact">
+          <p style="color:var(--muted); margin-top:0">
+            Email : <b>thal.photographie@bluewin.ch</b>
+          </p>
+
+          <form id="mailForm">
+            <label for="name">Nom</label>
+            <input id="name" name="name" placeholder="Ton nom" required />
+
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" placeholder="ton@email.ch" required />
+
+            <label for="msg">Message</label>
+            <textarea id="msg" name="msg" placeholder="Une idée, un projet ? Contactez-moi." required></textarea>
+
+            <div class="two" style="margin-top:12px">
+              <button class="btn primary" type="submit">Envoyer</button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <footer class="wrap">
+        <div class="two" style="justify-content:space-between">
+          <span>© <span id="year"></span> THAL — Hirschi Jonathan</span>
+        </div>
+      </footer>
+
+    </div>
+  </main>
+
+  <script>
+    const EMAIL = "thal.photographie@bluewin.ch";
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Si tu n'as pas encore de CV, on masque le bouton automatiquement
+    const cvLink = document.getElementById("cvLink");
+    fetch("./cv.pdf", { method: "HEAD" })
+      .then(res => { if (!res.ok) cvLink.style.display = "none"; })
+      .catch(() => { cvLink.style.display = "none"; });
+
+    document.getElementById("copyEmail").addEventListener("click", (e) => {
+      e.preventDefault();
+      navigator.clipboard.writeText(EMAIL).then(() => {
+        const b = e.currentTarget;
+        const old = b.textContent;
+        b.textContent = "Copié ✅";
+        setTimeout(() => b.textContent = old, 1200);
+      });
+    });
+
+    // Formulaire -> mailto (sans serveur)
+    document.getElementById("mailForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const msg = document.getElementById("msg").value.trim();
+
+      const subject = encodeURIComponent(`Contact portfolio — ${name}`);
+      const body = encodeURIComponent(`Nom: ${name}\nEmail: ${email}\n\nMessage:\n${msg}\n`);
+      window.location.href = `mailto:${EMAIL}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
