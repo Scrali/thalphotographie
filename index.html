@@ -11,14 +11,11 @@
     :root{
       --bg:#070a12;
       --bg2:#0b1020;
-      --card:rgba(255,255,255,.06);
-      --card2:rgba(255,255,255,.08);
       --stroke:rgba(255,255,255,.12);
       --text:rgba(255,255,255,.92);
       --muted:rgba(255,255,255,.65);
       --muted2:rgba(255,255,255,.48);
       --accent:#6ea8ff;
-      --accent2:#a7d2ff;
       --shadow: 0 18px 60px rgba(0,0,0,.55);
       --radius:18px;
       --radius2:24px;
@@ -39,6 +36,7 @@
     *{box-sizing:border-box; max-width:100%;}
     html,body{height:100%}
     html{-webkit-text-size-adjust:100%}
+
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
@@ -87,14 +85,12 @@
       padding:6px 10px;
       min-width: 0;
     }
-
     .brand img{
       width: clamp(42px, 8vw, 58px);
       height: auto;
       display:block;
       filter: drop-shadow(0 10px 18px rgba(0,0,0,.45));
     }
-
     .brand .name{
       font-weight:650;
       letter-spacing:.2px;
@@ -122,45 +118,32 @@
       justify-content: flex-end;
     }
 
-    .chip{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.03);
-      color:var(--muted);
-      font-weight:600;
-      font-size:14px;
-      transition: transform .15s ease, background .2s ease, border-color .2s ease;
+    .chip, .btn, .ghost{
       min-height:44px;
       display:inline-flex;
       align-items:center;
       justify-content:center;
+      border-radius:999px;
+      font-size:14px;
+      font-weight:700;
+      transition: transform .15s ease, background .2s ease, border-color .2s ease, filter .2s ease;
+      border:1px solid var(--stroke);
+      background:rgba(255,255,255,.03);
     }
-    .chip:hover{
-      transform: translateY(-1px);
-      background:rgba(255,255,255,.06);
-      border-color:rgba(255,255,255,.18);
-    }
+
+    .chip{ color:var(--muted); padding:10px 14px; }
+    .chip:hover{ transform: translateY(-1px); background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.18); }
 
     .btn{
       padding:10px 14px;
-      border-radius:999px;
-      border:1px solid rgba(110,168,255,.42);
+      border-color: rgba(110,168,255,.42);
       background: linear-gradient(180deg, rgba(110,168,255,.24), rgba(110,168,255,.10));
-      color:var(--text);
-      font-weight:750;
-      font-size:14px;
-      transition: transform .15s ease, filter .2s ease, border-color .2s ease;
-      min-height:44px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
+      font-weight:800;
     }
-    .btn:hover{
-      transform: translateY(-1px);
-      filter: brightness(1.05);
-      border-color:rgba(110,168,255,.65);
-    }
+    .btn:hover{ transform: translateY(-1px); filter: brightness(1.05); border-color:rgba(110,168,255,.65); }
+
+    .ghost{ padding:10px 14px; font-weight:800; color:var(--text); }
+    .ghost:hover{ transform: translateY(-1px); background:rgba(255,255,255,.06); }
 
     /* Hero */
     .hero{
@@ -190,7 +173,6 @@
       gap: var(--gap);
       align-items:stretch;
     }
-
     @media (max-width: 900px){
       .heroGrid{grid-template-columns:1fr}
       .bg-logo{left:50%; width:min(820px, 96vw); opacity:.04}
@@ -228,22 +210,6 @@
       margin-top:10px;
     }
 
-    .ghost{
-      padding:10px 14px;
-      border-radius:999px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.03);
-      color:var(--text);
-      font-weight:750;
-      font-size:14px;
-      transition: transform .15s ease, background .2s ease;
-      min-height:44px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-    }
-    .ghost:hover{transform: translateY(-1px); background:rgba(255,255,255,.06)}
-
     .heroSide{
       padding: clamp(14px, 2.2vw, 18px);
       display:grid;
@@ -258,16 +224,16 @@
     .mini b{display:block; font-size:13px; margin-bottom:4px}
     .mini span{color:var(--muted2); font-size:13px}
 
-    /* Sections */
     .sectionTitle{
       margin:18px 2px 10px;
       color:var(--muted);
-      font-weight:700;
+      font-weight:800;
       font-size:13px;
       letter-spacing:.12em;
       text-transform:uppercase;
     }
 
+    /* Services grid */
     .grid3{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
@@ -275,7 +241,7 @@
     }
     @media (max-width: 900px){ .grid3{grid-template-columns:1fr} }
 
-    /* ===== Service cards + carousel ===== */
+    /* ===== Carousel (services) ===== */
     .service{
       padding:16px;
       border-radius: var(--radius);
@@ -291,8 +257,8 @@
       border-color: rgba(255,255,255,.18);
     }
 
-    .svcTop h3 { margin:0 0 6px; font-size:16px }
-    .svcTop p  { margin:0; color:var(--muted); font-size:14px; line-height:1.5 }
+    .svcTop h3{ margin:0 0 6px; font-size:16px }
+    .svcTop p { margin:0; color:var(--muted); font-size:14px; line-height:1.5 }
 
     .carousel{
       position: relative;
@@ -303,7 +269,6 @@
       min-height: 180px;
       cursor:pointer;
     }
-
     .carouselTrack{
       display:flex;
       width:100%;
@@ -312,37 +277,17 @@
       transition: transform .45s ease;
       will-change: transform;
     }
-
-    .carouselSlide{
-      min-width: 100%;
-      height: 100%;
-      position:relative;
-    }
-
+    .carouselSlide{ min-width:100%; height:100%; }
     .carouselSlide img{
       width:100%;
       height: 220px;
       display:block;
       object-fit: cover;
     }
-
     @media (max-width: 520px){
       .carouselSlide img{ height: 190px; }
-    }
-
-    .svcBadge{
-      position:absolute;
-      left:10px;
-      bottom:10px;
-      padding:8px 10px;
-      border-radius:999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.35);
-      color: rgba(255,255,255,.92);
-      font-weight:800;
-      font-size:12px;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      .navlinks .chip{display:none;}
+      .navlinks .btn{padding:10px 12px;}
     }
 
     .cNav{
@@ -354,7 +299,6 @@
       justify-content:space-between;
       padding: 10px;
     }
-
     .cBtn{
       pointer-events:auto;
       width: 42px;
@@ -383,7 +327,6 @@
       gap:6px;
       pointer-events:none;
     }
-
     .dot{
       width: 7px;
       height: 7px;
@@ -398,7 +341,7 @@
       opacity:1;
     }
 
-    /* Gallery */
+    /* Gallery menus only */
     .galleryHeader{
       display:flex;
       justify-content:space-between;
@@ -419,7 +362,9 @@
     }
 
     .pillRow{
-      display:flex; gap:8px; flex-wrap:wrap;
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
       margin-top:10px;
     }
     .pill{
@@ -428,7 +373,7 @@
       border:1px solid var(--stroke);
       background:rgba(255,255,255,.03);
       color:var(--muted);
-      font-weight:700;
+      font-weight:800;
       font-size:13px;
       cursor:pointer;
       transition: background .2s ease, transform .15s ease, border-color .2s ease;
@@ -442,114 +387,15 @@
       background: rgba(110,168,255,.12);
     }
 
-    .masonry{
-      margin-top:12px;
-      display:grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap:10px;
-    }
-    @media (max-width: 420px){
-      .masonry{grid-template-columns: repeat(2, minmax(0, 1fr));}
-      .navlinks .chip{display:none;}
-      .navlinks .btn{padding:10px 12px;}
-    }
-
-    .shot{
-      border-radius: 16px;
-      overflow:hidden;
+    .note{
+      margin-top:10px;
+      color:var(--muted2);
+      font-size:13px;
+      line-height:1.5;
       border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
-      position:relative;
-      min-height: 160px;
-      cursor:pointer;
-    }
-    .shot img{
-      width:100%;
-      height:100%;
-      display:block;
-      object-fit: cover;
-      transform: scale(1.01);
-      transition: transform .35s ease, filter .35s ease;
-    }
-    .shot:hover img{transform: scale(1.05); filter: contrast(1.02) saturate(1.05)}
-    .shot .cap{
-      position:absolute;
-      left:10px;
-      bottom:10px;
-      right:10px;
-      padding:10px 12px;
-      border-radius:14px;
-      background: rgba(0,0,0,.45);
-      border:1px solid rgba(255,255,255,.12);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      color:rgba(255,255,255,.92);
-      font-size:13px;
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      opacity:0;
-      transform: translateY(6px);
-      transition: opacity .25s ease, transform .25s ease;
-    }
-    .shot:hover .cap{opacity:1; transform: translateY(0)}
-    @media (hover: none){
-      .shot .cap{opacity:1; transform:none; background:rgba(0,0,0,.35);}
-    }
-
-    /* Lightbox */
-    .lightbox{
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.78);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:18px;
-      z-index:200;
-    }
-    .lightbox.open{display:flex}
-    .lbCard{
-      width:min(1100px, 100%);
-      border-radius: 18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(10,14,24,.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 30px 110px rgba(0,0,0,.65);
-      position:relative;
-    }
-    .lbTop{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:12px;
-      padding:12px 14px;
-      border-bottom:1px solid rgba(255,255,255,.10);
-      color:rgba(255,255,255,.85);
-      font-weight:700;
-      font-size:13px;
-    }
-    .lbBtns{display:flex; gap:8px}
-    .lbBtn{
-      padding:10px 12px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.12);
-      background: rgba(255,255,255,.04);
-      cursor:pointer;
-      color:rgba(255,255,255,.92);
-      font-weight:800;
-      min-height:44px;
-    }
-    .lbBtn:hover{background: rgba(255,255,255,.08)}
-    .lbImgWrap{background:#000}
-    .lbImg{
-      width:100%;
-      height:min(76vh, 760px);
-      object-fit:contain;
-      display:block;
-      background:#000;
+      background: rgba(255,255,255,.03);
+      border-radius: 16px;
+      padding: 12px 14px;
     }
 
     .footer{
@@ -559,7 +405,7 @@
       text-align:center;
     }
 
-    /* Smooth reveal */
+    /* Reveal */
     .reveal{opacity:0; transform: translateY(10px); transition: opacity .6s ease, transform .6s ease}
     .reveal.on{opacity:1; transform: translateY(0)}
 
@@ -618,8 +464,9 @@
 
       <div class="sectionTitle reveal">Ce que je propose</div>
 
+      <!-- Services (carrousels auto depuis gallery.json) -->
       <section class="grid3">
-        <div class="service reveal" data-carousel="portraits">
+        <div class="service reveal" data-carousel="Portraits">
           <div class="svcTop">
             <h3>Portraits</h3>
             <p>Individuel, couple, famille — en extérieur ou intérieur.</p>
@@ -635,7 +482,7 @@
           </div>
         </div>
 
-        <div class="service reveal" data-carousel="evenements">
+        <div class="service reveal" data-carousel="Evenements">
           <div class="svcTop">
             <h3>Événements</h3>
             <p>Anniversaire, soirée, association — reportage discret.</p>
@@ -651,7 +498,7 @@
           </div>
         </div>
 
-        <div class="service reveal" data-carousel="projets">
+        <div class="service reveal" data-carousel="Projets">
           <div class="svcTop">
             <h3>Projets</h3>
             <p>Marques, produits, contenu réseau — pack prêt à publier.</p>
@@ -668,15 +515,21 @@
         </div>
       </section>
 
+      <!-- Galerie : MENUS UNIQUEMENT -->
       <section id="galerie" style="margin-top:18px">
         <div class="galleryHeader reveal">
           <div>
             <h2>Galerie</h2>
+            <p>Choisis une catégorie puis une sous-catégorie.</p>
           </div>
         </div>
 
         <div class="pillRow reveal" id="cats"></div>
-        <div class="masonry reveal" id="grid"></div>
+        <div class="pillRow reveal" id="subcats"></div>
+
+        <div class="note reveal" id="hint">
+          Sélectionne une sous-catégorie pour préparer l’affichage (ensuite on pourra ouvrir une page dédiée).
+        </div>
       </section>
 
       <section id="contact" class="card reveal" style="margin-top:16px; padding:18px">
@@ -695,53 +548,11 @@
     </main>
   </div>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lb" aria-hidden="true">
-    <div class="lbCard" role="dialog" aria-modal="true">
-      <div class="lbTop">
-        <div id="lbTitle">Photo</div>
-        <div class="lbBtns">
-          <button class="lbBtn" id="lbPrev" type="button" aria-label="Photo précédente">←</button>
-          <button class="lbBtn" id="lbNext" type="button" aria-label="Photo suivante">→</button>
-          <button class="lbBtn" id="lbClose" type="button" aria-label="Fermer">✕</button>
-        </div>
-      </div>
-      <div class="lbImgWrap">
-        <img class="lbImg" id="lbImg" alt="" />
-      </div>
-    </div>
-  </div>
-
   <script>
-    // ===== Config =====
-    const SERVICE_MAP = {
-      portraits: ["Portraits"],
-      evenements: ["Evenements", "Événements"],
-      projets: ["Projets"]
-    };
-    const SERVICE_LIMIT = 6;
-    const SERVICE_ROTATE_MS = 3500;
-
-    // ===== Utils =====
-    function escapeHtml(str){
-      return String(str).replace(/[&<>"']/g, (m)=>({
-        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
-      }[m]));
-    }
-
-    function shuffle(arr){
-      const a = [...arr];
-      for(let i=a.length-1;i>0;i--){
-        const j = Math.floor(Math.random()*(i+1));
-        [a[i], a[j]] = [a[j], a[i]];
-      }
-      return a;
-    }
-
-    // ===== Year =====
+    // Year
     document.getElementById("y").textContent = new Date().getFullYear();
 
-    // ===== Reveal on scroll =====
+    // Reveal on scroll
     const revealEls = [...document.querySelectorAll(".reveal")];
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{
@@ -756,259 +567,194 @@
       if (a) a.blur();
     }, { passive: true });
 
-    // ===== Gallery state =====
+    // ===== Data =====
     const catsEl = document.getElementById("cats");
-    const gridEl = document.getElementById("grid");
+    const subcatsEl = document.getElementById("subcats");
+    const hintEl = document.getElementById("hint");
 
-    let galleryData = {};
-    let allShots = [];     // {cat, file}
-    let filtered = [];     // current list in gallery grid/lightbox
-    let currentCat = "Tous";
+    let galleryData = {}; // { Cat: { Sub: [files...] } }
+    let currentCat = null;
+    let currentSub = null;
 
-    // ===== Service carousels state =====
-    const serviceState = {}; // key -> { items, idx, timer, track, dotsEl }
+    function escapeHtml(str){
+      return String(str).replace(/[&<>"']/g, (m)=>({
+        "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+      }[m]));
+    }
 
+    // ===== Load gallery.json =====
     async function loadGallery(){
       try{
         const res = await fetch("photos/gallery.json", { cache: "no-store" });
         if(!res.ok) throw new Error("gallery.json introuvable (HTTP " + res.status + ")");
         galleryData = await res.json();
 
-        allShots = [];
-        Object.keys(galleryData).forEach(cat=>{
-          (galleryData[cat] || []).forEach(file=>{
-            allShots.push({cat, file});
-          });
-        });
-
-        renderCats();
-        applyFilter("Tous");
-
+        renderMainCats();
         renderServiceCarousels();
-        startServiceCarousels();
       }catch(err){
-        gridEl.innerHTML = `
-          <div style="grid-column:1/-1; color:rgba(255,255,255,.75); border:1px solid rgba(255,255,255,.12);
-                      background:rgba(255,255,255,.03); border-radius:16px; padding:14px; line-height:1.5">
-            <b>Erreur chargement galerie</b><br/>
-            ${escapeHtml(err.message)}<br/>
-            Vérifie que <code>photos/gallery.json</code> existe sur le site.
-          </div>`;
+        console.error(err);
+        hintEl.textContent = "Erreur chargement galerie : " + err.message;
       }
     }
 
-    // ===== Gallery pills =====
-    function renderCats(){
-      const cats = ["Tous", ...Object.keys(galleryData)];
+    // ===== Menus galerie =====
+    function renderMainCats(){
       catsEl.innerHTML = "";
-      cats.forEach(cat=>{
+      subcatsEl.innerHTML = "";
+      currentCat = null;
+      currentSub = null;
+
+      Object.keys(galleryData).forEach(cat=>{
         const b = document.createElement("button");
-        b.className = "pill" + (cat === currentCat ? " active" : "");
+        b.className = "pill";
         b.type = "button";
         b.textContent = cat;
-        b.addEventListener("click", ()=>applyFilter(cat));
+        b.addEventListener("click", ()=>selectCat(cat));
         catsEl.appendChild(b);
       });
     }
 
-    function applyFilter(cat){
+    function selectCat(cat){
       currentCat = cat;
+      currentSub = null;
+
       [...catsEl.querySelectorAll(".pill")].forEach(p=>{
         p.classList.toggle("active", p.textContent === cat);
       });
 
-      filtered = (cat === "Tous") ? [...allShots] : allShots.filter(s=>s.cat === cat);
-      renderGrid();
+      renderSubcats(cat);
+      hintEl.textContent = "Choisis une sous-catégorie pour : " + cat;
     }
 
-    function renderGrid(){
-      gridEl.innerHTML = "";
-      if(filtered.length === 0){
-        gridEl.innerHTML = `<div style="grid-column:1/-1; color:var(--muted)">Aucune photo pour cette catégorie.</div>`;
-        return;
-      }
+    function renderSubcats(cat){
+      subcatsEl.innerHTML = "";
+      const node = galleryData[cat] || {};
+      const subs = Object.keys(node);
 
-      filtered.forEach((s, idx)=>{
-        const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
-        const card = document.createElement("div");
-        card.className = "shot";
-        card.innerHTML = `
-          <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}" />
-          <div class="cap">
-            <span>${escapeHtml(s.cat)}</span>
-            <span style="color:rgba(255,255,255,.75)">${escapeHtml(s.file)}</span>
-          </div>`;
-        card.addEventListener("click", ()=>openLightbox(idx));
-        gridEl.appendChild(card);
+      subs.forEach(sub=>{
+        const b = document.createElement("button");
+        b.className = "pill";
+        b.type = "button";
+        b.textContent = sub;
+        b.addEventListener("click", ()=>selectSubcat(sub));
+        subcatsEl.appendChild(b);
       });
     }
 
-    // ===== Services: picking + render =====
-    function pickServiceItems(serviceKey){
-      const cats = SERVICE_MAP[serviceKey] || [];
-      let items = [];
+    function selectSubcat(sub){
+      currentSub = sub;
 
-      cats.forEach(cat=>{
-        const files = (galleryData[cat] || []);
-        files.forEach(file => items.push({cat, file}));
+      [...subcatsEl.querySelectorAll(".pill")].forEach(p=>{
+        p.classList.toggle("active", p.textContent === sub);
       });
 
-      items = shuffle(items);
+      const count = (galleryData[currentCat]?.[currentSub] || []).length;
+      hintEl.innerHTML = `
+        <b>${escapeHtml(currentCat)}</b> → <b>${escapeHtml(currentSub)}</b><br/>
+        ${count} photo(s) dans cette sous-catégorie.
+        <br/>Prochaine étape possible : ouvrir une page dédiée ou un lightbox filtré.
+      `;
+    }
+
+    // ===== Services carrousels (auto depuis la catégorie correspondante) =====
+    // Règle simple :
+    // - Portraits : prend toutes les photos de galleryData["Portraits"] (toutes sous-cats)
+    // - Evenements : pareil
+    // - Projets : pareil
+    const SERVICE_KEYS = ["Portraits", "Evenements", "Projets"];
+    const SERVICE_LIMIT = 8;
+    const ROTATE_MS = 3500;
+
+    function flattenCategory(cat){
+      const node = galleryData[cat];
+      if(!node || typeof node !== "object") return [];
+      const items = [];
+      Object.keys(node).forEach(sub=>{
+        (node[sub] || []).forEach(file=>{
+          items.push({ cat, sub, file });
+        });
+      });
+      return items;
+    }
+
+    function pickCarouselItems(cat){
+      let items = flattenCategory(cat);
+      // shuffle léger
+      items = items.sort(()=>Math.random()-0.5);
       return items.slice(0, SERVICE_LIMIT);
     }
 
     function renderServiceCarousels(){
-      const serviceCards = document.querySelectorAll(".service[data-carousel]");
-      serviceCards.forEach(card=>{
-        const serviceKey = card.getAttribute("data-carousel");
-        const carousel = card.querySelector(".carousel");
+      const blocks = document.querySelectorAll("[data-carousel]");
+      blocks.forEach(block=>{
+        const key = block.getAttribute("data-carousel");
+        // On mappe "Evenements" (sans accent) vers le JSON "Evenements"
+        const cat = SERVICE_KEYS.includes(key) ? key : key;
+
+        const carousel = block.querySelector(".carousel");
         const track = carousel.querySelector(".carouselTrack");
-        const dotsEl = carousel.querySelector(".cDots");
-        const prevBtn = carousel.querySelector(".prev");
-        const nextBtn = carousel.querySelector(".next");
+        const dots = carousel.querySelector(".cDots");
+        const prev = carousel.querySelector(".prev");
+        const next = carousel.querySelector(".next");
 
-        const items = pickServiceItems(serviceKey);
-        serviceState[serviceKey] = { items, idx: 0, timer: null, track, dotsEl, carousel };
+        const items = pickCarouselItems(cat);
 
-        // No items fallback
-        if(!items.length){
+        if(items.length === 0){
           track.innerHTML = `
-            <div class="carouselSlide" style="display:flex;align-items:center;justify-content:center;height:190px;color:rgba(255,255,255,.6);font-weight:800">
+            <div class="carouselSlide" style="display:flex;align-items:center;justify-content:center;height:220px;color:rgba(255,255,255,.65);font-weight:800">
               Aucune photo
             </div>`;
-          dotsEl.innerHTML = "";
-          prevBtn.disabled = true;
-          nextBtn.disabled = true;
+          dots.innerHTML = "";
           return;
         }
 
         track.innerHTML = items.map(s=>{
-          const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+          const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.sub)}/${encodeURIComponent(s.file)}`;
           return `
             <div class="carouselSlide">
-              <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}">
-              <div class="svcBadge">${escapeHtml(s.cat)}</div>
+              <img loading="lazy" src="${src}" alt="">
             </div>`;
         }).join("");
 
-        // dots
-        dotsEl.innerHTML = items.map((_,i)=>`<span class="dot ${i===0?"on":""}"></span>`).join("");
+        dots.innerHTML = items.map((_,i)=>`<span class="dot ${i===0?"on":""}"></span>`).join("");
 
-        function setIndex(i){
-          const st = serviceState[serviceKey];
-          if(!st.items.length) return;
-          st.idx = (i + st.items.length) % st.items.length;
-          st.track.style.transform = `translateX(-${st.idx * 100}%)`;
-          const dots = st.dotsEl.querySelectorAll(".dot");
-          dots.forEach((d,di)=>d.classList.toggle("on", di === st.idx));
-        }
+        let idx = 0;
+        let timer = null;
 
-        // Buttons (stop click bubbling to carousel click)
-        prevBtn.addEventListener("click", (e)=>{ e.stopPropagation(); setIndex(serviceState[serviceKey].idx - 1); });
-        nextBtn.addEventListener("click", (e)=>{ e.stopPropagation(); setIndex(serviceState[serviceKey].idx + 1); });
+        const update = ()=>{
+          track.style.transform = `translateX(-${idx * 100}%)`;
+          [...dots.children].forEach((d,i)=>d.classList.toggle("on", i===idx));
+        };
 
-        // Swipe (mobile)
-        let startX = 0, dx = 0, isDown = false;
-        carousel.addEventListener("pointerdown", (e)=>{
-          isDown = true;
-          startX = e.clientX;
-          dx = 0;
-          carousel.setPointerCapture(e.pointerId);
-        });
-        carousel.addEventListener("pointermove", (e)=>{
-          if(!isDown) return;
-          dx = e.clientX - startX;
-        });
-        carousel.addEventListener("pointerup", ()=>{
-          if(!isDown) return;
-          isDown = false;
-          if(Math.abs(dx) > 40){
-            setIndex(serviceState[serviceKey].idx + (dx < 0 ? 1 : -1));
-          }
-        });
+        const goPrev = (e)=>{ e.stopPropagation(); idx = (idx-1+items.length)%items.length; update(); restart(); };
+        const goNext = (e)=>{ e.stopPropagation(); idx = (idx+1)%items.length; update(); restart(); };
 
-        // Click => open in lightbox (switch to "Tous" first for consistent index)
+        prev.addEventListener("click", goPrev);
+        next.addEventListener("click", goNext);
+
+        const start = ()=>{
+          if(items.length <= 1) return;
+          timer = setInterval(()=>{ idx = (idx+1)%items.length; update(); }, ROTATE_MS);
+        };
+
+        const stop = ()=>{ if(timer) clearInterval(timer); timer=null; };
+        const restart = ()=>{ stop(); start(); };
+
+        // Pause on hover (desktop)
+        carousel.addEventListener("mouseenter", stop);
+        carousel.addEventListener("mouseleave", start);
+
+        // Tap => va directement à la section galerie + sélection auto de la catégorie
         carousel.addEventListener("click", ()=>{
-          const st = serviceState[serviceKey];
-          const current = st.items[st.idx];
-          if(!current) return;
-
-          const mainIndex = allShots.findIndex(x => x.cat === current.cat && x.file === current.file);
-          if(mainIndex >= 0){
-            applyFilter("Tous");
-            openLightbox(mainIndex);
-          }
+          // Active catégorie dans menus
+          selectCat(cat);
+          // scroll
+          document.getElementById("galerie").scrollIntoView({behavior:"smooth", block:"start"});
         });
 
-        // Save setter
-        serviceState[serviceKey].setIndex = setIndex;
+        start();
       });
     }
-
-    function startServiceCarousels(){
-      Object.keys(serviceState).forEach(serviceKey=>{
-        const st = serviceState[serviceKey];
-        if(!st.items || st.items.length <= 1) return;
-
-        st.timer = setInterval(()=>{
-          st.setIndex(st.idx + 1);
-        }, SERVICE_ROTATE_MS);
-      });
-    }
-
-    // ===== Lightbox =====
-    const lb = document.getElementById("lb");
-    const lbImg = document.getElementById("lbImg");
-    const lbTitle = document.getElementById("lbTitle");
-    const closeBtn = document.getElementById("lbClose");
-    const prevBtn = document.getElementById("lbPrev");
-    const nextBtn = document.getElementById("lbNext");
-    let lbIndex = 0;
-
-    function openLightbox(idx){
-      lbIndex = idx;
-      updateLightbox();
-      lb.classList.add("open");
-      lb.setAttribute("aria-hidden","false");
-      document.body.style.overflow = "hidden";
-    }
-
-    function closeLightbox(){
-      lb.classList.remove("open");
-      lb.setAttribute("aria-hidden","true");
-      lbImg.src = "";
-      document.body.style.overflow = "";
-    }
-
-    function updateLightbox(){
-      const s = filtered[lbIndex];
-      if(!s) return;
-      const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
-      lbImg.src = src;
-      lbTitle.textContent = `${s.cat} — ${s.file}`;
-    }
-
-    function lbPrev(){
-      lbIndex = (lbIndex - 1 + filtered.length) % filtered.length;
-      updateLightbox();
-    }
-
-    function lbNext(){
-      lbIndex = (lbIndex + 1) % filtered.length;
-      updateLightbox();
-    }
-
-    closeBtn.addEventListener("click", closeLightbox);
-    prevBtn.addEventListener("click", lbPrev);
-    nextBtn.addEventListener("click", lbNext);
-    lb.addEventListener("click", (e)=>{ if(e.target === lb) closeLightbox(); });
-
-    window.addEventListener("keydown", (e)=>{
-      if(!lb.classList.contains("open")) return;
-      if(e.key === "Escape") closeLightbox();
-      if(e.key === "ArrowLeft") lbPrev();
-      if(e.key === "ArrowRight") lbNext();
-    });
 
     loadGallery();
   </script>
