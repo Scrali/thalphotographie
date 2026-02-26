@@ -1,5 +1,37 @@
-{
-  "Warhammer": [
-    "DSC9886.jpg",    
-  ]
+<script>
+async function loadGallery(){
+  try{
+    const res = await fetch("photos/gallery.json", {cache:"no-store"});
+    const data = await res.json();
+
+    const wrap = document.querySelector(".wrap");
+    const grid = document.createElement("div");
+    grid.className = "grid";
+    wrap.appendChild(grid);
+
+    Object.keys(data).forEach(cat=>{
+      data[cat].forEach(file=>{
+        const src = `photos/${cat}/${file}`;
+
+        const card = document.createElement("div");
+        card.className = "card";
+
+        const img = document.createElement("img");
+        img.src = src;
+        img.alt = cat;
+        img.loading = "lazy";
+
+        card.appendChild(img);
+        grid.appendChild(card);
+      });
+    });
+
+  }catch(e){
+    document.body.insertAdjacentHTML("beforeend",
+      "<p style='color:red;padding:20px'>Erreur chargement galerie</p>"
+    );
+  }
 }
+
+loadGallery();
+</script>
