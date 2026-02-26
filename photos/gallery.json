@@ -1,20 +1,11 @@
 {
-  "Evenements": ["DSC_5017.jpg"],
-  "Portraits": ["_DSC7299.jpg"],
-  "Projets": ["_DSC7465.jpg"],
-  "Warhammer": [
-    "Nurgle.png",
-    "Rat.png",
-    "Sans_titre_HDR-2.png",
-    "_DSC9864.jpg",
-    "_DSC9878.png",
-    "_DSC9879.png",
-    "_DSC9886.jpg",
-    "_DSC9887.jpg",
-    "_DSC9888.jpg"
-  ],
-  "Ville": [
-    "_DSC7472.jpg",
-    "Yverdon.jpg"
-  ]
+  "Evenements": ["DSC_5017.jpg"]
+,
+  "Portraits": ["_DSC7299.jpg"]
+,
+  "Projets": ["_DSC7465.jpg"]
+,
+  "Warhammer": ["Nurgel.png","Rat.png","Sans titre_HDR-2.png","_DSC9864.png","_DSC9878.png","_DSC9879.png","_DSC9886.jpg","_DSC9887.jpg","_DSC9888.png"]
+,
+  "ville": ["_DSC7472.jpg","yverdon.jpg"]
 }
