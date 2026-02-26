@@ -1,595 +1,116 @@
-
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="THAL Photographie — Hirschi Jonathan. Portfolio photo et univers visuel." />
-  <title>THAL — Portfolio</title>
-
+  <title>THAL — Photographie</title>
   <style>
-    :root{
-      --bg0:#070A10;
-      --bg1:#0B1020;
-      --card: rgba(255,255,255,.06);
-      --card2: rgba(255,255,255,.085);
-      --line: rgba(255,255,255,.10);
-      --text: rgba(255,255,255,.90);
-      --muted: rgba(255,255,255,.68);
-      --muted2: rgba(255,255,255,.55);
-      --accent:#6EA8FF;
-      --accent2:#A78BFA;
-      --good:#22c55e;
-      --shadow: 0 14px 50px rgba(0,0,0,.55);
-      --radius: 20px;
-      --radius2: 28px;
-      --max: 1120px;
-    }
-
-    *{ box-sizing:border-box; }
-    html,body{ height:100%; }
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      color: var(--text);
-      background:
-        radial-gradient(1200px 800px at 70% 10%, rgba(110,168,255,.18), transparent 55%),
-        radial-gradient(1000px 700px at 10% 20%, rgba(167,139,250,.14), transparent 55%),
-        linear-gradient(180deg, var(--bg0), var(--bg1));
-      overflow-x:hidden;
-    }
-
-    a{ color:inherit; text-decoration:none; }
-    .wrap{ width:min(var(--max), calc(100% - 40px)); margin:0 auto; }
-
-    /* Subtle grain */
-    .grain{
-      pointer-events:none;
-      position:fixed; inset:0;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.14'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      opacity:.25;
-    }
-
-    /* Top nav */
-    header{
-      position:sticky; top:0; z-index:50;
-      backdrop-filter: blur(14px);
-      background: linear-gradient(180deg, rgba(7,10,16,.82), rgba(7,10,16,.35));
-      border-bottom: 1px solid rgba(255,255,255,.06);
-    }
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      padding: 14px 0;
-      gap: 14px;
-    }
-    .brand{
-      display:flex; align-items:center; gap:12px;
-      min-width: 220px;
-    }
-    .logo{
-      width:38px; height:38px; border-radius:14px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.08);
-      display:grid; place-items:center;
-      box-shadow: 0 10px 30px rgba(0,0,0,.35);
-      overflow:hidden;
-    }
-    .logo img{ width:24px; height:24px; opacity:.95; }
-    .brand strong{ font-weight:650; letter-spacing:.2px; }
-    .brand span{ display:block; font-size:12px; color: var(--muted2); margin-top:2px; }
-
-    .links{
-      display:flex; gap: 18px; align-items:center; justify-content:center;
-      flex:1;
-    }
-    .links a{
-      font-size: 14px;
-      color: var(--muted);
-      padding: 8px 10px;
-      border-radius: 12px;
-      transition: background .2s ease, color .2s ease, transform .2s ease;
-    }
-    .links a:hover{
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      transform: translateY(-1px);
-    }
-    .cta{
-      display:flex; gap:10px; align-items:center; justify-content:flex-end;
-      min-width: 220px;
-    }
-    .btn{
-      border:1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      padding: 10px 14px;
-      border-radius: 14px;
-      font-size: 14px;
-      cursor:pointer;
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.085); border-color: rgba(255,255,255,.16); }
-    .btn.primary{
-      border-color: rgba(110,168,255,.35);
-      background: linear-gradient(135deg, rgba(110,168,255,.20), rgba(167,139,250,.16));
-    }
-
-    /* Hero */
-    .hero{
-      position:relative;
-      padding: 52px 0 18px;
-    }
-
-    .heroGrid{
-      display:grid;
-      grid-template-columns: 1.55fr .85fr;
-      gap: 22px;
-      align-items: stretch;
-    }
-    @media (max-width: 980px){
-      .heroGrid{ grid-template-columns: 1fr; }
-      .cta, .brand{ min-width:auto; }
-      .links{ display:none; }
-    }
-
-    .panel{
-      position:relative;
-      border-radius: var(--radius2);
-      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.045));
-      border: 1px solid rgba(255,255,255,.10);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .panelInner{ padding: 28px; }
-    .panel h1{
-      margin: 0 0 10px;
-      font-size: clamp(34px, 4.2vw, 56px);
-      line-height: 1.02;
-      letter-spacing: -0.6px;
-    }
-    .panel p{
-      margin: 0 0 18px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.5;
-      max-width: 60ch;
-    }
-    .pillRow{
-      display:flex; flex-wrap:wrap; gap:10px;
-      margin-top: 12px;
-    }
-    .pill{
-      font-size: 12.5px;
-      color: rgba(255,255,255,.82);
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.10);
-      padding: 7px 10px;
-      border-radius: 999px;
-      display:flex; gap:8px; align-items:center;
-    }
-    .dot{
-      width:8px; height:8px; border-radius:99px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 0 3px rgba(110,168,255,.15);
-    }
-
-    .actions{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-top: 18px;
-    }
-
-    /* THAL background watermark */
-    .thalBg{
-      position:absolute;
-      inset: -20% -10% auto auto;
-      width: 520px;
-      opacity: .08;
-      transform: rotate(-8deg);
-      filter: blur(.2px);
-      pointer-events:none;
-    }
-    @media (max-width: 980px){
-      .thalBg{ width: 440px; inset:-18% -18% auto auto; opacity:.07; }
-    }
-
-    /* Side cards */
-    .side{
-      display:grid; gap: 14px;
-      grid-auto-rows: minmax(0, auto);
-    }
-    .card{
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.055);
-      border: 1px solid rgba(255,255,255,.095);
-      padding: 16px 16px;
-      transition: transform .18s ease, background .18s ease, border-color .18s ease;
-    }
-    .card:hover{ transform: translateY(-1px); background: rgba(255,255,255,.07); border-color: rgba(255,255,255,.14); }
-    .card h3{ margin:0 0 6px; font-size: 13px; letter-spacing:.2px; color: rgba(255,255,255,.85); }
-    .card p{ margin:0; color: var(--muted); font-size: 13.5px; line-height:1.4; }
-    .chip{
-      display:inline-flex; align-items:center; gap:8px;
-      padding: 8px 10px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.05);
-      font-size: 13px;
-      color: rgba(255,255,255,.86);
-      margin-top: 10px;
-    }
-
-    /* Sections */
-    section{ padding: 34px 0; }
-    .secTitle{
-      display:flex; align-items:baseline; justify-content:space-between;
-      gap:12px;
-      margin-bottom: 14px;
-    }
-    .secTitle h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing: .2px;
-    }
-    .secTitle span{
-      color: var(--muted2);
-      font-size: 13px;
-    }
-
-    /* Gallery grid */
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(12, 1fr);
-      gap: 12px;
-    }
-    .tile{
-      grid-column: span 4;
-      border-radius: 18px;
-      background: rgba(255,255,255,.05);
-      border: 1px solid rgba(255,255,255,.09);
-      overflow:hidden;
-      position:relative;
-      min-height: 180px;
-      box-shadow: 0 14px 45px rgba(0,0,0,.35);
-      transform: translateZ(0);
-      transition: transform .2s ease, border-color .2s ease, background .2s ease;
-    }
-    .tile:hover{
-      transform: translateY(-2px);
-      border-color: rgba(110,168,255,.25);
-      background: rgba(255,255,255,.07);
-    }
-    .tile .ph{
-      position:absolute; inset:0;
-      background:
-        radial-gradient(400px 300px at 20% 20%, rgba(110,168,255,.22), transparent 60%),
-        radial-gradient(450px 320px at 80% 30%, rgba(167,139,250,.18), transparent 60%),
-        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.02));
-      filter: saturate(1.05);
-    }
-    .tile img{
-      width:100%; height:100%;
-      object-fit:cover;
-      display:block;
-      opacity:.92;
-      filter: contrast(1.05) saturate(1.06);
-    }
-    .tile .cap{
-      position:absolute; inset:auto 0 0 0;
-      padding: 14px 14px;
-      background: linear-gradient(180deg, transparent, rgba(0,0,0,.68));
-      display:flex; align-items:flex-end; justify-content:space-between; gap:12px;
-    }
-    .tile .cap strong{ font-size: 14px; }
-    .tile .cap small{ color: rgba(255,255,255,.72); font-size: 12.5px; }
-    @media (max-width: 980px){ .tile{ grid-column: span 6; } }
-    @media (max-width: 640px){ .tile{ grid-column: span 12; } }
-
-    /* Contact */
-    .contact{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-    }
-    @media (max-width: 980px){ .contact{ grid-template-columns: 1fr; } }
-    .bigCard{
-      border-radius: var(--radius2);
-      background: rgba(255,255,255,.055);
-      border: 1px solid rgba(255,255,255,.10);
-      padding: 20px;
-      box-shadow: 0 16px 55px rgba(0,0,0,.42);
-    }
-    .row{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-      margin-top: 10px;
-    }
-    .k{
-      font-size: 12.5px; color: var(--muted2);
-      display:block;
-      margin-bottom: 6px;
-    }
-    input, textarea{
-      width:100%;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(0,0,0,.18);
-      color: var(--text);
-      padding: 12px 12px;
-      outline:none;
-      font-size: 14px;
-    }
-    textarea{ min-height: 120px; resize: vertical; }
-    .note{ font-size: 12.5px; color: var(--muted2); margin-top: 10px; }
-
-    footer{
-      padding: 26px 0 40px;
-      color: var(--muted2);
-      font-size: 12.5px;
-      border-top: 1px solid rgba(255,255,255,.06);
-    }
-
-    /* Smooth reveal */
-    .reveal{
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity .55s ease, transform .55s ease;
-    }
-    .reveal.in{
-      opacity: 1;
-      transform: translateY(0);
-    }
+    body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;background:#0b0f17;color:#e9eefc}
+    header{padding:28px 18px;max-width:1100px;margin:auto}
+    h1{margin:0;font-size:28px}
+    p{margin:8px 0 0;color:#a9b6d6}
+    .wrap{max-width:1100px;margin:auto;padding:0 18px 40px}
+    .tabs{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0 18px}
+    .tab{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);
+      color:#e9eefc;padding:10px 12px;border-radius:999px;cursor:pointer}
+    .tab.active{background:rgba(120,170,255,.22);border-color:rgba(120,170,255,.55)}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+    .card{border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.10);background:rgba(255,255,255,.04)}
+    .card img{width:100%;height:240px;object-fit:cover;display:block;cursor:pointer}
+    .card .cap{padding:10px 12px;color:#a9b6d6;font-size:13px}
+    /* lightbox */
+    .lb{position:fixed;inset:0;background:rgba(0,0,0,.82);display:none;align-items:center;justify-content:center;padding:18px}
+    .lb.open{display:flex}
+    .lb img{max-width:min(1100px,96vw);max-height:86vh;border-radius:16px}
+    .lb .x{position:fixed;top:16px;right:16px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+      color:#fff;border-radius:12px;padding:10px 12px;cursor:pointer}
   </style>
 </head>
-
 <body>
-  <div class="grain"></div>
-
   <header>
-    <div class="wrap nav">
-      <a class="brand" href="#top">
-        <div class="logo" aria-hidden="true">
-          <img src="THAL.svg" alt="" />
-        </div>
-        <div>
-          <strong>Hirschi Jonathan</strong>
-          <span>THAL Photographie</span>
-        </div>
-      </a>
-
-      <nav class="links" aria-label="Navigation">
-        <a href="#portfolio">Portfolio</a>
-        <a href="#about">À propos</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <div class="cta">
-        <a class="btn" href="https://www.instagram.com/thal.photographie/" target="_blank" rel="noreferrer">Instagram</a>
-        <a class="btn primary" href="#contact">Me contacter</a>
-      </div>
-    </div>
+    <h1>THAL — Photographie</h1>
+    <p>Galeries générées automatiquement depuis <code>photos/gallery.json</code>.</p>
   </header>
 
-  <main id="top" class="wrap">
-    <section class="hero">
-      <div class="heroGrid">
-        <div class="panel reveal">
-          <img class="thalBg" src="THAL.svg" alt="" />
+  <div class="wrap">
+    <div id="tabs" class="tabs"></div>
+    <div id="grid" class="grid"></div>
+  </div>
 
-          <div class="panelInner">
-            <h1>Images calmes.<br/>Impact net.</h1>
-            <p>
-              Gestionnaire de régulation / conducteur de bus, et photographe en construction.
-              Ici : une vitrine simple, moderne, et orientée images — sans le style “CV”.
-            </p>
+  <div id="lb" class="lb" aria-hidden="true">
+    <button class="x" id="lbClose">Fermer</button>
+    <img id="lbImg" alt="">
+  </div>
 
-            <div class="actions">
-              <a class="btn primary" href="#portfolio">Voir le portfolio</a>
-              <button class="btn" id="copyEmailBtn" type="button" title="Copier l’email">thal.photographie@bluewin.ch</button>
-            </div>
+<script>
+  const tabsEl = document.getElementById("tabs");
+  const gridEl = document.getElementById("grid");
+  const lb = document.getElementById("lb");
+  const lbImg = document.getElementById("lbImg");
+  const lbClose = document.getElementById("lbClose");
 
-            <div class="pillRow">
-              <div class="pill"><span class="dot"></span>Organisation</div>
-              <div class="pill"><span class="dot"></span>Sang-froid</div>
-              <div class="pill"><span class="dot"></span>Photo (progression)</div>
-              <div class="pill"><span class="dot"></span>Canton de Vaud</div>
-            </div>
-          </div>
-        </div>
+  function openLightbox(src){
+    lbImg.src = src;
+    lb.classList.add("open");
+    lb.setAttribute("aria-hidden","false");
+  }
+  function closeLightbox(){
+    lb.classList.remove("open");
+    lb.setAttribute("aria-hidden","true");
+    lbImg.src = "";
+  }
+  lbClose.addEventListener("click", closeLightbox);
+  lb.addEventListener("click", (e)=>{ if(e.target === lb) closeLightbox(); });
+  window.addEventListener("keydown",(e)=>{ if(e.key==="Escape") closeLightbox(); });
 
-        <div class="side">
-          <div class="card reveal">
-            <h3>Focus actuel</h3>
-            <p>Construire un portfolio cohérent + progression technique (lumière, cadrage, retouche).</p>
-            <div class="chip">📷 Série en cours : Instagram</div>
-          </div>
-          <div class="card reveal">
-            <h3>Portfolio</h3>
-            <p>Pour le moment, tout est centralisé sur Instagram. Le site sert de hub propre.</p>
-            <div class="row">
-              <a class="btn" href="https://www.instagram.com/thal.photographie/" target="_blank" rel="noreferrer">Ouvrir Instagram</a>
-            </div>
-          </div>
-          <div class="card reveal">
-            <h3>Contact direct</h3>
-            <p>thal.photographie@bluewin.ch</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="portfolio">
-      <div class="secTitle">
-        <h2>Portfolio</h2>
-        <span>Galeries (évolutif)</span>
-      </div>
-
-      <div class="grid">
-        <!-- Tu peux remplacer les tiles par de vraies images plus tard :
-             <img src="photos/nom.jpg" alt="..." />
-        -->
-        <a class="tile reveal" href="https://www.instagram.com/thal.photographie/" target="_blank" rel="noreferrer">
-          <div class="ph"></div>
-          <!-- Exemple image locale si tu veux :
-          <img src="thal1.png" alt="Aperçu" />
-          -->
-          <div class="cap">
-            <div>
-              <strong>Dernières publications</strong><br/>
-              <small>Instagram</small>
-            </div>
-            <small>↗</small>
-          </div>
-        </a>
-
-        <div class="tile reveal">
-          <div class="ph"></div>
-          <div class="cap">
-            <div>
-              <strong>Séries</strong><br/>
-              <small>à venir</small>
-            </div>
-            <small>•</small>
-          </div>
-        </div>
-
-        <div class="tile reveal">
-          <div class="ph"></div>
-          <div class="cap">
-            <div>
-              <strong>Essais & évolution</strong><br/>
-              <small>style / technique</small>
-            </div>
-            <small>•</small>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="about">
-      <div class="secTitle">
-        <h2>À propos</h2>
-        <span>Simple. Clair. Utile.</span>
-      </div>
-
-      <div class="bigCard reveal">
-        <p style="margin:0;color:var(--muted);line-height:1.6;font-size:14.5px;">
-          Je suis <strong style="color:rgba(255,255,255,.92)">Hirschi Jonathan</strong>.
-          Mon quotidien tourne autour de la régulation, de la précision et de la gestion du timing.
-          En parallèle, je développe mon regard et ma technique en photographie, avec l’objectif de construire un portfolio
-          cohérent, sobre et professionnel.
-        </p>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="secTitle">
-        <h2>Contact</h2>
-        <span>Le plus direct : un email.</span>
-      </div>
-
-      <div class="contact">
-        <div class="bigCard reveal">
-          <div class="k">Email</div>
-          <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
-            <div style="font-size:15px;color:rgba(255,255,255,.88);">thal.photographie@bluewin.ch</div>
-            <button class="btn" id="copyEmailBtn2" type="button">Copier</button>
-          </div>
-          <div class="note">Astuce : tu peux aussi me contacter via Instagram.</div>
-          <div class="row">
-            <a class="btn primary" href="mailto:thal.photographie@bluewin.ch">Envoyer un email</a>
-            <a class="btn" href="https://www.instagram.com/thal.photographie/" target="_blank" rel="noreferrer">DM Instagram</a>
-          </div>
-        </div>
-
-        <div class="bigCard reveal">
-          <form onsubmit="return false;">
-            <label class="k" for="name">Nom</label>
-            <input id="name" name="name" placeholder="Ton nom" autocomplete="name" />
-
-            <div style="height:10px"></div>
-
-            <label class="k" for="email">Email</label>
-            <input id="email" name="email" placeholder="ton@email.ch" autocomplete="email" />
-
-            <div style="height:10px"></div>
-
-            <label class="k" for="msg">Message</label>
-            <textarea id="msg" name="msg" placeholder="Une idée, un projet, une question…"></textarea>
-
-            <div class="row">
-              <button class="btn primary" id="mailtoBtn" type="button">Ouvrir mon email</button>
-              <span class="note" id="mailtoHint"></span>
-            </div>
-            <div class="note">Ce formulaire ouvre ton client mail (pas d’envoi serveur pour l’instant).</div>
-          </form>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      © <span id="year"></span> THAL — Hirschi Jonathan · thalphotographie.ch
-    </footer>
-  </main>
-
-  <script>
-    // Year
-    document.getElementById("year").textContent = new Date().getFullYear();
-
-    // Copy email
-    const email = "thal.photographie@bluewin.ch";
-    function copyEmail(btn){
-      navigator.clipboard?.writeText(email).then(()=>{
-        const old = btn.textContent;
-        btn.textContent = "Copié ✓";
-        btn.style.borderColor = "rgba(34,197,94,.45)";
-        btn.style.background = "rgba(34,197,94,.12)";
-        setTimeout(()=>{
-          btn.textContent = old;
-          btn.style.borderColor = "";
-          btn.style.background = "";
-        }, 1200);
-      }).catch(()=>{ /* clipboard blocked */ });
+  async function load(){
+    const res = await fetch("photos/gallery.json", { cache:"no-store" });
+    if(!res.ok){
+      gridEl.innerHTML = "<p>Impossible de charger photos/gallery.json</p>";
+      return;
     }
-    const b1 = document.getElementById("copyEmailBtn");
-    const b2 = document.getElementById("copyEmailBtn2");
-    b1?.addEventListener("click", ()=>copyEmail(b1));
-    b2?.addEventListener("click", ()=>copyEmail(b2));
+    const data = await res.json();
+    const categories = Object.keys(data);
 
-    // Mailto form helper
-    const mailtoBtn = document.getElementById("mailtoBtn");
-    const hint = document.getElementById("mailtoHint");
-    mailtoBtn.addEventListener("click", ()=>{
-      const name = document.getElementById("name").value.trim();
-      const from = document.getElementById("email").value.trim();
-      const msg  = document.getElementById("msg").value.trim();
+    if(!categories.length){
+      gridEl.innerHTML = "<p>Aucune galerie trouvée.</p>";
+      return;
+    }
 
-      const subject = encodeURIComponent("Contact — THAL Photographie");
-      const body = encodeURIComponent(
-        (name ? `Nom: ${name}\n` : "") +
-        (from ? `Email: ${from}\n\n` : "\n") +
-        (msg ? msg : "Bonjour,")
-      );
-
-      const url = `mailto:${email}?subject=${subject}&body=${body}`;
-      window.location.href = url;
-
-      hint.textContent = "Ouverture de ton client mail…";
-      setTimeout(()=>hint.textContent="", 1400);
+    // Tabs
+    tabsEl.innerHTML = "";
+    categories.forEach((cat, i)=>{
+      const b = document.createElement("button");
+      b.className = "tab" + (i===0 ? " active" : "");
+      b.textContent = cat;
+      b.addEventListener("click", ()=>{
+        document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
+        b.classList.add("active");
+        render(cat, data[cat]);
+      });
+      tabsEl.appendChild(b);
     });
 
-    // Smooth reveal on scroll
-    const els = document.querySelectorAll(".reveal");
-    const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          e.target.classList.add("in");
-          io.unobserve(e.target);
-        }
-      });
-    }, {threshold: 0.12});
-    els.forEach(el=>io.observe(el));
-  </script>
+    // Default
+    render(categories[0], data[categories[0]]);
+  }
+
+  function render(cat, files){
+    gridEl.innerHTML = (files || []).map(f=>{
+      const src = `photos/${cat}/${f}`;
+      return `
+        <div class="card">
+          <img src="${src}" alt="${cat}" loading="lazy" onclick="window.__openLB('${src}')">
+          <div class="cap">${cat} — ${f}</div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  // expose for inline onclick
+  window.__openLB = openLightbox;
+
+  load();
+</script>
 </body>
 </html>
-
-
