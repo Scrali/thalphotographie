@@ -25,19 +25,6 @@
       }
     }
   },
-  "Warhammer": {
-    "Figurines": {
-      "Interieur": {
-        "Nurgle.png": ["macro"],
-        "Rat.png": ["macro"]
-      }
-    }
-  },
-  "ville": {
-    "Rue": {
-      "Exterieur": {
-        "yverdon.jpg": ["urban"]
-      }
     }
   }
 }
