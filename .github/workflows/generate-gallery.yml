@@ -4,8 +4,7 @@ on:
   push:
     paths:
       - 'photos/**'
-      
-permissions:
+      permissions:
     contents: write
 
 jobs:
