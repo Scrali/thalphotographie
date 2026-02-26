@@ -578,9 +578,15 @@
   <p style="margin:0 0 16px; color:var(--muted); line-height:1.55">
     Parlons de votre projet. Chaque collaboration commence par un échange clair et personnalisé.
   </p>
+<div class="contactInner">
 
-  <form action="https://formspree.io/f/https://formspree.io/f/maqdvzww" method="POST" class="contactForm" id="contactForm">
-    
+  <form 
+    action="https://formspree.io/f/maqdvzww"
+    method="POST"
+    class="contactForm"
+    id="contactForm"
+  >
+
     <div class="formRow">
       <input type="text" name="nom" placeholder="Nom et prénom" required>
     </div>
@@ -594,7 +600,10 @@
     </div>
 
     <button class="btn" type="submit">Envoyer le message</button>
+
   </form>
+
+</div>
 </section>
 
       <div class="footer">© <span id="y"></span> THAL — Photographie</div>
@@ -853,6 +862,10 @@ if(form){
       sendBtn.disabled = false;
       sendBtn.textContent = "Envoyer le message";
     }
+    .contactInner{
+  max-width: 620px;
+  margin: 0 auto;
+}
   });
 }
 
