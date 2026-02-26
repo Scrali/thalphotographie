@@ -1,1 +1,262 @@
-.
+
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Galerie — THAL Photographie</title>
+  <meta name="description" content="Galeries générées automatiquement depuis photos/gallery.json" />
+
+  <style>
+    :root{
+      --bg:#0b0f19;
+      --text:#e8eefc;
+      --muted:#a9b6d6;
+      --line:rgba(255,255,255,.08);
+      --shadow: 0 20px 60px rgba(0,0,0,.35);
+      --r:16px;
+      --max:1100px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,Arial;
+      background:
+        radial-gradient(900px 500px at 15% 10%, rgba(110,168,255,.18), transparent 60%),
+        radial-gradient(700px 400px at 85% 20%, rgba(162,110,255,.14), transparent 60%),
+        var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit; text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:24px}
+    header{
+      position:sticky; top:0; z-index:10;
+      backdrop-filter: blur(10px);
+      background: rgba(11,15,25,.55);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.04);
+      transition: transform .15s ease, background .15s ease, border-color .15s ease;
+      font-weight:600;
+    }
+    .btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.06); border-color: rgba(255,255,255,.14)}
+    h1{margin:18px 0 6px; font-size:28px}
+    .sub{margin:0 0 18px; color:var(--muted)}
+    .category{
+      margin:18px 0 26px;
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background: rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+    }
+    .category h2{
+      margin:0 0 12px;
+      font-size:18px;
+      letter-spacing:.2px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:10px;
+    }
+    .grid a{
+      display:block;
+      border-radius:14px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.25);
+    }
+    .grid img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+      display:block;
+      transform: scale(1.001);
+      transition: transform .25s ease;
+    }
+    .grid a:hover img{transform: scale(1.04)}
+    .note{color:var(--muted); font-size:13px}
+    .err{color:#ffb4b4; background: rgba(255,80,80,.10); border:1px solid rgba(255,80,80,.20); padding:12px; border-radius:14px}
+    @media (max-width: 900px){
+      .grid{grid-template-columns: repeat(2, 1fr)}
+      .grid img{height:180px}
+    }
+    @media (max-width: 560px){
+      .grid{grid-template-columns: 1fr}
+      .grid img{height:220px}
+    }
+
+    /* Lightbox (full screen) */
+    .lightbox{
+      position:fixed; inset:0; display:none;
+      background: rgba(0,0,0,.86);
+      z-index:9999;
+      padding:18px;
+    }
+    .lightbox.open{display:flex; flex-direction:column}
+    .lb-top{
+      display:flex; justify-content:space-between; align-items:center;
+      margin-bottom:12px;
+      gap:12px;
+    }
+    .lb-top span{color:var(--muted); font-size:13px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+    .lb-btn{
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.08);
+      color:var(--text);
+      font-weight:700;
+    }
+    .lb-img{
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:hidden;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+    }
+    .lb-img img{
+      max-width:100%;
+      max-height:100%;
+      object-fit:contain;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container nav">
+      <a class="btn" href="index.html">← Accueil</a>
+      <a class="btn" href="mailto:contact@thalphotographie.ch?subject=Demande%20de%20shooting">Contact</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1>Galerie</h1>
+    <p class="sub">Générée automatiquement depuis <code>photos/gallery.json</code>.</p>
+
+    <div id="wrap"></div>
+    <p class="note">Astuce : clique une image pour l’ouvrir en grand.</p>
+  </main>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <div class="lb-top">
+      <span id="lbLabel"></span>
+      <button class="lb-btn" id="lbClose" type="button">Fermer</button>
+    </div>
+    <div class="lb-img">
+      <img id="lbImg" alt="" />
+    </div>
+  </div>
+
+  <script>
+    async function loadGallery(){
+      const wrap = document.getElementById("wrap");
+
+      try{
+        const res = await fetch("photos/gallery.json", { cache: "no-store" });
+        if(!res.ok) throw new Error("gallery.json introuvable ou non accessible (HTTP " + res.status + ")");
+        const data = await res.json();
+
+        const categories = Object.keys(data);
+        if(categories.length === 0){
+          wrap.innerHTML = '<div class="err">gallery.json est vide.</div>';
+          return;
+        }
+
+        categories.forEach(cat => {
+          const files = data[cat] || [];
+          if(!Array.isArray(files) || files.length === 0) return;
+
+          const section = document.createElement("section");
+          section.className = "category";
+
+          const h2 = document.createElement("h2");
+          h2.textContent = cat;
+          section.appendChild(h2);
+
+          const grid = document.createElement("div");
+          grid.className = "grid";
+
+          files.forEach(file => {
+            const src = `photos/${cat}/${file}`;
+
+            const a = document.createElement("a");
+            a.href = src;
+            a.addEventListener("click", (e) => {
+              e.preventDefault();
+              openLightbox(src, `${cat} — ${file}`);
+            });
+
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = `${cat} - ${file}`;
+            img.loading = "lazy";
+
+            a.appendChild(img);
+            grid.appendChild(a);
+          });
+
+          section.appendChild(grid);
+          wrap.appendChild(section);
+        });
+
+      }catch(err){
+        console.error(err);
+        wrap.innerHTML = '<div class="err">Erreur chargement galerie : ' + escapeHtml(err.message) + '</div>';
+      }
+    }
+
+    // Lightbox
+    const lb = document.getElementById("lightbox");
+    const lbImg = document.getElementById("lbImg");
+    const lbLabel = document.getElementById("lbLabel");
+    const lbClose = document.getElementById("lbClose");
+
+    function openLightbox(src, label){
+      lbImg.src = src;
+      lbLabel.textContent = label;
+      lb.classList.add("open");
+      lb.setAttribute("aria-hidden", "false");
+    }
+    function closeLightbox(){
+      lb.classList.remove("open");
+      lb.setAttribute("aria-hidden", "true");
+      lbImg.src = "";
+      lbLabel.textContent = "";
+    }
+    lbClose.addEventListener("click", closeLightbox);
+    lb.addEventListener("click", (e) => {
+      if(e.target === lb) closeLightbox();
+    });
+    document.addEventListener("keydown", (e) => {
+      if(e.key === "Escape") closeLightbox();
+    });
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    loadGallery();
+  </script>
+</body>
+</html>
