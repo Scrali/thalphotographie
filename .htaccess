@@ -1,0 +1,21 @@
+# =========================
+# THAL - Sécurisation HTTPS
+# =========================
+
+RewriteEngine On
+
+# 1) Forcer HTTPS
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2) Forcer la version SANS www (recommandé)
+RewriteCond %{HTTP_HOST} ^www\.thalphotographie\.ch$ [NC]
+RewriteRule ^ https://thalphotographie.ch%{REQUEST_URI} [L,R=301]
+
+# 3) Empêcher l'affichage "Index of /" (désactive l'auto-index)
+Options -Indexes
+
+# 4) Protéger des dossiers/fichiers sensibles (par précaution)
+RedirectMatch 404 /\.git
+RedirectMatch 404 /\.env
+RedirectMatch 404 /\.ht
