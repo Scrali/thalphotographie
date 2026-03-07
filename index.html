@@ -739,48 +739,46 @@ const items = shuffle(files)
   }
 
   function renderCarousel(root, items){
-    const track = root.querySelector(".carouselTrack");
-    const dotsWrap = root.querySelector(".cDots");
-    const prevBtn = root.querySelector(".prev");
-    const nextBtn = root.querySelector(".next");
+  const track = root.querySelector(".carouselTrack");
+  const dotsWrap = root.querySelector(".cDots");
+  const prevBtn = root.querySelector(".prev");
+  const nextBtn = root.querySelector(".next");
 
-    root.dataset.idx = "0";
+  root.dataset.idx = "0";
 
-    if(!items.length){
-      track.innerHTML =
-        `<div class="carouselSlide">
-           <div class="carouselEmpty">Aucune photo</div>
-         </div>`;
-      dotsWrap.innerHTML = "";
-      prevBtn.disabled = true;
-      nextBtn.disabled = true;
-      return;
-    }
-
-    track.innerHTML = items.map(s=>{
-      const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
-      return `
-        <div class="carouselSlide">
-          <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}">
-          <div class="svcBadge">${escapeHtml(s.cat)}</div>
-        </div>`;
-    }).join("");
-
-    dotsWrap.innerHTML = items.map((_,i)=>
-      `<span class="dot ${i===0?'on':''}"></span>`
-    ).join("");
-
-    prevBtn.disabled = items.length <= 1;
-    nextBtn.disabled = items.length <= 1;
-
-    prevBtn.onclick = (e)=>{ e.stopPropagation(); prev(root); };
-    nextBtn.onclick = (e)=>{ e.stopPropagation(); next(root); };
-
-    root._items = items;
-    update(root);
+  if(!items.length){
+    track.innerHTML =
+      `<div class="carouselSlide active">
+         <div class="carouselEmpty">Aucune photo</div>
+       </div>`;
+    dotsWrap.innerHTML = "";
+    prevBtn.disabled = true;
+    nextBtn.disabled = true;
+    return;
   }
-    const slides = track.querySelectorAll(".carouselSlide");
-if(slides[0]) slides[0].classList.add("active");
+
+  track.innerHTML = items.map((s, i)=>{
+    const src = `photos/${encodeURIComponent(s.cat)}/${encodeURIComponent(s.file)}`;
+    return `
+      <div class="carouselSlide ${i === 0 ? 'active' : ''}">
+        <img loading="lazy" src="${src}" alt="${escapeHtml(s.cat)}">
+        <div class="svcBadge">${escapeHtml(s.cat)}</div>
+      </div>`;
+  }).join("");
+
+  dotsWrap.innerHTML = items.map((_,i)=>
+    `<span class="dot ${i===0?'on':''}"></span>`
+  ).join("");
+
+  prevBtn.disabled = items.length <= 1;
+  nextBtn.disabled = items.length <= 1;
+
+  prevBtn.onclick = (e)=>{ e.stopPropagation(); prev(root); };
+  nextBtn.onclick = (e)=>{ e.stopPropagation(); next(root); };
+
+  root._items = items;
+  update(root);
+}
 
   function prev(root){
     const items = root._items || [];
