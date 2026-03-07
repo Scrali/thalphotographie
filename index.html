@@ -290,17 +290,18 @@
     .svcTop h3{margin:0 0 6px; font-size:16px}
     .svcTop p{margin:0; color:var(--muted); font-size:14px; line-height:1.5}
 
-    /* ===== Carousel (home) ===== */
-    .carousel{
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.10);
-      background: rgba(255,255,255,.02);
-      min-height: 180px;
-      touch-action: pan-y; /* permet swipe horizontal sans bloquer le scroll vertical */
-    }
-    .carouselTrack{
+   /* ===== Carousel (home) ===== */
+.carousel{
+  position: relative;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.10);
+  background: rgba(255,255,255,.02);
+  height: 220px; /* hauteur fixe pour le mode fondu */
+  touch-action: pan-y;
+}
+
+.carouselTrack{
   position:relative;
   width:100%;
   height:100%;
@@ -311,30 +312,31 @@
   inset:0;
   opacity:0;
   transition: opacity .9s ease;
+  z-index:1;
+  background:#000;
 }
 
 .carouselSlide.active{
   opacity:1;
   z-index:2;
 }
-    .carouselSlide{
-      min-width: 100%;
-      height: 100%;
-      position:relative;
-      background:#000;
-    }
-    .carouselSlide img{
-      width:100%;
-      height: 220px;
-      display:block;
-      object-fit: cover;
-      background:#000;
-    }
-    @media (max-width: 520px){
-      .carouselSlide img{ height: 190px; }
-      .navlinks .chip{display:none;}
-      .navlinks .btn{padding:10px 12px;}
-    }
+
+.carouselSlide img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  background:#000;
+}
+
+@media (max-width: 520px){
+  .carousel{
+    height:190px;
+  }
+
+  .navlinks .chip{display:none;}
+  .navlinks .btn{padding:10px 12px;}
+}
     .svcBadge{
       position:absolute;
       left:10px;
