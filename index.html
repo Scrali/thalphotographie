@@ -715,8 +715,12 @@ const items = shuffle(files)
       });
 
       if(items.length > 1){
-        setInterval(()=>next(c), AUTO_MS);
-      }
+  c.dataset.dir = "1";
+
+  setInterval(()=>{
+    bounceStep(c);
+  }, AUTO_MS);
+}
 
       attachSwipe(c, {
         onLeft: ()=>next(c),
@@ -782,6 +786,27 @@ const items = shuffle(files)
     root.dataset.idx = String((idx + 1) % items.length);
     update(root);
   }
+    function bounceStep(root){
+  const items = root._items || [];
+  if(items.length <= 1) return;
+
+  let idx = Number(root.dataset.idx || 0);
+  let dir = Number(root.dataset.dir || 1);
+
+  if(idx >= items.length - 1){
+    dir = -1;
+  }
+  else if(idx <= 0){
+    dir = 1;
+  }
+
+  idx += dir;
+
+  root.dataset.idx = String(idx);
+  root.dataset.dir = String(dir);
+
+  update(root);
+}
 
   function update(root){
     const idx = Number(root.dataset.idx || 0);
