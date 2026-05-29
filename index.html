@@ -100,26 +100,34 @@
     }
 
     .brand .name{
-  color:#d3edf5;
-  font-size:36px;
-  font-weight:800;
-  letter-spacing:1px;
   display:flex;
-  align-items:baseline;
-  gap:14px;
+  align-items:center;
+  gap:18px;
+  min-width:0;
+  white-space:nowrap;
 }
-    .divider{
+
+.brandTitle{
+  color:#d3edf5;
+  font-size:44px;
+  font-weight:900;
+  letter-spacing:1px;
+  line-height:1;
+}
+
+.divider{
   width:1px;
-  height:24px;
-  background:rgba(211,237,245,.35);
-  margin:0 6px;
+  height:34px;
+  background:rgba(211,237,245,.42);
+  display:block;
 }
 
 .subtitle{
-  font-size:20px;
-  font-weight:500;
-  color:rgba(211,237,245,.75);
-  transform:translateY(3px);
+  color:rgba(211,237,245,.72);
+  font-size:24px;
+  font-weight:650;
+  line-height:1;
+  transform:translateY(1px);
 }
 
 .brand .name span{
@@ -625,10 +633,10 @@
       <a class="brand" href="#top" aria-label="Accueil">
         <img src="assets/thal1.png" alt="THAL" />
         <div class="name">
-  T•H•A•L
-  <span class="divider"></span>
-  <span class="subtitle">Photographie</span>
-</div>
+          <span class="brandTitle">T•H•A•L</span>
+          <span class="divider"></span>
+          <span class="subtitle">Photographie</span>
+        </div>
       </a>
 
       <nav class="navlinks">
