@@ -62,10 +62,48 @@
       margin:0 auto;
       padding: var(--pad) var(--pad) 70px;
     }
-    .brand{display:flex; align-items:center; gap:10px; padding:6px 10px; min-width:0;}
-    .brand img{width: clamp(42px, 8vw, 58px); height:auto; display:block;}
-    .brand .name{font-weight:650; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
-    .brand .name span{color:var(--muted); font-weight:500;}
+    .brand{
+  display:flex;
+  align-items:center;
+  gap:22px;
+  padding:6px 10px;
+  min-width:0;
+}
+
+.brand img{
+  height:120px;
+  width:auto;
+  display:block;
+}
+
+.brand .name{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  white-space:nowrap;
+}
+
+.brandTitle{
+  font-size:54px;
+  font-weight:900;
+  letter-spacing:2px;
+  color:#d3edf5;
+  line-height:1;
+}
+
+.divider{
+  width:1px;
+  height:44px;
+  background:rgba(211,237,245,.45);
+  display:block;
+}
+
+.subtitle{
+  font-size:18px;
+  font-weight:600;
+  color:rgba(211,237,245,.75);
+  line-height:1;
+}
     .navlinks{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
     .chip,.btn{
       min-height:44px; display:inline-flex; align-items:center; justify-content:center;
@@ -123,7 +161,32 @@
       gap:10px;
       margin-top:10px;
     }
-    @media (max-width: 720px){ .fgrid{grid-template-columns:1fr;} }
+    @media (max-width:720px){
+
+  .brand{
+    gap:12px;
+  }
+
+  .brand img{
+    height:80px;
+  }
+
+  .brandTitle{
+    font-size:32px;
+  }
+
+  .divider{
+    height:28px;
+  }
+
+  .subtitle{
+    font-size:14px;
+  }
+
+  .navlinks{
+    gap:8px;
+  }
+}
 
     label{display:block; font-size:12px; color:var(--muted); font-weight:800; letter-spacing:.08em; text-transform:uppercase; margin:0 0 6px;}
     select{
@@ -317,20 +380,23 @@ select option {
 <body>
   <div class="wrap">
     <header class="nav">
-      <a class="brand" href="index.html" aria-label="Accueil">
-        <img src="assets/thal1.png" alt="THAL" />
-        <div class="name">
-          <span class="brandTitle">T•H•A•L</span>
-          <span class="divider"></span>
-          <span class="subtitle">Galerie</span>
-        </div>
-      </a>
+  <a class="brand" href="index.html" aria-label="Accueil">
 
-      <nav class="navlinks">
-        <a class="chip" href="index.html">Accueil</a>
-        <a class="btn" href="index.html#contact">Me contacter</a>
-      </nav>
-    </header>
+    <img src="assets/thal1.png" alt="THAL">
+
+    <div class="name">
+      <span class="brandTitle">T•H•A•L</span>
+      <span class="divider"></span>
+      <span class="subtitle">Photographie</span>
+    </div>
+
+  </a>
+
+  <nav class="navlinks">
+    <a class="chip" href="index.html">Accueil</a>
+    <a class="btn" href="index.html#contact">Me contacter</a>
+  </nav>
+</header>
 
     <h1>Galerie</h1>
     <p class="lead">Filtre par catégorie, puis type et lieu. Ajoute des tags en multi-sélection.</p>
