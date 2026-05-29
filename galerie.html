@@ -4,63 +4,63 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>THAL — Galerie</title>
-  <meta name="theme-color" content="#0b0f19" />
+  <meta name="theme-color" content="#070b16" />
 
   <style>
     :root{
-      --bg:#070a12;
-      --bg2:#0b1020;
-      --stroke:rgba(255,255,255,.12);
-      --text:rgba(255,255,255,.92);
-      --muted:rgba(255,255,255,.65);
-      --muted2:rgba(255,255,255,.48);
-      --accent:#6ea8ff;
-      --shadow: 0 18px 60px rgba(0,0,0,.55);
-      --radius:18px;
-      --radius2:24px;
-      --max:1100px;
+      --bg:#050816;
+      --bg2:#0b1224;
+      --panel:rgba(255,255,255,.065);
+      --panel2:rgba(255,255,255,.04);
+      --stroke:rgba(255,255,255,.11);
+      --stroke-strong:rgba(255,255,255,.20);
+      --text:rgba(255,255,255,.96);
+      --muted:rgba(255,255,255,.72);
+      --muted2:rgba(255,255,255,.52);
+      --accent:#7cb8ff;
+      --accent2:#b7d7ff;
+      --glow:rgba(124,184,255,.22);
+      --shadow: 0 12px 36px rgba(0,0,0,.30), 0 34px 90px rgba(0,0,0,.46);
+      --radius:20px;
+      --radius2:28px;
+      --max:1180px;
 
       --safe-top: env(safe-area-inset-top, 0px);
       --safe-right: env(safe-area-inset-right, 0px);
       --safe-bottom: env(safe-area-inset-bottom, 0px);
       --safe-left: env(safe-area-inset-left, 0px);
 
-      --pad: clamp(14px, 2.6vw, 22px);
-      --gap: clamp(12px, 2.2vw, 18px);
+      --pad: clamp(14px, 2.6vw, 24px);
+      --gap: clamp(14px, 2.4vw, 22px);
+
+      --h1: clamp(38px, 7vw, 68px);
+      --lead: clamp(16px, 2.4vw, 19px);
     }
 
     *{box-sizing:border-box; max-width:100%;}
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
       background:
-        radial-gradient(1200px 700px at 20% -10%, rgba(110,168,255,.20), transparent 55%),
-        radial-gradient(1000px 600px at 90% 10%, rgba(167,210,255,.14), transparent 55%),
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+        radial-gradient(circle at 15% 14%, rgba(124,184,255,.22), transparent 0 30%),
+        radial-gradient(circle at 85% 8%, rgba(183,215,255,.13), transparent 0 26%),
+        radial-gradient(circle at 50% 100%, rgba(124,184,255,.11), transparent 0 36%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 55%, #09101f 100%);
+      background-attachment: fixed;
+      overflow-x:hidden;
       padding-top: var(--safe-top);
       padding-right: var(--safe-right);
       padding-bottom: calc(var(--safe-bottom) + 10px);
       padding-left: var(--safe-left);
-      overflow-x:hidden;
     }
 
     a{color:inherit; text-decoration:none}
-    .wrap{max-width:var(--max); margin:0 auto; padding: var(--pad) var(--pad) 70px;}
-
-    .nav{
-      display:flex; align-items:center; justify-content:space-between; gap:12px;
-      padding:10px 12px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.03);
-      border-radius:999px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 14px 45px rgba(0,0,0,.35);
-      position:sticky;
-      top: calc(10px + var(--safe-top));
-      z-index:50;
+    .wrap{
+      max-width:var(--max);
+      margin:0 auto;
+      padding: var(--pad) var(--pad) 70px;
     }
     .brand{display:flex; align-items:center; gap:10px; padding:6px 10px; min-width:0;}
     .brand img{width: clamp(42px, 8vw, 58px); height:auto; display:block;}
@@ -78,13 +78,20 @@
     }
 
     .card{
-      border:1px solid var(--stroke);
-      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+      border:1px solid rgba(255,255,255,.09);
+      background: linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.035));
       border-radius: var(--radius2);
       box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
     }
 
-    h1{margin:18px 0 6px; font-size:26px; letter-spacing:-.3px}
+    h1{
+      margin:22px 0 6px;
+      font-size:clamp(30px, 4vw, 46px);
+      letter-spacing:-.7px;
+      color:#d3edf5;
+    }
     p.lead{margin:0 0 14px; color:var(--muted); line-height:1.55}
 
     .pillRow{display:flex; gap:8px; flex-wrap:wrap; margin:12px 0 0;}
@@ -271,6 +278,39 @@ select option {
     }
 
     .footer{margin-top:22px; text-align:center; color:var(--muted2); font-size:13px;}
+
+    @media (max-width:720px){
+      .nav{
+        padding:10px 12px;
+        border-radius:30px;
+      }
+      .brand{
+        gap:6px;
+        padding:4px 6px;
+      }
+      .brand img{
+        height:86px;
+      }
+      .brandTitle{
+        font-size:30px;
+      }
+      .divider{
+        height:28px;
+      }
+      .subtitle{
+        display:none;
+      }
+      .navlinks{
+        gap:8px;
+        padding:4px;
+      }
+      .chip,.btn{
+        min-height:40px;
+        padding:9px 11px;
+        font-size:13px;
+      }
+    }
+
   </style>
 </head>
 
@@ -278,9 +318,14 @@ select option {
   <div class="wrap">
     <header class="nav">
       <a class="brand" href="index.html" aria-label="Accueil">
-        <img src="assets/logo.svg" alt="THAL" />
-        <div class="name">THAL <span>— Galerie</span></div>
+        <img src="assets/thal1.png" alt="THAL" />
+        <div class="name">
+          <span class="brandTitle">T•H•A•L</span>
+          <span class="divider"></span>
+          <span class="subtitle">Galerie</span>
+        </div>
       </a>
+
       <nav class="navlinks">
         <a class="chip" href="index.html">Accueil</a>
         <a class="btn" href="index.html#contact">Me contacter</a>
