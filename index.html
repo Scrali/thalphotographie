@@ -614,6 +614,72 @@
       color:#d3edf5;
     }
 
+
+    .legalModal{
+      position:fixed;
+      inset:0;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
+      background:rgba(0,0,0,.76);
+      backdrop-filter:blur(10px);
+      -webkit-backdrop-filter:blur(10px);
+      z-index:9999;
+    }
+
+    .legalModal.open{
+      display:flex;
+    }
+
+    .legalModalBox{
+      width:min(850px, 100%);
+      max-height:85vh;
+      overflow:auto;
+      position:relative;
+      padding:30px;
+      border-radius:24px;
+      border:1px solid rgba(255,255,255,.14);
+      background:linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.04));
+      box-shadow:0 30px 100px rgba(0,0,0,.65);
+    }
+
+    .legalClose{
+      position:absolute;
+      top:14px;
+      right:14px;
+      width:42px;
+      height:42px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.06);
+      color:white;
+      font-weight:900;
+      cursor:pointer;
+    }
+
+    .legalModalBox h2{
+      color:#d3edf5;
+      margin:0 0 18px;
+      font-size:26px;
+    }
+
+    .legalModalBox h3{
+      color:#d3edf5;
+      margin:24px 0 8px;
+      font-size:18px;
+    }
+
+    .legalModalBox p,
+    .legalModalBox li{
+      color:rgba(255,255,255,.75);
+      line-height:1.7;
+    }
+
+    .legalModalBox strong{
+      color:rgba(255,255,255,.95);
+    }
+
     .footer{
       margin-top:26px;
       color:var(--muted2);
@@ -845,12 +911,20 @@
       <div class="footer">
         © <span id="y"></span> THAL — Photographie
         <div class="footerLinks">
-          <a href="mentions-legales.html">Mentions légales</a>
+          <a href="#" data-modal="mentions">Mentions légales</a>
           <span>•</span>
-          <a href="politique-confidentialite.html">Politique de confidentialité</a>
+          <a href="#" data-modal="confidentialite">Politique de confidentialité</a>
         </div>
       </div>
     </main>
+  </div>
+
+
+  <div class="legalModal" id="legalModal" aria-hidden="true">
+    <div class="legalModalBox" role="dialog" aria-modal="true" aria-label="Informations légales">
+      <button class="legalClose" id="legalClose" type="button" aria-label="Fermer">✕</button>
+      <div id="legalContent"></div>
+    </div>
   </div>
 
   <script>
@@ -1167,6 +1241,123 @@
         }
       });
     }
+
+
+    const legalTexts = {
+      mentions: `
+        <h2>Mentions légales</h2>
+
+        <p><strong>THAL Photographie</strong></p>
+        <p>Responsable du site : Jonathan</p>
+        <p>E-mail : contact@thalphotographie.ch</p>
+        <p>Zone d’activité : Suisse romande</p>
+
+        <h3>Hébergement</h3>
+        <p>Ce site est hébergé par GitHub Pages.</p>
+
+        <h3>Propriété intellectuelle</h3>
+        <p>
+          Les photographies, textes, logos et contenus présents sur ce site sont protégés par le droit d’auteur.
+          Toute reproduction, diffusion, modification ou utilisation sans autorisation écrite préalable est interdite.
+        </p>
+
+        <h3>Responsabilité</h3>
+        <p>
+          THAL Photographie s’efforce de maintenir les informations du site à jour.
+          Des erreurs ou omissions peuvent toutefois exister.
+        </p>
+      `,
+
+      confidentialite: `
+        <h2>Politique de confidentialité</h2>
+
+        <p>
+          Cette politique explique quelles données peuvent être collectées lors de l’utilisation du site THAL Photographie.
+        </p>
+
+        <h3>Données collectées</h3>
+        <p>Lorsque vous utilisez le formulaire de contact, les informations suivantes peuvent être collectées :</p>
+        <ul>
+          <li>Nom et prénom</li>
+          <li>Entreprise, si renseignée</li>
+          <li>Adresse e-mail</li>
+          <li>Contenu du message</li>
+        </ul>
+
+        <h3>Utilisation des données</h3>
+        <p>
+          Ces données sont utilisées uniquement pour répondre aux demandes reçues,
+          préparer un devis ou échanger au sujet d’une prestation photographique.
+        </p>
+
+        <h3>Formulaire de contact</h3>
+        <p>
+          Le formulaire de contact utilise le service Formspree pour transmettre les messages.
+          Les données saisies peuvent donc transiter par ce service.
+        </p>
+
+        <h3>Conservation</h3>
+        <p>
+          Les données sont conservées uniquement pendant la durée nécessaire au traitement de la demande
+          et aux échanges liés à une éventuelle prestation.
+        </p>
+
+        <h3>Partage des données</h3>
+        <p>
+          Les données ne sont pas vendues. Elles ne sont pas transmises à des tiers,
+          sauf nécessité technique liée à l’envoi du formulaire ou obligation légale.
+        </p>
+
+        <h3>Vos droits</h3>
+        <p>
+          Vous pouvez demander l’accès, la modification ou la suppression de vos données en écrivant à :
+          <strong>contact@thalphotographie.ch</strong>.
+        </p>
+
+        <h3>Cookies et statistiques</h3>
+        <p>
+          À ce stade, le site n’utilise pas de système de suivi publicitaire ni de cookies marketing.
+        </p>
+      `
+    };
+
+    const legalModal = document.getElementById("legalModal");
+    const legalContent = document.getElementById("legalContent");
+    const legalClose = document.getElementById("legalClose");
+
+    document.querySelectorAll("[data-modal]").forEach(link=>{
+      link.addEventListener("click", e=>{
+        e.preventDefault();
+        const key = link.dataset.modal;
+        legalContent.innerHTML = legalTexts[key] || "";
+        legalModal.classList.add("open");
+        legalModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    function closeLegalModal(){
+      legalModal.classList.remove("open");
+      legalModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    if(legalClose){
+      legalClose.addEventListener("click", closeLegalModal);
+    }
+
+    if(legalModal){
+      legalModal.addEventListener("click", e=>{
+        if(e.target === legalModal) closeLegalModal();
+      });
+    }
+
+    window.addEventListener("keydown", e=>{
+      if(e.key === "Escape" && legalModal.classList.contains("open")){
+        closeLegalModal();
+      }
+    });
+
 
     loadHomeCarousels();
   </script>
