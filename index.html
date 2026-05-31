@@ -82,6 +82,32 @@
       top: calc(10px + var(--safe-top));
       z-index:50;
     }
+    .whatsapp{
+  color:#25D366;
+  border-color:rgba(37,211,102,.35);
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(37,211,102,.12),
+      rgba(37,211,102,.05)
+    );
+}
+
+.whatsapp:hover{
+  background:
+    linear-gradient(
+      180deg,
+      rgba(37,211,102,.20),
+      rgba(37,211,102,.08)
+    );
+
+  box-shadow:
+    0 0 20px rgba(37,211,102,.18),
+    0 0 40px rgba(37,211,102,.08);
+
+  border-color:rgba(37,211,102,.55);
+}
 
     .brand{
       display:flex;
@@ -752,7 +778,8 @@
       <nav class="navlinks">
         <a class="chip" href="galerie.html">Galerie</a>
         <a class="btn" href="#contact">Me contacter</a>
-        <a class="chip" href="https://wa.me/41787457242" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://wa.me/+41787457242"class="btn whatsapp"target="_blank">WhatsApp
+</a>
       </nav>
     </header>
 
