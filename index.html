@@ -6,6 +6,10 @@
   <title>THAL — Photographie</title>
   <meta name="description" content="Photographie — portraits, évènements, projets. Galerie moderne et rapide." />
   <meta name="theme-color" content="#070b16" />
+  
+  <style>
+  <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <style>
     :root{
@@ -650,6 +654,46 @@
         transition-duration:.001ms!important;
         scroll-behavior:auto!important;
       }
+      .socials{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:20px;
+}
+
+.socials a{
+  width:56px;
+  height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+
+  background:rgba(255,255,255,.04);
+
+  font-size:28px;
+
+  transition:.25s ease;
+}
+
+.instagram{
+  color:#E4405F;
+}
+
+.facebook{
+  color:#1877F2;
+}
+
+.tiktok{
+  color:#FFFFFF;
+}
+
+.socials a:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 20px rgba(255,255,255,.15);
+}
     }
   </style>
   <link rel="stylesheet"
@@ -812,21 +856,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
       </section>
       <section class="card reveal" style="margin-top:20px;padding:20px;text-align:center">
   <h2 style="margin-top:0">Suivez THAL Photographie</h2>
+  
+        .footer{
+        <div class="socials">
 
   <div class="socials">
 
-  <a class="instagram" href="https://instagram.com/toncompte" target="_blank">
+  <a class="instagram"
+     href="https://instagram.com/TON_COMPTE"
+     target="_blank">
     <i class="fa-brands fa-instagram"></i>
   </a>
 
-  <a class="facebook" href="https://facebook.com/toncompte" target="_blank">
+  <a class="facebook"
+     href="https://facebook.com/TON_COMPTE"
+     target="_blank">
     <i class="fa-brands fa-facebook-f"></i>
   </a>
 
-  <a class="tiktok" href="https://tiktok.com/@toncompte" target="_blank">
+  <a class="tiktok"
+     href="https://tiktok.com/@TON_COMPTE"
+     target="_blank">
     <i class="fa-brands fa-tiktok"></i>
   </a>
-  </div>
+
+</div>
 </section>
 
       <div class="footer">© <span id="y"></span> THAL — Photographie</div>
