@@ -319,6 +319,106 @@
       text-transform:uppercase;
     }
 
+
+    /* Hero premium - une seule carte */
+    .heroGridPremium{
+      grid-template-columns:1fr;
+    }
+
+    .heroMainPremium{
+      max-width:920px;
+      margin:0 auto;
+      padding:clamp(30px, 5vw, 54px);
+      min-height:unset;
+    }
+
+    .heroMainPremium::after{
+      inset:auto -15% -35% 40%;
+      height:220px;
+      opacity:.8;
+    }
+
+    .heroMainPremium h1{
+      font-size:clamp(44px, 7vw, 84px);
+      line-height:.96;
+      letter-spacing:-2px;
+      margin:0 0 22px;
+      max-width:8.5ch;
+    }
+
+    .heroLead{
+      font-size:clamp(17px, 2.2vw, 21px);
+      color:rgba(255,255,255,.72);
+      max-width:660px;
+      margin:0 0 28px;
+      line-height:1.55;
+    }
+
+    .heroMeta{
+      margin-top:40px;
+      padding-top:24px;
+      border-top:1px solid rgba(255,255,255,.09);
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:22px;
+      position:relative;
+      z-index:1;
+    }
+
+    .metaItem{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+    }
+
+    .metaLabel{
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.42);
+      font-weight:850;
+    }
+
+    .metaValue{
+      color:#d3edf5;
+      font-size:15px;
+      font-weight:750;
+      line-height:1.35;
+    }
+
+    @media (max-width:720px){
+      .heroMainPremium{
+        padding:28px 22px;
+      }
+
+      .heroMainPremium h1{
+        font-size:clamp(38px, 12vw, 54px);
+        letter-spacing:-1px;
+        max-width:9ch;
+      }
+
+      .heroLead{
+        font-size:16px;
+      }
+
+      .heroMeta{
+        margin-top:28px;
+        padding-top:18px;
+        grid-template-columns:1fr;
+        gap:14px;
+      }
+
+      .metaItem{
+        padding:12px 0;
+        border-bottom:1px solid rgba(255,255,255,.07);
+      }
+
+      .metaItem:last-child{
+        border-bottom:0;
+      }
+    }
+
     /* Featured carousel */
     .featured{
       position:relative;
@@ -752,6 +852,62 @@
       .heroMain h1{letter-spacing:-.7px}
     }
 
+
+    /* Header mobile compact */
+    @media (max-width:620px){
+      .wrap{
+        padding:10px 14px 60px;
+      }
+
+      .nav{
+        border-radius:28px;
+        padding:10px 12px;
+        gap:10px;
+      }
+
+      .brand{
+        padding:0;
+      }
+
+      .brand img{
+        height:72px;
+      }
+
+      .brand .name{
+        display:none;
+      }
+
+      .navlinks{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+        gap:7px;
+        padding:0;
+      }
+
+      .navlinks .chip,
+      .navlinks .btn{
+        min-height:34px;
+        padding:7px 11px;
+        font-size:12px;
+      }
+
+      .hero{
+        padding-top:20px;
+      }
+
+      .actions .btn,
+      .actions .ghost{
+        min-height:38px;
+        padding:8px 12px;
+        font-size:13px;
+      }
+
+      .featured{
+        height:270px;
+      }
+    }
+
     @media (prefers-reduced-motion:reduce){
       *{
         animation-duration:.001ms!important;
@@ -760,73 +916,6 @@
         scroll-behavior:auto!important;
       }
     }
-    @media (max-width:620px){
-
-  .wrap{
-    padding:10px 14px 60px;
-  }
-
-  .nav{
-    border-radius:28px;
-    padding:10px 12px;
-    align-items:center;
-  }
-
-  .brand{
-    padding:0;
-    gap:0;
-  }
-
-  .brand img{
-    height:92px;
-  }
-
-  .brand .name{
-    display:none;
-  }
-
-  .navlinks{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:8px;
-    padding:0;
-  }
-
-  .navlinks .chip,
-  .navlinks .btn{
-    min-height:38px;
-    padding:8px 13px;
-    font-size:13px;
-  }
-
-  .whatsapp{
-    min-height:38px;
-    padding:8px 13px;
-    font-size:13px;
-  }
-
-  .hero{
-    padding-top:18px;
-  }
-
-  .heroMain{
-    padding:26px 22px;
-  }
-
-  .heroMain h1{
-    font-size:clamp(40px, 12vw, 54px);
-    line-height:1.05;
-  }
-
-  .heroMain p{
-    font-size:18px;
-    line-height:1.55;
-  }
-
-  .actions{
-    gap:10px;
-  }
-}
   </style>
 </head>
 
@@ -854,34 +943,41 @@
     <main id="top" class="hero">
       <img class="bg-logo" src="assets/logo-bg.svg" alt="" />
 
-      <div class="heroGrid">
-        <section class="card heroMain reveal">
-          <h1>Des images propres,<br/>modernes, et vivantes.</h1>
-          <p>
-            Photographie — portraits, évènements, projets. Une approche simple : lumière,
-            émotion, et rendu net.
+      <div class="heroGrid heroGridPremium">
+        <section class="card heroMain heroMainPremium reveal">
+          <h1>
+            Des images propres,<br>
+            modernes,<br>
+            et vivantes.
+          </h1>
+
+          <p class="heroLead">
+            Photographie de portraits, évènements et projets en Suisse romande.
+            Une approche sobre, naturelle et attentive aux détails.
           </p>
 
           <div class="actions">
             <a class="btn" href="galerie.html">Voir la galerie</a>
-            <a class="ghost" href="#contact">Demander un devis</a>
+            <a class="ghost" href="#contact">Me contacter</a>
+          </div>
+
+          <div class="heroMeta">
+            <div class="metaItem">
+              <span class="metaLabel">Localisation</span>
+              <span class="metaValue">Suisse romande</span>
+            </div>
+
+            <div class="metaItem">
+              <span class="metaLabel">Livraison</span>
+              <span class="metaValue">Fichiers HD sécurisés</span>
+            </div>
+
+            <div class="metaItem">
+              <span class="metaLabel">Style</span>
+              <span class="metaValue">Lumière & émotion</span>
+            </div>
           </div>
         </section>
-
-        <aside class="card heroSide reveal">
-          <div class="mini">
-            <b>Disponibilités</b>
-            <span>Suisse romande</span>
-          </div>
-          <div class="mini">
-            <b>Livraison</b>
-            <span>Galerie web + fichiers HD</span>
-          </div>
-          <div class="mini">
-            <b>Style</b>
-            <span>Sobre, contrasté, naturel</span>
-          </div>
-        </aside>
       </div>
 
       <section class="featured card reveal js-featured-carousel" data-service="Accueil" aria-label="Sélection principale">
