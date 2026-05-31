@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Politique de confidentialité — THAL Photographie</title>
+  <meta name="theme-color" content="#070b16">
+  <style>
+:root{
+  --bg:#050816;
+  --bg2:#0b1224;
+  --stroke:rgba(255,255,255,.11);
+  --text:rgba(255,255,255,.96);
+  --muted:rgba(255,255,255,.72);
+  --muted2:rgba(255,255,255,.52);
+  --shadow:0 12px 36px rgba(0,0,0,.30), 0 34px 90px rgba(0,0,0,.46);
+  --radius2:28px;
+  --max:1180px;
+  --pad:clamp(14px,2.6vw,24px);
+}
+*{box-sizing:border-box;max-width:100%}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 14%, rgba(124,184,255,.22), transparent 0 30%),
+    radial-gradient(circle at 85% 8%, rgba(183,215,255,.13), transparent 0 26%),
+    radial-gradient(circle at 50% 100%, rgba(124,184,255,.11), transparent 0 36%),
+    linear-gradient(180deg,var(--bg) 0%,var(--bg2) 55%,#09101f 100%);
+  background-attachment:fixed;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--max);margin:0 auto;padding:var(--pad) var(--pad) 70px}
+.nav{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 12px;
+  border:1px solid rgba(255,255,255,.11);
+  background:rgba(8,13,28,.62);
+  border-radius:999px;
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 14px 45px rgba(0,0,0,.28),0 0 0 1px rgba(124,184,255,.04) inset;
+  position:sticky;
+  top:10px;
+  z-index:50;
+}
+.brand{display:flex;align-items:center;gap:8px;padding:6px 10px;min-width:0}
+.brand img{
+  height:130px;
+  width:auto;
+  display:block;
+  filter:drop-shadow(0 0 15px rgba(124,184,255,.25)) drop-shadow(0 6px 15px rgba(0,0,0,.45));
+}
+.brand .name{display:flex;align-items:center;gap:14px;white-space:nowrap}
+.brandTitle{color:#d3edf5;font-size:48px;font-weight:900;line-height:1}
+.divider{width:1px;height:42px;background:rgba(211,237,245,.35);display:block;position:relative;top:2px}
+.subtitle{color:rgba(211,237,245,.75);font-size:18px;font-weight:600;line-height:1;position:relative;top:1px}
+.navlinks{display:flex;align-items:center;gap:10px;padding:6px 8px;flex-wrap:wrap;justify-content:flex-end}
+.chip,.btn{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  font-size:14px;
+  transition:transform .16s ease,background .2s ease,border-color .2s ease,filter .2s ease;
+}
+.chip{
+  padding:10px 14px;
+  border:1px solid var(--stroke);
+  background:rgba(255,255,255,.045);
+  color:var(--muted);
+  font-weight:650;
+}
+.btn{
+  padding:10px 15px;
+  border:1px solid rgba(124,184,255,.44);
+  background:linear-gradient(180deg,rgba(124,184,255,.34),rgba(59,130,246,.18));
+  color:var(--text);
+  font-weight:800;
+  box-shadow:0 0 30px rgba(124,184,255,.08) inset;
+}
+.chip:hover,.btn:hover{transform:translateY(-1px);filter:brightness(1.08)}
+.card{
+  margin-top:24px;
+  border:1px solid rgba(255,255,255,.09);
+  background:linear-gradient(180deg,rgba(255,255,255,.085),rgba(255,255,255,.035));
+  border-radius:var(--radius2);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+  padding:clamp(20px,4vw,38px);
+}
+h1{margin:0 0 18px;color:#d3edf5;font-size:clamp(32px,5vw,54px);line-height:1.05}
+h2{margin:28px 0 10px;color:#d3edf5;font-size:22px}
+p,li{color:var(--muted);line-height:1.7}
+strong{color:var(--text)}
+ul{padding-left:22px}
+.footer{margin-top:26px;color:var(--muted2);font-size:13px;text-align:center}
+.footer a{color:rgba(211,237,245,.75)}
+.legalMeta{
+  display:grid;
+  gap:10px;
+  margin:20px 0;
+}
+.legalBox{
+  border:1px solid rgba(255,255,255,.10);
+  background:rgba(255,255,255,.045);
+  border-radius:18px;
+  padding:14px 16px;
+}
+@media(max-width:620px){
+  .nav{padding:14px 18px}
+  .brand img{height:82px}
+  .brand .name span{display:none}
+  .navlinks{gap:8px;padding:4px}
+  .chip,.btn{padding:9px 11px;font-size:13px;min-height:40px}
+}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="nav">
+      <a class="brand" href="index.html" aria-label="Accueil">
+        <img src="assets/thal1.png" alt="THAL">
+        <div class="name">
+          <span class="brandTitle">T•H•A•L</span>
+          <span class="divider"></span>
+          <span class="subtitle">Photographie</span>
+        </div>
+      </a>
+
+      <nav class="navlinks">
+        <a class="chip" href="index.html">Accueil</a>
+        <a class="chip" href="galerie.html">Galerie</a>
+        <a class="btn" href="index.html#contact">Me contacter</a>
+      </nav>
+    </header>
+
+    <main class="card">
+      
+<h1>Politique de confidentialité</h1>
+
+<p>
+Cette politique explique quelles données peuvent être collectées lors de l’utilisation du site THAL Photographie.
+</p>
+
+<h2>Données collectées</h2>
+<p>Lorsque vous utilisez le formulaire de contact, les informations suivantes peuvent être collectées :</p>
+<ul>
+  <li>Nom et prénom</li>
+  <li>Entreprise, si renseignée</li>
+  <li>Adresse e-mail</li>
+  <li>Contenu du message</li>
+</ul>
+
+<h2>Utilisation des données</h2>
+<p>
+Ces données sont utilisées uniquement pour répondre aux demandes reçues, préparer un devis ou échanger au sujet d’une prestation photographique.
+</p>
+
+<h2>Formulaire de contact</h2>
+<p>
+Le formulaire de contact utilise le service Formspree pour transmettre les messages.
+Les données saisies dans le formulaire peuvent donc transiter par ce service.
+</p>
+
+<h2>Conservation</h2>
+<p>
+Les données sont conservées uniquement pendant la durée nécessaire au traitement de la demande et aux échanges liés à une éventuelle prestation.
+</p>
+
+<h2>Partage des données</h2>
+<p>
+Les données ne sont pas vendues. Elles ne sont pas transmises à des tiers, sauf nécessité technique liée à l’envoi du formulaire ou obligation légale.
+</p>
+
+<h2>Vos droits</h2>
+<p>
+Vous pouvez demander l’accès, la modification ou la suppression de vos données en écrivant à :
+<strong>contact@thalphotographie.ch</strong>.
+</p>
+
+<h2>Cookies et statistiques</h2>
+<p>
+À ce stade, le site n’utilise pas de système de suivi publicitaire ni de cookies marketing.
+</p>
+
+    </main>
+
+    <div class="footer">
+      © <span id="y"></span> THAL — Photographie
+      <br><br>
+      <a href="mentions-legales.html">Mentions légales</a>
+      &nbsp;|&nbsp;
+      <a href="politique-confidentialite.html">Politique de confidentialité</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("y").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
