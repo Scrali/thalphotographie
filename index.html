@@ -259,6 +259,38 @@
       line-height:1.58;
       font-size:var(--lead);
     }
+    .socials{
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  margin-top:15px;
+}
+
+.socials a{
+  width:56px;
+  height:56px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.12);
+
+  background:rgba(255,255,255,.04);
+  color:#d3edf5;
+
+  font-size:28px;
+
+  transition:.25s ease;
+}
+
+.socials a:hover{
+  transform:translateY(-3px);
+  background:rgba(124,184,255,.15);
+  border-color:rgba(124,184,255,.45);
+
+  box-shadow:0 0 20px rgba(124,184,255,.25);
+}
 
     .actions{
       display:flex;
@@ -779,18 +811,18 @@
       <section class="card reveal" style="margin-top:20px;padding:20px;text-align:center">
   <h2 style="margin-top:0">Suivez THAL Photographie</h2>
 
-  <div class="actions" style="justify-content:center">
-    <a class="chip" href="https://instagram.com/thal.photographie/e" target="_blank">
-      Instagram
-    </a>
+  <div class="socials">
+  <a href="https://instagram.com/toncompte" target="_blank" aria-label="Instagram">
+    <i class="fa-brands fa-instagram"></i>
+  </a>
 
-    <a class="chip" href="https://facebook.com/toncompte" target="_blank">
-      Facebook
-    </a>
+  <a href="https://facebook.com/toncompte" target="_blank" aria-label="Facebook">
+    <i class="fa-brands fa-facebook-f"></i>
+  </a>
 
-    <a class="chip" href="https://tiktok.com/@toncompte" target="_blank">
-      TikTok
-    </a>
+  <a href="https://tiktok.com/@toncompte" target="_blank" aria-label="TikTok">
+    <i class="fa-brands fa-tiktok"></i>
+  </a>
   </div>
 </section>
 
