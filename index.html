@@ -394,41 +394,42 @@
     }
 
     .heroPhoto{
-  position:absolute;
-  top:0;
-  right:0;
-  bottom:88px;
-  width:58%;
-  overflow:hidden;
-  border-top-right-radius:28px;
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    width:55%;
+    overflow:hidden;
+    border-radius:0 28px 28px 0;
 }
 
 .heroPhoto::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
-  background:
-    linear-gradient(90deg,
-      rgba(15,23,42,1) 0%,
-      rgba(15,23,42,.82) 8%,
-      rgba(15,23,42,.35) 24%,
-      rgba(15,23,42,0) 45%
-    ),
-    linear-gradient(180deg,
-      rgba(15,23,42,0) 55%,
-      rgba(15,23,42,.82) 100%
-    );
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:2;
+    pointer-events:none;
+
+    background:
+        linear-gradient(
+            90deg,
+            #0b1224 0%,
+            rgba(11,18,36,.95) 8%,
+            rgba(11,18,36,.55) 18%,
+            rgba(11,18,36,.15) 28%,
+            transparent 40%
+        );
 }
 
 .heroPhoto img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center top;
-  display:block;
-  transform:scale(1.08);
+    width:100%;
+    height:100%;
+    display:block;
+
+    object-fit:cover;
+    object-position:center center;
+
+    transform:scale(1.15);
 }
 
     .heroPhotoPlaceholder{
