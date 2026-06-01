@@ -328,6 +328,8 @@
     }
 
     .heroMainPremium{
+      position:relative;
+      min-height:720px;
       max-width:1040px;
       margin:0 auto;
       padding:0;
@@ -347,13 +349,15 @@
     }
 
     .heroContent{
-      padding:clamp(28px, 5vw, 58px);
-      position:relative;
-      z-index:2;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-    }
+  width:48%;
+  max-width:48%;
+  padding:clamp(28px, 5vw, 58px);
+  position:relative;
+  z-index:5;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
 
     .heroKicker{
       display:inline-flex;
@@ -396,13 +400,14 @@
     }
 
     .heroPhoto{
-    position:absolute;
-    top:0;
-    right:0;
-    bottom:0;
-    width:48%;
-    overflow:hidden;
-    border-radius:0 28px 28px 0;
+  position:absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  width:52%;
+  overflow:hidden;
+  border-radius:0 28px 28px 0;
+  z-index:1;
 }
 
 .heroPhoto::before{
