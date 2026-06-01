@@ -328,18 +328,15 @@
     }
 
     .heroMainPremium{
-      position:relative;
-      min-height:720px;
       max-width:1040px;
       margin:0 auto;
       padding:0;
       min-height:unset;
       display:grid;
-      grid-template-columns:1.05fr .95fr;
+      grid-template-columns:1fr 1fr;
       overflow:hidden;
       isolation:isolate;
       position:relative;
-      min-height:650px;
     }
 
     .heroMainPremium::after{
@@ -349,15 +346,14 @@
     }
 
     .heroContent{
-  width:48%;
-  max-width:48%;
-  padding:clamp(28px, 5vw, 58px);
-  position:relative;
-  z-index:5;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-}
+      padding:clamp(28px, 5vw, 58px);
+      position:relative;
+      z-index:3;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      min-width:0;
+    }
 
     .heroKicker{
       display:inline-flex;
@@ -376,9 +372,9 @@
     }
 
     .heroMainPremium h1{
-      font-size:clamp(44px, 6.4vw, 78px);
+      font-size:clamp(42px, 5.4vw, 70px);
       line-height:.98;
-      letter-spacing:-2px;
+      letter-spacing:-1.6px;
       margin:0 0 24px;
       max-width:9ch;
     }
@@ -400,43 +396,43 @@
     }
 
     .heroPhoto{
-  position:absolute;
-  top:0;
-  right:0;
-  bottom:0;
-  width:52%;
-  overflow:hidden;
-  z-index:1;
-}
+      position:relative;
+      min-height:560px;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(124,184,255,.13), transparent 0 36%),
+        linear-gradient(180deg, #061020, #050816);
+    }
 
-.heroPhoto::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  z-index:2;
-  pointer-events:none;
+    .heroPhoto::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:2;
+      pointer-events:none;
+      background:
+        linear-gradient(
+          90deg,
+          #0b1224 0%,
+          rgba(11,18,36,.88) 8%,
+          rgba(11,18,36,.48) 20%,
+          rgba(11,18,36,.08) 36%,
+          transparent 52%
+        ),
+        linear-gradient(
+          180deg,
+          transparent 62%,
+          rgba(5,8,22,.82) 100%
+        );
+    }
 
-  background:
-    linear-gradient(
-      90deg,
-      #050816 0%,
-      #061020 8%,
-      rgba(6,16,32,.95) 15%,
-      rgba(6,16,32,.65) 25%,
-      rgba(6,16,32,.20) 40%,
-      transparent 60%
-    );
-}
-
-.heroPhoto img{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  object-position:center center -20px;
-  display:block;
-
-  transform:scale(1.18);
-}
+    .heroPhoto img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      object-position:center center;
+    }
 
     .heroPhotoPlaceholder{
       height:100%;
@@ -453,7 +449,7 @@
     }
 
     .heroMeta{
-      margin-top:34px;
+      margin-top:0;
       padding:22px clamp(28px, 5vw, 58px);
       border-top:1px solid rgba(255,255,255,.09);
       display:grid;
@@ -492,8 +488,6 @@
     @media (max-width:900px){
       .heroMainPremium{
         grid-template-columns:1fr;
-        position:relative;
-        min-height:760px;
       }
 
       .heroPhoto{
@@ -502,16 +496,13 @@
       }
 
       .heroPhoto::before{
-    background:
-        linear-gradient(
-            90deg,
-            #0b1224 0%,
-            rgba(11,18,36,.98) 15%,
-            rgba(11,18,36,.75) 25%,
-            rgba(11,18,36,.25) 40%,
-            transparent 55%
-        );
-}
+        background:
+          linear-gradient(
+            180deg,
+            transparent 42%,
+            rgba(11,18,36,.92) 100%
+          );
+      }
 
       .heroContent{
         padding:28px 24px 10px;
@@ -677,38 +668,6 @@
       font-size:10px;
       padding:6px 9px;
       margin-bottom:5px;
-    }
-
-    @media (max-width:720px){
-      .heroMainPremium{
-        padding:28px 22px;
-      }
-
-      .heroMainPremium h1{
-        font-size:clamp(38px, 12vw, 54px);
-        letter-spacing:-1px;
-        max-width:9ch;
-      }
-
-      .heroLead{
-        font-size:16px;
-      }
-
-      .heroMeta{
-        margin-top:28px;
-        padding-top:18px;
-        grid-template-columns:1fr;
-        gap:14px;
-      }
-
-      .metaItem{
-        padding:12px 0;
-        border-bottom:1px solid rgba(255,255,255,.07);
-      }
-
-      .metaItem:last-child{
-        border-bottom:0;
-      }
     }
 
     @media (max-width:620px){
