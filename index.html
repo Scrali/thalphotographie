@@ -322,49 +322,134 @@
     }
 
 
-    /* Hero premium - une seule carte */
+    /* Hero premium - version À propos + photo */
     .heroGridPremium{
       grid-template-columns:1fr;
     }
 
     .heroMainPremium{
-      max-width:920px;
+      max-width:1040px;
       margin:0 auto;
-      padding:clamp(30px, 5vw, 54px);
+      padding:0;
       min-height:unset;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      overflow:hidden;
+      isolation:isolate;
     }
 
     .heroMainPremium::after{
-      inset:auto -15% -35% 40%;
-      height:220px;
-      opacity:.75;
+      inset:auto -20% -28% 35%;
+      height:260px;
+      opacity:.85;
+    }
+
+    .heroContent{
+      padding:clamp(28px, 5vw, 58px);
+      position:relative;
+      z-index:2;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+
+    .heroKicker{
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      margin:0 0 18px;
+      padding:8px 12px;
+      border-radius:999px;
+      border:1px solid rgba(124,184,255,.24);
+      background:rgba(124,184,255,.12);
+      color:#d3edf5;
+      font-size:12px;
+      font-weight:900;
+      letter-spacing:.12em;
+      text-transform:uppercase;
     }
 
     .heroMainPremium h1{
-      font-size:clamp(44px, 7vw, 84px);
-      line-height:.96;
+      font-size:clamp(44px, 6.4vw, 78px);
+      line-height:.98;
       letter-spacing:-2px;
-      margin:0 0 22px;
-      max-width:8.5ch;
+      margin:0 0 24px;
+      max-width:9ch;
     }
 
     .heroLead{
-      font-size:clamp(17px, 2.2vw, 21px);
+      font-size:clamp(16px, 2vw, 19px);
       color:rgba(255,255,255,.72);
-      max-width:660px;
+      max-width:560px;
+      margin:0 0 18px;
+      line-height:1.65;
+    }
+
+    .heroTextSmall{
       margin:0 0 28px;
-      line-height:1.55;
+      color:rgba(255,255,255,.66);
+      font-size:15px;
+      line-height:1.65;
+      max-width:560px;
+    }
+
+    .heroPhoto{
+      position:relative;
+      min-height:560px;
+      overflow:hidden;
+      align-self:stretch;
+      background:
+        radial-gradient(circle at 42% 36%, rgba(124,184,255,.18), transparent 0 38%),
+        linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+    }
+
+    .heroPhoto::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      z-index:1;
+      background:
+        linear-gradient(90deg, rgba(12,18,34,.92) 0%, rgba(12,18,34,.42) 18%, transparent 42%),
+        linear-gradient(180deg, transparent 55%, rgba(5,8,22,.42) 100%);
+      pointer-events:none;
+    }
+
+    .heroPhoto img{
+      width:100%;
+      height:100%;
+      display:block;
+      object-fit:cover;
+      object-position:center;
+      filter:contrast(1.03) saturate(.96);
+    }
+
+    .heroPhotoPlaceholder{
+      height:100%;
+      min-height:560px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:28px;
+      color:rgba(255,255,255,.58);
+      text-align:center;
+      font-weight:800;
+      line-height:1.45;
+      border-left:1px solid rgba(255,255,255,.08);
     }
 
     .heroMeta{
-      margin-top:40px;
-      padding-top:24px;
+      margin-top:34px;
+      padding:22px clamp(28px, 5vw, 58px);
       border-top:1px solid rgba(255,255,255,.09);
       display:grid;
       grid-template-columns:repeat(3, 1fr);
       gap:22px;
       position:relative;
-      z-index:1;
+      z-index:4;
+      grid-column:1 / -1;
+      background:linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.018));
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .metaItem{
@@ -387,6 +472,70 @@
       font-size:15px;
       font-weight:750;
       line-height:1.35;
+    }
+
+    @media (max-width:900px){
+      .heroMainPremium{
+        grid-template-columns:1fr;
+      }
+
+      .heroPhoto{
+        order:-1;
+        min-height:360px;
+      }
+
+      .heroPhoto::before{
+        background:
+          linear-gradient(180deg, transparent 45%, rgba(12,18,34,.88) 100%);
+      }
+
+      .heroContent{
+        padding:28px 24px 10px;
+      }
+
+      .heroMainPremium h1{
+        font-size:clamp(38px, 10vw, 58px);
+        letter-spacing:-1px;
+      }
+    }
+
+    @media (max-width:720px){
+      .heroPhoto{
+        min-height:310px;
+      }
+
+      .heroContent{
+        padding:24px 20px 6px;
+      }
+
+      .heroMainPremium h1{
+        font-size:clamp(36px, 12vw, 52px);
+        max-width:9ch;
+      }
+
+      .heroLead{
+        font-size:16px;
+      }
+
+      .heroTextSmall{
+        font-size:14px;
+      }
+
+      .heroMeta{
+        margin-top:24px;
+        padding:18px 20px;
+        grid-template-columns:1fr;
+        gap:0;
+      }
+
+      .metaItem{
+        padding:12px 0;
+        border-bottom:1px solid rgba(255,255,255,.07);
+      }
+
+      .metaItem:last-child{
+        border-bottom:0;
+      }
     }
 
     .aboutCard{
@@ -973,20 +1122,36 @@
 
       <div class="heroGrid heroGridPremium">
         <section class="card heroMain heroMainPremium reveal">
-          <h1>
-            Des images propres,<br>
-            modernes,<br>
-            et vivantes.
-          </h1>
+          <div class="heroContent">
+            <span class="heroKicker">À propos</span>
 
-          <p class="heroLead">
-            Photographie de portraits, événements et projets en Suisse romande.
-            Une approche sobre, naturelle et attentive aux détails.
-          </p>
+            <h1>
+              Photographe<br>
+              en Suisse<br>
+              romande.
+            </h1>
 
-          <div class="actions">
-            <a class="btn" href="galerie.html">Voir la galerie</a>
-            <a class="ghost" href="#contact">Me contacter</a>
+            <p class="heroLead">
+              Je suis Jonathan, photographe passionné basé en Suisse romande.
+            </p>
+
+            <p class="heroTextSmall">
+              Avec THAL Photographie, je crée des images sobres, vivantes et sincères,
+              en mettant l’accent sur la lumière, l’émotion et le rendu final.
+            </p>
+
+            <div class="actions">
+              <a class="btn" href="galerie.html">Voir la galerie</a>
+              <a class="ghost" href="#contact">Me contacter</a>
+            </div>
+          </div>
+
+          <div class="heroPhoto" aria-label="Portrait de Jonathan">
+            <img src="assets/jonathan.jpg" alt="Jonathan, photographe THAL Photographie" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="heroPhotoPlaceholder" style="display:none;">
+              Ajoute ta photo ici :<br>
+              assets/jonathan.jpg
+            </div>
           </div>
 
           <div class="heroMeta">
@@ -1025,14 +1190,6 @@
         </div>
       </section>
 
-      <section class="card aboutCard reveal">
-        <h2>À propos</h2>
-        <p>
-          Je suis Jonathan, photographe en Suisse romande. Avec THAL Photographie,
-          je cherche à créer des images sobres, vivantes et sincères, en mettant l’accent
-          sur la lumière, l’émotion et le rendu final.
-        </p>
-      </section>
 
       <div class="sectionTitle reveal">Prestations</div>
 
