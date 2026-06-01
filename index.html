@@ -6,7 +6,6 @@
   <title>THAL — Photographie</title>
   <meta name="description" content="Photographie — portraits, évènements, projets. Galerie moderne et rapide." />
   <meta name="theme-color" content="#070b16" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <style>
     :root{
@@ -67,13 +66,13 @@
       inset:0;
       pointer-events:none;
       z-index:-1;
-      opacity:.38;
+      opacity:.35;
       background:
         linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,.014) 1px, transparent 1px);
       background-size:56px 56px;
-      mask-image:radial-gradient(circle at 50% 30%, black, transparent 78%);
-      -webkit-mask-image:radial-gradient(circle at 50% 30%, black, transparent 78%);
+      mask-image:radial-gradient(circle at 50% 28%, black, transparent 78%);
+      -webkit-mask-image:radial-gradient(circle at 50% 28%, black, transparent 78%);
     }
 
     body::after{
@@ -82,10 +81,10 @@
       inset:0;
       pointer-events:none;
       z-index:-1;
-      background:
-        radial-gradient(circle at 50% 10%, rgba(255,255,255,.055), transparent 0 18%),
-        radial-gradient(circle at 50% 120%, rgba(124,184,255,.08), transparent 0 35%);
       opacity:.6;
+      background:
+        radial-gradient(circle at 50% 6%, rgba(255,255,255,.045), transparent 0 18%),
+        radial-gradient(circle at 50% 120%, rgba(124,184,255,.07), transparent 0 35%);
     }
 
     a{color:inherit; text-decoration:none}
@@ -320,6 +319,253 @@
       font-size:13px;
       letter-spacing:.14em;
       text-transform:uppercase;
+    }
+
+
+    /* Hero premium - une seule carte */
+    .heroGridPremium{
+      grid-template-columns:1fr;
+    }
+
+    .heroMainPremium{
+      max-width:920px;
+      margin:0 auto;
+      padding:clamp(30px, 5vw, 54px);
+      min-height:unset;
+    }
+
+    .heroMainPremium::after{
+      inset:auto -15% -35% 40%;
+      height:220px;
+      opacity:.75;
+    }
+
+    .heroMainPremium h1{
+      font-size:clamp(44px, 7vw, 84px);
+      line-height:.96;
+      letter-spacing:-2px;
+      margin:0 0 22px;
+      max-width:8.5ch;
+    }
+
+    .heroLead{
+      font-size:clamp(17px, 2.2vw, 21px);
+      color:rgba(255,255,255,.72);
+      max-width:660px;
+      margin:0 0 28px;
+      line-height:1.55;
+    }
+
+    .heroMeta{
+      margin-top:40px;
+      padding-top:24px;
+      border-top:1px solid rgba(255,255,255,.09);
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:22px;
+      position:relative;
+      z-index:1;
+    }
+
+    .metaItem{
+      display:flex;
+      flex-direction:column;
+      gap:7px;
+      min-width:0;
+    }
+
+    .metaLabel{
+      font-size:11px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.42);
+      font-weight:850;
+    }
+
+    .metaValue{
+      color:#d3edf5;
+      font-size:15px;
+      font-weight:750;
+      line-height:1.35;
+    }
+
+    .aboutCard{
+      margin-top:20px;
+      padding:clamp(22px, 3vw, 32px);
+    }
+
+    .aboutCard h2{
+      margin:0 0 12px;
+      font-size:clamp(24px, 3vw, 34px);
+      color:#d3edf5;
+      letter-spacing:-.4px;
+    }
+
+    .aboutCard p{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.7;
+      max-width:78ch;
+    }
+
+    .serviceLink{
+      min-height:220px;
+      padding:24px;
+      align-content:space-between;
+      cursor:pointer;
+    }
+
+    .serviceLink h3{
+      font-size:24px;
+      margin:0 0 10px;
+      color:#d3edf5;
+      letter-spacing:-.3px;
+    }
+
+    .serviceLink p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.6;
+    }
+
+    .serviceCta{
+      margin-top:22px;
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      gap:8px;
+      color:#d3edf5;
+      font-weight:800;
+      font-size:14px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(211,237,245,.18);
+      background:rgba(255,255,255,.035);
+    }
+
+    .serviceLink:hover .serviceCta{
+      border-color:rgba(124,184,255,.45);
+      background:rgba(124,184,255,.10);
+    }
+
+    .contactDivider{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      margin:6px 0;
+      color:rgba(255,255,255,.45);
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .contactDivider::before,
+    .contactDivider::after{
+      content:"";
+      height:1px;
+      flex:1;
+      background:rgba(255,255,255,.10);
+    }
+
+    .whatsappBtn{
+      width:100%;
+      justify-content:center;
+      gap:8px;
+      color:#25D366;
+      border-color:rgba(37,211,102,.38);
+      background:linear-gradient(180deg, rgba(37,211,102,.14), rgba(37,211,102,.045));
+      box-shadow:0 0 26px rgba(37,211,102,.08) inset, 0 0 28px rgba(37,211,102,.06);
+    }
+
+    .whatsappBtn:hover{
+      border-color:rgba(37,211,102,.62);
+      background:linear-gradient(180deg, rgba(37,211,102,.22), rgba(37,211,102,.075));
+      box-shadow:0 0 20px rgba(37,211,102,.18), 0 0 42px rgba(37,211,102,.10);
+    }
+
+    /* Mes images fortes : panneau moins intrusif */
+    .featuredText{
+      max-width:520px;
+      padding:12px 14px;
+    }
+
+    .featuredText h2{
+      font-size:clamp(22px, 3.2vw, 34px);
+      margin-bottom:3px;
+    }
+
+    .featuredText p{
+      font-size:13px;
+      line-height:1.35;
+    }
+
+    .featuredText span{
+      font-size:10px;
+      padding:6px 9px;
+      margin-bottom:5px;
+    }
+
+    @media (max-width:720px){
+      .heroMainPremium{
+        padding:28px 22px;
+      }
+
+      .heroMainPremium h1{
+        font-size:clamp(38px, 12vw, 54px);
+        letter-spacing:-1px;
+        max-width:9ch;
+      }
+
+      .heroLead{
+        font-size:16px;
+      }
+
+      .heroMeta{
+        margin-top:28px;
+        padding-top:18px;
+        grid-template-columns:1fr;
+        gap:14px;
+      }
+
+      .metaItem{
+        padding:12px 0;
+        border-bottom:1px solid rgba(255,255,255,.07);
+      }
+
+      .metaItem:last-child{
+        border-bottom:0;
+      }
+    }
+
+    @media (max-width:620px){
+      .featuredOverlay{
+        inset:auto 10px 10px 10px;
+      }
+
+      .featuredText{
+        width:auto;
+        max-width:calc(100% - 20px);
+        padding:10px 12px;
+        border-radius:16px;
+      }
+
+      .featuredText h2{
+        font-size:24px;
+        line-height:1.05;
+      }
+
+      .featuredText p{
+        font-size:12px;
+      }
+
+      .featuredHint{
+        display:none;
+      }
+
+      .featured{
+        height:300px;
+      }
     }
 
     /* Featured carousel */
@@ -582,47 +828,6 @@
       opacity:0;
       pointer-events:none;
     }
-
-    .contactDivider{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      margin:6px 0;
-      color:rgba(255,255,255,.45);
-      font-size:13px;
-      font-weight:700;
-    }
-
-    .contactDivider::before,
-    .contactDivider::after{
-      content:"";
-      height:1px;
-      flex:1;
-      background:rgba(255,255,255,.10);
-    }
-
-    .whatsappBtn{
-      width:100%;
-      justify-content:center;
-      gap:8px;
-      color:#25D366;
-      border-color:rgba(37,211,102,.38);
-      background:
-        linear-gradient(180deg, rgba(37,211,102,.14), rgba(37,211,102,.045));
-      box-shadow:
-        0 0 26px rgba(37,211,102,.08) inset,
-        0 0 28px rgba(37,211,102,.06);
-    }
-
-    .whatsappBtn:hover{
-      border-color:rgba(37,211,102,.62);
-      background:
-        linear-gradient(180deg, rgba(37,211,102,.22), rgba(37,211,102,.075));
-      box-shadow:
-        0 0 20px rgba(37,211,102,.18),
-        0 0 42px rgba(37,211,102,.10);
-    }
-
     .formNote{
       color:rgba(255,255,255,.56);
       font-size:13px;
@@ -635,54 +840,6 @@
     }
     .formStatus.ok{color:rgba(170,255,210,.92)}
     .formStatus.err{color:rgba(255,170,170,.92)}
-
-
-    .socials{
-      display:flex;
-      justify-content:center;
-      gap:20px;
-      margin-top:20px;
-    }
-
-    .socials a{
-      width:56px;
-      height:56px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:50%;
-      border:1px solid rgba(255,255,255,.12);
-      background:rgba(255,255,255,.04);
-      font-size:28px;
-      transition:.25s ease;
-    }
-
-    .instagram{ color:#E4405F; }
-    .facebook{ color:#1877F2; }
-    .tiktok{ color:#FFFFFF; }
-
-    .socials a:hover{
-      transform:translateY(-3px);
-      background:rgba(124,184,255,.15);
-      border-color:rgba(124,184,255,.45);
-      box-shadow:0 0 20px rgba(124,184,255,.25);
-    }
-
-    .footerLinks{
-      margin-top:10px;
-      display:flex;
-      justify-content:center;
-      gap:10px;
-      flex-wrap:wrap;
-    }
-
-    .footerLinks a{
-      color:rgba(211,237,245,.72);
-    }
-
-    .footerLinks a:hover{
-      color:#d3edf5;
-    }
 
     .footer{
       margin-top:26px;
@@ -731,13 +888,54 @@
     }
 
 
+    /* Header mobile compact */
     @media (max-width:620px){
-      .navlinks{
-        grid-template-columns:1fr;
+      .wrap{
+        padding:10px 14px 60px;
+      }
+
+      .nav{
+        border-radius:28px;
+        padding:10px 12px;
+        gap:10px;
+      }
+
+      .brand{
+        padding:0;
       }
 
       .brand img{
-        height:78px;
+        height:72px;
+      }
+
+      .brand .name{
+        display:none;
+      }
+
+      .navlinks{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:flex-end;
+        gap:7px;
+        padding:0;
+      }
+
+      .navlinks .chip,
+      .navlinks .btn{
+        min-height:34px;
+        padding:7px 11px;
+        font-size:12px;
+      }
+
+      .hero{
+        padding-top:20px;
+      }
+
+      .actions .btn,
+      .actions .ghost{
+        min-height:38px;
+        padding:8px 12px;
+        font-size:13px;
       }
     }
 
@@ -767,41 +965,47 @@
       <nav class="navlinks">
         <a class="chip" href="galerie.html">Galerie</a>
         <a class="btn" href="#contact">Me contacter</a>
-        <a class="chip" href="https://wa.me/41787457242" target="_blank" rel="noopener">WhatsApp</a>
       </nav>
     </header>
 
     <main id="top" class="hero">
       <img class="bg-logo" src="assets/logo-bg.svg" alt="" />
 
-      <div class="heroGrid">
-        <section class="card heroMain reveal">
-          <h1>Des images propres,<br/>modernes, et vivantes.</h1>
-          <p>
-            Photographie — portraits, évènements, projets. Une approche simple : lumière,
-            émotion, et rendu net.
+      <div class="heroGrid heroGridPremium">
+        <section class="card heroMain heroMainPremium reveal">
+          <h1>
+            Des images propres,<br>
+            modernes,<br>
+            et vivantes.
+          </h1>
+
+          <p class="heroLead">
+            Photographie de portraits, événements et projets en Suisse romande.
+            Une approche sobre, naturelle et attentive aux détails.
           </p>
 
           <div class="actions">
             <a class="btn" href="galerie.html">Voir la galerie</a>
-            <a class="ghost" href="#contact">Demander un devis</a>
+            <a class="ghost" href="#contact">Me contacter</a>
+          </div>
+
+          <div class="heroMeta">
+            <div class="metaItem">
+              <span class="metaLabel">Localisation</span>
+              <span class="metaValue">Suisse romande</span>
+            </div>
+
+            <div class="metaItem">
+              <span class="metaLabel">Livraison</span>
+              <span class="metaValue">Fichiers HD sécurisés</span>
+            </div>
+
+            <div class="metaItem">
+              <span class="metaLabel">Style</span>
+              <span class="metaValue">Lumière & émotion</span>
+            </div>
           </div>
         </section>
-
-        <aside class="card heroSide reveal">
-          <div class="mini">
-            <b>Disponibilités</b>
-            <span>Suisse romande</span>
-          </div>
-          <div class="mini">
-            <b>Livraison</b>
-            <span>Galerie web + fichiers HD</span>
-          </div>
-          <div class="mini">
-            <b>Style</b>
-            <span>Sobre, contrasté, naturel</span>
-          </div>
-        </aside>
       </div>
 
       <section class="featured card reveal js-featured-carousel" data-service="Accueil" aria-label="Sélection principale">
@@ -815,62 +1019,47 @@
           <div class="featuredText">
             <span>Sélection</span>
             <h2>Mes images fortes</h2>
-            <p>Un aperçu grand format de l’univers THAL — lumière, contraste et moments choisis.</p>
+            <p>Portraits • Événements • Projets</p>
           </div>
           <div class="featuredHint">Cliquer pour ouvrir la galerie</div>
         </div>
       </section>
 
-      <div class="sectionTitle reveal">Ce que je propose</div>
+      <section class="card aboutCard reveal">
+        <h2>À propos</h2>
+        <p>
+          Je suis Jonathan, photographe en Suisse romande. Avec THAL Photographie,
+          je cherche à créer des images sobres, vivantes et sincères, en mettant l’accent
+          sur la lumière, l’émotion et le rendu final.
+        </p>
+      </section>
+
+      <div class="sectionTitle reveal">Prestations</div>
 
       <section class="grid3">
-        <div class="service reveal">
-          <div class="svcTop">
+        <a class="service serviceLink reveal" href="galerie.html?cat=Portraits">
+          <div>
             <h3>Portraits</h3>
-            <p>Individuel, couple, famille — en extérieur ou intérieur.</p>
+            <p>Séances individuelles, couple ou famille, en extérieur ou en intérieur.</p>
           </div>
+          <span class="serviceCta">Découvrir →</span>
+        </a>
 
-          <div class="carousel js-carousel" data-service="Portraits" aria-label="Galerie portraits">
-            <div class="carouselTrack"></div>
-            <div class="cNav">
-              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-            </div>
-            <div class="cDots" aria-hidden="true"></div>
-          </div>
-        </div>
-
-        <div class="service reveal">
-          <div class="svcTop">
+        <a class="service serviceLink reveal" href="galerie.html?cat=Evenements">
+          <div>
             <h3>Événements</h3>
-            <p>Anniversaire, soirée, association — reportage discret.</p>
+            <p>Anniversaire, soirée, association ou événement privé avec une approche discrète.</p>
           </div>
+          <span class="serviceCta">Découvrir →</span>
+        </a>
 
-          <div class="carousel js-carousel" data-service="Evenements" aria-label="Galerie événements">
-            <div class="carouselTrack"></div>
-            <div class="cNav">
-              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-            </div>
-            <div class="cDots" aria-hidden="true"></div>
-          </div>
-        </div>
-
-        <div class="service reveal">
-          <div class="svcTop">
+        <a class="service serviceLink reveal" href="galerie.html?cat=Projets">
+          <div>
             <h3>Projets</h3>
-            <p>Marques, produits, contenu réseau — pack prêt à publier.</p>
+            <p>Marques, produits, contenu réseau et images prêtes à publier.</p>
           </div>
-
-          <div class="carousel js-carousel" data-service="Projets" aria-label="Galerie projets">
-            <div class="carouselTrack"></div>
-            <div class="cNav">
-              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-            </div>
-            <div class="cDots" aria-hidden="true"></div>
-          </div>
-        </div>
+          <span class="serviceCta">Découvrir →</span>
+        </a>
       </section>
 
       <section id="contact" class="card reveal" style="margin-top:16px; padding:18px">
@@ -901,43 +1090,13 @@
 
             <button class="btn" type="submit" id="sendBtn">Envoyer le message</button>
 
-            <div class="contactDivider"><span>ou</span></div>
-
-            <a class="btn whatsappBtn" href="https://wa.me/41787457242" target="_blank" rel="noopener">
-              <i class="fa-brands fa-whatsapp"></i>
-              WhatsApp
-            </a>
-
             <div class="formNote">Je vous répondrai sous 24h (jours ouvrés).</div>
             <div class="formStatus" id="formStatus" role="status" aria-live="polite"></div>
           </form>
         </div>
       </section>
 
-
-      <section class="card reveal" style="margin-top:20px;padding:20px;text-align:center">
-        <h2 style="margin-top:0">Suivez THAL Photographie</h2>
-        <div class="socials">
-          <a class="instagram" href="https://instagram.com/TON_COMPTE" target="_blank" rel="noopener" aria-label="Instagram">
-            <i class="fa-brands fa-instagram"></i>
-          </a>
-          <a class="facebook" href="https://facebook.com/TON_COMPTE" target="_blank" rel="noopener" aria-label="Facebook">
-            <i class="fa-brands fa-facebook-f"></i>
-          </a>
-          <a class="tiktok" href="https://tiktok.com/@TON_COMPTE" target="_blank" rel="noopener" aria-label="TikTok">
-            <i class="fa-brands fa-tiktok"></i>
-          </a>
-        </div>
-      </section>
-
-      <div class="footer">
-        © <span id="y"></span> THAL — Photographie
-        <div class="footerLinks">
-          <a href="mentions-legales.html">Mentions légales</a>
-          <span>•</span>
-          <a href="politique-confidentialite.html">Politique de confidentialité</a>
-        </div>
-      </div>
+      <div class="footer">© <span id="y"></span> THAL — Photographie</div>
     </main>
   </div>
 
