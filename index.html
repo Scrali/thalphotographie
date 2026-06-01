@@ -419,6 +419,97 @@
       }
     }
 
+    /* À propos */
+    .aboutCard{
+      margin-top:20px;
+      padding:clamp(22px, 3vw, 32px);
+    }
+
+    .aboutCard h2{
+      margin:0 0 12px;
+      font-size:clamp(24px, 3vw, 34px);
+      color:#d3edf5;
+      letter-spacing:-.4px;
+    }
+
+    .aboutCard p{
+      margin:0;
+      color:var(--muted);
+      font-size:16px;
+      line-height:1.7;
+      max-width:78ch;
+    }
+
+    /* Cartes de prestations sans carrousel */
+    .serviceLink{
+      min-height:220px;
+      padding:24px;
+      align-content:space-between;
+      cursor:pointer;
+    }
+
+    .serviceLink h3{
+      font-size:24px;
+      margin:0 0 10px;
+      color:#d3edf5;
+      letter-spacing:-.3px;
+    }
+
+    .serviceLink p{
+      margin:0;
+      color:var(--muted);
+      font-size:15px;
+      line-height:1.6;
+    }
+
+    .serviceLink .serviceCta{
+      margin-top:22px;
+      display:inline-flex;
+      align-items:center;
+      width:max-content;
+      gap:8px;
+      color:#d3edf5;
+      font-weight:800;
+      font-size:14px;
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid rgba(211,237,245,.18);
+      background:rgba(255,255,255,.035);
+    }
+
+    .serviceLink:hover .serviceCta{
+      border-color:rgba(124,184,255,.45);
+      background:rgba(124,184,255,.10);
+    }
+
+    /* Carrousel principal : texte plus discret sur mobile */
+    @media (max-width:620px){
+      .featuredText{
+        padding:12px 14px;
+        border-radius:18px;
+      }
+
+      .featuredText span{
+        font-size:10px;
+        padding:6px 9px;
+        margin-bottom:5px;
+      }
+
+      .featuredText h2{
+        font-size:clamp(24px, 7vw, 32px);
+        margin-bottom:4px;
+      }
+
+      .featuredText p{
+        font-size:13px;
+        line-height:1.35;
+      }
+
+      .featuredOverlay{
+        inset:auto 10px 10px 10px;
+      }
+    }
+
     /* Featured carousel */
     .featured{
       position:relative;
@@ -934,9 +1025,7 @@
       <nav class="navlinks">
         <a class="chip" href="galerie.html">Galerie</a>
         <a class="btn" href="#contact">Me contacter</a>
-        <a class="chip whatsapp" href="https://wa.me/41787457242" target="_blank" rel="noopener">
-  WhatsApp
-</a>
+        <a class="chip whatsapp" href="https://wa.me/41787457242" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i>&nbsp;WhatsApp</a>
       </nav>
     </header>
 
@@ -952,7 +1041,7 @@
           </h1>
 
           <p class="heroLead">
-            Photographie de portraits, évènements et projets en Suisse romande.
+            Photographie de portraits, événements et projets en Suisse romande.
             Une approche sobre, naturelle et attentive aux détails.
           </p>
 
@@ -991,62 +1080,53 @@
           <div class="featuredText">
             <span>Sélection</span>
             <h2>Mes images fortes</h2>
-            <p>Un aperçu grand format de l’univers THAL — lumière, contraste et moments choisis.</p>
+            <p>Portraits • Événements • Projets</p>
           </div>
           <div class="featuredHint">Cliquer pour ouvrir la galerie</div>
         </div>
       </section>
 
-      <div class="sectionTitle reveal">Ce que je propose</div>
+      <section class="card aboutCard reveal">
+        <h2>À propos</h2>
+        <p>
+          Je suis Jonathan, photographe en Suisse romande. Avec THAL Photographie,
+          je cherche à créer des images sobres, vivantes et sincères, en mettant l’accent
+          sur la lumière, l’émotion et le rendu final.
+        </p>
+      </section>
+
+      <div class="sectionTitle reveal">Prestations</div>
 
       <section class="grid3">
-        <div class="service reveal">
-          <div class="svcTop">
+        <a class="service serviceLink reveal" href="galerie.html?cat=Portraits">
+          <div>
             <h3>Portraits</h3>
-            <p>Individuel, couple, famille — en extérieur ou intérieur.</p>
+            <p>
+              Séances individuelles, couple ou famille, en extérieur ou en intérieur.
+            </p>
           </div>
+          <span class="serviceCta">Découvrir →</span>
+        </a>
 
-          <div class="carousel js-carousel" data-service="Portraits" aria-label="Galerie portraits">
-            <div class="carouselTrack"></div>
-            <div class="cNav">
-              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-            </div>
-            <div class="cDots" aria-hidden="true"></div>
-          </div>
-        </div>
-
-        <div class="service reveal">
-          <div class="svcTop">
+        <a class="service serviceLink reveal" href="galerie.html?cat=Evenements">
+          <div>
             <h3>Événements</h3>
-            <p>Anniversaire, soirée, association — reportage discret.</p>
+            <p>
+              Anniversaire, soirée, association ou événement privé avec une approche discrète.
+            </p>
           </div>
+          <span class="serviceCta">Découvrir →</span>
+        </a>
 
-          <div class="carousel js-carousel" data-service="Evenements" aria-label="Galerie événements">
-            <div class="carouselTrack"></div>
-            <div class="cNav">
-              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-            </div>
-            <div class="cDots" aria-hidden="true"></div>
-          </div>
-        </div>
-
-        <div class="service reveal">
-          <div class="svcTop">
+        <a class="service serviceLink reveal" href="galerie.html?cat=Projets">
+          <div>
             <h3>Projets</h3>
-            <p>Marques, produits, contenu réseau — pack prêt à publier.</p>
+            <p>
+              Marques, produits, contenu réseau et images prêtes à publier.
+            </p>
           </div>
-
-          <div class="carousel js-carousel" data-service="Projets" aria-label="Galerie projets">
-            <div class="carouselTrack"></div>
-            <div class="cNav">
-              <button class="cBtn prev" type="button" aria-label="Précédent">←</button>
-              <button class="cBtn next" type="button" aria-label="Suivant">→</button>
-            </div>
-            <div class="cDots" aria-hidden="true"></div>
-          </div>
-        </div>
+          <span class="serviceCta">Découvrir →</span>
+        </a>
       </section>
 
       <section id="contact" class="card reveal" style="margin-top:16px; padding:18px">
