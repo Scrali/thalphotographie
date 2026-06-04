@@ -212,10 +212,24 @@
       position:relative;
       min-height:560px;
       overflow:hidden;
-      background:#0b1224;
+      background:none;
     }
 
-    .heroPhoto::before{display:none;}
+    .heroPhoto::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:2;
+  pointer-events:none;
+
+  background:linear-gradient(
+    90deg,
+    var(--bg2) 0%,
+    rgba(11,18,36,.70) 8%,
+    rgba(11,18,36,.30) 16%,
+    transparent 24%
+  );
+}
 
     .heroPhoto img{
       width:100%;
