@@ -476,19 +476,20 @@
 
     const UNIVERSES = [
       {
-        id:"concerts",
-        title:"Concerts & scène",
-        label:"Énergie",
-        text:"La lumière, le mouvement et l’intensité du live.",
-        keys:["concert","concerts","scene","scène","live","festival","musique","evenement","evenements","événement","événements"]
-      },
-      {
         id:"portraits",
         title:"Portraits & moments de vie",
         label:"Humain",
         text:"Portraits, famille, couple, enfants et instants naturels.",
         keys:["portrait","portraits","modele","modèle","studio","personne","famille","family","couple","enfant","enfants","bebe","bébé","mariage","grossesse","moment"]
       },
+      {
+        id:"concerts",
+        title:"Concerts & scène",
+        label:"Énergie",
+        text:"La lumière, le mouvement et l’intensité du live.",
+        keys:["concert","concerts","scene","scène","live","festival","musique","evenement","evenements","événement","événements"]
+      },
+      
       {
         id:"explorations",
         title:"Explorations",
@@ -618,6 +619,10 @@
     function startAllUniverseCoverRotation(){
       if(allUniverseRotationTimer) clearInterval(allUniverseRotationTimer);
       allUniverseRotationTimer = setInterval(()=>{
+        i = (i + 1) % images.length;
+  document.querySelector("#allUnivers")
+    .style.backgroundImage = `url('${images[i]}')`;
+}, 5000);
         const card = document.querySelector('.universCard[data-universe="tous"]');
         const img = card?.querySelector('.universBg');
         const nextPhoto = randomPhoto(PHOTOS);
