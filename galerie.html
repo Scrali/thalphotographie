@@ -484,17 +484,10 @@
       },
       {
         id:"portraits",
-        title:"Portraits",
-        label:"Expression",
-        text:"Des images centrées sur la personne, le regard et la présence.",
-        keys:["portrait","portraits","modele","modèle","studio","personne"]
-      },
-      {
-        id:"famille",
-        title:"Famille & moments de vie",
-        label:"Souvenir",
-        text:"Couple, famille, enfants et instants naturels.",
-        keys:["famille","family","couple","enfant","enfants","bebe","bébé","mariage","grossesse","moment"]
+        title:"Portraits & moments de vie",
+        label:"Humain",
+        text:"Portraits, famille, couple, enfants et instants naturels.",
+        keys:["portrait","portraits","modele","modèle","studio","personne","famille","family","couple","enfant","enfants","bebe","bébé","mariage","grossesse","moment"]
       },
       {
         id:"explorations",
@@ -505,6 +498,15 @@
       }
     ];
 
+    const ALL_UNIVERSE_CARD = {
+      id:"tous",
+      title:"Tous les univers",
+      label:"Tout",
+      text:"Voir l’ensemble de la galerie, sans filtre.",
+      keys:[]
+    };
+
+    let allUniverseRotationTimer = null;
     let PHOTOS = [];
     let CURRENT_UNIVERSE = "tous";
     let CURRENT_CAT = "Tous";
@@ -570,16 +572,26 @@
       return PHOTOS.filter(p => CURRENT_UNIVERSE === "tous" || p.universe === CURRENT_UNIVERSE);
     }
 
+    function randomPhoto(list){
+      if(!list.length) return null;
+      return list[Math.floor(Math.random() * list.length)];
+    }
+
+    function orderedUniverseCards(){
+      return [...UNIVERSES, ALL_UNIVERSE_CARD];
+    }
+
     function renderUniverses(){
       const root = $("#universGrid");
-      const cards = [{id:"tous", title:"Tous les univers", label:"Tout", text:"Voir l’ensemble de la galerie.", keys:[]}, ...UNIVERSES];
+      const cards = orderedUniverseCards();
       root.innerHTML = "";
 
       cards.forEach(u=>{
         const list = u.id === "tous" ? PHOTOS : PHOTOS.filter(p=>p.universe === u.id);
-        const cover = list[0]?.src || "";
+        const cover = (u.id === "tous" ? randomPhoto(list) : list[0])?.src || "";
         const card = document.createElement("button");
         card.type = "button";
+        card.dataset.universe = u.id;
         card.className = "universCard" + (u.id === CURRENT_UNIVERSE ? " active" : "");
         card.innerHTML = `
           ${cover ? `<img class="universBg" src="${cover}" alt="">` : `<div class="universBg"></div>`}
@@ -599,6 +611,23 @@
         });
         root.appendChild(card);
       });
+
+      startAllUniverseCoverRotation();
+    }
+
+    function startAllUniverseCoverRotation(){
+      if(allUniverseRotationTimer) clearInterval(allUniverseRotationTimer);
+      allUniverseRotationTimer = setInterval(()=>{
+        const card = document.querySelector('.universCard[data-universe="tous"]');
+        const img = card?.querySelector('.universBg');
+        const nextPhoto = randomPhoto(PHOTOS);
+        if(!img || !nextPhoto) return;
+        img.style.opacity = ".25";
+        setTimeout(()=>{
+          img.src = nextPhoto.src;
+          img.style.opacity = ".78";
+        }, 180);
+      }, 2600);
     }
 
     function renderCategories(){
@@ -694,7 +723,7 @@
     }
 
     function updateTitle(){
-      const item = [{id:"tous", title:"Tous les univers"}, ...UNIVERSES].find(u=>u.id === CURRENT_UNIVERSE);
+      const item = orderedUniverseCards().find(u=>u.id === CURRENT_UNIVERSE);
       $("#currentTitle").textContent = item?.title || "Galerie";
     }
 
@@ -702,8 +731,8 @@
       updateTitle();
       if(renderUniverseCards) renderUniverses();
       else document.querySelectorAll(".universCard").forEach((el, i)=>{
-        const ids = ["tous", ...UNIVERSES.map(u=>u.id)];
-        el.classList.toggle("active", ids[i] === CURRENT_UNIVERSE);
+        const id = el.dataset.universe;
+        el.classList.toggle("active", id === CURRENT_UNIVERSE);
       });
       renderCategories();
       renderSelects();
