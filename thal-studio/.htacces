@@ -1,0 +1,6 @@
+AuthType Basic
+AuthName "THAL Studio"
+
+AuthUserFile /home/TON_LOGIN_OVH/.htpasswd
+
+Require valid-user
