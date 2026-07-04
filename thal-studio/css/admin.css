@@ -52,3 +52,11 @@ h2{font-family:Georgia,serif;font-weight:400;font-size:36px;margin:0 0 24px}
 
 .admin-table small{color:#9ba3a6}
 .button.danger{background:#3b1212!important;color:#ffbcbc!important;border:1px solid #6b2323!important}
+
+.admin-form h3{margin:24px 0 10px;color:#fff}
+.admin-table small{color:#9ba3a6}
+.actions-cell{display:flex;gap:8px;align-items:center}
+.actions-cell form{display:inline}
+.button.danger{background:#3b1212!important;color:#ffbcbc!important;border:1px solid #6b2323!important}
+
+.pack-editor{border:1px solid #303030;border-radius:16px;padding:16px;margin:14px 0;background:#111}.pack-editor h4{margin:0 0 12px}.admin-form h3{margin:24px 0 10px;color:#fff}.admin-form textarea{min-height:90px}

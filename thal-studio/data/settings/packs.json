@@ -1,0 +1,73 @@
+{
+  "home_address": "Sainte-Croix, VD, Suisse",
+  "home_lat": 46.8225,
+  "home_lon": 6.5019,
+  "ors_api_key": "",
+  "km_included": 30,
+  "km_rate": 0.6,
+  "commercial_percent": 30,
+  "range_percent": 10,
+  "rounding": 10,
+  "packs": [
+    {
+      "id": "pack_1",
+      "name": "Essentiel 1 heure",
+      "duration_hours": 1,
+      "base_price": 250,
+      "photos": 20,
+      "features": [
+        "Galerie privée",
+        "Livraison HD",
+        "Sauvegarde 1 an"
+      ]
+    },
+    {
+      "id": "pack_2",
+      "name": "Essentiel 2 heures",
+      "duration_hours": 2,
+      "base_price": 390,
+      "photos": 40,
+      "features": [
+        "Galerie privée",
+        "Livraison HD",
+        "Sauvegarde 1 an"
+      ]
+    },
+    {
+      "id": "pack_3",
+      "name": "Premium 4 heures",
+      "duration_hours": 4,
+      "base_price": 790,
+      "photos": 80,
+      "features": [
+        "Galerie privée",
+        "Livraison HD",
+        "Sauvegarde 1 an"
+      ]
+    },
+    {
+      "id": "pack_4",
+      "name": "Prestige 6 heures",
+      "duration_hours": 6,
+      "base_price": 1190,
+      "photos": 130,
+      "features": [
+        "Galerie privée",
+        "Livraison HD",
+        "Sauvegarde 1 an"
+      ]
+    },
+    {
+      "id": "pack_5",
+      "name": "Journée 8 heures",
+      "duration_hours": 8,
+      "base_price": 1590,
+      "photos": 180,
+      "features": [
+        "Galerie privée",
+        "Livraison HD",
+        "Sauvegarde 1 an"
+      ]
+    }
+  ]
+}

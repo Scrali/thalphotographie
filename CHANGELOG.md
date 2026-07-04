@@ -1,14 +1,14 @@
 # THAL Studio — Changelog
 
-## V0.5.0 — Moteur de devis unifié
+## V0.6.0 — Estimation par packs
 
 ### Ajouté
-- Un seul moteur de calcul partagé entre estimation et conversion en devis.
-- Page Tarification avec réglages : tarif horaire, prix/km, préparation, tri, retouche, photos incluses, matériel, sauvegarde, commercial, fourchette.
-- Conversion estimation → devis en un clic.
-- Les devis créés depuis une estimation sont préremplis avec les mêmes bases de calcul.
-- Prix conseillé interne + budget affiché en fourchette.
+- Refonte de l’estimation autour de packs simples.
+- Packs modifiables dans THAL Studio : durée, prix, photos, éléments inclus.
+- Déplacement simplifié : km inclus + prix du km supplémentaire.
+- Supplément commercial en pourcentage.
+- Le client ne voit plus les calculs techniques.
+- Conversion estimation → devis basée sur le pack recommandé.
 
-## V0.4.3
-- Distance automatique OpenRouteService.
-- Pack recommandé.
+## V0.5.0
+- Moteur de calcul unifié.

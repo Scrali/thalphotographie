@@ -17,7 +17,7 @@ require_login();
       <img src="assets/logo.png" alt="THAL Photographie">
       <div>
         <h1>THAL Studio</h1>
-        <p>V0.4.3</p>
+        <p>V0.6.0</p>
       </div>
     </div>
 

@@ -1341,6 +1341,7 @@
       }
 
       lastContactSummary = data.contact_summary || "";
+      const featureItems = (data.features || []).map(f => `<li>✓ ${f}</li>`).join("");
       const usage = data.usage === "commercial" ? "utilisation commerciale" : "cadre privé";
 
       result.innerHTML = `
@@ -1348,14 +1349,12 @@
         <div class="thal-estimate-price">${data.pack}</div>
         <ul class="thal-pack-list">
           <li>✓ ${data.included_photos} photos retouchées incluses</li>
-          <li>✓ Galerie privée</li>
-          <li>✓ Livraison HD</li>
-          <li>✓ Sauvegarde 1 an</li>
+          ${featureItems}
           <li>✓ ${usage}</li>
         </ul>
         <h3>Budget estimatif</h3>
         <div class="thal-estimate-price">entre ${data.price_min.toLocaleString("fr-CH")} CHF et ${data.price_max.toLocaleString("fr-CH")} CHF</div>
-        <p>Prix conseillé interne : ${data.price_recommended.toLocaleString("fr-CH")} CHF.</p><p>Cette estimation est indicative. Le devis final sera adapté selon les détails de votre demande.</p>
+        <p>Cette estimation est indicative. Le devis final sera adapté selon les détails de votre demande.</p>
         <button type="button" class="thal-estimate-submit" id="thalFillContact">Me contacter avec cette demande</button>
       `;
 

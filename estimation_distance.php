@@ -7,7 +7,7 @@ function fail_response(string $message, int $code = 400): void {
     exit;
 }
 
-$settingsFile = __DIR__ . '/thal-studio/data/settings/estimation.json';
+$settingsFile = __DIR__ . '/thal-studio/data/settings/packs.json';
 $settings = [
     'home_lat' => 46.8225,
     'home_lon' => 6.5019,
@@ -22,7 +22,7 @@ $location = trim((string)($_GET['location'] ?? ''));
 if ($location === '') fail_response('Lieu manquant.');
 
 $key = trim((string)($settings['ors_api_key'] ?? ''));
-if ($key === '') fail_response('Clé OpenRouteService manquante. Ajoute-la dans THAL Studio > Tarification.');
+if ($key === '') fail_response('Clé OpenRouteService manquante. Ajoute-la dans THAL Studio > Packs & tarifs.');
 
 function http_json(string $url): array {
     $context = stream_context_create(['http' => ['method' => 'GET', 'timeout' => 12, 'ignore_errors' => true]]);

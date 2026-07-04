@@ -1,16 +1,16 @@
 # THAL Studio — Roadmap
 
-## V0.5.0
-- [x] Moteur de calcul unifié
-- [x] Tarification configurable
-- [x] Conversion estimation vers devis
-- [x] Préremplissage devis
+## V0.6.0
+- [x] Estimation par packs
+- [x] Packs configurables
+- [x] Interface client simplifiée
+- [x] Conversion devis basée sur le pack
 
-## V0.5.1
-- [ ] Vue détail d’une estimation
-- [ ] Statuts : nouveau, contacté, devis envoyé, accepté, refusé
+## V0.6.1
+- [ ] Vue détail estimation
+- [ ] Statuts CRM
 - [ ] Notes internes
 
-## V0.6.0
+## V0.7.0
 - [ ] Clients
-- [ ] Historique prestations
+- [ ] Facturation
