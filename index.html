@@ -1208,6 +1208,7 @@
 
         <label>Distance
           <input type="number" step="0.1" min="0" name="roundtrip_km" id="thalEstimateKm" placeholder="Calcul automatique">
+          <input type="hidden" name="roundtrip_minutes" id="thalEstimateMinutes">
           <div class="thal-distance-status" id="thalDistanceStatus">Saisissez un lieu, puis calculez la distance.</div>
         </label>
 
@@ -1256,6 +1257,7 @@
   const distanceBtn = document.getElementById("thalCalculateDistance");
   const locationInput = document.getElementById("thalEstimateLocation");
   const kmInput = document.getElementById("thalEstimateKm");
+  const minutesInput = document.getElementById("thalEstimateMinutes");
   const distanceStatus = document.getElementById("thalDistanceStatus");
   const dateInput = document.getElementById("thalEstimateDate");
   const dateBtn = document.getElementById("thalOpenCalendar");
@@ -1311,6 +1313,7 @@
         return;
       }
       kmInput.value = data.roundtrip_km;
+      if(minutesInput) minutesInput.value = data.roundtrip_minutes || 0;
       distanceStatus.textContent = `${data.roundtrip_km} km aller-retour • environ ${data.roundtrip_minutes} min A/R`;
     }catch(e){
       distanceStatus.textContent = "Erreur lors du calcul de distance.";
@@ -1352,7 +1355,7 @@
         </ul>
         <h3>Budget estimatif</h3>
         <div class="thal-estimate-price">entre ${data.price_min.toLocaleString("fr-CH")} CHF et ${data.price_max.toLocaleString("fr-CH")} CHF</div>
-        <p>Cette estimation est indicative. Le devis final sera adapté selon les détails de votre demande.</p>
+        <p>Prix conseillé interne : ${data.price_recommended.toLocaleString("fr-CH")} CHF.</p><p>Cette estimation est indicative. Le devis final sera adapté selon les détails de votre demande.</p>
         <button type="button" class="thal-estimate-submit" id="thalFillContact">Me contacter avec cette demande</button>
       `;
 

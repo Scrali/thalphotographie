@@ -1,17 +1,14 @@
 # THAL Studio — Changelog
 
-## V0.4.3 — Distance automatique
+## V0.5.0 — Moteur de devis unifié
 
 ### Ajouté
-- Calcul automatique de distance avec OpenRouteService.
-- Plus besoin d’ouvrir Google Maps.
-- Date avec bouton calendrier.
-- Pack recommandé affiché proprement.
-- Budget affiché sous forme de fourchette.
-- Réglage de la clé API OpenRouteService dans THAL Studio.
-- Réglages modifiables : prix du km, tarif horaire, tarif retouche, photos incluses, supplément commercial.
+- Un seul moteur de calcul partagé entre estimation et conversion en devis.
+- Page Tarification avec réglages : tarif horaire, prix/km, préparation, tri, retouche, photos incluses, matériel, sauvegarde, commercial, fourchette.
+- Conversion estimation → devis en un clic.
+- Les devis créés depuis une estimation sont préremplis avec les mêmes bases de calcul.
+- Prix conseillé interne + budget affiché en fourchette.
 
-## V0.4.2
-- Google Maps depuis Sainte-Croix.
-- Champ km aller-retour.
-- Tarifs modifiables.
+## V0.4.3
+- Distance automatique OpenRouteService.
+- Pack recommandé.

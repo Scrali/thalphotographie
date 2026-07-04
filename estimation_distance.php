@@ -7,80 +7,43 @@ function fail_response(string $message, int $code = 400): void {
     exit;
 }
 
-function read_settings(): array {
-    $defaults = [
-        'home_address' => 'Sainte-Croix, VD, Suisse',
-        'home_lat' => 46.8225,
-        'home_lon' => 6.5019,
-        'ors_api_key' => '',
-    ];
-    $file = __DIR__ . '/thal-studio/data/settings/estimation.json';
-    if (is_file($file)) {
-        $data = json_decode((string)file_get_contents($file), true);
-        if (is_array($data)) {
-            $defaults = array_merge($defaults, $data);
-        }
-    }
-    return $defaults;
-}
-
-function http_json(string $url, array $headers = []): array {
-    $context = stream_context_create([
-        'http' => [
-            'method' => 'GET',
-            'timeout' => 12,
-            'header' => implode("\r\n", $headers),
-            'ignore_errors' => true,
-        ],
-    ]);
-    $raw = @file_get_contents($url, false, $context);
-    if ($raw === false) {
-        fail_response('Impossible de contacter le service de distance.', 502);
-    }
-    $data = json_decode($raw, true);
-    if (!is_array($data)) {
-        fail_response('Réponse distance invalide.', 502);
-    }
-    return $data;
+$settingsFile = __DIR__ . '/thal-studio/data/settings/estimation.json';
+$settings = [
+    'home_lat' => 46.8225,
+    'home_lon' => 6.5019,
+    'ors_api_key' => '',
+];
+if (is_file($settingsFile)) {
+    $json = json_decode((string)file_get_contents($settingsFile), true);
+    if (is_array($json)) $settings = array_merge($settings, $json);
 }
 
 $location = trim((string)($_GET['location'] ?? ''));
-if ($location === '') {
-    fail_response('Lieu manquant.');
-}
+if ($location === '') fail_response('Lieu manquant.');
 
-$settings = read_settings();
 $key = trim((string)($settings['ors_api_key'] ?? ''));
+if ($key === '') fail_response('Clé OpenRouteService manquante. Ajoute-la dans THAL Studio > Tarification.');
 
-if ($key === '') {
-    fail_response('Clé OpenRouteService manquante. Ajoute-la dans THAL Studio > Réglages estimation.');
+function http_json(string $url): array {
+    $context = stream_context_create(['http' => ['method' => 'GET', 'timeout' => 12, 'ignore_errors' => true]]);
+    $raw = @file_get_contents($url, false, $context);
+    if ($raw === false) fail_response('Impossible de contacter OpenRouteService.', 502);
+    $data = json_decode($raw, true);
+    if (!is_array($data)) fail_response('Réponse OpenRouteService invalide.', 502);
+    return $data;
 }
 
-$homeLat = (float)($settings['home_lat'] ?? 46.8225);
-$homeLon = (float)($settings['home_lon'] ?? 6.5019);
+$geo = http_json('https://api.openrouteservice.org/geocode/search?api_key=' . rawurlencode($key) . '&text=' . rawurlencode($location) . '&size=1');
+if (empty($geo['features'][0]['geometry']['coordinates'])) fail_response('Lieu introuvable.');
 
-// Géocodage destination
-$geoUrl = 'https://api.openrouteservice.org/geocode/search?api_key=' . rawurlencode($key) . '&text=' . rawurlencode($location) . '&size=1';
-$geo = http_json($geoUrl);
+$dest = $geo['features'][0]['geometry']['coordinates'];
+$homeLon = (float)$settings['home_lon'];
+$homeLat = (float)$settings['home_lat'];
 
-if (empty($geo['features'][0]['geometry']['coordinates'])) {
-    fail_response('Lieu introuvable. Essaie une adresse plus précise.');
-}
-
-$dest = $geo['features'][0]['geometry']['coordinates']; // [lon, lat]
-$destLon = (float)$dest[0];
-$destLat = (float)$dest[1];
-
-$dirUrl = 'https://api.openrouteservice.org/v2/directions/driving-car?api_key=' . rawurlencode($key) .
-    '&start=' . rawurlencode($homeLon . ',' . $homeLat) .
-    '&end=' . rawurlencode($destLon . ',' . $destLat);
-
-$route = http_json($dirUrl);
+$route = http_json('https://api.openrouteservice.org/v2/directions/driving-car?api_key=' . rawurlencode($key) . '&start=' . rawurlencode($homeLon . ',' . $homeLat) . '&end=' . rawurlencode(((float)$dest[0]) . ',' . ((float)$dest[1])));
 
 $summary = $route['features'][0]['properties']['summary'] ?? null;
-if (!$summary || !isset($summary['distance'])) {
-    fail_response('Distance introuvable pour ce lieu.');
-}
+if (!$summary || !isset($summary['distance'])) fail_response('Distance introuvable.');
 
 $onewayKm = (float)$summary['distance'] / 1000;
 $onewayMinutes = isset($summary['duration']) ? ((float)$summary['duration'] / 60) : 0;
