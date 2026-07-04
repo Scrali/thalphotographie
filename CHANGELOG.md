@@ -1,18 +1,18 @@
 # THAL Studio — Changelog
 
-## V0.4.0 — Prospection & devis
+## V0.4.1 — Estimation accueil
 
 ### Ajouté
-- Page publique `/estimation.php` sur le site principal.
-- Enregistrement des estimations dans `thal-studio/data/estimations/`.
-- Page admin `Estimations` avec statistiques simples.
-- Lien vers les estimations dans le tableau de bord.
-- Slots : bouton Charger plus visible, Sauver discret, Effacer rouge.
-- Confirmation avant écrasement d’un slot.
-- Version visible dans THAL Studio.
+- Fenêtre volante d’estimation directement sur la page d’accueil.
+- Estimation sous forme de fourchette.
+- Champs : lieu, date, temps sur place.
+- Packs automatiques selon la durée.
+- Nombre de photos incluses calculé automatiquement.
+- Choix : cadre privé ou utilisation commerciale.
+- Enregistrement des estimations.
+- Suppression des estimations depuis THAL Studio.
 
-### Déjà inclus dans la base
-- Sauvegarde des devis.
-- Recherche dans Mes devis.
-- Ouverture, modification, duplication et suppression des devis.
-- Nom PDF basé sur numéro + client.
+## V0.4.0 — Prospection & devis
+- Page publique d’estimation.
+- Statistiques d’estimation.
+- Slots sécurisés.
