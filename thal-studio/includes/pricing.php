@@ -113,7 +113,7 @@ function thal_estimation_to_quote(array $estimate, array $pricing, array $settin
         'showHourly'=>false,
         'included'=>$features,
         'terms'=>"Devis valable jusqu’à la date indiquée. Paiement à réception du devis validé ou au plus tard le jour de la prestation, sauf accord contraire.",
-        '_meta'=>['source'=>'estimation','sourceId'=>(string)($estimate['_id'] ?? ''),'pricingEngine'=>'pack-v0.6.0'],
+        '_meta'=>['source'=>'estimation','sourceId'=>(string)($estimate['_id'] ?? ''),'pricingEngine'=>'pack-v0.6.1'],
     ];
 }
 

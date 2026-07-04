@@ -1,14 +1,13 @@
 # THAL Studio — Changelog
 
-## V0.6.0 — Estimation par packs
+## V0.6.1 — Correctif estimation
 
-### Ajouté
-- Refonte de l’estimation autour de packs simples.
-- Packs modifiables dans THAL Studio : durée, prix, photos, éléments inclus.
-- Déplacement simplifié : km inclus + prix du km supplémentaire.
-- Supplément commercial en pourcentage.
-- Le client ne voit plus les calculs techniques.
-- Conversion estimation → devis basée sur le pack recommandé.
+### Corrigé
+- Suppression de l’affichage “Prix conseillé interne” côté client.
+- Correction de la conversion estimation → devis.
+- Ajout d’un message d’erreur si la conversion échoue.
 
-## V0.5.0
-- Moteur de calcul unifié.
+## V0.6.0
+- Estimation par packs.
+- Packs configurables.
+- Conversion estimation → devis.
