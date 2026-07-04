@@ -1,0 +1,15 @@
+{
+  "home_address": "Sainte-Croix, VD, Suisse",
+  "hourly_rate": 120,
+  "editing_rate": 80,
+  "editing_hours_per_onsite_hour": 0.65,
+  "km_rate": 0.8,
+  "base_fee": 80,
+  "commercial_fee": 250,
+  "private_photos_per_hour": 18,
+  "commercial_photos_per_hour": 22,
+  "min_photos_private": 12,
+  "min_photos_commercial": 20,
+  "range_min_multiplier": 0.9,
+  "range_max_multiplier": 1.18
+}

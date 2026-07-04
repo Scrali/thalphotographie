@@ -20,7 +20,7 @@ $page_title = $page_title ?? 'THAL Studio';
       <img src="assets/logo.png" alt="THAL Photographie">
       <div>
         <h1>THAL Studio</h1>
-        <p>V0.4.1</p>
+        <p>V0.4.2</p>
       </div>
     </div>
     <a href="dashboard.php">Tableau de bord</a>
@@ -29,6 +29,7 @@ $page_title = $page_title ?? 'THAL Studio';
     <a href="clients.php">Clients</a>
     <a href="estimations.php">Estimations</a>
     <a href="settings.php">Paramètres</a>
+    <a href="estimation_settings.php">Réglages estimation</a>
     <a href="about.php">À propos</a>
     <a href="logout.php">Déconnexion</a>
   </aside>

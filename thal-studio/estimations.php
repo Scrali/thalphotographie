@@ -39,7 +39,7 @@ foreach ($items as $it) {
 </div>
 
 <div class="panel-box">
-  <p>Fenêtre publique intégrée sur la page d’accueil.</p>
+  <p><a class="button small" href="estimation_settings.php">Modifier les tarifs</a></p>
 
   <?php if (!$items): ?>
     <p>Aucune estimation enregistrée.</p>
@@ -48,9 +48,8 @@ foreach ($items as $it) {
       <thead>
         <tr>
           <th>Date</th>
-          <th>Nom</th>
-          <th>Type</th>
-          <th>Lieu</th>
+          <th>Contact</th>
+          <th>Lieu / date</th>
           <th>Durée</th>
           <th>Usage</th>
           <th>Pack</th>
@@ -62,10 +61,11 @@ foreach ($items as $it) {
       <?php foreach ($items as $it): ?>
         <tr>
           <td><?= e(date('d.m.Y H:i', strtotime($it['createdAt'] ?? 'now'))) ?></td>
-          <td><?= e($it['name'] ?? '') ?><br><small><?= e($it['email'] ?? '') ?></small></td>
-          <td><?= e($it['type'] ?? '') ?></td>
-          <td><?= e($it['location'] ?? '') ?><br><small><?= e($it['event_date'] ?? '') ?></small></td>
-          <td><?= e((string)($it['onsite_hours'] ?? '')) ?> h</td>
+          <td><?= e($it['name'] ?? '') ?><br><small><?= e($it['email'] ?? '') ?></small><br><small><?= e($it['phone'] ?? '') ?></small></td>
+          <td><?= e($it['location'] ?? '') ?><br><small><?= e($it['event_date'] ?? '') ?></small>
+            <?php if (!empty($it['maps_url'])): ?><br><a target="_blank" href="<?= e($it['maps_url']) ?>">Google Maps</a><?php endif; ?>
+          </td>
+          <td><?= e((string)($it['onsite_hours'] ?? '')) ?> h<br><small><?= e((string)($it['roundtrip_km'] ?? 0)) ?> km A/R</small></td>
           <td><?= e(($it['usage'] ?? '') === 'commercial' ? 'Commercial' : 'Privé') ?></td>
           <td><?= e($it['pack_name'] ?? '') ?><br><small><?= e((string)($it['included_photos'] ?? '')) ?> photos incluses</small></td>
           <td><?= e(number_format((float)($it['price_min'] ?? $it['total'] ?? 0), 0, '.', "'")) ?>–<?= e(number_format((float)($it['price_max'] ?? $it['total'] ?? 0), 0, '.', "'")) ?> CHF</td>

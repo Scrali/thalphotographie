@@ -544,6 +544,7 @@
   .thal-estimate-open{width:100%}
 }
 
+.thal-map-button{width:100%;border:0;border-radius:999px;padding:14px;background:#fff;color:#111;font-weight:900;cursor:pointer}
 </style>
 </head>
 
@@ -1143,7 +1144,7 @@
     loadHomeCarousels();
   </script>
 
-<!-- THAL_ESTIMATE_MODAL_V041 -->
+<!-- THAL_ESTIMATE_MODAL_V042 -->
 <div class="thal-estimate-floating">
   <button class="thal-estimate-open" type="button" data-thal-estimate-open>Obtenir une estimation</button>
 </div>
@@ -1155,7 +1156,7 @@
 
     <form class="thal-estimate-form" id="thalEstimateForm">
       <h2 id="thalEstimateTitle">Estimation rapide</h2>
-      <p>Indiquez le lieu, la date, le temps sur place et l’usage prévu. Le résultat est une fourchette indicative, pas un prix définitif.</p>
+      <p>Indiquez le lieu, la date, le temps sur place et l’usage prévu. Le résultat est une fourchette indicative.</p>
 
       <div class="thal-estimate-grid">
         <label>Type de prestation
@@ -1174,7 +1175,7 @@
         </label>
 
         <label>Lieu
-          <input name="location" placeholder="Ville / adresse approximative">
+          <input name="location" id="thalEstimateLocation" placeholder="Ville / adresse approximative">
         </label>
 
         <label>Temps sur place
@@ -1186,6 +1187,14 @@
             <option value="6">6 heures</option>
             <option value="8">8 heures</option>
           </select>
+        </label>
+
+        <label>Kilomètres aller-retour
+          <input type="number" step="1" min="0" name="roundtrip_km" id="thalEstimateKm" placeholder="À saisir après vérification Maps">
+        </label>
+
+        <label>Itinéraire
+          <button class="thal-map-button" type="button" id="thalEstimateMaps">Ouvrir Google Maps</button>
         </label>
       </div>
 
@@ -1223,8 +1232,6 @@
     </form>
   </section>
 </div>
-
-
 <script>
 (() => {
   const modal = document.getElementById("thalEstimateModal");
@@ -1232,24 +1239,60 @@
   const closeEls = document.querySelectorAll("[data-thal-estimate-close]");
   const form = document.getElementById("thalEstimateForm");
   const result = document.getElementById("thalEstimateResult");
+  const mapsBtn = document.getElementById("thalEstimateMaps");
+  const locationInput = document.getElementById("thalEstimateLocation");
+
+  let estimateConfig = { home_address: "Sainte-Croix, VD, Suisse" };
+  let lastContactSummary = "";
+
+  fetch("estimation_config.php", { headers:{ "Accept":"application/json" } })
+    .then(r => r.json())
+    .then(data => { estimateConfig = Object.assign(estimateConfig, data || {}); })
+    .catch(() => {});
 
   if(!modal || !openBtn || !form || !result) return;
 
-  function openModal(){
-    modal.hidden = false;
-    document.body.style.overflow = "hidden";
+  function openModal(){ modal.hidden = false; document.body.style.overflow = "hidden"; }
+  function closeModal(){ modal.hidden = true; document.body.style.overflow = ""; }
+
+  function mapsUrl(){
+    const dest = locationInput ? locationInput.value : "";
+    return "https://www.google.com/maps/dir/?api=1&origin=" +
+      encodeURIComponent(estimateConfig.home_address || "Sainte-Croix, VD, Suisse") +
+      "&destination=" + encodeURIComponent(dest || "");
   }
 
-  function closeModal(){
-    modal.hidden = true;
-    document.body.style.overflow = "";
+  function fillContact(summary){
+    const contactForm = document.getElementById("contactForm");
+    if(!contactForm){
+      location.href = "#contact";
+      return;
+    }
+
+    const msg = contactForm.querySelector("textarea[name='message'], textarea, input[name='message']");
+    const name = contactForm.querySelector("input[name='name'], input[name='nom']");
+    const email = contactForm.querySelector("input[type='email'], input[name='email']");
+    const phone = contactForm.querySelector("input[name='phone'], input[name='tel'], input[name='telephone']");
+
+    const fd = new FormData(form);
+    if(name && fd.get("name")) name.value = fd.get("name");
+    if(email && fd.get("email")) email.value = fd.get("email");
+    if(phone && fd.get("phone")) phone.value = fd.get("phone");
+    if(msg) msg.value = summary;
+
+    closeModal();
+    contactForm.scrollIntoView({behavior:"smooth", block:"start"});
   }
 
   openBtn.addEventListener("click", openModal);
   closeEls.forEach(el => el.addEventListener("click", closeModal));
-  document.addEventListener("keydown", e => {
-    if(e.key === "Escape" && !modal.hidden) closeModal();
-  });
+  document.addEventListener("keydown", e => { if(e.key === "Escape" && !modal.hidden) closeModal(); });
+
+  if(mapsBtn){
+    mapsBtn.addEventListener("click", () => {
+      window.open(mapsUrl(), "_blank", "noopener");
+    });
+  }
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
@@ -1269,14 +1312,22 @@
         return;
       }
 
-      const usage = data.usage === "commercial" ? "usage commercial" : "cadre privé";
+      lastContactSummary = data.contact_summary || "";
+      const usage = data.usage === "commercial" ? "utilisation commerciale" : "cadre privé";
 
       result.innerHTML = `
         <h3>Votre estimation indicative</h3>
         <div class="thal-estimate-price">entre ${data.price_min.toLocaleString("fr-CH")} CHF et ${data.price_max.toLocaleString("fr-CH")} CHF</div>
         <p><strong>${data.pack}</strong> — ${data.included_photos} photos incluses, ${usage}.</p>
-        <p>Cette estimation reste indicative. Le devis final sera adapté selon les détails de votre demande.</p>
+        <p>Cette estimation est sauvegardée. Le devis final sera adapté selon les détails de votre demande.</p>
+        <p>
+          <a href="${data.maps_url}" target="_blank" rel="noopener">Vérifier l’itinéraire</a>
+        </p>
+        <button type="button" class="thal-estimate-submit" id="thalFillContact">Me contacter avec cette demande</button>
       `;
+
+      const fillBtn = document.getElementById("thalFillContact");
+      if(fillBtn) fillBtn.addEventListener("click", () => fillContact(lastContactSummary));
     }catch(err){
       result.innerHTML = "<p>Erreur réseau. Merci de réessayer ou de me contacter directement.</p>";
     }

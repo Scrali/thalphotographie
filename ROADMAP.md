@@ -1,10 +1,11 @@
 # THAL Studio — Roadmap
 
-## V0.4.1
-- [x] Estimation en fenêtre volante sur la page d’accueil
-- [x] Fourchette de prix
+## V0.4.2
+- [x] Google Maps depuis Sainte-Croix
+- [x] Champ kilomètres A/R
+- [x] Tarifs modifiables
+- [x] Remplissage du formulaire de contact
 - [x] Suppression des estimations
-- [x] Packs selon durée et usage
 
 ## V0.5.0
 - [ ] Prospects
