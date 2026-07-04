@@ -27,7 +27,7 @@ require __DIR__ . '/includes/header.php';
   <a class="card" href="estimations.php">
     <span>📊</span>
     <strong>Estimations</strong>
-    <p>Voir les demandes d’estimation faites depuis le site.</p>
+    <p>V0.7.0</p>
   </a>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>

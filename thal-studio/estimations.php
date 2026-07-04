@@ -16,11 +16,6 @@ $total=count($items); $month=0; $potentialMin=0; $potentialMax=0;
 foreach($items as $it){ if(substr($it['createdAt']??'',0,7)===date('Y-m'))$month++; $potentialMin+=(float)($it['price_min']??0); $potentialMax+=(float)($it['price_max']??0); }
 ?>
 <h2>Estimations</h2>
-<?php if (!empty($_GET['error'])): ?>
-  <div class="panel-box">
-    <p class="error">Erreur conversion estimation : <?= e($_GET['error']) ?></p>
-  </div>
-<?php endif; ?>
 <div class="cards">
   <div class="card"><span>📊</span><strong><?= e((string)$total) ?></strong><p>estimations totales</p></div>
   <div class="card"><span>📅</span><strong><?= e((string)$month) ?></strong><p>ce mois</p></div>

@@ -13,6 +13,7 @@ function thal_pack_settings(?string $baseDir = null): array {
         'range_percent'=>10,
         'rounding'=>10,
         'packs'=>[
+            ['id'=>'pack_1','name'=>'Essentiel 1 heure','duration_hours'=>1,'base_price'=>250,'photos'=>20,'features'=>['Galerie privée','Livraison HD','Sauvegarde 1 an']],
             ['id'=>'pack_2','name'=>'Essentiel 2 heures','duration_hours'=>2,'base_price'=>390,'photos'=>40,'features'=>['Galerie privée','Livraison HD','Sauvegarde 1 an']],
             ['id'=>'pack_3','name'=>'Premium 4 heures','duration_hours'=>4,'base_price'=>790,'photos'=>80,'features'=>['Galerie privée','Livraison HD','Sauvegarde 1 an']],
         ],
@@ -42,9 +43,14 @@ function thal_pack_calculate(array $input, array $settings): array {
 
     $pack = thal_select_pack($requestedHours, $settings['packs']);
     $basePrice = (float)$pack['base_price'];
+
     $extraKm = max(0, $roundtripKm - (float)$settings['km_included']);
     $kmCost = $extraKm * (float)$settings['km_rate'];
-    $commercialFee = $usage === 'commercial' ? ($basePrice + $kmCost) * ((float)$settings['commercial_percent'] / 100) : 0;
+
+    $commercialFee = 0;
+    if ($usage === 'commercial') {
+        $commercialFee = ($basePrice + $kmCost) * ((float)$settings['commercial_percent'] / 100);
+    }
 
     $recommended = thal_round_to($basePrice + $kmCost + $commercialFee, (float)$settings['rounding']);
     $range = max(0, (float)$settings['range_percent']) / 100;
@@ -76,7 +82,9 @@ function thal_estimation_to_quote(array $estimate, array $pricing, array $settin
     $end = date('H:i', strtotime($start) + ((float)$pricing['pack_duration'] * 3600));
     $clientName = trim((string)($estimate['name'] ?? 'Client'));
     if ($clientName === '') $clientName = 'Client';
-    $features = implode("\n", array_map(fn($f) => "- " . $f, array_merge([$pricing['included_photos'].' photos retouchées'], $pricing['features'] ?? [])));
+
+    $features = array_merge([$pricing['included_photos'] . ' photos retouchées'], $pricing['features'] ?? []);
+    $included = implode("\n", array_map(fn($f) => "- " . $f, $features));
 
     return [
         'quoteNumber'=>'DEV-' . date('Y') . '-' . date('His'),
@@ -111,9 +119,9 @@ function thal_estimation_to_quote(array $estimate, array $pricing, array $settin
         'commercialRightsFee'=>(string)$pricing['commercial_fee'],
         'commercialRightsLabel'=>'Utilisation commerciale',
         'showHourly'=>false,
-        'included'=>$features,
+        'included'=>$included,
         'terms'=>"Devis valable jusqu’à la date indiquée. Paiement à réception du devis validé ou au plus tard le jour de la prestation, sauf accord contraire.",
-        '_meta'=>['source'=>'estimation','sourceId'=>(string)($estimate['_id'] ?? ''),'pricingEngine'=>'pack-v0.6.1'],
+        '_meta'=>['source'=>'estimation','sourceId'=>(string)($estimate['_id'] ?? ''),'pricingEngine'=>'pack-v0.7.0'],
     ];
 }
 

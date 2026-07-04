@@ -1,13 +1,13 @@
 # THAL Studio — Changelog
 
-## V0.6.1 — Correctif estimation
+## V0.7.0 — Base propre estimation
 
 ### Corrigé
-- Suppression de l’affichage “Prix conseillé interne” côté client.
-- Correction de la conversion estimation → devis.
-- Ajout d’un message d’erreur si la conversion échoue.
+- Suppression définitive de l’affichage public “Prix conseillé interne”.
+- Nettoyage du `index.html` : un seul bloc estimation, un seul script, une seule feuille CSS estimation.
+- Estimation basée sur packs.
+- Conversion estimation → devis conservée.
+- Réglages packs dans THAL Studio.
 
 ## V0.6.0
 - Estimation par packs.
-- Packs configurables.
-- Conversion estimation → devis.

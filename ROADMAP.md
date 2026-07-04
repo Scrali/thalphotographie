@@ -1,16 +1,12 @@
 # THAL Studio — Roadmap
 
-## V0.6.0
-- [x] Estimation par packs
+## V0.7.0
+- [x] Nettoyage estimation publique
 - [x] Packs configurables
-- [x] Interface client simplifiée
-- [x] Conversion devis basée sur le pack
+- [x] Suppression des éléments internes côté client
+- [x] Base plus propre
 
-## V0.6.1
+## V0.7.1
+- [ ] Stabilisation conversion estimation → devis
 - [ ] Vue détail estimation
 - [ ] Statuts CRM
-- [ ] Notes internes
-
-## V0.7.0
-- [ ] Clients
-- [ ] Facturation

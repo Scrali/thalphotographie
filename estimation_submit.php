@@ -6,6 +6,7 @@ function clean($v) { return trim((string)$v); }
 function number_value($v) { return max(0, (float)$v); }
 
 $settings = thal_pack_settings(__DIR__ . '/thal-studio');
+
 $type = clean($_POST['type'] ?? 'Événement');
 $location = clean($_POST['location'] ?? '');
 $eventDate = clean($_POST['event_date'] ?? '');
@@ -25,8 +26,12 @@ $pricing = thal_pack_calculate([
 
 $contactSummary =
 "Demande d'estimation THAL Photographie\n\n" .
-"Type : {$type}\nDate : {$eventDate}\nLieu : {$location}\nDurée demandée : {$onsiteHours} h\n" .
-"Pack recommandé : {$pricing['pack_name']}\nKilomètres A/R : {$roundtripKm} km\n" .
+"Type : {$type}\n" .
+"Date : {$eventDate}\n" .
+"Lieu : {$location}\n" .
+"Durée demandée : {$onsiteHours} h\n" .
+"Pack recommandé : {$pricing['pack_name']}\n" .
+"Kilomètres A/R : {$roundtripKm} km\n" .
 "Usage : " . ($usage === 'commercial' ? 'Utilisation commerciale' : 'Cadre privé') . "\n" .
 "Photos incluses : {$pricing['included_photos']}\n" .
 "Budget estimatif : entre " . number_format($pricing['price_min'], 0, '.', "'") . " CHF et " . number_format($pricing['price_max'], 0, '.', "'") . " CHF\n\n" .
@@ -57,6 +62,7 @@ $entry = [
 
 $dir = __DIR__ . '/thal-studio/data/estimations';
 if (!is_dir($dir)) mkdir($dir, 0755, true);
+
 $id = date('Ymd_His') . '_' . substr(md5(json_encode($entry)), 0, 8);
 $entry['_id'] = $id . '.json';
 $ok = file_put_contents($dir . '/' . $id . '.json', json_encode($entry, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX) !== false;
@@ -67,7 +73,6 @@ echo json_encode([
     'pack'=>$pricing['pack_name'],
     'included_photos'=>$pricing['included_photos'],
     'features'=>$pricing['features'],
-    'price_recommended'=>$pricing['price_recommended'],
     'price_min'=>$pricing['price_min'],
     'price_max'=>$pricing['price_max'],
     'usage'=>$usage,
