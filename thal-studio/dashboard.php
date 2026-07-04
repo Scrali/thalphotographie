@@ -24,5 +24,10 @@ require __DIR__ . '/includes/header.php';
     <strong>Paramètres</strong>
     <p>Changer le mot de passe et gérer l’application.</p>
   </a>
+  <a class="card" href="estimations.php">
+    <span>📊</span>
+    <strong>Estimations</strong>
+    <p>Voir les demandes d’estimation faites depuis le site.</p>
+  </a>
 </div>
 <?php require __DIR__ . '/includes/footer.php'; ?>

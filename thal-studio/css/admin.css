@@ -38,3 +38,14 @@ h2{font-family:Georgia,serif;font-weight:400;font-size:36px;margin:0 0 24px}
 .search-form{display:flex;gap:8px;margin-bottom:18px}.search-form input{flex:1;background:#0f0f0f;color:#fff;border:1px solid #333;border-radius:12px;padding:12px}
 .search-form button{border:0;border-radius:999px;background:#fff;color:#111;padding:10px 16px;font-weight:700}
 .slot-status{color:#9ba3a6;font-size:12px;margin:8px 0 0}
+
+.admin-table{width:100%;border-collapse:collapse}
+.admin-table th,.admin-table td{padding:12px;border-bottom:1px solid #303030;text-align:left}
+.admin-table th{color:#9ba3a6;font-size:12px;text-transform:uppercase;letter-spacing:.08em}
+.button.small{padding:7px 11px;font-size:13px}
+.button.danger{background:#3b1212;color:#ffbcbc;border:1px solid #6b2323}
+.actions-cell{display:flex;gap:8px;align-items:center}
+.actions-cell form{display:inline}
+.search-form{display:flex;gap:8px;margin-bottom:18px}
+.search-form input{flex:1;background:#0f0f0f;color:#fff;border:1px solid #333;border-radius:12px;padding:12px}
+.search-form button{border:0;border-radius:999px;background:#fff;color:#111;padding:10px 16px;font-weight:700}

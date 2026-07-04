@@ -364,3 +364,12 @@ if(window.THAL_INITIAL_QUOTE && typeof window.THAL_INITIAL_QUOTE === 'object'){
   applyState(window.THAL_INITIAL_QUOTE);
 }
 
+
+document.querySelectorAll('[data-save-slot]').forEach(btn=>{
+  btn.addEventListener('click', e=>{
+    const slot=btn.dataset.saveSlot;
+    if(!confirm('⚠️ Remplacer la mise en page du Slot '+slot+' ?\n\nCette action est irréversible.')){
+      e.preventDefault(); e.stopImmediatePropagation();
+    }
+  }, true);
+});

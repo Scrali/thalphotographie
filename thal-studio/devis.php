@@ -17,7 +17,7 @@ require_login();
       <img src="assets/logo.png" alt="THAL Photographie">
       <div>
         <h1>THAL Studio</h1>
-        <p>V0.3.2 — devis essentiel</p>
+        <p>V0.4.0</p>
       </div>
     </div>
 
@@ -131,19 +131,19 @@ Téléchargement HD</textarea></label>
         <div class="layout-slots span2">
           <h3>Slots de mise en page</h3>
           <div class="slot-row">
-            <button type="button" data-save-slot="1">Sauver slot 1</button>
-            <button type="button" data-load-slot="1">Charger slot 1</button>
-            <button type="button" data-clear-slot="1">Effacer</button>
+            <button type="button" class="slot-save" data-save-slot="1">Sauver</button>
+            <button type="button" class="slot-load" data-load-slot="1">Charger slot 1</button>
+            <button type="button" class="slot-clear" data-clear-slot="1">Effacer</button>
           </div>
           <div class="slot-row">
-            <button type="button" data-save-slot="2">Sauver slot 2</button>
-            <button type="button" data-load-slot="2">Charger slot 2</button>
-            <button type="button" data-clear-slot="2">Effacer</button>
+            <button type="button" class="slot-save" data-save-slot="2">Sauver</button>
+            <button type="button" class="slot-load" data-load-slot="2">Charger slot 2</button>
+            <button type="button" class="slot-clear" data-clear-slot="2">Effacer</button>
           </div>
           <div class="slot-row">
-            <button type="button" data-save-slot="3">Sauver slot 3</button>
-            <button type="button" data-load-slot="3">Charger slot 3</button>
-            <button type="button" data-clear-slot="3">Effacer</button>
+            <button type="button" class="slot-save" data-save-slot="3">Sauver</button>
+            <button type="button" class="slot-load" data-load-slot="3">Charger slot 3</button>
+            <button type="button" class="slot-clear" data-clear-slot="3">Effacer</button>
           </div>
           <p id="slotStatus" class="slot-status">Les slots sont sauvegardés dans ce navigateur.</p>
         </div>
