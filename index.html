@@ -545,6 +545,30 @@
 }
 
 .thal-map-button{width:100%;border:0;border-radius:999px;padding:14px;background:#fff;color:#111;font-weight:900;cursor:pointer}
+
+/* THAL_ESTIMATE_MODAL_CSS_V043 */
+.thal-estimate-floating{position:fixed;right:18px;bottom:18px;z-index:9998}
+.thal-estimate-open{border:0;border-radius:999px;padding:13px 18px;background:#fff;color:#111;font-weight:800;cursor:pointer;box-shadow:0 14px 36px rgba(0,0,0,.35)}
+.thal-modal[hidden]{display:none}.thal-modal{position:fixed;inset:0;z-index:9999}
+.thal-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.66);backdrop-filter:blur(8px)}
+.thal-modal-panel{position:relative;width:min(820px,calc(100vw - 28px));max-height:calc(100vh - 32px);overflow:auto;margin:16px auto;background:#111;color:#f5f5f5;border:1px solid rgba(255,255,255,.16);border-radius:24px;padding:24px;box-shadow:0 24px 90px rgba(0,0,0,.55)}
+.thal-modal-close{position:absolute;right:16px;top:14px;border:1px solid rgba(255,255,255,.2);background:#1f1f1f;color:#fff;border-radius:999px;width:36px;height:36px;cursor:pointer}
+.thal-estimate-form h2{margin:0 0 8px;font-family:Georgia,serif;font-weight:400}
+.thal-estimate-form p{color:rgba(255,255,255,.68)}
+.thal-estimate-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.thal-estimate-form label{display:block;font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.72);margin:0 0 12px}
+.thal-estimate-form input,.thal-estimate-form select,.thal-estimate-form textarea{width:100%;box-sizing:border-box;display:block;margin-top:7px;background:#080808;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:12px;font-size:15px}
+.thal-radio-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 14px}
+.thal-radio-card{border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:13px;cursor:pointer;background:#151515}
+.thal-radio-card input{width:auto;display:inline-block;margin-right:8px}
+.thal-estimate-submit,.thal-map-button{width:100%;border:0;border-radius:999px;padding:14px;background:#fff;color:#111;font-weight:900;cursor:pointer}
+.thal-map-button{background:#243235;color:#dceff2;border:1px solid rgba(255,255,255,.14)}
+.thal-estimate-result{margin-top:18px;border-top:1px solid rgba(255,255,255,.15);padding-top:16px}
+.thal-estimate-price{background:#070707;border:1px solid rgba(255,255,255,.2);border-radius:18px;padding:16px;text-align:center;font-size:30px;font-family:Georgia,serif}
+.thal-pack-list{list-style:none;padding:0;margin:12px 0;color:#dfecec}.thal-pack-list li{margin:6px 0}
+.thal-distance-status{color:#9fb4b8;font-size:12px;text-transform:none;letter-spacing:0;margin-top:5px}
+@media(max-width:720px){.thal-estimate-grid,.thal-radio-row{grid-template-columns:1fr}.thal-estimate-floating{left:14px;right:14px}.thal-estimate-open{width:100%}}
+
 </style>
 </head>
 
@@ -1144,7 +1168,10 @@
     loadHomeCarousels();
   </script>
 
-<!-- THAL_ESTIMATE_MODAL_V042 -->
+
+
+
+<!-- THAL_ESTIMATE_MODAL_V043 -->
 <div class="thal-estimate-floating">
   <button class="thal-estimate-open" type="button" data-thal-estimate-open>Obtenir une estimation</button>
 </div>
@@ -1171,11 +1198,17 @@
         </label>
 
         <label>Date souhaitée
-          <input type="date" name="event_date">
+          <input type="date" name="event_date" id="thalEstimateDate">
+          <button class="thal-map-button" type="button" id="thalOpenCalendar">Ouvrir le calendrier</button>
         </label>
 
         <label>Lieu
-          <input name="location" id="thalEstimateLocation" placeholder="Ville / adresse approximative">
+          <input name="location" id="thalEstimateLocation" placeholder="Ville / adresse exacte">
+        </label>
+
+        <label>Distance
+          <input type="number" step="0.1" min="0" name="roundtrip_km" id="thalEstimateKm" placeholder="Calcul automatique">
+          <div class="thal-distance-status" id="thalDistanceStatus">Saisissez un lieu, puis calculez la distance.</div>
         </label>
 
         <label>Temps sur place
@@ -1189,49 +1222,30 @@
           </select>
         </label>
 
-        <label>Kilomètres aller-retour
-          <input type="number" step="1" min="0" name="roundtrip_km" id="thalEstimateKm" placeholder="À saisir après vérification Maps">
-        </label>
-
-        <label>Itinéraire
-          <button class="thal-map-button" type="button" id="thalEstimateMaps">Ouvrir Google Maps</button>
+        <label>Calcul distance
+          <button class="thal-map-button" type="button" id="thalCalculateDistance">Calculer automatiquement</button>
         </label>
       </div>
 
       <div class="thal-radio-row">
-        <label class="thal-radio-card">
-          <input type="radio" name="usage" value="private" checked>
-          Cadre privé
-        </label>
-        <label class="thal-radio-card">
-          <input type="radio" name="usage" value="commercial">
-          Utilisation commerciale
-        </label>
+        <label class="thal-radio-card"><input type="radio" name="usage" value="private" checked> Cadre privé</label>
+        <label class="thal-radio-card"><input type="radio" name="usage" value="commercial"> Utilisation commerciale</label>
       </div>
 
       <div class="thal-estimate-grid">
-        <label>Nom / entreprise
-          <input name="name" placeholder="Facultatif">
-        </label>
-        <label>Email
-          <input type="email" name="email" placeholder="Facultatif">
-        </label>
+        <label>Nom / entreprise<input name="name" placeholder="Facultatif"></label>
+        <label>Email<input type="email" name="email" placeholder="Facultatif"></label>
       </div>
 
-      <label>Téléphone
-        <input name="phone" placeholder="Facultatif">
-      </label>
-
-      <label>Message
-        <textarea name="message" rows="3" placeholder="Infos utiles : nombre de personnes, horaires, attentes..."></textarea>
-      </label>
+      <label>Téléphone<input name="phone" placeholder="Facultatif"></label>
+      <label>Message<textarea name="message" rows="3" placeholder="Infos utiles : nombre de personnes, horaires, attentes..."></textarea></label>
 
       <button class="thal-estimate-submit" type="submit">Calculer mon estimation</button>
-
       <div class="thal-estimate-result" id="thalEstimateResult" hidden></div>
     </form>
   </section>
 </div>
+
 <script>
 (() => {
   const modal = document.getElementById("thalEstimateModal");
@@ -1239,28 +1253,18 @@
   const closeEls = document.querySelectorAll("[data-thal-estimate-close]");
   const form = document.getElementById("thalEstimateForm");
   const result = document.getElementById("thalEstimateResult");
-  const mapsBtn = document.getElementById("thalEstimateMaps");
+  const distanceBtn = document.getElementById("thalCalculateDistance");
   const locationInput = document.getElementById("thalEstimateLocation");
-
-  let estimateConfig = { home_address: "Sainte-Croix, VD, Suisse" };
+  const kmInput = document.getElementById("thalEstimateKm");
+  const distanceStatus = document.getElementById("thalDistanceStatus");
+  const dateInput = document.getElementById("thalEstimateDate");
+  const dateBtn = document.getElementById("thalOpenCalendar");
   let lastContactSummary = "";
-
-  fetch("estimation_config.php", { headers:{ "Accept":"application/json" } })
-    .then(r => r.json())
-    .then(data => { estimateConfig = Object.assign(estimateConfig, data || {}); })
-    .catch(() => {});
 
   if(!modal || !openBtn || !form || !result) return;
 
   function openModal(){ modal.hidden = false; document.body.style.overflow = "hidden"; }
   function closeModal(){ modal.hidden = true; document.body.style.overflow = ""; }
-
-  function mapsUrl(){
-    const dest = locationInput ? locationInput.value : "";
-    return "https://www.google.com/maps/dir/?api=1&origin=" +
-      encodeURIComponent(estimateConfig.home_address || "Sainte-Croix, VD, Suisse") +
-      "&destination=" + encodeURIComponent(dest || "");
-  }
 
   function fillContact(summary){
     const contactForm = document.getElementById("contactForm");
@@ -1268,18 +1272,15 @@
       location.href = "#contact";
       return;
     }
-
     const msg = contactForm.querySelector("textarea[name='message'], textarea, input[name='message']");
     const name = contactForm.querySelector("input[name='name'], input[name='nom']");
     const email = contactForm.querySelector("input[type='email'], input[name='email']");
     const phone = contactForm.querySelector("input[name='phone'], input[name='tel'], input[name='telephone']");
-
     const fd = new FormData(form);
     if(name && fd.get("name")) name.value = fd.get("name");
     if(email && fd.get("email")) email.value = fd.get("email");
     if(phone && fd.get("phone")) phone.value = fd.get("phone");
     if(msg) msg.value = summary;
-
     closeModal();
     contactForm.scrollIntoView({behavior:"smooth", block:"start"});
   }
@@ -1288,11 +1289,36 @@
   closeEls.forEach(el => el.addEventListener("click", closeModal));
   document.addEventListener("keydown", e => { if(e.key === "Escape" && !modal.hidden) closeModal(); });
 
-  if(mapsBtn){
-    mapsBtn.addEventListener("click", () => {
-      window.open(mapsUrl(), "_blank", "noopener");
+  if(dateBtn && dateInput){
+    dateBtn.addEventListener("click", () => {
+      if(dateInput.showPicker) dateInput.showPicker();
+      else dateInput.focus();
     });
   }
+
+  async function calculateDistance(){
+    const loc = locationInput ? locationInput.value.trim() : "";
+    if(!loc){
+      distanceStatus.textContent = "Indiquez d’abord le lieu.";
+      return;
+    }
+    distanceStatus.textContent = "Calcul de la distance…";
+    try{
+      const response = await fetch("estimation_distance.php?location=" + encodeURIComponent(loc), {headers:{"Accept":"application/json"}});
+      const data = await response.json();
+      if(!data.ok){
+        distanceStatus.textContent = data.error || "Distance non disponible.";
+        return;
+      }
+      kmInput.value = data.roundtrip_km;
+      distanceStatus.textContent = `${data.roundtrip_km} km aller-retour • environ ${data.roundtrip_minutes} min A/R`;
+    }catch(e){
+      distanceStatus.textContent = "Erreur lors du calcul de distance.";
+    }
+  }
+
+  if(distanceBtn) distanceBtn.addEventListener("click", calculateDistance);
+  if(locationInput) locationInput.addEventListener("change", calculateDistance);
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
@@ -1306,7 +1332,6 @@
         headers:{ "Accept":"application/json" }
       });
       const data = await response.json();
-
       if(!data.ok){
         result.innerHTML = "<p>Impossible de calculer l’estimation pour le moment.</p>";
         return;
@@ -1316,13 +1341,18 @@
       const usage = data.usage === "commercial" ? "utilisation commerciale" : "cadre privé";
 
       result.innerHTML = `
-        <h3>Votre estimation indicative</h3>
+        <h3>Pack recommandé</h3>
+        <div class="thal-estimate-price">${data.pack}</div>
+        <ul class="thal-pack-list">
+          <li>✓ ${data.included_photos} photos retouchées incluses</li>
+          <li>✓ Galerie privée</li>
+          <li>✓ Livraison HD</li>
+          <li>✓ Sauvegarde 1 an</li>
+          <li>✓ ${usage}</li>
+        </ul>
+        <h3>Budget estimatif</h3>
         <div class="thal-estimate-price">entre ${data.price_min.toLocaleString("fr-CH")} CHF et ${data.price_max.toLocaleString("fr-CH")} CHF</div>
-        <p><strong>${data.pack}</strong> — ${data.included_photos} photos incluses, ${usage}.</p>
-        <p>Cette estimation est sauvegardée. Le devis final sera adapté selon les détails de votre demande.</p>
-        <p>
-          <a href="${data.maps_url}" target="_blank" rel="noopener">Vérifier l’itinéraire</a>
-        </p>
+        <p>Cette estimation est indicative. Le devis final sera adapté selon les détails de votre demande.</p>
         <button type="button" class="thal-estimate-submit" id="thalFillContact">Me contacter avec cette demande</button>
       `;
 

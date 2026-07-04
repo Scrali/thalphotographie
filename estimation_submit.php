@@ -6,6 +6,8 @@ function number_value($v) { return max(0, (float)$v); }
 function read_settings(): array {
     $defaults = [
         'home_address' => 'Sainte-Croix, VD, Suisse',
+        'home_lat' => 46.8225,
+        'home_lon' => 6.5019,
         'hourly_rate' => 120,
         'editing_rate' => 80,
         'editing_hours_per_onsite_hour' => 0.65,
@@ -19,14 +21,12 @@ function read_settings(): array {
         'range_min_multiplier' => 0.90,
         'range_max_multiplier' => 1.18,
     ];
-
     $file = __DIR__ . '/thal-studio/data/settings/estimation.json';
-    if (!is_file($file)) {
-        return $defaults;
+    if (is_file($file)) {
+        $data = json_decode((string)file_get_contents($file), true);
+        if (is_array($data)) $defaults = array_merge($defaults, $data);
     }
-
-    $data = json_decode((string)file_get_contents($file), true);
-    return is_array($data) ? array_merge($defaults, $data) : $defaults;
+    return $defaults;
 }
 
 $settings = read_settings();
@@ -55,10 +55,9 @@ $kmRate = (float)$settings['km_rate'];
 $baseFee = (float)$settings['base_fee'];
 $commercialFee = $usage === 'commercial' ? (float)$settings['commercial_fee'] : 0;
 
-$includedPhotos = max((int)$settings['min_photos_private'], (int)round($onsiteHours * (float)$settings['private_photos_per_hour']));
-if ($usage === 'commercial') {
-    $includedPhotos = max((int)$settings['min_photos_commercial'], (int)round($onsiteHours * (float)$settings['commercial_photos_per_hour']));
-}
+$photosPerHour = $usage === 'commercial' ? (float)$settings['commercial_photos_per_hour'] : (float)$settings['private_photos_per_hour'];
+$minPhotos = $usage === 'commercial' ? (int)$settings['min_photos_commercial'] : (int)$settings['min_photos_private'];
+$includedPhotos = max($minPhotos, (int)round($onsiteHours * $photosPerHour));
 
 $timeCost = $onsiteHours * $hourlyRate;
 $editingCost = $onsiteHours * $editingPerHour * $editingRate;
@@ -68,10 +67,11 @@ $raw = $timeCost + $editingCost + $kmCost + $baseFee + $commercialFee;
 $min = round(($raw * (float)$settings['range_min_multiplier']) / 10) * 10;
 $max = round(($raw * (float)$settings['range_max_multiplier']) / 10) * 10;
 
-$packName = 'Pack ' . rtrim(rtrim(number_format($onsiteHours, 1, '.', ''), '0'), '.') . 'h';
-$packName .= $usage === 'commercial' ? ' Commercial' : ' Privé';
-
-$mapsUrl = 'https://www.google.com/maps/dir/?api=1&origin=' . rawurlencode((string)$settings['home_address']) . '&destination=' . rawurlencode($location);
+$hoursLabel = rtrim(rtrim(number_format($onsiteHours, 1, '.', ''), '0'), '.');
+$packName = ($onsiteHours >= 4 ? 'Premium ' : 'Essentiel ') . $hoursLabel . ' heures';
+if ($usage === 'commercial') {
+    $packName .= ' Commercial';
+}
 
 $contactSummary =
 "Demande d'estimation THAL Photographie\n\n" .
@@ -79,9 +79,9 @@ $contactSummary =
 "Date : {$eventDate}\n" .
 "Lieu : {$location}\n" .
 "Temps sur place : {$onsiteHours} h\n" .
-"Kilomètres A/R indiqués : {$roundtripKm} km\n" .
+"Kilomètres A/R : {$roundtripKm} km\n" .
 "Usage : " . ($usage === 'commercial' ? 'Utilisation commerciale' : 'Cadre privé') . "\n" .
-"Pack proposé : {$packName}\n" .
+"Pack recommandé : {$packName}\n" .
 "Photos incluses : {$includedPhotos}\n" .
 "Estimation indicative : entre " . number_format($min, 0, '.', "'") . " CHF et " . number_format($max, 0, '.', "'") . " CHF\n\n" .
 "Message : {$message}";
@@ -103,14 +103,11 @@ $entry = [
     'email' => $email,
     'phone' => $phone,
     'message' => $message,
-    'maps_url' => $mapsUrl,
     'contact_summary' => $contactSummary,
 ];
 
 $dir = __DIR__ . '/thal-studio/data/estimations';
-if (!is_dir($dir)) {
-    mkdir($dir, 0755, true);
-}
+if (!is_dir($dir)) mkdir($dir, 0755, true);
 
 $id = date('Ymd_His') . '_' . substr(md5(json_encode($entry)), 0, 8);
 $ok = file_put_contents($dir . '/' . $id . '.json', json_encode($entry, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX) !== false;
@@ -123,6 +120,5 @@ echo json_encode([
     'price_min' => $min,
     'price_max' => $max,
     'usage' => $usage,
-    'maps_url' => $mapsUrl,
     'contact_summary' => $contactSummary,
 ]);

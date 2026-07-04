@@ -20,7 +20,7 @@ $page_title = $page_title ?? 'THAL Studio';
       <img src="assets/logo.png" alt="THAL Photographie">
       <div>
         <h1>THAL Studio</h1>
-        <p>V0.4.2</p>
+        <p>V0.4.3</p>
       </div>
     </div>
     <a href="dashboard.php">Tableau de bord</a>

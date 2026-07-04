@@ -1,5 +1,8 @@
 {
   "home_address": "Sainte-Croix, VD, Suisse",
+  "home_lat": 46.8225,
+  "home_lon": 6.5019,
+  "ors_api_key": "",
   "hourly_rate": 120,
   "editing_rate": 80,
   "editing_hours_per_onsite_hour": 0.65,

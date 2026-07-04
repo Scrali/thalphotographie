@@ -1,23 +1,17 @@
 # THAL Studio — Changelog
 
-## V0.4.2 — Estimation améliorée
+## V0.4.3 — Distance automatique
 
 ### Ajouté
-- Bouton Google Maps depuis Sainte-Croix vers le lieu indiqué.
-- Champ kilomètres aller-retour.
-- Date avec calendrier natif.
-- Réglages modifiables dans THAL Studio :
-  - adresse de départ ;
-  - tarif horaire ;
-  - tarif retouche ;
-  - prix du km ;
-  - frais de base ;
-  - supplément commercial ;
-  - photos incluses ;
-  - largeur de la fourchette de prix.
-- Bouton “Me contacter avec cette demande” qui remplit le formulaire de contact.
-- Suppression des estimations depuis l’administration.
+- Calcul automatique de distance avec OpenRouteService.
+- Plus besoin d’ouvrir Google Maps.
+- Date avec bouton calendrier.
+- Pack recommandé affiché proprement.
+- Budget affiché sous forme de fourchette.
+- Réglage de la clé API OpenRouteService dans THAL Studio.
+- Réglages modifiables : prix du km, tarif horaire, tarif retouche, photos incluses, supplément commercial.
 
-## V0.4.1
-- Estimation en fenêtre volante sur l’accueil.
-- Fourchette de prix.
+## V0.4.2
+- Google Maps depuis Sainte-Croix.
+- Champ km aller-retour.
+- Tarifs modifiables.
