@@ -1,6 +1,29 @@
 <?php
 require __DIR__ . '/includes/auth.php';
 require_login();
+
+$initialQuote = null;
+$quoteId = trim((string)($_GET['q'] ?? $_GET['id'] ?? ''));
+
+if ($quoteId !== '') {
+    // Sécurité : on accepte uniquement un nom de fichier simple, sans chemin.
+    $quoteId = basename($quoteId);
+    $quoteId = preg_replace('/[^a-zA-Z0-9_.-]/', '', $quoteId);
+    $quoteId = preg_replace('/\.json$/', '', $quoteId);
+
+    $quoteFile = __DIR__ . '/data/quotes/' . $quoteId . '.json';
+
+    if (is_file($quoteFile)) {
+        $loaded = json_decode((string)file_get_contents($quoteFile), true);
+        if (is_array($loaded)) {
+            if (!isset($loaded['_meta']) || !is_array($loaded['_meta'])) {
+                $loaded['_meta'] = [];
+            }
+            $loaded['_meta']['id'] = $quoteId;
+            $initialQuote = $loaded;
+        }
+    }
+}
 ?>
 <!doctype html>
 <html lang="fr">
@@ -201,7 +224,7 @@ Téléchargement HD</textarea></label>
   </aside>
 </div>
 <script>
-window.THAL_INITIAL_QUOTE = <?php echo json_encode($initialQuote, JSON_UNESCAPED_UNICODE); ?>;
+window.THAL_INITIAL_QUOTE = <?php echo json_encode($initialQuote, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
 </script>
 <script src="js/app.js"></script>
 </body>
