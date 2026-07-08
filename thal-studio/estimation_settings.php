@@ -8,6 +8,11 @@ $current = thal_pack_settings(__DIR__);
 $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!csrf_check($_POST['csrf'] ?? null)) {
+        http_response_code(403);
+        exit('Jeton de sécurité invalide.');
+    }
+
     $current['ors_api_key'] = trim((string)($_POST['ors_api_key'] ?? ''));
     $current['home_address'] = trim((string)($_POST['home_address'] ?? 'Sainte-Croix, VD, Suisse'));
     $current['home_lat'] = (float)($_POST['home_lat'] ?? 46.8225);
@@ -47,6 +52,7 @@ function fv($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8
   <?php if ($message): ?><p class="success"><?= e($message) ?></p><?php endif; ?>
 
   <form method="post" class="admin-form">
+    <input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>">
     <h3>Déplacement</h3>
     <label>Clé API OpenRouteService<input name="ors_api_key" value="<?= fv($current['ors_api_key']) ?>"></label>
     <label>Adresse de départ<input name="home_address" value="<?= fv($current['home_address']) ?>"></label>
