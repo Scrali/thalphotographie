@@ -24,6 +24,20 @@ if ($quoteId !== '') {
         }
     }
 }
+
+if ($initialQuote === null) {
+    $prefill = [];
+    foreach (['clientName', 'clientEmail', 'clientPhone', 'clientAddress'] as $field) {
+        $value = trim((string)($_GET[$field] ?? ''));
+        if ($value !== '') {
+            $prefill[$field] = $value;
+        }
+    }
+
+    if ($prefill) {
+        $initialQuote = $prefill;
+    }
+}
 ?>
 <!doctype html>
 <html lang="fr">

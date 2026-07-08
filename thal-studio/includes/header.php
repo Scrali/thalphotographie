@@ -3,6 +3,7 @@ require_once __DIR__ . '/auth.php';
 require_once __DIR__ . '/functions.php';
 require_login();
 $page_title = $page_title ?? 'THAL Studio';
+$version = trim((string)@file_get_contents(__DIR__ . '/../VERSION')) ?: '0.7.0';
 ?>
 <!doctype html>
 <html lang="fr">
@@ -20,7 +21,7 @@ $page_title = $page_title ?? 'THAL Studio';
       <img src="assets/logo.png" alt="THAL Photographie">
       <div>
         <h1>THAL Studio</h1>
-        <p>V0.7.0</p>
+        <p>V<?= e($version) ?></p>
       </div>
     </div>
     <a href="dashboard.php">Tableau de bord</a>

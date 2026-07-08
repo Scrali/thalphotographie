@@ -24,6 +24,17 @@ $existingId = !empty($data['_meta']['id']) ? thal_slug((string)$data['_meta']['i
 $id = $existingId ?: thal_slug($quoteNumber . '_' . $clientName);
 $dir = __DIR__ . '/data/quotes';
 if (!is_dir($dir)) mkdir($dir, 0755, true);
-$data['_meta'] = ['id'=>$id,'quoteNumber'=>$quoteNumber,'clientName'=>$clientName,'eventDate'=>(string)($data['eventDate'] ?? ''),'updatedAt'=>date('c')];
+$previous = is_file($dir . '/' . $id . '.json') ? json_decode((string)file_get_contents($dir . '/' . $id . '.json'), true) : [];
+$previousMeta = is_array($previous) && is_array($previous['_meta'] ?? null) ? $previous['_meta'] : [];
+$data['_meta'] = [
+    'id'=>$id,
+    'quoteNumber'=>$quoteNumber,
+    'clientName'=>$clientName,
+    'clientEmail'=>(string)($data['clientEmail'] ?? ''),
+    'clientPhone'=>(string)($data['clientPhone'] ?? ''),
+    'eventDate'=>(string)($data['eventDate'] ?? ''),
+    'createdAt'=>(string)($previousMeta['createdAt'] ?? date('c')),
+    'updatedAt'=>date('c'),
+];
 $ok = file_put_contents($dir . '/' . $id . '.json', json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
 echo json_encode(['ok'=>$ok!==false,'id'=>$id,'name'=>$quoteNumber.' — '.$clientName]);
