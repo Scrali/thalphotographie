@@ -40,7 +40,7 @@ const ids=[
 'quoteNumber','quoteDate','validUntil','clientName','clientEmail','clientPhone','clientAddress',
 'serviceType','eventDate','eventPlace','startTime','endTime','photosDelivered','deliveryDelay',
 'description','distanceKm','kmRate','prepHours','travelHours','sortHours','editHours','deliveryHours','hourlyRate','gearCost','priceMode','packagePrice','discountPercent','rounding','showCommercialRights','commercialRightsFee','commercialRightsLabel','showHourly',
-'included','terms','compactMode','docScale','pagePadding','blockGap','logoWidth','logoDarken','logoOffsetX','logoTop','headerGap',
+'included','terms','compactMode','docScale','pagePadding','blockGap','logoWidth','logoDarken','logoOffsetX','logoTop','logoColorMode','logoTintColor','logoTint','headerGap',
 'titleSize','titleOffsetX','subtitleSize','bodySize','smallTextSize','contactSize','mainColor','paperColor','documentTextColor','fieldLabelColor','lineColor','priceBgColor','priceTextPreset','priceTextColor','priceAccentColor',
 'companyName','companyEmail','companyPhone','companyWebsite','companyAddress','finalNote'
 ];
@@ -55,24 +55,44 @@ const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&
 const nl=s=>esc(s).replace(/\n/g,'<br>');
 const lines=id=>val(id).split('\n').map(x=>x.trim()).filter(Boolean);
 const chf=n=>Math.round(n).toLocaleString('fr-CH')+' CHF';
-function dateFr(s){return s?new Date(s+'T12:00:00').toLocaleDateString('fr-CH',{day:'2-digit',month:'2-digit',year:'numeric'}):'—'}
-function hours(a,b){let [ah,am]=a.split(':').map(Number),[bh,bm]=b.split(':').map(Number);let x=ah+am/60,y=bh+bm/60;if(y<x)y+=24;return y-x}
-function ul(id){return '<ul>'+lines(id).map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>'}
+const dash='-';
+function dateFr(s){
+  if(!s) return dash;
+  const d=new Date(s+'T12:00:00');
+  return Number.isNaN(d.getTime()) ? dash : d.toLocaleDateString('fr-CH',{day:'2-digit',month:'2-digit',year:'numeric'});
+}
+function hours(a,b){
+  if(!a || !b || !a.includes(':') || !b.includes(':')) return 0;
+  let [ah,am]=a.split(':').map(Number),[bh,bm]=b.split(':').map(Number);
+  let x=ah+am/60,y=bh+bm/60;
+  if(!Number.isFinite(x) || !Number.isFinite(y)) return 0;
+  if(y<x)y+=24;
+  return y-x;
+}
+function hourText(n){return (Math.round((Number(n)||0)*10)/10).toFixed(1).replace('.',',')+' h'}
+function textOrDash(s){const t=String(s??'').trim();return t?esc(t):dash}
+function htmlOrDash(s){const t=String(s??'').trim();return t?nl(t):dash}
+function bulletList(id,limit=8){
+  const items=lines(id).slice(0,limit);
+  return items.length ? '<ul class="quote-list">'+items.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>' : `<p class="quote-muted">${dash}</p>`;
+}
+function detail(label,value){return `<div class="quote-detail"><span>${esc(label)}</span><strong>${value}</strong></div>`}
+function ul(id){return bulletList(id)}
 function setDates(){const t=new Date(), v=new Date();v.setDate(v.getDate()+30);$('quoteDate').value=t.toISOString().slice(0,10);$('validUntil').value=v.toISOString().slice(0,10)}
 function labels(){
   if($('docScaleValue')) $('docScaleValue').textContent=val('docScale')+' %'; if($('pagePaddingValue')) $('pagePaddingValue').textContent=val('pagePadding')+' mm'; if($('blockGapValue')) $('blockGapValue').textContent=val('blockGap')+' px';
-  if($('logoWidthValue')) $('logoWidthValue').textContent=val('logoWidth')+' px'; if($('logoDarkenValue')) $('logoDarkenValue').textContent=val('logoDarken')+' %'; if($('logoTopValue')) $('logoTopValue').textContent=val('logoTop')+' px'; if($('headerGapValue')) $('headerGapValue').textContent=val('headerGap')+' px';
+  if($('logoWidthValue')) $('logoWidthValue').textContent=val('logoWidth')+' px'; if($('logoDarkenValue')) $('logoDarkenValue').textContent=val('logoDarken')+' %'; if($('logoTintValue')) $('logoTintValue').textContent=val('logoTint')+' %'; if($('logoTopValue')) $('logoTopValue').textContent=val('logoTop')+' px'; if($('headerGapValue')) $('headerGapValue').textContent=val('headerGap')+' px';
   if($('titleSizeValue')) $('titleSizeValue').textContent=val('titleSize')+' px'; if($('titleOffsetXValue')) $('titleOffsetXValue').textContent=val('titleOffsetX')+' px'; if($('subtitleSizeValue')) $('subtitleSizeValue').textContent=val('subtitleSize')+' px'; if($('bodySizeValue')) $('bodySizeValue').textContent=val('bodySize')+' px'; if($('smallTextSizeValue')) $('smallTextSizeValue').textContent=val('smallTextSize')+' px'; if($('contactSizeValue')) $('contactSizeValue').textContent=val('contactSize')+' px';
 }
 function checkA4(){
   requestAnimationFrame(()=>{
     const d=$('document'); const overflow=d.scrollHeight>d.clientHeight+2; const used=Math.min(100,Math.round((d.scrollHeight/d.clientHeight)*100));
-    const msg=overflow?`🔴 Déborde A4 — contenu utilisé : ${used}%`:`🟢 1 page A4 — contenu utilisé : ${used}%`;
+    const msg=overflow?`Dépasse A4 - contenu utilisé : ${used}%`:`1 page A4 - contenu utilisé : ${used}%`;
     $('pageStatus').textContent=msg; $('previewStatus').textContent=msg;
     $('pageStatus').style.color=overflow?'#ff9c9c':'#9ee6b4'; $('previewStatus').style.background=overflow?'#5a1818':'#123d23';
   });
 }
-function update(){
+function legacyUpdate(){
   labels();
   document.body.classList.toggle('relaxed',val('compactMode')==='off');
   document.documentElement.style.setProperty('--main',val('mainColor'));
@@ -85,7 +105,7 @@ function update(){
   document.documentElement.style.setProperty('--header-gap',val('headerGap')+'px');
   document.documentElement.style.setProperty('--small-text',val('smallTextSize')+'px');
   document.documentElement.style.setProperty('--price-bg',val('priceBgColor'));
-  const finalPriceTextColor = val('priceTextPreset')==='custom' ? finalPriceTextColor : val('priceTextPreset');
+  const finalPriceTextColor = val('priceTextPreset')==='custom' ? val('priceTextColor') : val('priceTextPreset');
   document.documentElement.style.setProperty('--price-text',finalPriceTextColor);
   document.documentElement.style.setProperty('--price-accent',val('priceAccentColor'));
   document.documentElement.style.setProperty('--doc-scale',Number(val('docScale'))/100);
@@ -209,6 +229,178 @@ function update(){
   <div>${esc(val('companyEmail'))}<br>${esc(val('companyPhone'))}</div>
   <div>${esc(val('companyWebsite'))}</div>
 </footer>`;
+  checkA4();
+}
+
+function update(){
+  labels();
+  document.body.classList.toggle('relaxed',val('compactMode')==='off');
+  document.documentElement.style.setProperty('--main',val('mainColor'));
+  document.documentElement.style.setProperty('--paper',val('paperColor'));
+  document.documentElement.style.setProperty('--ink',val('documentTextColor')||'#000000');
+  document.documentElement.style.setProperty('--field-label',val('fieldLabelColor')||'#5f6f72');
+  document.documentElement.style.setProperty('--line',val('lineColor'));
+  document.documentElement.style.setProperty('--page-padding',val('pagePadding')+'mm');
+  document.documentElement.style.setProperty('--block-gap',val('blockGap')+'px');
+  document.documentElement.style.setProperty('--header-gap',val('headerGap')+'px');
+  document.documentElement.style.setProperty('--small-text',val('smallTextSize')+'px');
+  document.documentElement.style.setProperty('--price-bg',val('priceBgColor'));
+  const finalPriceTextColor = val('priceTextPreset')==='custom' ? val('priceTextColor') : val('priceTextPreset');
+  document.documentElement.style.setProperty('--price-text',finalPriceTextColor);
+  document.documentElement.style.setProperty('--price-accent',val('priceAccentColor'));
+  document.documentElement.style.setProperty('--doc-scale',Number(val('docScale'))/100);
+
+  const shoot=hours(val('startTime'),val('endTime'));
+  const total=shoot+num('prepHours')+num('travelHours')+num('sortHours')+num('editHours')+num('deliveryHours');
+  const kmCost=num('distanceKm')*num('kmRate');
+  const hourlyValue=total*num('hourlyRate');
+  const rightsFee = $('showCommercialRights').checked ? num('commercialRightsFee') : 0;
+  const calculatedCost=hourlyValue+kmCost+num('gearCost')+rightsFee;
+  const roundingStep=Math.max(1,num('rounding'));
+  const discount=Math.min(100, Math.max(0, num('discountPercent')));
+  const discountedCost=calculatedCost*(1-discount/100);
+  const autoPrice=Math.round(discountedCost/roundingStep)*roundingStep;
+  const price=val('priceMode')==='auto' ? Math.max(0,autoPrice) : num('packagePrice');
+  const effectiveDiscount=Math.max(0,calculatedCost-price);
+  const effectiveRate=total>0 ? price/total : 0;
+  const profitability=calculatedCost>0 ? (price/calculatedCost)*100 : 100;
+  const eventHours = `${textOrDash(val('startTime'))} – ${textOrDash(val('endTime'))}`;
+  const logoBrightness = 100-Number(val('logoDarken')||0);
+  const logoContrast = 100+Number(val('logoDarken')||0)/2;
+  const logoHtml = (val('logoColorMode')||'original')==='solid'
+    ? `<div class="doc-logo-svg" style="color:${val('logoTintColor')||'#3f646a'};opacity:${Number(val('logoTint')||100)/100};filter:brightness(${logoBrightness}%) contrast(${logoContrast}%);">${LOGO_SVG}</div>`
+    : `<img class="doc-logo-img" src="assets/logo.png" style="filter:brightness(${logoBrightness}%) contrast(${logoContrast}%);" alt="THAL Photographie">`;
+  const clientContact = [val('clientEmail'), val('clientPhone'), val('clientAddress')]
+    .map(x=>String(x||'').trim())
+    .filter(Boolean)
+    .map(nl)
+    .join('<br>');
+  const rightsDetail = $('showCommercialRights').checked ? detail(val('commercialRightsLabel') || 'Droits commerciaux', chf(rightsFee)) : '';
+  const discountDetail = effectiveDiscount > 0 ? detail('Rabais appliqué', '-'+chf(effectiveDiscount)) : '';
+  const calculationHtml = $('showHourly').checked ? `
+    <section class="quote-section quote-calculation">
+      <div class="quote-section-head">
+        <span>Base de calcul</span>
+        <h3>Transparence interne</h3>
+      </div>
+      <div class="quote-details-grid">
+        ${detail('Temps total estimé', hourText(total))}
+        ${detail('Base temps', `${chf(hourlyValue)} (${hourText(total)} x ${num('hourlyRate')} CHF/h)`)}
+        ${detail('Déplacement', `${chf(kmCost)} (${num('distanceKm')} km x ${num('kmRate').toFixed(2)} CHF/km)`)}
+        ${detail('Frais matériel', chf(num('gearCost')))}
+        ${rightsDetail}
+        ${detail('Prix conseillé', chf(calculatedCost))}
+        ${discountDetail}
+        ${detail('Taux effectif', `${effectiveRate.toFixed(0)} CHF/h`)}
+        ${detail('Couverture', `${profitability.toFixed(0)}%`)}
+      </div>
+    </section>
+  ` : '';
+
+  $('dashNumber').textContent=val('quoteNumber');
+  $('dashClient').textContent=val('clientName');
+  $('dashTotal').textContent=chf(price);
+  $('dashDate').textContent=dateFr(val('eventDate'));
+  $('document').style.fontSize=val('bodySize')+'px';
+
+  $('document').innerHTML=`
+<article class="quote-document">
+  <header class="quote-top">
+    <div class="quote-logo-block" style="width:${val('logoWidth')}px;transform:translate(${val('logoOffsetX')||0}px, ${val('logoTop')}px)">
+      ${logoHtml}
+    </div>
+    <div class="quote-heading" style="transform:translateX(${val('titleOffsetX')}px)">
+      <span class="quote-label">Proposition photographique</span>
+      <div class="doc-title quote-title" style="font-size:${val('titleSize')}px">DEVIS</div>
+      <div class="doc-subtitle quote-subtitle" style="font-size:${val('subtitleSize')}px">${textOrDash(val('serviceType'))}</div>
+    </div>
+    <div class="quote-meta">
+      ${detail('N°', textOrDash(val('quoteNumber')))}
+      ${detail('Date', dateFr(val('quoteDate')))}
+      ${detail('Valable jusqu’au', dateFr(val('validUntil')))}
+    </div>
+  </header>
+
+  <section class="quote-hero">
+    <div class="quote-project">
+      <span class="quote-label">Projet</span>
+      <h2>${textOrDash(val('serviceType'))}</h2>
+      <p>${htmlOrDash(val('description'))}</p>
+    </div>
+    <aside class="quote-client">
+      <span>Client</span>
+      <strong>${textOrDash(val('clientName'))}</strong>
+      <p>${clientContact || dash}</p>
+    </aside>
+  </section>
+
+  <section class="quote-facts">
+    ${detail('Date événement', dateFr(val('eventDate')))}
+    ${detail('Lieu', textOrDash(val('eventPlace')))}
+    ${detail('Horaire', `${eventHours} (${hourText(shoot)})`)}
+    ${detail('Livraison', `${textOrDash(val('photosDelivered'))}<br>${textOrDash(val('deliveryDelay'))}`)}
+  </section>
+
+  <section class="quote-investment">
+    <div class="investment-copy">
+      <span class="quote-label">Investissement</span>
+      <h3>Une prestation claire, prête à valider.</h3>
+      <p>Le montant inclut la préparation, la prise de vue, le tri, les retouches de base, la galerie privée et le déplacement prévu dans ce devis.</p>
+    </div>
+    <div class="price investment-total" style="background:${val('priceBgColor')} !important;color:${finalPriceTextColor} !important">
+      <small style="color:${val('priceAccentColor')} !important">Total devis</small>
+      <div class="amount" style="color:${finalPriceTextColor} !important">${chf(price)}</div>
+      <small style="color:${val('priceAccentColor')} !important">Tout compris</small>
+    </div>
+  </section>
+
+  <section class="quote-columns">
+    <div class="quote-section">
+      <div class="quote-section-head">
+        <span>Inclus</span>
+        <h3>Ce que comprend le devis</h3>
+      </div>
+      ${bulletList('included')}
+    </div>
+    <div class="quote-section">
+      <div class="quote-section-head">
+        <span>Repères</span>
+        <h3>Temps et déplacement</h3>
+      </div>
+      <div class="quote-details-grid compact">
+        ${detail('Prise de vue', hourText(shoot))}
+        ${detail('Temps total', hourText(total))}
+        ${detail('Distance A/R', `${num('distanceKm')} km`)}
+        ${detail('Valeur déplacement', chf(kmCost))}
+      </div>
+    </div>
+  </section>
+
+  ${calculationHtml}
+
+  <section class="quote-section quote-terms">
+    <div class="quote-section-head">
+      <span>Conditions</span>
+      <h3>Validation du devis</h3>
+    </div>
+    <p>${htmlOrDash(val('terms'))}</p>
+  </section>
+
+  <section class="quote-acceptance">
+    <div>
+      <span>Bon pour accord</span>
+      <strong>${textOrDash(val('clientName'))}</strong>
+    </div>
+    <div class="signature-line">Date et signature client</div>
+  </section>
+
+  <div class="final quote-final">${htmlOrDash(val('finalNote'))}</div>
+  <footer class="footer quote-footer" style="font-size:${val('contactSize')}px">
+    <div><b>${textOrDash(val('companyName'))}</b><br>${textOrDash(val('companyAddress'))}</div>
+    <div>${textOrDash(val('companyEmail'))}<br>${textOrDash(val('companyPhone'))}</div>
+    <div>${textOrDash(val('companyWebsite'))}</div>
+  </footer>
+</article>`;
   checkA4();
 }
 

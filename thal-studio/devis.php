@@ -38,6 +38,11 @@ if ($initialQuote === null) {
         $initialQuote = $prefill;
     }
 }
+
+$studioVersion = trim((string)@file_get_contents(__DIR__ . '/VERSION'));
+if ($studioVersion === '') {
+    $studioVersion = '1.1.0';
+}
 ?>
 <!doctype html>
 <html lang="fr">
@@ -54,7 +59,7 @@ if ($initialQuote === null) {
       <img src="assets/logo.png" alt="THAL Photographie">
       <div>
         <h1>THAL Studio</h1>
-        <p>V0.7.0</p>
+        <p>V<?= htmlspecialchars($studioVersion, ENT_QUOTES, 'UTF-8') ?></p>
       </div>
     </div>
 
@@ -87,7 +92,7 @@ if ($initialQuote === null) {
         <div><span>Total</span><strong id="dashTotal">300 CHF</strong></div>
         <div><span>Date</span><strong id="dashDate">12.09.2026</strong></div>
       </div>
-      <p class="hint">Version simplifiée : moins de blocs superflus, couleur du carré total corrigée, et ajout des éléments indispensables : validité, paiement, signature.</p>
+      <p class="hint">Version épurée : logo conservé, devis plus respirant, total plus lisible, et tous les réglages du designer toujours disponibles.</p>
     </section>
 
     <section id="devis" class="panel">
@@ -187,25 +192,25 @@ Téléchargement HD</textarea></label>
 
         <label>Mode compact<select id="compactMode"><option value="on" selected>Activé — 1 page A4</option><option value="off">Désactivé — plus aéré</option></select></label>
         <label>Zoom aperçu <span id="docScaleValue"></span><input id="docScale" type="range" min="40" max="250" value="100"></label>
-        <label>Marges page <span id="pagePaddingValue"></span><input id="pagePadding" type="range" min="6" max="18" value="9"></label>
-        <label>Espacement blocs <span id="blockGapValue"></span><input id="blockGap" type="range" min="3" max="16" value="6"></label>
+        <label>Marges page <span id="pagePaddingValue"></span><input id="pagePadding" type="range" min="6" max="18" value="10"></label>
+        <label>Espacement blocs <span id="blockGapValue"></span><input id="blockGap" type="range" min="3" max="16" value="8"></label>
 
-        <label>Largeur logo <span id="logoWidthValue"></span><input id="logoWidth" type="range" min="70" max="260" value="132"></label>
+        <label>Largeur logo <span id="logoWidthValue"></span><input id="logoWidth" type="range" min="70" max="260" value="116"></label>
         <label>Décalage horizontal logo <span id="logoOffsetXValue"></span><input id="logoOffsetX" type="range" min="-200" max="200" value="0"></label>
-        <label>Assombrir logo <span id="logoDarkenValue"></span><input id="logoDarken" type="range" min="0" max="100" value="35"></label>
+        <label>Assombrir logo <span id="logoDarkenValue"></span><input id="logoDarken" type="range" min="0" max="100" value="0"></label>
         <label>Mode couleur logo<select id="logoColorMode"><option value="original">Original</option><option value="solid" selected>Couleur choisie</option></select></label>
         <label>Couleur logo<input id="logoTintColor" type="color" value="#3f646a"></label>
-        <label>Intensité teinte <span id="logoTintValue"></span><input id="logoTint" type="range" min="0" max="100" value="0"></label>
+        <label>Intensité teinte <span id="logoTintValue"></span><input id="logoTint" type="range" min="0" max="100" value="100"></label>
         
-        <label>Position verticale logo <span id="logoTopValue"></span><input id="logoTop" type="range" min="-60" max="35" value="-33"></label>
-        <label>Espace logo → premières tuiles <span id="headerGapValue"></span><input id="headerGap" type="range" min="-80" max="24" value="-20"></label>
+        <label>Position verticale logo <span id="logoTopValue"></span><input id="logoTop" type="range" min="-60" max="35" value="0"></label>
+        <label>Espace logo → premières tuiles <span id="headerGapValue"></span><input id="headerGap" type="range" min="-80" max="24" value="8"></label>
 
-        <label>Taille DEVIS <span id="titleSizeValue"></span><input id="titleSize" type="range" min="18" max="54" value="28"></label>
+        <label>Taille DEVIS <span id="titleSizeValue"></span><input id="titleSize" type="range" min="18" max="54" value="30"></label>
         <label>Décalage horizontal titre <span id="titleOffsetXValue"></span><input id="titleOffsetX" type="range" min="-200" max="200" value="0"></label>
         <label>Taille sous-titre <span id="subtitleSizeValue"></span><input id="subtitleSize" type="range" min="8" max="18" value="10"></label>
-        <label>Taille texte <span id="bodySizeValue"></span><input id="bodySize" type="range" min="7" max="24" value="10.5" step="0.5"></label>
-        <label>Taille tableaux <span id="smallTextSizeValue"></span><input id="smallTextSize" type="range" min="7" max="20" value="9" step="0.5"></label>
-        <label>Taille contact <span id="contactSizeValue"></span><input id="contactSize" type="range" min="7" max="22" value="10" step="0.5"></label>
+        <label>Taille texte <span id="bodySizeValue"></span><input id="bodySize" type="range" min="7" max="24" value="9.5" step="0.5"></label>
+        <label>Taille détails <span id="smallTextSizeValue"></span><input id="smallTextSize" type="range" min="7" max="20" value="8.5" step="0.5"></label>
+        <label>Taille contact <span id="contactSizeValue"></span><input id="contactSize" type="range" min="7" max="22" value="8.5" step="0.5"></label>
 
         <label>Couleur principale<input id="mainColor" type="color" value="#3f646a"></label>
         <label>Fond document<input id="paperColor" type="color" value="#ffffff"></label>
