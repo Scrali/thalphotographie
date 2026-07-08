@@ -74,9 +74,9 @@ function textOrDash(s){const t=String(s??'').trim();return t?esc(t):dash}
 function htmlOrDash(s){const t=String(s??'').trim();return t?nl(t):dash}
 function bulletList(id,limit=8){
   const items=lines(id).slice(0,limit);
-  return items.length ? '<ul class="quote-list">'+items.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>' : `<p class="quote-muted">${dash}</p>`;
+  return items.length ? '<ul class="tq-list">'+items.map(x=>`<li>${esc(x)}</li>`).join('')+'</ul>' : `<p class="tq-muted">${dash}</p>`;
 }
-function detail(label,value){return `<div class="quote-detail"><span>${esc(label)}</span><strong>${value}</strong></div>`}
+function detail(label,value){return `<div class="tq-field"><span>${esc(label)}</span><strong>${value}</strong></div>`}
 function ul(id){return bulletList(id)}
 function setDates(){const t=new Date(), v=new Date();v.setDate(v.getDate()+30);$('quoteDate').value=t.toISOString().slice(0,10);$('validUntil').value=v.toISOString().slice(0,10)}
 function labels(){
@@ -92,146 +92,6 @@ function checkA4(){
     $('pageStatus').style.color=overflow?'#ff9c9c':'#9ee6b4'; $('previewStatus').style.background=overflow?'#5a1818':'#123d23';
   });
 }
-function legacyUpdate(){
-  labels();
-  document.body.classList.toggle('relaxed',val('compactMode')==='off');
-  document.documentElement.style.setProperty('--main',val('mainColor'));
-  document.documentElement.style.setProperty('--paper',val('paperColor'));
-  document.documentElement.style.setProperty('--ink',val('documentTextColor')||'#000000');
-  document.documentElement.style.setProperty('--field-label',val('fieldLabelColor')||'#5f6f72');
-  document.documentElement.style.setProperty('--line',val('lineColor'));
-  document.documentElement.style.setProperty('--page-padding',val('pagePadding')+'mm');
-  document.documentElement.style.setProperty('--block-gap',val('blockGap')+'px');
-  document.documentElement.style.setProperty('--header-gap',val('headerGap')+'px');
-  document.documentElement.style.setProperty('--small-text',val('smallTextSize')+'px');
-  document.documentElement.style.setProperty('--price-bg',val('priceBgColor'));
-  const finalPriceTextColor = val('priceTextPreset')==='custom' ? val('priceTextColor') : val('priceTextPreset');
-  document.documentElement.style.setProperty('--price-text',finalPriceTextColor);
-  document.documentElement.style.setProperty('--price-accent',val('priceAccentColor'));
-  document.documentElement.style.setProperty('--doc-scale',Number(val('docScale'))/100);
-
-  const shoot=hours(val('startTime'),val('endTime'));
-  const total=shoot+num('prepHours')+num('travelHours')+num('sortHours')+num('editHours')+num('deliveryHours');
-  const kmCost=num('distanceKm')*num('kmRate');
-  const hourlyValue=total*num('hourlyRate');
-  const rightsFee = $('showCommercialRights').checked ? num('commercialRightsFee') : 0;
-  const calculatedCost=hourlyValue+kmCost+num('gearCost')+rightsFee;
-  const roundingStep=Math.max(1,num('rounding'));
-  const discount=Math.min(100, Math.max(0, num('discountPercent')));
-  const discountedCost=calculatedCost*(1-discount/100);
-  const autoPrice=Math.round(discountedCost/roundingStep)*roundingStep;
-  const price=val('priceMode')==='auto' ? Math.max(0,autoPrice) : num('packagePrice');
-  const effectiveDiscount=Math.max(0,calculatedCost-price);
-  const effectiveRate=total>0 ? price/total : 0;
-  const profitability=calculatedCost>0 ? (price/calculatedCost)*100 : 100;
-  const hourlyHtml = $('showHourly').checked ? `
-      <tr><td>Temps total calculé</td><td>${total.toFixed(1).replace('.',',')} h</td></tr>
-      <tr><td>Base temps (${total.toFixed(1).replace('.',',')} h × ${num('hourlyRate')} CHF/h)</td><td>${chf(hourlyValue)}</td></tr>
-      <tr><td>Déplacement (${num('distanceKm')} km × ${num('kmRate').toFixed(2)} CHF/km)</td><td>${chf(kmCost)}</td></tr>
-      <tr><td>Usure matériel / frais divers</td><td>${chf(num('gearCost'))}</td></tr>
-      ${$('showCommercialRights').checked ? `<tr><td>${esc(val('commercialRightsLabel'))}</td><td>${chf(rightsFee)}</td></tr>` : ''}
-      <tr><td><b>Prix conseillé calculé</b></td><td><b>${chf(calculatedCost)}</b></td></tr>
-      <tr><td>Rabais (${discount.toFixed(0)} %)</td><td>-${chf(effectiveDiscount)}</td></tr>
-      <tr><td>Taux horaire effectif</td><td>${effectiveRate.toFixed(0)} CHF/h</td></tr>
-      <tr><td>Couverture du coût calculé</td><td>${profitability.toFixed(0)}%</td></tr>
-    ` : `
-      <tr><td>Déplacement inclus (valeur estimée)</td><td>${chf(kmCost)}</td></tr>
-    `;
-
-  $('dashNumber').textContent=val('quoteNumber'); $('dashClient').textContent=val('clientName'); $('dashTotal').textContent=chf(price); $('dashDate').textContent=dateFr(val('eventDate'));
-  $('document').style.fontSize=val('bodySize')+'px';
-
-  $('document').innerHTML=`
-<header class="doc-header">
-  <div class="doc-logo-wrap" style="width:${val('logoWidth')}px;transform:translate(${(val('logoOffsetX')||0)}px, ${val('logoTop')}px)">
-    ${(val('logoColorMode')||'original')==='solid'
-      ? `<div class="doc-logo-svg" style="color:${(val('logoTintColor')||'#3f646a')};opacity:${Number(val('logoTint')||100)/100};filter:brightness(${100-Number(val('logoDarken'))}%) contrast(${100+Number(val('logoDarken'))/2}%);">${LOGO_SVG}</div>`
-      : `<img class="doc-logo-img" src="assets/logo.png" style="filter:brightness(${100-Number(val('logoDarken'))}%) contrast(${100+Number(val('logoDarken'))/2}%);" alt="THAL Photographie">`
-    }
-  </div>
-  <div class="header-title-block" style="transform:translateX(${val('titleOffsetX')}px)">
-    <div class="doc-title" style="font-size:${val('titleSize')}px">DEVIS</div>
-    <div class="doc-subtitle" style="font-size:${val('subtitleSize')}px">${esc(val('serviceType'))}</div>
-  </div>
-</header>
-
-<section class="grid2">
-  <div class="box"><h3>Client</h3>
-    <div class="row"><span>Nom</span><span>${esc(val('clientName'))}</span></div>
-    <div class="row"><span>Email</span><span>${esc(val('clientEmail')||'—')}</span></div>
-    <div class="row"><span>Téléphone</span><span>${esc(val('clientPhone')||'—')}</span></div>
-  </div>
-  <div class="box"><h3>Devis</h3>
-    <div class="row"><span>Numéro</span><span>${esc(val('quoteNumber'))}</span></div>
-    <div class="row"><span>Date devis</span><span>${dateFr(val('quoteDate'))}</span></div>
-    <div class="row"><span>Validité</span><span>${dateFr(val('validUntil'))}</span></div>
-  </div>
-</section>
-
-<section class="box" style="margin-bottom:var(--block-gap)">
-  <h3>Prestation</h3>
-  <div class="row"><span>Date événement</span><span>${dateFr(val('eventDate'))}</span></div>
-  <div class="row"><span>Lieu</span><span>${esc(val('eventPlace'))}</span></div>
-  <div class="row"><span>Horaire</span><span>${esc(val('startTime'))} – ${esc(val('endTime'))} (${shoot.toFixed(1).replace('.',',')} h)</span></div>
-  <div class="row"><span>Livraison</span><span>${esc(val('photosDelivered'))} — ${esc(val('deliveryDelay'))}</span></div>
-  <p class="desc">${nl(val('description'))}</p>
-</section>
-
-<section class="grid2">
-  <div class="box"><h3>Temps estimé</h3>
-    <table class="table"><tr><th>Poste</th><th>Temps</th></tr>
-      <tr><td>Préparation / échanges</td><td>${num('prepHours')} h</td></tr>
-      <tr><td>Déplacement</td><td>${num('travelHours')} h</td></tr>
-      <tr><td>Prise de vue</td><td>${shoot.toFixed(1).replace('.',',')} h</td></tr>
-      <tr><td>Tri</td><td>${num('sortHours')} h</td></tr>
-      <tr><td>Retouches</td><td>${num('editHours')} h</td></tr>
-      <tr class="total"><td>Total estimé</td><td>${total.toFixed(1).replace('.',',')} h</td></tr>
-    </table>
-  </div>
-  <div class="box"><h3>Déplacement</h3>
-    <table class="table"><tr><th>Poste</th><th>Montant</th></tr>
-      <tr><td>Distance A/R</td><td>${num('distanceKm')} km</td></tr>
-      <tr><td>Tarif kilométrique</td><td>${num('kmRate').toFixed(2)} CHF/km</td></tr>
-      <tr class="total"><td>Coût estimé</td><td>${chf(kmCost)}</td></tr>
-    </table>
-    <p class="desc">Déplacement inclus dans le forfait.</p>
-  </div>
-</section>
-
-<section class="price-zone">
-  <div class="box"><h3>Récapitulatif</h3>
-    <table class="table"><tr><th>Description</th><th>Montant</th></tr>
-      <tr><td>Montant facturé</td><td>${chf(price)}</td></tr>
-      ${hourlyHtml}
-      <tr class="total"><td>Total devis</td><td>${chf(price)}</td></tr>
-    </table>
-  </div>
-  <div class="price" style="background:${val('priceBgColor')} !important;color:${finalPriceTextColor} !important">
-    <small style="color:${val('priceAccentColor')} !important">Total devis</small>
-    <div class="amount" style="color:${finalPriceTextColor} !important">${chf(price)}</div>
-    <small style="color:${val('priceAccentColor')} !important">Tout compris</small>
-  </div>
-</section>
-
-<section class="essential">
-  <div class="box"><h3>Inclus</h3>${ul('included')}</div>
-  <div class="box"><h3>Conditions</h3><p class="desc">${nl(val('terms'))}</p></div>
-</section>
-
-<section class="box" style="margin-bottom:var(--block-gap)">
-  <h3>Acceptation du devis</h3>
-  <div class="signature">Date et signature client</div>
-</section>
-
-<div class="final">${nl(val('finalNote'))}</div>
-<footer class="footer" style="font-size:${val('contactSize')}px">
-  <div><b>${esc(val('companyName'))}</b><br>${esc(val('companyAddress'))}</div>
-  <div>${esc(val('companyEmail'))}<br>${esc(val('companyPhone'))}</div>
-  <div>${esc(val('companyWebsite'))}</div>
-</footer>`;
-  checkA4();
-}
-
 function update(){
   labels();
   document.body.classList.toggle('relaxed',val('compactMode')==='off');
@@ -278,12 +138,9 @@ function update(){
   const rightsDetail = $('showCommercialRights').checked ? detail(val('commercialRightsLabel') || 'Droits commerciaux', chf(rightsFee)) : '';
   const discountDetail = effectiveDiscount > 0 ? detail('Rabais appliqué', '-'+chf(effectiveDiscount)) : '';
   const calculationHtml = $('showHourly').checked ? `
-    <section class="quote-section quote-calculation">
-      <div class="quote-section-head">
-        <span>Base de calcul</span>
-        <h3>Transparence interne</h3>
-      </div>
-      <div class="quote-details-grid">
+    <section class="tq-section tq-calc">
+      <span class="tq-eyebrow">Base de calcul — transparence interne</span>
+      <div class="tq-calc-grid">
         ${detail('Temps total estimé', hourText(total))}
         ${detail('Base temps', `${chf(hourlyValue)} (${hourText(total)} x ${num('hourlyRate')} CHF/h)`)}
         ${detail('Déplacement', `${chf(kmCost)} (${num('distanceKm')} km x ${num('kmRate').toFixed(2)} CHF/km)`)}
@@ -304,99 +161,79 @@ function update(){
   $('document').style.fontSize=val('bodySize')+'px';
 
   $('document').innerHTML=`
-<article class="quote-document">
-  <header class="quote-top">
-    <div class="quote-logo-block" style="width:${val('logoWidth')}px;transform:translate(${val('logoOffsetX')||0}px, ${val('logoTop')}px)">
+<article class="tq-doc">
+  <div class="tq-topbar"></div>
+  <header class="tq-header">
+    <div class="tq-logo" style="width:${val('logoWidth')}px;transform:translate(${val('logoOffsetX')||0}px, ${val('logoTop')}px)">
       ${logoHtml}
     </div>
-    <div class="quote-heading" style="transform:translateX(${val('titleOffsetX')}px)">
-      <span class="quote-label">Proposition photographique</span>
-      <div class="doc-title quote-title" style="font-size:${val('titleSize')}px">DEVIS</div>
-      <div class="doc-subtitle quote-subtitle" style="font-size:${val('subtitleSize')}px">${textOrDash(val('serviceType'))}</div>
+    <div class="tq-heading" style="transform:translateX(${val('titleOffsetX')}px)">
+      <span class="tq-eyebrow">Proposition photographique</span>
+      <h1 class="tq-title" style="font-size:${val('titleSize')}px">Devis</h1>
+      <p class="tq-subtitle" style="font-size:${val('subtitleSize')}px">${textOrDash(val('serviceType'))}</p>
     </div>
-    <div class="quote-meta">
-      ${detail('N°', textOrDash(val('quoteNumber')))}
-      ${detail('Date', dateFr(val('quoteDate')))}
-      ${detail('Valable jusqu’au', dateFr(val('validUntil')))}
+    <div class="tq-refs">
+      <div><span>N°</span><strong>${textOrDash(val('quoteNumber'))}</strong></div>
+      <div><span>Date</span><strong>${dateFr(val('quoteDate'))}</strong></div>
+      <div><span>Valable jusqu’au</span><strong>${dateFr(val('validUntil'))}</strong></div>
     </div>
   </header>
 
-  <section class="quote-hero">
-    <div class="quote-project">
-      <span class="quote-label">Projet</span>
-      <h2>${textOrDash(val('serviceType'))}</h2>
-      <p>${htmlOrDash(val('description'))}</p>
-    </div>
-    <aside class="quote-client">
-      <span>Client</span>
-      <strong>${textOrDash(val('clientName'))}</strong>
-      <p>${clientContact || dash}</p>
-    </aside>
+  <section class="tq-meta">
+    <div><span>Client</span><strong>${textOrDash(val('clientName'))}</strong></div>
+    <div><span>Lieu</span><strong>${textOrDash(val('eventPlace'))}</strong></div>
+    <div><span>Date événement</span><strong>${dateFr(val('eventDate'))}</strong></div>
+    <div><span>Horaire</span><strong>${eventHours}</strong></div>
+    <div><span>Livraison</span><strong>${textOrDash(val('deliveryDelay'))}</strong></div>
+  </section>
+  ${clientContact ? `<p class="tq-contact">${clientContact}</p>` : ''}
+
+  <section class="tq-section tq-intro">
+    <span class="tq-eyebrow">Projet</span>
+    <p>${htmlOrDash(val('description'))}</p>
   </section>
 
-  <section class="quote-facts">
-    ${detail('Date événement', dateFr(val('eventDate')))}
-    ${detail('Lieu', textOrDash(val('eventPlace')))}
-    ${detail('Horaire', `${eventHours} (${hourText(shoot)})`)}
-    ${detail('Livraison', `${textOrDash(val('photosDelivered'))}<br>${textOrDash(val('deliveryDelay'))}`)}
+  <section class="tq-section">
+    <span class="tq-eyebrow">Ce que comprend cette prestation</span>
+    ${bulletList('included')}
   </section>
 
-  <section class="quote-investment">
-    <div class="investment-copy">
-      <span class="quote-label">Investissement</span>
-      <h3>Une prestation claire, prête à valider.</h3>
-      <p>Le montant inclut la préparation, la prise de vue, le tri, les retouches de base, la galerie privée et le déplacement prévu dans ce devis.</p>
-    </div>
-    <div class="price investment-total" style="background:${val('priceBgColor')} !important;color:${finalPriceTextColor} !important">
-      <small style="color:${val('priceAccentColor')} !important">Total devis</small>
-      <div class="amount" style="color:${finalPriceTextColor} !important">${chf(price)}</div>
-      <small style="color:${val('priceAccentColor')} !important">Tout compris</small>
-    </div>
+  <section class="tq-section tq-org">
+    <span class="tq-eyebrow">Organisation</span>
+    <p class="tq-flow"><strong>${hourText(shoot)}</strong> de prise de vue · préparation ${num('prepHours')} h · trajet ${num('travelHours')} h · tri ${num('sortHours')} h · retouches ${num('editHours')} h — total <strong>${hourText(total)}</strong></p>
+    <p class="tq-flow">Déplacement ${num('distanceKm')} km (A/R) à ${num('kmRate').toFixed(2)} CHF/km · livraison : ${textOrDash(val('photosDelivered'))}</p>
   </section>
 
-  <section class="quote-columns">
-    <div class="quote-section">
-      <div class="quote-section-head">
-        <span>Inclus</span>
-        <h3>Ce que comprend le devis</h3>
-      </div>
-      ${bulletList('included')}
+  <section class="tq-price">
+    <div class="tq-price-copy">
+      <span class="tq-eyebrow">Investissement</span>
+      <p>Le montant ci-contre couvre l’intégralité de la prestation décrite dans ce devis, déplacement compris.</p>
     </div>
-    <div class="quote-section">
-      <div class="quote-section-head">
-        <span>Repères</span>
-        <h3>Temps et déplacement</h3>
-      </div>
-      <div class="quote-details-grid compact">
-        ${detail('Prise de vue', hourText(shoot))}
-        ${detail('Temps total', hourText(total))}
-        ${detail('Distance A/R', `${num('distanceKm')} km`)}
-        ${detail('Valeur déplacement', chf(kmCost))}
-      </div>
+    <div class="tq-price-amount" style="background:${val('priceBgColor')} !important;color:${finalPriceTextColor} !important">
+      <span style="color:${val('priceAccentColor')} !important">Total devis</span>
+      <strong style="color:${finalPriceTextColor} !important">${chf(price)}</strong>
+      <span style="color:${val('priceAccentColor')} !important">Tout compris</span>
     </div>
   </section>
 
   ${calculationHtml}
 
-  <section class="quote-section quote-terms">
-    <div class="quote-section-head">
-      <span>Conditions</span>
-      <h3>Validation du devis</h3>
-    </div>
+  <section class="tq-section tq-terms">
+    <span class="tq-eyebrow">Conditions</span>
     <p>${htmlOrDash(val('terms'))}</p>
   </section>
 
-  <section class="quote-acceptance">
+  <section class="tq-sign">
     <div>
-      <span>Bon pour accord</span>
+      <span class="tq-eyebrow">Bon pour accord</span>
       <strong>${textOrDash(val('clientName'))}</strong>
     </div>
-    <div class="signature-line">Date et signature client</div>
+    <div class="tq-sign-line">Date et signature client</div>
   </section>
 
-  <div class="final quote-final">${htmlOrDash(val('finalNote'))}</div>
-  <footer class="footer quote-footer" style="font-size:${val('contactSize')}px">
-    <div><b>${textOrDash(val('companyName'))}</b><br>${textOrDash(val('companyAddress'))}</div>
+  <p class="tq-final">${htmlOrDash(val('finalNote'))}</p>
+  <footer class="tq-footer" style="font-size:${val('contactSize')}px">
+    <div><strong>${textOrDash(val('companyName'))}</strong><br>${textOrDash(val('companyAddress'))}</div>
     <div>${textOrDash(val('companyEmail'))}<br>${textOrDash(val('companyPhone'))}</div>
     <div>${textOrDash(val('companyWebsite'))}</div>
   </footer>
