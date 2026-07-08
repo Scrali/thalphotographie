@@ -3,6 +3,11 @@ require __DIR__ . '/includes/auth.php';
 require_login();
 require_once __DIR__ . '/includes/pricing.php';
 
+if (!csrf_check($_POST['csrf'] ?? null)) {
+    http_response_code(403);
+    exit('Jeton de sécurité invalide.');
+}
+
 function thal_slug(string $value): string {
     $converted = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $value);
     if ($converted !== false) $value = $converted;

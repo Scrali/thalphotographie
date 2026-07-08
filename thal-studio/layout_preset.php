@@ -26,6 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!csrf_check($_SERVER['HTTP_X_CSRF_TOKEN'] ?? null)) {
+        http_response_code(403);
+        echo json_encode(['ok' => false, 'error' => 'Jeton de sécurité invalide']);
+        exit;
+    }
+
     $raw = file_get_contents('php://input');
     $payload = json_decode($raw, true);
 
@@ -46,6 +52,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+    if (!csrf_check($_SERVER['HTTP_X_CSRF_TOKEN'] ?? null)) {
+        http_response_code(403);
+        echo json_encode(['ok' => false, 'error' => 'Jeton de sécurité invalide']);
+        exit;
+    }
+
     if (is_file($path)) {
         unlink($path);
     }

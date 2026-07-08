@@ -228,7 +228,7 @@ async function saveQuoteServer(){
   try{
     const response = await fetch('quote_save.php', {
       method:'POST',
-      headers:{'Content-Type':'application/json'},
+      headers:{'Content-Type':'application/json','X-CSRF-Token':window.THAL_CSRF_TOKEN||''},
       body:JSON.stringify(state())
     });
     const result = await response.json();
@@ -303,7 +303,7 @@ function setSlotStatus(msg){
 async function saveLayoutSlotServer(slot){
   const response = await fetch('layout_preset.php?slot=' + encodeURIComponent(slot), {
     method:'POST',
-    headers:{'Content-Type':'application/json'},
+    headers:{'Content-Type':'application/json','X-CSRF-Token':window.THAL_CSRF_TOKEN||''},
     body:JSON.stringify(layoutState())
   });
   return response.json();
@@ -313,7 +313,7 @@ async function loadLayoutSlotServer(slot){
   return response.json();
 }
 async function clearLayoutSlotServer(slot){
-  const response = await fetch('layout_preset.php?slot=' + encodeURIComponent(slot), {method:'DELETE'});
+  const response = await fetch('layout_preset.php?slot=' + encodeURIComponent(slot), {method:'DELETE', headers:{'X-CSRF-Token':window.THAL_CSRF_TOKEN||''}});
   return response.json();
 }
 

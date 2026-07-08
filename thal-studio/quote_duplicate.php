@@ -1,6 +1,10 @@
 <?php
 require __DIR__ . '/includes/auth.php';
 require_login();
+if (!csrf_check($_POST['csrf'] ?? null)) {
+    http_response_code(403);
+    exit('Jeton de sécurité invalide.');
+}
 $id = preg_replace('/[^a-zA-Z0-9_.-]/', '', $_POST['id'] ?? '');
 $source = __DIR__ . '/data/quotes/' . $id . '.json';
 if (!is_file($source)) { header('Location: quotes.php'); exit; }

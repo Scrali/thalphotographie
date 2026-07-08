@@ -41,8 +41,8 @@ usort($quotes, fn($a,$b)=>strcmp($b['updatedAt'],$a['updatedAt']));
 <td><?= e(date('d.m.Y H:i', strtotime($q['updatedAt']))) ?></td>
 <td class="actions-cell">
 <a class="button small" href="devis.php?q=<?= urlencode($q['id']) ?>">Ouvrir</a>
-<form method="post" action="quote_duplicate.php"><input type="hidden" name="id" value="<?= e($q['id']) ?>"><button class="button small" type="submit">Dupliquer</button></form>
-<form method="post" action="quote_delete.php" onsubmit="return confirm('Supprimer ce devis ?');"><input type="hidden" name="id" value="<?= e($q['id']) ?>"><button class="button small danger" type="submit">Supprimer</button></form>
+<form method="post" action="quote_duplicate.php"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= e($q['id']) ?>"><button class="button small" type="submit">Dupliquer</button></form>
+<form method="post" action="quote_delete.php" onsubmit="return confirm('Supprimer ce devis ?');"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= e($q['id']) ?>"><button class="button small danger" type="submit">Supprimer</button></form>
 </td>
 </tr>
 <?php endforeach; ?>

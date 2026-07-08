@@ -37,8 +37,8 @@ foreach($items as $it){ if(substr($it['createdAt']??'',0,7)===date('Y-m'))$month
         <td><?= e(number_format((float)($it['price_min'] ?? 0),0,'.',"'")) ?>–<?= e(number_format((float)($it['price_max'] ?? 0),0,'.',"'")) ?> CHF<br><small>Conseillé : <?= e(number_format((float)($it['price_recommended'] ?? 0),0,'.',"'")) ?> CHF</small></td>
         <td><?= e($it['status'] ?? 'new') ?></td>
         <td class="actions-cell">
-          <form method="post" action="estimation_convert.php"><input type="hidden" name="id" value="<?= e($it['_id']) ?>"><button class="button small" type="submit">Créer devis</button></form>
-          <form method="post" action="estimation_delete.php" onsubmit="return confirm('Supprimer cette estimation ?');"><input type="hidden" name="id" value="<?= e($it['_id']) ?>"><button class="button small danger" type="submit">Supprimer</button></form>
+          <form method="post" action="estimation_convert.php"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= e($it['_id']) ?>"><button class="button small" type="submit">Créer devis</button></form>
+          <form method="post" action="estimation_delete.php" onsubmit="return confirm('Supprimer cette estimation ?');"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= e($it['_id']) ?>"><button class="button small danger" type="submit">Supprimer</button></form>
         </td>
       </tr>
     <?php endforeach; ?>

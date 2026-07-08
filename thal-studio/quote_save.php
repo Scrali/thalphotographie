@@ -2,6 +2,13 @@
 require __DIR__ . '/includes/auth.php';
 require_login();
 header('Content-Type: application/json; charset=utf-8');
+
+if (!csrf_check($_SERVER['HTTP_X_CSRF_TOKEN'] ?? null)) {
+    http_response_code(403);
+    echo json_encode(['ok'=>false,'error'=>'Jeton de sécurité invalide']);
+    exit;
+}
+
 $data = json_decode((string)file_get_contents('php://input'), true);
 if (!is_array($data)) { http_response_code(400); echo json_encode(['ok'=>false,'error'=>'JSON invalide']); exit; }
 function thal_slug(string $value): string {

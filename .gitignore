@@ -1,9 +1,7 @@
-# Fichiers Windows inutiles
 Thumbs.db
-Desktop.ini
-
-# Mac
+_Thumbs.db
 .DS_Store
-
-# Logs
-*.log
+thal-studio/data/quotes/*.json
+thal-studio/data/estimations/*.json
+thal-studio/data/layouts/*.json
+thal-studio/data/security/*.json
