@@ -8,8 +8,13 @@ function read_json_file(string $path, array $default = []): array {
         return $default;
     }
 
-    $json = file_get_contents($path);
-    $data = json_decode((string)$json, true);
+    $json = (string)file_get_contents($path);
+    // Tolère un BOM UTF-8 en tête de fichier (json_decode le refuse sinon).
+    if (str_starts_with($json, "\xEF\xBB\xBF")) {
+        $json = substr($json, 3);
+    }
+
+    $data = json_decode($json, true);
     return is_array($data) ? $data : $default;
 }
 
@@ -213,4 +218,148 @@ function thal_prefill_query(array $client): string {
         'clientPhone' => $client['phone'] ?? '',
         'clientAddress' => $client['address'] ?? '',
     ]);
+}
+
+// ===== Galerie photo =====
+
+const THAL_GALLERY_IGNORE_DIRS = ['scripts', '.git', '.github', '__MACOSX'];
+const THAL_GALLERY_IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
+
+// Alias de genres reconnus dans un nom de fichier pour le tri automatique
+// (clé = fragment recherché dans le nom normalisé, valeur = catégorie visée).
+const THAL_GALLERY_ALIASES = [
+    'mariage' => 'Mariage',
+    'wedding' => 'Mariage',
+    'portrait' => 'Portraits',
+    'evenement' => 'Evenements',
+    'concert' => 'Evenements',
+    'soiree' => 'Evenements',
+    'projet' => 'Projets',
+    'corporate' => 'Corporate',
+    'entreprise' => 'Corporate',
+];
+
+function thal_photos_dir(?string $baseDir = null): string {
+    return thal_base_dir($baseDir) . '/../photos';
+}
+
+function thal_gallery_json_path(?string $baseDir = null): string {
+    return thal_photos_dir($baseDir) . '/gallery.auto.json';
+}
+
+function thal_is_allowed_image_ext(string $ext): bool {
+    return in_array(thal_lower($ext), THAL_GALLERY_IMAGE_EXTENSIONS, true);
+}
+
+function thal_truncate(string $value, int $length): string {
+    return function_exists('mb_substr') ? mb_substr($value, 0, $length) : substr($value, 0, $length);
+}
+
+function thal_sanitize_category(string $name): string {
+    $name = trim($name);
+    $name = preg_replace('/[\/\\\\]+/', ' ', $name) ?? '';
+    $name = preg_replace('/[^\p{L}\p{N} _-]/u', '', $name) ?? '';
+    $name = trim(preg_replace('/\s+/', ' ', $name) ?? '');
+    return thal_truncate($name, 60);
+}
+
+function thal_sanitize_filename(string $name): string {
+    $name = basename($name);
+    $ext = thal_lower(preg_replace('/[^a-zA-Z0-9]/', '', pathinfo($name, PATHINFO_EXTENSION)) ?? '');
+    $base = pathinfo($name, PATHINFO_FILENAME);
+    $base = preg_replace('/[^\p{L}\p{N} _-]/u', '', $base) ?? '';
+    $base = trim(preg_replace('/\s+/', '_', $base) ?? '');
+    if ($base === '') {
+        $base = 'photo';
+    }
+    return $ext !== '' ? $base . '.' . $ext : $base;
+}
+
+function thal_gallery_normalize(string $value): string {
+    $value = thal_lower($value);
+    $transliterations = ['é'=>'e','è'=>'e','ê'=>'e','ë'=>'e','à'=>'a','â'=>'a','ä'=>'a','ù'=>'u','û'=>'u','ü'=>'u','ô'=>'o','ö'=>'o','î'=>'i','ï'=>'i','ç'=>'c'];
+    return strtr($value, $transliterations);
+}
+
+// Devine la catégorie d'une photo à partir de son nom de fichier :
+// correspondance directe avec une catégorie existante, puis alias connus (mariage, portrait...).
+function thal_guess_category(string $filename, array $categories): ?string {
+    $norm = thal_gallery_normalize(pathinfo($filename, PATHINFO_FILENAME));
+
+    foreach ($categories as $cat) {
+        $catNorm = thal_gallery_normalize($cat);
+        if ($catNorm !== '' && str_contains($norm, $catNorm)) {
+            return $cat;
+        }
+    }
+
+    foreach (THAL_GALLERY_ALIASES as $needle => $target) {
+        if (!str_contains($norm, $needle)) {
+            continue;
+        }
+        foreach ($categories as $cat) {
+            if (thal_gallery_normalize($cat) === thal_gallery_normalize($target)) {
+                return $cat;
+            }
+        }
+        return $target;
+    }
+
+    return null;
+}
+
+// Lit le dossier photos/ sur disque et le réconcilie avec gallery.auto.json :
+// conserve l'ordre existant, ajoute les nouveaux fichiers trouvés, retire les entrées orphelines.
+function thal_gallery_scan(?string $baseDir = null): array {
+    $photosDir = thal_photos_dir($baseDir);
+    if (!is_dir($photosDir)) {
+        return [];
+    }
+
+    $stored = read_json_file(thal_gallery_json_path($baseDir));
+
+    $onDisk = [];
+    foreach (scandir($photosDir) ?: [] as $entry) {
+        if ($entry === '.' || $entry === '..' || in_array($entry, THAL_GALLERY_IGNORE_DIRS, true)) {
+            continue;
+        }
+        $full = $photosDir . '/' . $entry;
+        if (!is_dir($full)) {
+            continue;
+        }
+        $files = [];
+        foreach (scandir($full) ?: [] as $file) {
+            if ($file === '.' || $file === '..') {
+                continue;
+            }
+            if (thal_is_allowed_image_ext(pathinfo($file, PATHINFO_EXTENSION))) {
+                $files[] = $file;
+            }
+        }
+        $onDisk[$entry] = $files;
+    }
+
+    $result = [];
+    foreach ($stored as $cat => $files) {
+        if (!is_string($cat) || !isset($onDisk[$cat])) {
+            continue;
+        }
+        $files = is_array($files) ? $files : [];
+        $kept = array_values(array_filter($files, fn($f) => in_array($f, $onDisk[$cat], true)));
+        $new = array_values(array_diff($onDisk[$cat], $kept));
+        sort($new);
+        $result[$cat] = array_merge($kept, $new);
+        unset($onDisk[$cat]);
+    }
+
+    foreach ($onDisk as $cat => $files) {
+        sort($files);
+        $result[$cat] = $files;
+    }
+
+    return $result;
+}
+
+function thal_gallery_save(array $data, ?string $baseDir = null): bool {
+    return write_json_file(thal_gallery_json_path($baseDir), $data);
 }
