@@ -26,6 +26,12 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Redimensionner les photos trop grandes (max 2400px, jamais d'agrandissement)
+        run: |
+          find photos -type f \( -iname "*.jpg" -o -iname "*.jpeg" \) -not -path "photos/scripts/*" -exec mogrify -resize "2400x2400>" -quality 85 {} +
+          find photos -type f -iname "*.png" -not -path "photos/scripts/*" -exec mogrify -resize "2400x2400>" {} +
+          find photos -type f -iname "*.webp" -not -path "photos/scripts/*" -exec mogrify -resize "2400x2400>" -quality 85 {} +
+
       - name: Build gallery.auto.json
         run: |
           python scripts/build_gallery_auto.py
@@ -35,12 +41,12 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          # uniquement si le fichier a changé
-          if git diff --quiet -- photos/gallery.auto.json; then
+          # uniquement si des fichiers ont changé (photos redimensionnées et/ou gallery.auto.json)
+          if git diff --quiet -- photos/; then
             echo "No changes."
             exit 0
           fi
 
-          git add photos/gallery.auto.json
-          git commit -m "Auto-update gallery.auto.json"
+          git add photos/
+          git commit -m "Auto-update gallery.auto.json et redimensionnement des photos"
           git push
