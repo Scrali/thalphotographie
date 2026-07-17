@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/includes/auth.php';
 require __DIR__ . '/includes/functions.php';
+thal_json_api_guard();
 require_login();
 
 header('Content-Type: application/json; charset=utf-8');

@@ -3,6 +3,34 @@ function e($value): string {
     return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8');
 }
 
+// À appeler tout en haut des points d'entrée JSON (gallery_*.php) : évite qu'une erreur fatale
+// PHP (ex. mémoire insuffisante pendant le traitement d'une grande image) ne casse la réponse
+// JSON avec du HTML d'erreur — le client reçoit toujours un JSON exploitable.
+function thal_json_api_guard(int $memoryLimitMb = 256): void {
+    ini_set('display_errors', '0');
+    ini_set('memory_limit', $memoryLimitMb . 'M');
+    error_reporting(E_ALL);
+    ob_start();
+
+    register_shutdown_function(static function (): void {
+        $error = error_get_last();
+        if (!$error || !in_array($error['type'], [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR], true)) {
+            return;
+        }
+
+        while (ob_get_level() > 0) {
+            ob_end_clean();
+        }
+
+        http_response_code(500);
+        header('Content-Type: application/json; charset=utf-8');
+        echo json_encode([
+            'ok' => false,
+            'error' => 'Erreur serveur inattendue (probablement une image trop volumineuse pour être traitée). Réessaie avec un fichier plus léger.',
+        ], JSON_UNESCAPED_UNICODE);
+    });
+}
+
 function read_json_file(string $path, array $default = []): array {
     if (!is_file($path)) {
         return $default;

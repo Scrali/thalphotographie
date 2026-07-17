@@ -1,6 +1,7 @@
 <?php
 require __DIR__ . '/includes/auth.php';
 require __DIR__ . '/includes/functions.php';
+thal_json_api_guard(512);
 require_login();
 
 header('Content-Type: application/json; charset=utf-8');
@@ -49,7 +50,13 @@ for ($i = 0; $i < $count; $i++) {
     $uploadError = (int)$_FILES['files']['error'][$i];
 
     if ($uploadError !== UPLOAD_ERR_OK || $originalName === '') {
-        $results[] = ['name' => $originalName, 'ok' => false, 'error' => 'Échec de l’envoi'];
+        $message = match ($uploadError) {
+            UPLOAD_ERR_INI_SIZE, UPLOAD_ERR_FORM_SIZE => 'Fichier trop volumineux pour la configuration du serveur',
+            UPLOAD_ERR_PARTIAL => 'Envoi interrompu, réessaie',
+            UPLOAD_ERR_NO_FILE => 'Aucun fichier reçu',
+            default => 'Échec de l’envoi',
+        };
+        $results[] = ['name' => $originalName, 'ok' => false, 'error' => $message];
         continue;
     }
 
