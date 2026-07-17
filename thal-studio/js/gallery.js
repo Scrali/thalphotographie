@@ -5,6 +5,9 @@
   const newCategoryForm = document.getElementById('newCategoryForm');
   const newCategoryName = document.getElementById('newCategoryName');
   const categoryStatus = document.getElementById('categoryStatus');
+  const progressWrap = document.getElementById('uploadProgressWrap');
+  const progressFill = document.getElementById('uploadProgressFill');
+  const progressLabel = document.getElementById('uploadProgressLabel');
 
   const esc = s => String(s ?? '').replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m]));
   const csrfHeaders = (extra = {}) => Object.assign({ 'X-CSRF-Token': window.THAL_CSRF_TOKEN || '' }, extra);
@@ -63,27 +66,71 @@
     categoryStatus.style.color = isError ? '#ff9c9c' : '';
   }
 
-  async function uploadFiles(fileList, category) {
+  function formatSize(bytes) {
+    if (bytes < 1024 * 1024) return Math.round(bytes / 1024) + ' Ko';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' Mo';
+  }
+
+  function showProgress(percent, label) {
+    if (!progressWrap) return;
+    progressWrap.hidden = false;
+    progressFill.style.width = percent + '%';
+    progressLabel.textContent = label;
+  }
+
+  function hideProgress() {
+    if (!progressWrap) return;
+    progressWrap.hidden = true;
+    progressFill.style.width = '0%';
+  }
+
+  function uploadFiles(fileList, category) {
     if (!fileList || !fileList.length) return;
+    const files = [...fileList];
+    const totalBytes = files.reduce((sum, f) => sum + f.size, 0);
     const fd = new FormData();
     fd.append('csrf', window.THAL_CSRF_TOKEN || '');
     fd.append('category', category || '__auto__');
-    [...fileList].forEach(f => fd.append('files[]', f));
+    files.forEach(f => fd.append('files[]', f));
 
     setStatus('Envoi en cours…', false);
-    try {
-      const res = await fetch('gallery_upload.php', { method: 'POST', body: fd });
-      const result = await res.json();
-      if (result.ok) {
-        renderData(result.data);
-        const failed = (result.results || []).filter(r => !r.ok);
-        setStatus(failed.length ? `Envoyé avec ${failed.length} erreur(s).` : 'Photos ajoutées.', failed.length > 0);
-      } else {
-        setStatus(result.error || 'Échec de l’envoi.', true);
-      }
-    } catch (e) {
-      setStatus('Erreur réseau pendant l’envoi.', true);
-    }
+    showProgress(0, `0% — 0 Ko / ${formatSize(totalBytes)} (${files.length} photo${files.length > 1 ? 's' : ''})`);
+
+    return new Promise(resolve => {
+      const xhr = new XMLHttpRequest();
+      xhr.open('POST', 'gallery_upload.php');
+
+      xhr.upload.addEventListener('progress', e => {
+        if (!e.lengthComputable) return;
+        const percent = Math.round((e.loaded / e.total) * 100);
+        showProgress(percent, `${percent}% — ${formatSize(e.loaded)} / ${formatSize(e.total)} (${files.length} photo${files.length > 1 ? 's' : ''})`);
+      });
+
+      xhr.addEventListener('load', () => {
+        hideProgress();
+        try {
+          const result = JSON.parse(xhr.responseText);
+          if (result.ok) {
+            renderData(result.data);
+            const failed = (result.results || []).filter(r => !r.ok);
+            setStatus(failed.length ? `Envoyé avec ${failed.length} erreur(s).` : 'Photos ajoutées.', failed.length > 0);
+          } else {
+            setStatus(result.error || 'Échec de l’envoi.', true);
+          }
+        } catch (e) {
+          setStatus('Réponse du serveur invalide.', true);
+        }
+        resolve();
+      });
+
+      xhr.addEventListener('error', () => {
+        hideProgress();
+        setStatus('Erreur réseau pendant l’envoi.', true);
+        resolve();
+      });
+
+      xhr.send(fd);
+    });
   }
 
   async function deletePhoto(category, file) {
