@@ -65,6 +65,12 @@ $totalCategories = count($galleryData);
             <img src="../photos/<?= rawurlencode($category) ?>/<?= rawurlencode($file) ?>" alt="<?= e($file) ?>" loading="lazy">
             <button type="button" class="gallery-thumb-delete" aria-label="Supprimer">×</button>
             <figcaption><?= e($file) ?></figcaption>
+            <select class="gallery-thumb-move" aria-label="Déplacer vers">
+              <option value="">Déplacer vers…</option>
+              <?php foreach (array_keys($galleryData) as $otherCategory): if ($otherCategory === $category) continue; ?>
+                <option value="<?= e($otherCategory) ?>"><?= e($otherCategory) ?></option>
+              <?php endforeach; ?>
+            </select>
           </figure>
         <?php endforeach; ?>
         <?php if (empty($files)): ?>

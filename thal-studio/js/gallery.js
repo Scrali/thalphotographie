@@ -13,12 +13,21 @@
     return `../photos/${encodeURIComponent(category)}/${encodeURIComponent(file)}`;
   }
 
-  function categoryMarkup(category, files) {
+  function moveOptionsMarkup(category, allCategories) {
+    const options = allCategories
+      .filter(c => c !== category)
+      .map(c => `<option value="${esc(c)}">${esc(c)}</option>`)
+      .join('');
+    return `<select class="gallery-thumb-move" aria-label="Déplacer vers"><option value="">Déplacer vers…</option>${options}</select>`;
+  }
+
+  function categoryMarkup(category, files, allCategories) {
     const thumbs = files.map(file => `
       <figure class="gallery-thumb" draggable="true" data-file="${esc(file)}">
         <img src="${photoSrc(category, file)}" alt="${esc(file)}" loading="lazy">
         <button type="button" class="gallery-thumb-delete" aria-label="Supprimer">×</button>
         <figcaption>${esc(file)}</figcaption>
+        ${moveOptionsMarkup(category, allCategories)}
       </figure>`).join('');
 
     const empty = files.length ? '' : '<p class="empty-state gallery-empty">Aucune photo. Glisse-en ici ou utilise « Ajouter ici ».</p>';
@@ -43,7 +52,8 @@
   }
 
   function renderData(data) {
-    sectionsEl.innerHTML = Object.keys(data).map(cat => categoryMarkup(cat, data[cat] || [])).join('');
+    const allCategories = Object.keys(data);
+    sectionsEl.innerHTML = allCategories.map(cat => categoryMarkup(cat, data[cat] || [], allCategories)).join('');
     bindSections();
   }
 
@@ -175,6 +185,19 @@
         const section = input.closest('.gallery-category');
         uploadFiles(input.files, section.dataset.category);
         input.value = '';
+      });
+    });
+
+    sectionsEl.querySelectorAll('.gallery-thumb-move').forEach(select => {
+      select.addEventListener('click', e => e.stopPropagation());
+      select.addEventListener('change', () => {
+        const toCategory = select.value;
+        if (!toCategory) return;
+        const thumb = select.closest('.gallery-thumb');
+        const grid = select.closest('.gallery-grid');
+        const targetGrid = sectionsEl.querySelector(`.gallery-grid[data-category="${CSS.escape(toCategory)}"]`);
+        const targetIndex = targetGrid ? targetGrid.querySelectorAll('.gallery-thumb').length : 0;
+        movePhoto(thumb.dataset.file, grid.dataset.category, toCategory, targetIndex);
       });
     });
 

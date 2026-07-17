@@ -363,3 +363,59 @@ function thal_gallery_scan(?string $baseDir = null): array {
 function thal_gallery_save(array $data, ?string $baseDir = null): bool {
     return write_json_file(thal_gallery_json_path($baseDir), $data);
 }
+
+const THAL_GALLERY_MAX_DIMENSION = 2400;
+const THAL_GALLERY_JPEG_QUALITY = 85;
+
+// Redimensionne (et recompresse) une image sur place si elle dépasse THAL_GALLERY_MAX_DIMENSION,
+// sans jamais l'agrandir. Retourne false si l'extension GD n'est pas disponible ou en cas d'échec :
+// dans ce cas le fichier original reste tel quel, l'upload n'est jamais bloqué pour autant.
+function thal_resize_image(string $path, int $maxDimension = THAL_GALLERY_MAX_DIMENSION, int $jpegQuality = THAL_GALLERY_JPEG_QUALITY): bool {
+    if (!function_exists('imagecreatefromstring')) {
+        return false;
+    }
+
+    $info = @getimagesize($path);
+    if ($info === false) {
+        return false;
+    }
+    [$width, $height, $type] = $info;
+
+    if ($width <= $maxDimension && $height <= $maxDimension) {
+        return true;
+    }
+
+    $raw = @file_get_contents($path);
+    $src = $raw !== false ? @imagecreatefromstring($raw) : false;
+    if ($src === false) {
+        return false;
+    }
+
+    $ratio = min($maxDimension / $width, $maxDimension / $height);
+    $newWidth = max(1, (int)round($width * $ratio));
+    $newHeight = max(1, (int)round($height * $ratio));
+
+    $dst = imagecreatetruecolor($newWidth, $newHeight);
+
+    if (in_array($type, [IMAGETYPE_PNG, IMAGETYPE_GIF, IMAGETYPE_WEBP], true)) {
+        imagealphablending($dst, false);
+        imagesavealpha($dst, true);
+        $transparent = imagecolorallocatealpha($dst, 0, 0, 0, 127);
+        imagefilledrectangle($dst, 0, 0, $newWidth, $newHeight, $transparent);
+    }
+
+    imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+    $ok = match ($type) {
+        IMAGETYPE_JPEG => imagejpeg($dst, $path, $jpegQuality),
+        IMAGETYPE_PNG => imagepng($dst, $path, 6),
+        IMAGETYPE_GIF => imagegif($dst, $path),
+        IMAGETYPE_WEBP => function_exists('imagewebp') ? imagewebp($dst, $path, $jpegQuality) : false,
+        default => false,
+    };
+
+    imagedestroy($src);
+    imagedestroy($dst);
+
+    return $ok;
+}

@@ -494,12 +494,24 @@ h3{
 }
 
 .gallery-thumb figcaption{
-  padding:6px 8px;
+  padding:6px 8px 0;
   font-size:11px;
   color:var(--muted);
   white-space:nowrap;
   overflow:hidden;
   text-overflow:ellipsis;
+}
+
+.gallery-thumb-move{
+  display:block;
+  width:calc(100% - 12px);
+  margin:6px 6px 8px;
+  background:#0f100f;
+  color:var(--muted);
+  border:1px solid #343832;
+  border-radius:6px;
+  padding:5px 6px;
+  font-size:11px;
 }
 
 .gallery-thumb-delete{

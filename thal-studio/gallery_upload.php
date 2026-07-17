@@ -88,6 +88,9 @@ for ($i = 0; $i < $count; $i++) {
         continue;
     }
 
+    // Redimensionne côté serveur si l'image dépasse la taille utile pour le site (GD requis).
+    thal_resize_image($destDir . '/' . $finalName);
+
     if (!isset($data[$category])) {
         $data[$category] = [];
     }
