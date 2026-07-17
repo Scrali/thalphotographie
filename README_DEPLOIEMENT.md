@@ -14,12 +14,14 @@ Cette version a été reconstruite à partir de l'archive originale en gardant u
 2. Ouvrir `/thal-studio/login.php`.
 3. Vérifier le mot de passe admin dans `thal-studio/config.php`.
 4. Dans THAL Studio > Packs & tarifs, renseigner la clé OpenRouteService si l'estimation de distance doit fonctionner.
-5. Tester :
+5. Vérifier que le dossier `photos/` est accessible en écriture par PHP (utilisé par `/thal-studio/gallery.php` pour l'upload).
+6. Tester :
    - `/index.html`
    - `/galerie.html`
    - `/thal-studio/login.php`
    - `/thal-studio/devis.php`
    - `/thal-studio/estimations.php`
+   - `/thal-studio/gallery.php`
 
 ## Nettoyage effectué
 
