@@ -35,6 +35,11 @@ $totalCategories = count($galleryData);
   </label>
 </div>
 
+<div class="upload-progress-wrap" id="uploadProgressWrap" hidden>
+  <div class="upload-progress-bar"><div class="upload-progress-fill" id="uploadProgressFill"></div></div>
+  <p class="upload-progress-label" id="uploadProgressLabel"></p>
+</div>
+
 <div class="panel-box narrow">
   <h3>Nouvelle catégorie</h3>
   <form id="newCategoryForm" class="inline-form">
