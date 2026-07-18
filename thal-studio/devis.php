@@ -50,7 +50,7 @@ if ($studioVersion === '') {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>THAL Studio — Nouveau devis</title>
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css?v=<?= htmlspecialchars($studioVersion, ENT_QUOTES, 'UTF-8') ?>">
 </head>
 <body>
 <div class="mobile-topbar">
@@ -253,6 +253,6 @@ Téléchargement HD</textarea></label>
 window.THAL_INITIAL_QUOTE = <?php echo json_encode($initialQuote, JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
 window.THAL_CSRF_TOKEN = <?php echo json_encode(csrf_token(), JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP); ?>;
 </script>
-<script src="js/app.js"></script>
+<script src="js/app.js?v=<?= htmlspecialchars($studioVersion, ENT_QUOTES, 'UTF-8') ?>"></script>
 </body>
 </html>
