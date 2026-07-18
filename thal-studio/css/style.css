@@ -43,6 +43,7 @@ input[type="color"]{height:34px;padding:2px} textarea{min-height:86px;resize:ver
 .paper-viewport{display:flex;justify-content:center;align-items:flex-start;min-width:calc(210mm * var(--doc-scale))}
 .paper{
   width:210mm;height:297mm;min-height:297mm;overflow:hidden;
+  flex-shrink:0;
   background:var(--paper);color:var(--ink);margin:auto;padding:var(--page-padding);
   box-shadow:0 20px 60px rgba(0,0,0,.45);
   font-family:Georgia,"Times New Roman",serif;
@@ -565,6 +566,23 @@ body.relaxed .tq-sign{
     min-width:0;
     justify-content:center;
     overflow-x:auto;
+  }
+
+  .preview-toolbar{
+    flex-wrap:wrap;
+    gap:6px;
+    margin-bottom:10px;
+  }
+  .page-meter{
+    flex:1 1 100%;
+    order:-1;
+    padding:7px 12px;
+    font-size:11px;
+    text-align:center;
+  }
+  .preview-toolbar button{
+    padding:6px 10px;
+    font-size:12px;
   }
 }
 

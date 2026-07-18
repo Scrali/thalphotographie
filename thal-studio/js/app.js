@@ -411,7 +411,7 @@ if($('mobilePreviewToggle')) $('mobilePreviewToggle').addEventListener('click',(
   const showingPreview=document.body.classList.toggle('show-preview');
   $('mobilePreviewToggle').textContent=showingPreview?'Formulaire':'Aperçu';
   closeNav();
-  if(showingPreview) fitPreviewToScreen(); else resetMobileFit();
+  if(showingPreview){ fitPreviewToScreen(); checkA4(); } else resetMobileFit();
 });
 let mobileResizeTimer;
 window.addEventListener('resize',()=>{
