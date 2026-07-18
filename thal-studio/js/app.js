@@ -86,7 +86,8 @@ function labels(){
 }
 function checkA4(){
   requestAnimationFrame(()=>{
-    const d=$('document'); const overflow=d.scrollHeight>d.clientHeight+2; const used=Math.min(100,Math.round((d.scrollHeight/d.clientHeight)*100));
+    const d=$('document'); if(!d.clientHeight) return;
+    const overflow=d.scrollHeight>d.clientHeight+2; const used=Math.min(100,Math.round((d.scrollHeight/d.clientHeight)*100));
     const msg=overflow?`Dépasse A4 - contenu utilisé : ${used}%`:`1 page A4 - contenu utilisé : ${used}%`;
     $('pageStatus').textContent=msg; $('previewStatus').textContent=msg;
     $('pageStatus').style.color=overflow?'#ff9c9c':'#9ee6b4'; $('previewStatus').style.background=overflow?'#5a1818':'#123d23';
@@ -383,6 +384,42 @@ document.querySelectorAll('[data-clear-slot]').forEach(btn=>{
     try{ await clearLayoutSlotServer(slot); }catch(e){}
     setSlotStatus('Slot '+slot+' effacé.');
   });
+});
+
+function isMobileView(){ return window.innerWidth<=900; }
+function openNav(){ if($('appNav')) $('appNav').classList.add('open'); if($('navBackdrop')) $('navBackdrop').classList.add('show'); }
+function closeNav(){ if($('appNav')) $('appNav').classList.remove('open'); if($('navBackdrop')) $('navBackdrop').classList.remove('show'); }
+function fitPreviewToScreen(){
+  if(!isMobileView()) return;
+  const previewEl=document.querySelector('.preview');
+  if(!previewEl) return;
+  const style=getComputedStyle(previewEl);
+  const available=previewEl.clientWidth-parseFloat(style.paddingLeft||0)-parseFloat(style.paddingRight||0);
+  if(available<=0) return;
+  const paperWidthPx=210*3.7795275591*(Number(val('docScale'))/100||1);
+  const fit=Math.min(2,Math.max(0.2,available/paperWidthPx));
+  document.documentElement.style.setProperty('--mobile-fit-scale',fit);
+}
+function resetMobileFit(){
+  document.documentElement.style.setProperty('--mobile-fit-scale',1);
+}
+if($('mobileMenuToggle')) $('mobileMenuToggle').addEventListener('click',openNav);
+if($('mobileNavClose')) $('mobileNavClose').addEventListener('click',closeNav);
+if($('navBackdrop')) $('navBackdrop').addEventListener('click',closeNav);
+document.querySelectorAll('.nav-btn').forEach(btn=>btn.addEventListener('click',closeNav));
+if($('mobilePreviewToggle')) $('mobilePreviewToggle').addEventListener('click',()=>{
+  const showingPreview=document.body.classList.toggle('show-preview');
+  $('mobilePreviewToggle').textContent=showingPreview?'Formulaire':'Aperçu';
+  closeNav();
+  if(showingPreview) fitPreviewToScreen(); else resetMobileFit();
+});
+let mobileResizeTimer;
+window.addEventListener('resize',()=>{
+  clearTimeout(mobileResizeTimer);
+  mobileResizeTimer=setTimeout(()=>{
+    if(!isMobileView()){ closeNav(); resetMobileFit(); return; }
+    if(document.body.classList.contains('show-preview')) fitPreviewToScreen();
+  },150);
 });
 
 setDates();update();
