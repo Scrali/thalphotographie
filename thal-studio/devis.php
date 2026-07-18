@@ -53,14 +53,21 @@ if ($studioVersion === '') {
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<div class="mobile-topbar">
+  <button type="button" id="mobileMenuToggle" class="mobile-icon-btn" aria-label="Ouvrir le menu">☰</button>
+  <span class="mobile-topbar-title">THAL Studio</span>
+  <button type="button" id="mobilePreviewToggle" class="mobile-icon-btn">Aperçu</button>
+</div>
+<div class="nav-backdrop" id="navBackdrop"></div>
 <div class="app">
-  <aside class="nav">
+  <aside class="nav" id="appNav">
     <div class="brand">
       <img src="assets/logo.png" alt="THAL Photographie">
       <div>
         <h1>THAL Studio</h1>
         <p>V<?= htmlspecialchars($studioVersion, ENT_QUOTES, 'UTF-8') ?></p>
       </div>
+      <button type="button" id="mobileNavClose" class="mobile-icon-btn mobile-nav-close" aria-label="Fermer le menu">✕</button>
     </div>
 
     <button class="nav-btn active" data-panel="dashboard">Tableau de bord</button>
