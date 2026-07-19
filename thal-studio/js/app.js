@@ -41,13 +41,13 @@ const ids=[
 'serviceType','eventDate','eventPlace','startTime','endTime','photosDelivered','deliveryDelay',
 'description','distanceKm','kmRate','prepHours','travelHours','sortHours','editHours','deliveryHours','hourlyRate','gearCost','priceMode','packagePrice','discountPercent','rounding','showCommercialRights','commercialRightsFee','commercialRightsLabel','showHourly',
 'included','terms','compactMode','docScale','pagePadding','blockGap','logoWidth','logoDarken','logoOffsetX','logoTop','logoColorMode','logoTintColor','logoTint','headerGap',
-'titleSize','titleOffsetX','subtitleSize','bodySize','smallTextSize','contactSize','mainColor','paperColor','documentTextColor','fieldLabelColor','lineColor','priceBgColor','priceTextPreset','priceTextColor','priceAccentColor',
+'titleSize','titleOffsetX','titleOffsetY','subtitleSize','bodySize','smallTextSize','contactSize','mainColor','paperColor','documentTextColor','fieldLabelColor','lineColor','priceBgColor','priceTextPreset','priceTextColor','priceAccentColor',
 'companyName','companyEmail','companyPhone','companyWebsite','companyAddress','finalNote'
 ];
 const layoutFields=[
   'compactMode','docScale','pagePadding','blockGap',
   'logoWidth','logoOffsetX','logoDarken','logoColorMode','logoTintColor','logoTint','logoTop',
-  'headerGap','titleSize','titleOffsetX','subtitleSize','bodySize','smallTextSize','contactSize',
+  'headerGap','titleSize','titleOffsetX','titleOffsetY','subtitleSize','bodySize','smallTextSize','contactSize',
   'mainColor','paperColor','documentTextColor','fieldLabelColor','lineColor','priceBgColor','priceTextPreset','priceTextColor','priceAccentColor'
 ];
 const $=id=>document.getElementById(id), val=id=>($(id)?$(id).value:''), num=id=>parseFloat(val(id))||0;
@@ -82,7 +82,7 @@ function setDates(){const t=new Date(), v=new Date();v.setDate(v.getDate()+30);$
 function labels(){
   if($('docScaleValue')) $('docScaleValue').textContent=val('docScale')+' %'; if($('pagePaddingValue')) $('pagePaddingValue').textContent=val('pagePadding')+' mm'; if($('blockGapValue')) $('blockGapValue').textContent=val('blockGap')+' px';
   if($('logoWidthValue')) $('logoWidthValue').textContent=val('logoWidth')+' px'; if($('logoDarkenValue')) $('logoDarkenValue').textContent=val('logoDarken')+' %'; if($('logoTintValue')) $('logoTintValue').textContent=val('logoTint')+' %'; if($('logoTopValue')) $('logoTopValue').textContent=val('logoTop')+' px'; if($('headerGapValue')) $('headerGapValue').textContent=val('headerGap')+' px';
-  if($('titleSizeValue')) $('titleSizeValue').textContent=val('titleSize')+' px'; if($('titleOffsetXValue')) $('titleOffsetXValue').textContent=val('titleOffsetX')+' px'; if($('subtitleSizeValue')) $('subtitleSizeValue').textContent=val('subtitleSize')+' px'; if($('bodySizeValue')) $('bodySizeValue').textContent=val('bodySize')+' px'; if($('smallTextSizeValue')) $('smallTextSizeValue').textContent=val('smallTextSize')+' px'; if($('contactSizeValue')) $('contactSizeValue').textContent=val('contactSize')+' px';
+  if($('titleSizeValue')) $('titleSizeValue').textContent=val('titleSize')+' px'; if($('titleOffsetXValue')) $('titleOffsetXValue').textContent=val('titleOffsetX')+' px'; if($('titleOffsetYValue')) $('titleOffsetYValue').textContent=val('titleOffsetY')+' px'; if($('subtitleSizeValue')) $('subtitleSizeValue').textContent=val('subtitleSize')+' px'; if($('bodySizeValue')) $('bodySizeValue').textContent=val('bodySize')+' px'; if($('smallTextSizeValue')) $('smallTextSizeValue').textContent=val('smallTextSize')+' px'; if($('contactSizeValue')) $('contactSizeValue').textContent=val('contactSize')+' px';
 }
 function checkA4(){
   requestAnimationFrame(()=>{
@@ -168,7 +168,7 @@ function update(){
     <div class="tq-logo" style="width:${val('logoWidth')}px;transform:translate(${val('logoOffsetX')||0}px, ${val('logoTop')}px)">
       ${logoHtml}
     </div>
-    <div class="tq-heading" style="transform:translateX(${val('titleOffsetX')}px)">
+    <div class="tq-heading" style="transform:translate(${val('titleOffsetX')}px, ${val('titleOffsetY')||0}px)">
       <span class="tq-eyebrow">Proposition photographique</span>
       <h1 class="tq-title" style="font-size:${val('titleSize')}px">Devis</h1>
       <p class="tq-subtitle" style="font-size:${val('subtitleSize')}px">${textOrDash(val('serviceType'))}</p>

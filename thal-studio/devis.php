@@ -214,6 +214,7 @@ Téléchargement HD</textarea></label>
 
         <label>Taille DEVIS <span id="titleSizeValue"></span><input id="titleSize" type="range" min="18" max="54" value="30"></label>
         <label>Décalage horizontal titre <span id="titleOffsetXValue"></span><input id="titleOffsetX" type="range" min="-200" max="200" value="0"></label>
+        <label>Décalage vertical titre <span id="titleOffsetYValue"></span><input id="titleOffsetY" type="range" min="-60" max="60" value="0"></label>
         <label>Taille sous-titre <span id="subtitleSizeValue"></span><input id="subtitleSize" type="range" min="8" max="18" value="10"></label>
         <label>Taille texte <span id="bodySizeValue"></span><input id="bodySize" type="range" min="7" max="24" value="9.5" step="0.5"></label>
         <label>Taille détails <span id="smallTextSizeValue"></span><input id="smallTextSize" type="range" min="7" max="20" value="8.5" step="0.5"></label>
