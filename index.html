@@ -1061,9 +1061,9 @@
           <input name="location" id="thalEstimateLocation" placeholder="Ville / adresse exacte" autocomplete="off">
           <ul class="thal-suggestions" id="thalLocationSuggestions" hidden></ul>
         </label>
-        <label>Distance
+        <label>Distance (estimation)
           <input type="number" step="0.1" min="0" name="roundtrip_km" id="thalEstimateKm" placeholder="Calcul automatique">
-          <div class="thal-distance-status" id="thalDistanceStatus">Saisissez un lieu, puis calculez la distance.</div>
+          <div class="thal-distance-status" id="thalDistanceStatus">Saisissez un lieu, puis calculez la distance approximative.</div>
         </label>
         <label>Temps sur place
           <select name="onsite_hours">
@@ -1177,7 +1177,7 @@
       const data = await response.json();
       if(!data.ok){ distanceStatus.textContent = data.error || "Distance non disponible."; return; }
       kmInput.value = data.roundtrip_km;
-      distanceStatus.textContent = `${data.roundtrip_km} km aller-retour • environ ${data.roundtrip_minutes} min A/R`;
+      distanceStatus.textContent = `Environ ${data.roundtrip_km} km aller-retour • ~${data.roundtrip_minutes} min A/R — estimation indicative, le trajet exact sera recalculé pour le devis.`;
     }catch(e){
       distanceStatus.textContent = "Erreur lors du calcul de distance.";
     }
