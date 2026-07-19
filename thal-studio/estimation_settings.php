@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $current['home_address'] = trim((string)($_POST['home_address'] ?? 'Sainte-Croix, VD, Suisse'));
     $current['home_lat'] = (float)($_POST['home_lat'] ?? 46.8225);
     $current['home_lon'] = (float)($_POST['home_lon'] ?? 6.5019);
+    $current['distance_margin_percent'] = (float)($_POST['distance_margin_percent'] ?? 15);
     $current['km_included'] = (float)($_POST['km_included'] ?? 30);
     $current['km_rate'] = (float)($_POST['km_rate'] ?? 0.60);
     $current['commercial_percent'] = (float)($_POST['commercial_percent'] ?? 30);
@@ -59,6 +60,10 @@ function fv($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8
     <label>Adresse de départ<input name="home_address" value="<?= fv($current['home_address']) ?>"></label>
     <label>Latitude départ<input type="number" step="0.000001" name="home_lat" value="<?= fv($current['home_lat']) ?>"></label>
     <label>Longitude départ<input type="number" step="0.000001" name="home_lon" value="<?= fv($current['home_lon']) ?>"></label>
+    <label>Marge sur la distance calculée en %
+      <input type="number" step="1" min="0" max="100" name="distance_margin_percent" value="<?= fv($current['distance_margin_percent']) ?>">
+    </label>
+    <p class="hint">OpenRouteService peut proposer un itinéraire un peu plus court que celui de Google Maps. Cette marge gonfle le résultat pour éviter de sous-estimer le trajet réel.</p>
     <label>Kilomètres inclus<input type="number" step="1" min="0" name="km_included" value="<?= fv($current['km_included']) ?>"></label>
     <label>Prix du km supplémentaire<input type="number" step="0.05" min="0" name="km_rate" value="<?= fv($current['km_rate']) ?>"></label>
 
