@@ -40,7 +40,7 @@ $dest = $geo['features'][0]['geometry']['coordinates'];
 $homeLon = (float)$settings['home_lon'];
 $homeLat = (float)$settings['home_lat'];
 
-$route = http_json('https://api.openrouteservice.org/v2/directions/driving-car?api_key=' . rawurlencode($key) . '&start=' . rawurlencode($homeLon . ',' . $homeLat) . '&end=' . rawurlencode(((float)$dest[0]) . ',' . ((float)$dest[1])));
+$route = http_json('https://api.openrouteservice.org/v2/directions/driving-car?api_key=' . rawurlencode($key) . '&preference=shortest&start=' . rawurlencode($homeLon . ',' . $homeLat) . '&end=' . rawurlencode(((float)$dest[0]) . ',' . ((float)$dest[1])));
 
 $summary = $route['features'][0]['properties']['summary'] ?? null;
 if (!$summary || !isset($summary['distance'])) fail_response('Distance introuvable.');
