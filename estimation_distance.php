@@ -33,10 +33,20 @@ function http_json(string $url): array {
     return $data;
 }
 
-$geo = http_json('https://api.openrouteservice.org/geocode/search?api_key=' . rawurlencode($key) . '&text=' . rawurlencode($location) . '&size=1');
-if (empty($geo['features'][0]['geometry']['coordinates'])) fail_response('Lieu introuvable.');
+$lat = $_GET['lat'] ?? null;
+$lon = $_GET['lon'] ?? null;
+$destLabel = $location;
 
-$dest = $geo['features'][0]['geometry']['coordinates'];
+if ($lat !== null && $lon !== null && is_numeric($lat) && is_numeric($lon)) {
+    // Coordonnées déjà connues (sélection dans les suggestions) : pas besoin de re-géocoder.
+    $dest = [(float)$lon, (float)$lat];
+} else {
+    $geo = http_json('https://api.openrouteservice.org/geocode/search?api_key=' . rawurlencode($key) . '&text=' . rawurlencode($location) . '&size=1');
+    if (empty($geo['features'][0]['geometry']['coordinates'])) fail_response('Lieu introuvable.');
+    $dest = $geo['features'][0]['geometry']['coordinates'];
+    $destLabel = $geo['features'][0]['properties']['label'] ?? $location;
+}
+
 $homeLon = (float)$settings['home_lon'];
 $homeLat = (float)$settings['home_lat'];
 
@@ -54,5 +64,5 @@ echo json_encode([
     'roundtrip_km' => round($onewayKm * 2, 1),
     'oneway_minutes' => round($onewayMinutes),
     'roundtrip_minutes' => round($onewayMinutes * 2),
-    'destination_label' => $geo['features'][0]['properties']['label'] ?? $location,
+    'destination_label' => $destLabel,
 ], JSON_UNESCAPED_UNICODE);
