@@ -159,6 +159,37 @@ function thal_estimation_items(?string $baseDir = null): array {
     return $items;
 }
 
+// Lien pré-rempli pour ajouter une estimation comme événement (journée entière) dans Google Agenda.
+function thal_gcal_link(array $item): ?string {
+    $eventDate = (string)($item['eventDate'] ?? '');
+    if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $eventDate)) return null;
+
+    $start = DateTime::createFromFormat('Y-m-d', $eventDate);
+    if (!$start) return null;
+    $end = (clone $start)->modify('+1 day');
+
+    $title = trim(($item['packName'] ?: 'Prestation') . ' — ' . ($item['name'] ?: 'Client'));
+
+    $raw = $item['raw'] ?? [];
+    $details = trim((string)($raw['contact_summary'] ?? ''));
+    if ($details === '') {
+        $details = implode("\n", [
+            'Client : ' . ($item['name'] ?: '-'),
+            'Email : ' . ($item['email'] ?: '-'),
+            'Téléphone : ' . ($item['phone'] ?: '-'),
+        ]);
+    }
+
+    $params = [
+        'action' => 'TEMPLATE',
+        'text' => $title,
+        'dates' => $start->format('Ymd') . '/' . $end->format('Ymd'),
+        'details' => $details,
+        'location' => (string)($item['location'] ?? ''),
+    ];
+    return 'https://calendar.google.com/calendar/render?' . http_build_query($params);
+}
+
 function thal_client_key(string $name, string $email, string $phone): string {
     $email = trim($email);
     if ($email !== '') {

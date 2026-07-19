@@ -51,6 +51,10 @@ $potentialMax = array_sum(array_map(fn($it) => (float)$it['priceMax'], $items));
         <td><span class="badge"><?= e($it['status']) ?></span></td>
         <td class="actions-cell">
           <form method="post" action="estimation_convert.php"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= e($it['id']) ?>"><button class="button small" type="submit">Créer devis</button></form>
+          <?php $gcalLink = thal_gcal_link($it); ?>
+          <?php if ($gcalLink): ?>
+            <a class="button small" href="<?= e($gcalLink) ?>" target="_blank" rel="noopener">Google Agenda</a>
+          <?php endif; ?>
           <form method="post" action="estimation_delete.php" onsubmit="return confirm('Supprimer cette estimation ?');"><input type="hidden" name="csrf" value="<?= e(csrf_token()) ?>"><input type="hidden" name="id" value="<?= e($it['id']) ?>"><button class="button small danger" type="submit">Supprimer</button></form>
         </td>
       </tr>

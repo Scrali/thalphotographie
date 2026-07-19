@@ -7,6 +7,7 @@ function thal_pack_settings(?string $baseDir = null): array {
         'home_lat'=>46.8225,
         'home_lon'=>6.5019,
         'ors_api_key'=>'',
+        'google_calendar_ical_url'=>'',
         'km_included'=>30,
         'km_rate'=>0.60,
         'commercial_percent'=>30,

@@ -1055,6 +1055,7 @@
         <label>Date souhaitée
           <input type="date" name="event_date" id="thalEstimateDate">
           <button class="thal-map-button" type="button" id="thalOpenCalendar">Ouvrir le calendrier</button>
+          <div class="thal-distance-status" id="thalDateStatus"></div>
         </label>
         <label class="thal-location-field">Lieu
           <input name="location" id="thalEstimateLocation" placeholder="Ville / adresse exacte" autocomplete="off">
@@ -1105,14 +1106,36 @@
   const distanceStatus = document.getElementById("thalDistanceStatus");
   const dateInput = document.getElementById("thalEstimateDate");
   const dateBtn = document.getElementById("thalOpenCalendar");
+  const dateStatus = document.getElementById("thalDateStatus");
   const suggestionsList = document.getElementById("thalLocationSuggestions");
   let lastContactSummary = "";
   let suggestDebounce = null;
   let selectedCoords = null;
+  let busyDatesPromise = null;
 
   if(!modal || !openBtn || !form || !result) return;
 
-  const openModal = () => { modal.hidden = false; document.body.style.overflow = "hidden"; };
+  function fetchBusyDates(){
+    if(!busyDatesPromise){
+      busyDatesPromise = fetch("estimation_calendar_busy.php", {headers:{"Accept":"application/json"}})
+        .then(r => r.json())
+        .then(data => (data && data.ok) ? (data.busy || []) : [])
+        .catch(() => []);
+    }
+    return busyDatesPromise;
+  }
+
+  async function checkDateAvailability(){
+    if(!dateInput || !dateStatus || !dateInput.value){ if(dateStatus) dateStatus.textContent = ""; return; }
+    const busy = await fetchBusyDates();
+    if(busy.includes(dateInput.value)){
+      dateStatus.textContent = "⚠️ Cette date semble déjà prise — contactez-moi pour confirmer.";
+    }else{
+      dateStatus.textContent = "";
+    }
+  }
+
+  const openModal = () => { modal.hidden = false; document.body.style.overflow = "hidden"; fetchBusyDates(); };
   const closeModal = () => { modal.hidden = true; document.body.style.overflow = ""; };
 
   function fillContact(summary){
@@ -1138,6 +1161,7 @@
       if(dateInput.showPicker) dateInput.showPicker();
       else dateInput.focus();
     });
+    dateInput.addEventListener("change", checkDateAvailability);
   }
 
   async function calculateDistance(){

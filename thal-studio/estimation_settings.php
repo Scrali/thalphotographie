@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     $current['ors_api_key'] = trim((string)($_POST['ors_api_key'] ?? ''));
+    $current['google_calendar_ical_url'] = trim((string)($_POST['google_calendar_ical_url'] ?? ''));
     $current['home_address'] = trim((string)($_POST['home_address'] ?? 'Sainte-Croix, VD, Suisse'));
     $current['home_lat'] = (float)($_POST['home_lat'] ?? 46.8225);
     $current['home_lon'] = (float)($_POST['home_lon'] ?? 6.5019);
@@ -60,6 +61,12 @@ function fv($v): string { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8
     <label>Longitude départ<input type="number" step="0.000001" name="home_lon" value="<?= fv($current['home_lon']) ?>"></label>
     <label>Kilomètres inclus<input type="number" step="1" min="0" name="km_included" value="<?= fv($current['km_included']) ?>"></label>
     <label>Prix du km supplémentaire<input type="number" step="0.05" min="0" name="km_rate" value="<?= fv($current['km_rate']) ?>"></label>
+
+    <h3>Google Agenda</h3>
+    <label>URL privée iCal de l'agenda
+      <input name="google_calendar_ical_url" value="<?= fv($current['google_calendar_ical_url']) ?>" placeholder="https://calendar.google.com/calendar/ical/.../private-.../basic.ics">
+    </label>
+    <p class="hint">Dans Google Agenda : Paramètres → ton agenda → «Intégrer l'agenda» → copie l'«Adresse secrète au format iCal». Elle sert uniquement à repérer les dates déjà prises sur le formulaire d'estimation ; garde-la secrète.</p>
 
     <h3>Suppléments</h3>
     <label>Supplément commercial en %<input type="number" step="1" min="0" name="commercial_percent" value="<?= fv($current['commercial_percent']) ?>"></label>
