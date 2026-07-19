@@ -12,6 +12,7 @@ $settings = [
     'home_lat' => 46.8225,
     'home_lon' => 6.5019,
     'ors_api_key' => '',
+    'distance_margin_percent' => 15,
 ];
 if (is_file($settingsFile)) {
     $json = json_decode((string)file_get_contents($settingsFile), true);
@@ -55,7 +56,8 @@ $route = http_json('https://api.openrouteservice.org/v2/directions/driving-car?a
 $summary = $route['features'][0]['properties']['summary'] ?? null;
 if (!$summary || !isset($summary['distance'])) fail_response('Distance introuvable.');
 
-$onewayKm = (float)$summary['distance'] / 1000;
+$marginFactor = 1 + (max(0, (float)($settings['distance_margin_percent'] ?? 0)) / 100);
+$onewayKm = ((float)$summary['distance'] / 1000) * $marginFactor;
 $onewayMinutes = isset($summary['duration']) ? ((float)$summary['duration'] / 60) : 0;
 
 echo json_encode([
