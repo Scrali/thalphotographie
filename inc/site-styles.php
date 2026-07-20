@@ -99,6 +99,22 @@
     .chip:hover{transform:translateY(-1px); background:rgba(255,255,255,.075); border-color:rgba(255,255,255,.20);}
     .chip.active{color:var(--text); border-color:rgba(124,184,255,.45); background:rgba(124,184,255,.12);}
 
+    .navDropdown{position:relative;}
+    .navDropdownToggle{gap:6px; border:1px solid var(--stroke); font-family:inherit;}
+    .navDropdownToggle .caret{font-size:10px; transition:transform .2s ease; display:inline-block;}
+    .navDropdownToggle[aria-expanded="true"] .caret{transform:rotate(180deg);}
+    .navDropdownMenu{
+      position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
+      min-width:190px; padding:8px; display:none; flex-direction:column; gap:2px;
+      border-radius:16px; border:1px solid rgba(255,255,255,.14);
+      background:rgba(8,13,28,.97); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+      box-shadow:0 14px 45px rgba(0,0,0,.38); z-index:60;
+    }
+    .navDropdownMenu.open{display:flex;}
+    .navDropdownMenu a{padding:9px 12px; border-radius:10px; color:var(--muted); font-weight:650; font-size:13px; text-align:left;}
+    .navDropdownMenu a:hover{background:rgba(255,255,255,.06); color:var(--text);}
+    .navDropdownMenu a.active{color:var(--text); background:rgba(124,184,255,.14);}
+
     .btn{padding:9px 15px; border:1px solid rgba(124,184,255,.44); background:linear-gradient(180deg, rgba(124,184,255,.34), rgba(59,130,246,.18)); color:var(--text); font-weight:800; box-shadow:0 0 30px rgba(124,184,255,.08) inset; border-width:1px; border-style:solid;}
     .btn:hover{transform:translateY(-1px); filter:brightness(1.08); border-color:rgba(124,184,255,.72);}
 
