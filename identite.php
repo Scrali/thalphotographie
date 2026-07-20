@@ -26,6 +26,8 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
         </p>
       </section>
 
+      <?php $carouselCategory = 'Portraits'; $carouselLabel = 'Photos d’identité'; include __DIR__ . '/inc/photo-carousel.php'; ?>
+
       <section class="card identityBox reveal">
         <div class="identityPrices">
           <div class="identityPriceItem">
