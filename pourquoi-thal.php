@@ -27,6 +27,8 @@ $footerDisclaimer = '';
         </p>
       </section>
 
+      <?php $carouselCategory = 'Accueil'; $carouselLabel = 'THAL Photographie'; include __DIR__ . '/inc/photo-carousel.php'; ?>
+
       <section class="card reveal" style="padding:clamp(22px,4vw,32px); margin-top:var(--gap)">
         <h2 style="margin:0 0 10px; font-size:22px; color:#d3edf5">Mon approche</h2>
         <div class="placeholderBlock">[À COMPLÉTER]</div>
