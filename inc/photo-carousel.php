@@ -11,7 +11,7 @@ $carouselId = 'thalCarousel_' . preg_replace('/[^a-zA-Z0-9]/', '', $carouselCate
 <style>
 .thal-carousel{position:relative; margin:var(--gap) 0; height:clamp(240px,42vw,420px); overflow:hidden; cursor:pointer;}
 .thal-carousel .carouselTrack,.thal-carousel .carouselSlide,.thal-carousel .carouselSlide img{height:100%;}
-.thal-carousel .carouselSlide img{object-fit:cover;}
+.thal-carousel .carouselSlide img{object-fit:contain; background:#050816;}
 .carouselTrack{position:relative; width:100%; height:100%;}
 .carouselSlide{position:absolute; inset:0; opacity:0; transition:opacity 1s ease; z-index:1; background:#000;}
 .carouselSlide.active{opacity:1; z-index:2;}
