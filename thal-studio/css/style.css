@@ -52,9 +52,9 @@ input[type="color"]{height:34px;padding:2px} textarea{min-height:86px;resize:ver
 body.relaxed .paper{height:auto;overflow:visible}
 @media print{
   body{background:#fff}
-  .nav,.editor,.preview-toolbar{display:none}
+  .nav,.editor,.preview-toolbar,.mobile-topbar,.nav-backdrop{display:none !important}
   .app{display:block;height:auto}
-  .preview{padding:0;background:#fff;overflow:visible}
+  .preview{display:block !important;padding:0;background:#fff;overflow:visible}
   .paper-viewport{display:block;min-width:0}
   .paper{
     box-shadow:none;
