@@ -60,9 +60,9 @@ body.relaxed .paper{height:auto;overflow:visible}
     box-shadow:none;
     margin:0;
     width:210mm;
-    height:297mm;
-    min-height:297mm;
-    overflow:hidden;
+    height:293mm;
+    min-height:293mm;
+    overflow:visible;
     transform:none;
     -webkit-print-color-adjust:exact !important;
     print-color-adjust:exact !important;
@@ -352,6 +352,12 @@ input[type="date"], input[type="time"]{
   margin:5px 0 0;
   line-height:1.5;
 }
+.tq-legal{
+  margin:4px 0 0;
+  line-height:1.3;
+  font-size:var(--small-text);
+  color:var(--field-label);
+}
 .tq-flow strong{
   color:var(--main);
 }
@@ -438,7 +444,7 @@ input[type="date"], input[type="time"]{
   border-top:1px solid var(--ink);
   color:var(--field-label);
   padding-top:7px;
-  margin-top:26px;
+  margin-top:16px;
   text-align:center;
 }
 .tq-final{

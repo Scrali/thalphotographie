@@ -167,8 +167,8 @@ function update(){
     ? `<p class="tq-flow">Toute heure supplémentaire : <strong>${chf(num('overtimeRate'))}</strong>. Toute demande non prévue fera l’objet d’un accord séparé.</p>`
     : `<p class="tq-flow">Toute demande non prévue fera l’objet d’un accord séparé.</p>`;
   const legalHtml = `
-    <p class="tq-flow">${htmlOrDash(val('legalIpClause'))}</p>
-    <p class="tq-flow">${htmlOrDash(val('legalImageRightsClause'))}</p>
+    <p class="tq-legal">${htmlOrDash(val('legalIpClause'))}</p>
+    <p class="tq-legal">${htmlOrDash(val('legalImageRightsClause'))}</p>
   `;
   const vatNoteHtml = val('vatNoteText').trim() ? `<p class="tq-muted" style="text-align:center;margin-top:2px">${textOrDash(val('vatNoteText'))}</p>` : '';
   const calculationHtml = $('showHourly').checked ? `
