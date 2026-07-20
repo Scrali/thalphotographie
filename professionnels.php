@@ -39,7 +39,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           </ul>
           <span class="priceBadge">Licence commerciale Web &amp; réseaux sociaux (2 ans) incluse</span>
           <div class="priceCta">
-            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Entreprise" data-thal-message="Formule Artisan (portrait, atelier, équipe) — dès 490 CHF.">Demander un devis</button>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Artisan (portrait, atelier, équipe) — dès 490 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -53,7 +53,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           </ul>
           <span class="priceBadge">Licence commerciale Web &amp; réseaux sociaux (2 ans) incluse</span>
           <div class="priceCta">
-            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Entreprise" data-thal-message="Formule PME (collaborateurs, locaux, communication) — dès 890 CHF.">Demander un devis</button>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule PME (collaborateurs, locaux, communication) — dès 890 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -67,7 +67,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           </ul>
           <span class="priceBadge">Licence commerciale Web &amp; réseaux sociaux (2 ans) incluse</span>
           <div class="priceCta">
-            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Entreprise" data-thal-message="Corporate / multi-sites — devis personnalisé.">Demander un devis</button>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Corporate / multi-sites — devis personnalisé.') ?>#contact">Demander un devis</a>
           </div>
         </article>
       </section>
@@ -79,7 +79,5 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
 
     <?php include __DIR__ . '/inc/site-footer.php'; ?>
   </div>
-
-  <?php include __DIR__ . '/inc/estimate-modal.php'; ?>
 </body>
 </html>
