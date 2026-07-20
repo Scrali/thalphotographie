@@ -40,7 +40,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
-            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Événement" data-thal-message="Formule Essentiel (2 h de couverture) — dès 390 CHF.">Demander un devis</button>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Essentiel (2 h de couverture) — dès 390 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -55,7 +55,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
-            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Événement" data-thal-message="Formule Demi-journée (4 h de couverture) — dès 690 CHF.">Demander un devis</button>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Demi-journée (4 h de couverture) — dès 690 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -70,7 +70,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
-            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Événement" data-thal-message="Formule Étendu (6 h de couverture) — dès 990 CHF.">Demander un devis</button>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Étendu (6 h de couverture) — dès 990 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
       </section>
@@ -81,13 +81,11 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           Des préparatifs à la soirée : une couverture continue pensée sur mesure pour votre mariage.
           Formule construite avec vous selon le déroulé de la journée.
         </p>
-        <button class="btn" type="button" data-thal-estimate-open data-thal-type="Mariage" data-thal-message="Mariage journée complète (préparatifs à la soirée) — devis personnalisé.">Demander un devis personnalisé</button>
+        <a class="btn" href="index.html?prefill=<?= urlencode('Mariage journée complète (préparatifs à la soirée) — devis personnalisé.') ?>#contact">Demander un devis personnalisé</a>
       </div>
     </main>
 
     <?php include __DIR__ . '/inc/site-footer.php'; ?>
   </div>
-
-  <?php include __DIR__ . '/inc/estimate-modal.php'; ?>
 </body>
 </html>

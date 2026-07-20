@@ -51,7 +51,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
         </ul>
 
         <div class="actions">
-          <button class="btn" type="button" data-thal-estimate-open data-thal-type="Identité">Prendre rendez-vous</button>
+          <a class="btn" href="index.html?prefill=<?= urlencode('Bonjour, je souhaite prendre rendez-vous pour une photo d’identité.') ?>#contact">Prendre rendez-vous</a>
         </div>
       </section>
 
@@ -60,13 +60,11 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
         <p style="margin:0 0 14px; color:var(--muted); line-height:1.6">
           Pour une équipe, une école ou un groupe nombreux, un devis personnalisé permet d’organiser les séances selon vos contraintes d’horaire et de lieu.
         </p>
-        <button class="ghost" type="button" data-thal-estimate-open data-thal-type="Identité" data-thal-message="Demande de devis groupe / entreprise pour des photos d’identité.">Demander un devis groupe</button>
+        <a class="ghost" href="index.html?prefill=<?= urlencode('Demande de devis groupe / entreprise pour des photos d’identité.') ?>#contact">Demander un devis groupe</a>
       </section>
     </main>
 
     <?php include __DIR__ . '/inc/site-footer.php'; ?>
   </div>
-
-  <?php include __DIR__ . '/inc/estimate-modal.php'; ?>
 </body>
 </html>
