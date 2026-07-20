@@ -39,12 +39,13 @@ $potentialMax = array_sum(array_map(fn($it) => (float)$it['priceMax'], $items));
     <p class="empty-state">Aucune estimation enregistrée.</p>
   <?php else: ?>
   <table class="admin-table">
-    <thead><tr><th>Date</th><th>Contact</th><th>Lieu / date</th><th>Pack</th><th>Budget</th><th>Statut</th><th>Actions</th></tr></thead>
+    <thead><tr><th>Date</th><th>Contact</th><th>Message</th><th>Lieu / date</th><th>Pack</th><th>Budget</th><th>Statut</th><th>Actions</th></tr></thead>
     <tbody>
     <?php foreach ($items as $it): ?>
       <tr>
         <td><?= e(thal_date_label($it['createdAt'], true)) ?></td>
         <td><?= e($it['name'] ?: '-') ?><br><small><?= e($it['email'] ?: '-') ?></small><br><small><?= e($it['phone'] ?: '-') ?></small></td>
+        <td style="max-width:280px; white-space:pre-wrap;"><?= e($it['message'] ?: '-') ?></td>
         <td><?= e($it['location'] ?: '-') ?><br><small><?= e(thal_date_label($it['eventDate'])) ?></small></td>
         <td><?= e($it['packName'] ?: '-') ?></td>
         <td><?= e(thal_money((float)$it['priceMin'])) ?> - <?= e(thal_money((float)$it['priceMax'])) ?><br><small>Conseillé : <?= e(thal_money((float)$it['priceRecommended'])) ?></small></td>

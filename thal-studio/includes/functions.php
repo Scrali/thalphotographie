@@ -145,6 +145,7 @@ function thal_estimation_items(?string $baseDir = null): array {
             'phone' => (string)($data['phone'] ?? ''),
             'location' => (string)($data['location'] ?? ''),
             'eventDate' => (string)($data['event_date'] ?? ''),
+            'message' => (string)($data['message'] ?? ''),
             'packName' => (string)($data['pack_name'] ?? ''),
             'priceMin' => (float)($data['price_min'] ?? 0),
             'priceMax' => (float)($data['price_max'] ?? 0),
