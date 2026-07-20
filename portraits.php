@@ -37,7 +37,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Galerie privée en ligne</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?gamme=portraits#contact">Demander un devis</a>
+            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Portrait" data-thal-message="Formule Individuel (45 min, 10 photos) — dès 195 CHF.">Demander un devis</button>
           </div>
         </article>
 
@@ -51,7 +51,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Galerie privée en ligne</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?gamme=portraits#contact">Demander un devis</a>
+            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Portrait" data-thal-message="Formule Duo / Grossesse (1 h, 15 photos) — dès 245 CHF.">Demander un devis</button>
           </div>
         </article>
 
@@ -65,7 +65,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Galerie privée en ligne</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?gamme=portraits#contact">Demander un devis</a>
+            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Portrait" data-thal-message="Formule Famille (1 h 30, 20 photos) — dès 325 CHF.">Demander un devis</button>
           </div>
         </article>
       </section>
@@ -77,5 +77,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
 
     <?php include __DIR__ . '/inc/site-footer.php'; ?>
   </div>
+
+  <?php include __DIR__ . '/inc/estimate-modal.php'; ?>
 </body>
 </html>

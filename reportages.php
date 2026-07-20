@@ -38,7 +38,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?gamme=reportages#contact">Demander un devis</a>
+            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Événement" data-thal-message="Formule Essentiel (2 h de couverture) — dès 390 CHF.">Demander un devis</button>
           </div>
         </article>
 
@@ -53,7 +53,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?gamme=reportages#contact">Demander un devis</a>
+            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Événement" data-thal-message="Formule Demi-journée (4 h de couverture) — dès 690 CHF.">Demander un devis</button>
           </div>
         </article>
 
@@ -68,7 +68,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?gamme=reportages#contact">Demander un devis</a>
+            <button class="btn" type="button" data-thal-estimate-open data-thal-type="Événement" data-thal-message="Formule Étendu (6 h de couverture) — dès 990 CHF.">Demander un devis</button>
           </div>
         </article>
       </section>
@@ -79,11 +79,13 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           Des préparatifs à la soirée : une couverture continue pensée sur mesure pour votre mariage.
           Formule construite avec vous selon le déroulé de la journée.
         </p>
-        <a class="btn" href="index.html?gamme=reportages#contact">Demander un devis personnalisé</a>
+        <button class="btn" type="button" data-thal-estimate-open data-thal-type="Mariage" data-thal-message="Mariage journée complète (préparatifs à la soirée) — devis personnalisé.">Demander un devis personnalisé</button>
       </div>
     </main>
 
     <?php include __DIR__ . '/inc/site-footer.php'; ?>
   </div>
+
+  <?php include __DIR__ . '/inc/estimate-modal.php'; ?>
 </body>
 </html>

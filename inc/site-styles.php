@@ -90,6 +90,7 @@
       justify-content:center;
       border-radius:999px;
       font-size:13px;
+      font-family:inherit;
       transition:transform .16s ease, background .2s ease, border-color .2s ease, filter .2s ease;
       cursor:pointer;
     }

@@ -427,6 +427,8 @@
 .thal-suggestions[hidden]{display:none}
 .thal-suggestions li{padding:9px 10px;border-radius:8px;cursor:pointer;font-size:13px;text-transform:none;letter-spacing:0;color:#f5f5f5}
 .thal-suggestions li:hover,.thal-suggestions li.active{background:#243235}
+.thal-identite-mode .thal-hide-identite{display:none}
+.thal-identite-hide-inline[hidden]{display:none}
 @media(max-width:720px){.thal-estimate-grid,.thal-radio-row{grid-template-columns:1fr}.thal-estimate-floating{left:14px;right:14px}.thal-estimate-open{width:100%}}
 
 </style>
@@ -1054,38 +1056,39 @@
 
     <form class="thal-estimate-form" id="thalEstimateForm">
       <h2 id="thalEstimateTitle">Estimation rapide</h2>
-      <p>Indiquez le lieu, la date, le temps sur place et l’usage prévu. Le résultat est une fourchette indicative.</p>
+      <p id="thalEstimateIntro">Indiquez le lieu, la date, le temps sur place et l’usage prévu. Le résultat est une fourchette indicative.</p>
+      <p class="thal-identite-hide-inline" id="thalIdentiteNote" hidden>Photo d’identité conforme (fedpol / passeport / visa / permis) : <strong>35 CHF</strong> pour 1 personne, <strong>25 CHF</strong> dès la 2ᵉ personne (même séance). Laissez vos coordonnées ci-dessous pour prendre rendez-vous.</p>
 
       <div class="thal-estimate-grid">
         <label>Type de prestation
           <select name="type">
-            <option>Événement</option><option>Mariage</option><option>Portrait</option><option>Entreprise</option><option>Concert</option><option>Famille</option>
+            <option>Événement</option><option>Identité</option><option>Mariage</option><option>Portrait</option><option>Entreprise</option><option>Concert</option><option>Famille</option>
           </select>
         </label>
-        <label>Date souhaitée
+        <label class="thal-hide-identite">Date souhaitée
           <input type="date" name="event_date" id="thalEstimateDate">
           <button class="thal-map-button" type="button" id="thalOpenCalendar">Ouvrir le calendrier</button>
           <div class="thal-distance-status" id="thalDateStatus"></div>
         </label>
-        <label class="thal-location-field">Lieu
+        <label class="thal-location-field thal-hide-identite">Lieu
           <input name="location" id="thalEstimateLocation" placeholder="Ville / adresse exacte" autocomplete="off">
           <ul class="thal-suggestions" id="thalLocationSuggestions" hidden></ul>
         </label>
-        <label>Distance (estimation)
+        <label class="thal-hide-identite">Distance (estimation)
           <input type="number" step="0.1" min="0" name="roundtrip_km" id="thalEstimateKm" placeholder="Calcul automatique">
           <div class="thal-distance-status" id="thalDistanceStatus">Saisissez un lieu, puis calculez la distance approximative.</div>
         </label>
-        <label>Temps sur place
+        <label class="thal-hide-identite">Temps sur place
           <select name="onsite_hours">
             <option value="1">1 heure</option><option value="2" selected>2 heures</option><option value="3">3 heures</option><option value="4">4 heures</option><option value="6">6 heures</option><option value="8">8 heures</option>
           </select>
         </label>
-        <label>Calcul distance
+        <label class="thal-hide-identite">Calcul distance
           <button class="thal-map-button" type="button" id="thalCalculateDistance">Calculer automatiquement</button>
         </label>
       </div>
 
-      <div class="thal-radio-row">
+      <div class="thal-radio-row thal-hide-identite">
         <label class="thal-radio-card"><input type="radio" name="usage" value="private" checked> Cadre privé</label>
         <label class="thal-radio-card"><input type="radio" name="usage" value="commercial"> Utilisation commerciale</label>
       </div>
@@ -1097,7 +1100,7 @@
       <label>Téléphone<input name="phone" placeholder="Facultatif"></label>
       <label>Message<textarea name="message" rows="3" placeholder="Infos utiles : nombre de personnes, horaires, attentes..."></textarea></label>
 
-      <button class="thal-estimate-submit" type="submit">Calculer mon estimation</button>
+      <button class="thal-estimate-submit" type="submit" id="thalEstimateSubmitBtn">Calculer mon estimation</button>
       <div class="thal-estimate-result" id="thalEstimateResult" hidden></div>
     </form>
   </section>
@@ -1118,12 +1121,31 @@
   const dateBtn = document.getElementById("thalOpenCalendar");
   const dateStatus = document.getElementById("thalDateStatus");
   const suggestionsList = document.getElementById("thalLocationSuggestions");
+  const typeSelect = form ? form.querySelector("select[name='type']") : null;
+  const identiteNote = document.getElementById("thalIdentiteNote");
+  const estimateIntro = document.getElementById("thalEstimateIntro");
+  const submitBtn = document.getElementById("thalEstimateSubmitBtn");
   let lastContactSummary = "";
   let suggestDebounce = null;
   let selectedCoords = null;
   let busyDatesPromise = null;
 
   if(!modal || !openBtn || !form || !result) return;
+
+  function isIdentiteSelected(){
+    return !!typeSelect && typeSelect.value === "Identité";
+  }
+
+  function updateFormMode(){
+    const identite = isIdentiteSelected();
+    form.classList.toggle("thal-identite-mode", identite);
+    if(identiteNote) identiteNote.hidden = !identite;
+    if(estimateIntro) estimateIntro.hidden = identite;
+    if(submitBtn) submitBtn.textContent = identite ? "Envoyer ma demande" : "Calculer mon estimation";
+  }
+
+  if(typeSelect) typeSelect.addEventListener("change", updateFormMode);
+  updateFormMode();
 
   function fetchBusyDates(){
     if(!busyDatesPromise){
@@ -1256,6 +1278,32 @@
   form.addEventListener("submit", async e => {
     e.preventDefault();
     result.hidden = false;
+
+    if(isIdentiteSelected()){
+      const name = form.querySelector("input[name='name']").value.trim();
+      const message = form.querySelector("textarea[name='message']").value.trim();
+      lastContactSummary = [
+        "Photo d’identité — 35 CHF (1 personne) / 25 CHF dès la 2ᵉ personne (même séance).",
+        name ? `Nom : ${name}` : "",
+        message
+      ].filter(Boolean).join("\n");
+
+      result.innerHTML = `
+        <h3>Tarif</h3>
+        <div class="thal-estimate-price">35 CHF <span style="font-size:15px">(1 personne)</span></div>
+        <p style="text-align:center; margin:6px 0 0">25 CHF dès la 2ᵉ personne, même séance</p>
+        <ul class="thal-pack-list">
+          <li>✓ Prise de vue conforme (fedpol / passeport / visa / permis)</li>
+          <li>✓ Tirage papier au format officiel</li>
+          <li>✓ Version numérique HD</li>
+        </ul>
+        <button type="button" class="thal-estimate-submit" id="thalFillContact">Me contacter avec cette demande</button>
+      `;
+      const fillBtn = document.getElementById("thalFillContact");
+      if(fillBtn) fillBtn.addEventListener("click", () => fillContact(lastContactSummary));
+      return;
+    }
+
     result.innerHTML = "<p>Calcul en cours…</p>";
 
     try{
@@ -1297,29 +1345,24 @@
   });
 
   const GAMME_TYPE_MAP = {
+    identite: "Identité",
     portraits: "Portrait",
     reportages: "Événement",
     professionnels: "Entreprise"
   };
   const GAMME_MESSAGE_MAP = {
+    identite: "Demande envoyée depuis la page Identité.",
     portraits: "Demande envoyée depuis la page Portraits.",
     reportages: "Demande envoyée depuis la page Reportages.",
-    professionnels: "Demande envoyée depuis la page Professionnels.",
-    identite: "Bonjour, je souhaite une photo d’identité (conforme fedpol / passeport / visa / permis)."
+    professionnels: "Demande envoyée depuis la page Professionnels."
   };
   const gamme = new URLSearchParams(location.search).get("gamme");
-  if(gamme && GAMME_MESSAGE_MAP[gamme]){
-    if(gamme === "identite"){
-      const contactForm = document.getElementById("contactForm");
-      const msgField = contactForm ? contactForm.querySelector("textarea[name='message']") : null;
-      if(msgField && !msgField.value) msgField.value = GAMME_MESSAGE_MAP[gamme];
-    }else{
-      const typeSelect = form.querySelector("select[name='type']");
-      if(typeSelect && GAMME_TYPE_MAP[gamme]) typeSelect.value = GAMME_TYPE_MAP[gamme];
-      const messageField = form.querySelector("textarea[name='message']");
-      if(messageField && !messageField.value) messageField.value = GAMME_MESSAGE_MAP[gamme];
-      openModal();
-    }
+  if(gamme && GAMME_TYPE_MAP[gamme]){
+    if(typeSelect) typeSelect.value = GAMME_TYPE_MAP[gamme];
+    updateFormMode();
+    const messageField = form.querySelector("textarea[name='message']");
+    if(messageField && !messageField.value) messageField.value = GAMME_MESSAGE_MAP[gamme] || "";
+    openModal();
   }
 })();
 </script>
