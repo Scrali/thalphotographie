@@ -158,9 +158,12 @@ if ($studioVersion === '') {
             <option value="50">50 CHF</option>
           </select>
         </label>
-        <label class="check span2"><input id="showCommercialRights" type="checkbox" checked> Afficher les droits d’utilisation commerciale</label>
-        <label>Droits commerciaux CHF<input id="commercialRightsFee" type="number" step="10" value="0"></label>
-        <label>Libellé droits commerciaux<input id="commercialRightsLabel" value="Utilisation commerciale organique incluse"></label>
+        <label>Tarif heure supplémentaire CHF/h<input id="overtimeRate" type="number" step="5" value="45"></label>
+
+        <label class="check span2"><input id="showCommercialRights" type="checkbox" checked> Afficher les droits d’utilisation (section visible par le client)</label>
+        <label class="span2">Texte des droits d’utilisation pour le client<textarea id="commercialRightsClientText">Licence d’utilisation incluse : promotion de l’ensemble sur le site web et les réseaux sociaux, avec crédit photo THAL Photographie.</textarea></label>
+        <label>Droits commerciaux CHF (usage interne)<input id="commercialRightsFee" type="number" step="10" value="0"></label>
+        <label>Libellé droits commerciaux (usage interne)<input id="commercialRightsLabel" value="Utilisation commerciale organique incluse"></label>
 
         <label class="span2">Inclus<textarea id="included">Prise de vue pendant 5 heures
 Tri des photos
@@ -169,8 +172,8 @@ Déplacement Sainte-Croix ↔ Lucens
 Galerie privée en ligne
 Téléchargement HD</textarea></label>
 
-        <label class="span2">Conditions essentielles<textarea id="terms">Devis valable jusqu’à la date indiquée. Paiement à réception du devis validé ou au plus tard le jour de la prestation, sauf accord contraire. Toute heure supplémentaire ou demande non prévue fera l’objet d’un accord séparé.</textarea></label>
-        <label class="check span2"><input id="showHourly" type="checkbox" checked> Afficher le détail du taux horaire dans le devis</label>
+        <label class="span2">Conditions essentielles<textarea id="terms">Devis valable jusqu’à la date indiquée. Paiement à réception du devis validé ou au plus tard le jour de la prestation, sauf accord contraire. Toute demande non prévue fera l’objet d’un accord séparé.</textarea></label>
+        <label class="check span2"><input id="showHourly" type="checkbox"> Afficher le détail du calcul (taux horaire, km) — usage interne, à décocher pour l’export client</label>
       </div>
     </section>
 
@@ -240,6 +243,7 @@ Téléchargement HD</textarea></label>
         <label>Téléphone<input id="companyPhone" value="078 745 72 42"></label>
         <label>Site web<input id="companyWebsite" value="www.thalphotographie.ch"></label>
         <label>Adresse / mention<input id="companyAddress" value="Suisse romande"></label>
+        <label>Mention TVA (vide pour masquer)<input id="vatNoteText" value="TVA non applicable"></label>
         <label>Message final<input id="finalNote" value="Merci pour votre confiance."></label>
       </div>
     </section>

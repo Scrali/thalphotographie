@@ -39,8 +39,8 @@ const LOGO_SVG = `<svg class="thal-inline-svg" id="Calque_1" data-name="Calque 1
 const ids=[
 'quoteNumber','quoteDate','validUntil','clientName','clientEmail','clientPhone','clientAddress',
 'serviceType','eventDate','eventPlace','startTime','endTime','photosDelivered','deliveryDelay',
-'description','distanceKm','kmRate','prepHours','travelHours','sortHours','editHours','deliveryHours','hourlyRate','gearCost','priceMode','packagePrice','discountPercent','rounding','showCommercialRights','commercialRightsFee','commercialRightsLabel','showHourly',
-'included','terms','compactMode','docScale','pagePadding','blockGap','logoWidth','logoDarken','logoOffsetX','logoTop','logoColorMode','logoTintColor','logoTint','headerGap',
+'description','distanceKm','kmRate','prepHours','travelHours','sortHours','editHours','deliveryHours','hourlyRate','gearCost','overtimeRate','priceMode','packagePrice','discountPercent','rounding','showCommercialRights','commercialRightsFee','commercialRightsLabel','commercialRightsClientText','showHourly',
+'included','terms','vatNoteText','compactMode','docScale','pagePadding','blockGap','logoWidth','logoDarken','logoOffsetX','logoTop','logoColorMode','logoTintColor','logoTint','headerGap',
 'titleSize','titleOffsetX','titleOffsetY','subtitleSize','bodySize','smallTextSize','contactSize','mainColor','paperColor','documentTextColor','fieldLabelColor','lineColor','priceBgColor','priceTextPreset','priceTextColor','priceAccentColor',
 'companyName','companyEmail','companyPhone','companyWebsite','companyAddress','finalNote'
 ];
@@ -138,6 +138,18 @@ function update(){
     .join('<br>');
   const rightsDetail = $('showCommercialRights').checked ? detail(val('commercialRightsLabel') || 'Droits commerciaux', chf(rightsFee)) : '';
   const discountDetail = effectiveDiscount > 0 ? detail('Rabais appliqué', '-'+chf(effectiveDiscount)) : '';
+  const orgDetailHtml = $('showHourly').checked
+    ? `<p class="tq-flow"><strong>${hourText(shoot)}</strong> de prise de vue · préparation ${num('prepHours')} h · trajet ${num('travelHours')} h · tri ${num('sortHours')} h · retouches ${num('editHours')} h — total <strong>${hourText(total)}</strong></p>
+       <p class="tq-flow">Déplacement ${num('distanceKm')} km (A/R) à ${num('kmRate').toFixed(2)} CHF/km · livraison : ${textOrDash(val('photosDelivered'))}</p>`
+    : `<p class="tq-flow"><strong>${hourText(shoot)}</strong> de prise de vue · ${textOrDash(val('photosDelivered'))} · livraison : ${textOrDash(val('deliveryDelay'))}</p>`;
+  const rightsClientHtml = $('showCommercialRights').checked && val('commercialRightsClientText').trim() ? `
+    <section class="tq-section tq-rights">
+      <span class="tq-eyebrow">Droits d’utilisation</span>
+      <p>${htmlOrDash(val('commercialRightsClientText'))}</p>
+    </section>
+  ` : '';
+  const overtimeHtml = num('overtimeRate') > 0 ? `<p class="tq-flow">Toute heure supplémentaire : <strong>${chf(num('overtimeRate'))}/h</strong>.</p>` : '';
+  const vatNoteHtml = val('vatNoteText').trim() ? `<br>${textOrDash(val('vatNoteText'))}` : '';
   const calculationHtml = $('showHourly').checked ? `
     <section class="tq-section tq-calc">
       <span class="tq-eyebrow">Base de calcul — transparence interne</span>
@@ -199,10 +211,11 @@ function update(){
     ${bulletList('included')}
   </section>
 
+  ${rightsClientHtml}
+
   <section class="tq-section tq-org">
     <span class="tq-eyebrow">Organisation</span>
-    <p class="tq-flow"><strong>${hourText(shoot)}</strong> de prise de vue · préparation ${num('prepHours')} h · trajet ${num('travelHours')} h · tri ${num('sortHours')} h · retouches ${num('editHours')} h — total <strong>${hourText(total)}</strong></p>
-    <p class="tq-flow">Déplacement ${num('distanceKm')} km (A/R) à ${num('kmRate').toFixed(2)} CHF/km · livraison : ${textOrDash(val('photosDelivered'))}</p>
+    ${orgDetailHtml}
   </section>
 
   <section class="tq-price">
@@ -222,6 +235,7 @@ function update(){
   <section class="tq-section tq-terms">
     <span class="tq-eyebrow">Conditions</span>
     <p>${htmlOrDash(val('terms'))}</p>
+    ${overtimeHtml}
   </section>
 
   <section class="tq-sign">
@@ -234,7 +248,7 @@ function update(){
 
   <p class="tq-final">${htmlOrDash(val('finalNote'))}</p>
   <footer class="tq-footer" style="font-size:${val('contactSize')}px">
-    <div><strong>${textOrDash(val('companyName'))}</strong><br>${textOrDash(val('companyAddress'))}</div>
+    <div><strong>${textOrDash(val('companyName'))}</strong><br>${textOrDash(val('companyAddress'))}${vatNoteHtml}</div>
     <div>${textOrDash(val('companyEmail'))}<br>${textOrDash(val('companyPhone'))}</div>
     <div>${textOrDash(val('companyWebsite'))}</div>
   </footer>
