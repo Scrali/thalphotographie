@@ -438,6 +438,7 @@ input[type="date"], input[type="time"]{
   border-top:1px solid var(--ink);
   color:var(--field-label);
   padding-top:7px;
+  margin-top:26px;
   text-align:center;
 }
 .tq-final{
