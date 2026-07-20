@@ -39,8 +39,8 @@ const LOGO_SVG = `<svg class="thal-inline-svg" id="Calque_1" data-name="Calque 1
 const ids=[
 'quoteNumber','quoteDate','validUntil','clientName','clientEmail','clientPhone','clientAddress',
 'serviceType','eventDate','eventPlace','startTime','endTime','photosDelivered','deliveryDelay',
-'description','distanceKm','kmRate','prepHours','travelHours','sortHours','editHours','deliveryHours','hourlyRate','gearCost','overtimeRate','priceMode','packagePrice','discountPercent','rounding','showCommercialRights','commercialRightsFee','commercialRightsLabel','commercialRightsClientText','showHourly',
-'included','terms','vatNoteText','compactMode','docScale','pagePadding','blockGap','logoWidth','logoDarken','logoOffsetX','logoTop','logoColorMode','logoTintColor','logoTint','headerGap',
+'description','distanceKm','kmRate','prepHours','travelHours','sortHours','editHours','deliveryHours','hourlyRate','gearCost','overtimeRate','priceMode','packagePrice','discountPercent','rounding','licenseType','licenseCommercialPrice','licenseCommercialWaived','showHourly',
+'included','terms','legalIpClause','legalImageRightsClause','vatNoteText','compactMode','docScale','pagePadding','blockGap','logoWidth','logoDarken','logoOffsetX','logoTop','logoColorMode','logoTintColor','logoTint','headerGap',
 'titleSize','titleOffsetX','titleOffsetY','subtitleSize','bodySize','smallTextSize','contactSize','mainColor','paperColor','documentTextColor','fieldLabelColor','lineColor','priceBgColor','priceTextPreset','priceTextColor','priceAccentColor',
 'companyName','companyEmail','companyPhone','companyWebsite','companyAddress','finalNote'
 ];
@@ -95,6 +95,7 @@ function checkA4(){
 }
 function update(){
   labels();
+  if($('quickModeToggle')) $('quickModeToggle').textContent = $('showHourly').checked ? 'Mode interne' : 'Mode client';
   document.body.classList.toggle('relaxed',val('compactMode')==='off');
   document.documentElement.style.setProperty('--main',val('mainColor'));
   document.documentElement.style.setProperty('--paper',val('paperColor'));
@@ -115,7 +116,10 @@ function update(){
   const total=shoot+num('prepHours')+num('travelHours')+num('sortHours')+num('editHours')+num('deliveryHours');
   const kmCost=num('distanceKm')*num('kmRate');
   const hourlyValue=total*num('hourlyRate');
-  const rightsFee = $('showCommercialRights').checked ? num('commercialRightsFee') : 0;
+  const licenseType = val('licenseType') || 'private';
+  const licenseCommercialPrice = num('licenseCommercialPrice');
+  const licenseWaived = licenseType==='commercial' && $('licenseCommercialWaived').checked;
+  const rightsFee = licenseType==='commercial' ? licenseCommercialPrice : 0;
   const calculatedCost=hourlyValue+kmCost+num('gearCost')+rightsFee;
   const roundingStep=Math.max(1,num('rounding'));
   const discount=Math.min(100, Math.max(0, num('discountPercent')));
@@ -136,20 +140,35 @@ function update(){
     .filter(Boolean)
     .map(nl)
     .join('<br>');
-  const rightsDetail = $('showCommercialRights').checked ? detail(val('commercialRightsLabel') || 'Droits commerciaux', chf(rightsFee)) : '';
+  const rightsDetail = licenseType==='commercial' ? detail('Licence commerciale', chf(rightsFee)) : '';
   const discountDetail = effectiveDiscount > 0 ? detail('Rabais appliqué', '-'+chf(effectiveDiscount)) : '';
   const orgDetailHtml = $('showHourly').checked
     ? `<p class="tq-flow"><strong>${hourText(shoot)}</strong> de prise de vue · préparation ${num('prepHours')} h · trajet ${num('travelHours')} h · tri ${num('sortHours')} h · retouches ${num('editHours')} h — total <strong>${hourText(total)}</strong></p>
        <p class="tq-flow">Déplacement ${num('distanceKm')} km (A/R) à ${num('kmRate').toFixed(2)} CHF/km · livraison : ${textOrDash(val('photosDelivered'))}</p>`
-    : `<p class="tq-flow"><strong>${hourText(shoot)}</strong> de prise de vue · ${textOrDash(val('photosDelivered'))} · livraison : ${textOrDash(val('deliveryDelay'))}</p>`;
-  const rightsClientHtml = $('showCommercialRights').checked && val('commercialRightsClientText').trim() ? `
+    : `<p class="tq-flow"><strong>${hourText(shoot)}</strong> de prise de vue · ${textOrDash(val('photosDelivered'))} · livraison : ${textOrDash(val('deliveryDelay'))}</p>
+       <p class="tq-flow">Déplacement ${num('distanceKm')} km (A/R) à ${num('kmRate').toFixed(2)} CHF/km</p>`;
+  const licenseTexts = {
+    private: 'Usage privé : inclus.',
+    commercial: 'Licence d’utilisation commerciale non exclusive — site web, réseaux sociaux et supports de présentation, avec mention du crédit © THAL Photographie. Valable 2 ans pour toute nouvelle publication ; les contenus publiés durant cette période peuvent être maintenus en ligne.',
+    extended: 'Licence étendue (publicité payante, affichage, campagne marketing, exclusivité) : sur devis séparé.',
+  };
+  const licenseDiscountHtml = licenseWaived
+    ? `<p class="tq-flow">Valeur de la licence commerciale : <strong>${chf(licenseCommercialPrice)}</strong> · Remise commerciale : <strong>-${chf(licenseCommercialPrice)}</strong></p>`
+    : '';
+  const licenseHtml = `
     <section class="tq-section tq-rights">
-      <span class="tq-eyebrow">Droits d’utilisation</span>
-      <p>${htmlOrDash(val('commercialRightsClientText'))}</p>
+      <span class="tq-eyebrow">Licence d’utilisation</span>
+      <p>${licenseTexts[licenseType] || licenseTexts.private}</p>
     </section>
-  ` : '';
-  const overtimeHtml = num('overtimeRate') > 0 ? `<p class="tq-flow">Toute heure supplémentaire : <strong>${chf(num('overtimeRate'))}/h</strong>.</p>` : '';
-  const vatNoteHtml = val('vatNoteText').trim() ? `<br>${textOrDash(val('vatNoteText'))}` : '';
+  `;
+  const overtimeHtml = num('overtimeRate') > 0
+    ? `<p class="tq-flow">Toute heure supplémentaire : <strong>${chf(num('overtimeRate'))}</strong>. Toute demande non prévue fera l’objet d’un accord séparé.</p>`
+    : `<p class="tq-flow">Toute demande non prévue fera l’objet d’un accord séparé.</p>`;
+  const legalHtml = `
+    <p class="tq-flow">${htmlOrDash(val('legalIpClause'))}</p>
+    <p class="tq-flow">${htmlOrDash(val('legalImageRightsClause'))}</p>
+  `;
+  const vatNoteHtml = val('vatNoteText').trim() ? `<p class="tq-muted" style="text-align:center;margin-top:2px">${textOrDash(val('vatNoteText'))}</p>` : '';
   const calculationHtml = $('showHourly').checked ? `
     <section class="tq-section tq-calc">
       <span class="tq-eyebrow">Base de calcul — transparence interne</span>
@@ -211,7 +230,7 @@ function update(){
     ${bulletList('included')}
   </section>
 
-  ${rightsClientHtml}
+  ${licenseHtml}
 
   <section class="tq-section tq-org">
     <span class="tq-eyebrow">Organisation</span>
@@ -222,6 +241,7 @@ function update(){
     <div class="tq-price-copy">
       <span class="tq-eyebrow">Investissement</span>
       <p>Le montant ci-contre couvre l’intégralité de la prestation décrite dans ce devis, déplacement compris.</p>
+      ${licenseDiscountHtml}
     </div>
     <div class="tq-price-amount" style="background:${val('priceBgColor')} !important;color:${finalPriceTextColor} !important">
       <span style="color:${val('priceAccentColor')} !important">Total devis</span>
@@ -229,6 +249,7 @@ function update(){
       <span style="color:${val('priceAccentColor')} !important">Tout compris</span>
     </div>
   </section>
+  ${vatNoteHtml}
 
   ${calculationHtml}
 
@@ -236,6 +257,7 @@ function update(){
     <span class="tq-eyebrow">Conditions</span>
     <p>${htmlOrDash(val('terms'))}</p>
     ${overtimeHtml}
+    ${legalHtml}
   </section>
 
   <section class="tq-sign">
@@ -248,7 +270,7 @@ function update(){
 
   <p class="tq-final">${htmlOrDash(val('finalNote'))}</p>
   <footer class="tq-footer" style="font-size:${val('contactSize')}px">
-    <div><strong>${textOrDash(val('companyName'))}</strong><br>${textOrDash(val('companyAddress'))}${vatNoteHtml}</div>
+    <div><strong>${textOrDash(val('companyName'))}</strong><br>${textOrDash(val('companyAddress'))}</div>
     <div>${textOrDash(val('companyEmail'))}<br>${textOrDash(val('companyPhone'))}</div>
     <div>${textOrDash(val('companyWebsite'))}</div>
   </footer>
@@ -440,6 +462,10 @@ setDates();update();
 
 if($('saveQuoteServer')) $('saveQuoteServer').addEventListener('click',saveQuoteServer);
 if($('exportPdf')) $('exportPdf').addEventListener('click',exportPdfNamed);
+if($('quickModeToggle')) $('quickModeToggle').addEventListener('click',()=>{
+  $('showHourly').checked = !$('showHourly').checked;
+  update();
+});
 if(window.THAL_INITIAL_QUOTE && typeof window.THAL_INITIAL_QUOTE === 'object'){
   applyState(window.THAL_INITIAL_QUOTE);
 }

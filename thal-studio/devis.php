@@ -82,6 +82,7 @@ if ($studioVersion === '') {
       <button id="loadJson">Charger JSON</button>
       <input id="loadFile" type="file" accept=".json" hidden>
       <p id="quoteSaveStatus" class="slot-status"></p>
+      <button type="button" id="quickModeToggle">Mode client</button>
       <button class="primary" id="exportPdf">Exporter PDF</button>
       <a class="logout-link" href="dashboard.php">Tableau de bord</a>
       <a class="logout-link" href="settings.php">Paramètres</a>
@@ -134,7 +135,7 @@ if ($studioVersion === '') {
       <div class="form-grid">
         <label class="span2">Description courte<textarea id="description">Couverture photographique de l’orchestre pendant le mariage. La prestation ne comprend pas le reportage complet des mariés ni une séance couple dédiée.</textarea></label>
         <label>Distance A/R km<input id="distanceKm" type="number" value="100"></label>
-        <label>CHF/km<input id="kmRate" type="number" step="0.05" value="0.60"></label>
+        <label>CHF/km<input id="kmRate" type="number" step="0.05" value="0.75"></label>
         <label>Préparation h<input id="prepHours" type="number" step="0.5" value="0.5"></label>
         <label>Trajet h<input id="travelHours" type="number" step="0.5" value="1.5"></label>
         <label>Tri h<input id="sortHours" type="number" step="0.5" value="1"></label>
@@ -158,12 +159,17 @@ if ($studioVersion === '') {
             <option value="50">50 CHF</option>
           </select>
         </label>
-        <label>Tarif heure supplémentaire CHF/h<input id="overtimeRate" type="number" step="5" value="45"></label>
+        <label>Tarif heure supplémentaire CHF<input id="overtimeRate" type="number" step="5" value="120"></label>
 
-        <label class="check span2"><input id="showCommercialRights" type="checkbox" checked> Afficher les droits d’utilisation (section visible par le client)</label>
-        <label class="span2">Texte des droits d’utilisation pour le client<textarea id="commercialRightsClientText">Licence d’utilisation incluse : promotion de l’ensemble sur le site web et les réseaux sociaux, avec crédit photo THAL Photographie.</textarea></label>
-        <label>Droits commerciaux CHF (usage interne)<input id="commercialRightsFee" type="number" step="10" value="0"></label>
-        <label>Libellé droits commerciaux (usage interne)<input id="commercialRightsLabel" value="Utilisation commerciale organique incluse"></label>
+        <label>Licence d’utilisation
+          <select id="licenseType">
+            <option value="private" selected>Privé</option>
+            <option value="commercial">Commercial organique</option>
+            <option value="extended">Étendue</option>
+          </select>
+        </label>
+        <label>Prix licence commerciale CHF<input id="licenseCommercialPrice" type="number" step="10" value="100"></label>
+        <label class="check span2"><input id="licenseCommercialWaived" type="checkbox"> Offrir la licence commerciale (remise visible, total inchangé)</label>
 
         <label class="span2">Inclus<textarea id="included">Prise de vue pendant 5 heures
 Tri des photos
@@ -172,8 +178,10 @@ Déplacement Sainte-Croix ↔ Lucens
 Galerie privée en ligne
 Téléchargement HD</textarea></label>
 
-        <label class="span2">Conditions essentielles<textarea id="terms">Devis valable jusqu’à la date indiquée. Paiement à réception du devis validé ou au plus tard le jour de la prestation, sauf accord contraire. Toute demande non prévue fera l’objet d’un accord séparé.</textarea></label>
-        <label class="check span2"><input id="showHourly" type="checkbox"> Afficher le détail du calcul (taux horaire, km) — usage interne, à décocher pour l’export client</label>
+        <label class="span2">Conditions essentielles<textarea id="terms">Devis valable jusqu’à la date indiquée. Paiement à réception du devis validé ou au plus tard le jour de la prestation, sauf accord contraire.</textarea></label>
+        <label class="span2">Clause propriété intellectuelle<textarea id="legalIpClause">Propriété intellectuelle — Les photographies demeurent la propriété intellectuelle de THAL Photographie conformément à la Loi fédérale sur le droit d’auteur et les droits voisins (LDA). Sauf mention contraire dans le devis, seule la licence d’utilisation décrite est concédée au client. Les droits d’auteur ne sont ni cédés ni transférés.</textarea></label>
+        <label class="span2">Clause droit à l’image<textarea id="legalImageRightsClause">Droit à l’image — Lorsque le client utilise les photographies à des fins promotionnelles ou commerciales, il lui appartient de s’assurer qu’il dispose des autorisations nécessaires des personnes reconnaissables figurant sur les images, lorsque ces autorisations sont requises par la loi.</textarea></label>
+        <label class="check span2"><input id="showHourly" type="checkbox"> Mode interne — afficher le calcul détaillé (taux horaire, couverture) et l’organisation complète. Décoché = mode client (par défaut, utilisé pour l’export PDF).</label>
       </div>
     </section>
 
