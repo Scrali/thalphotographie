@@ -142,6 +142,8 @@ function update(){
     .join('<br>');
   const rightsDetail = licenseType==='commercial' ? detail('Licence commerciale', chf(rightsFee)) : '';
   const discountDetail = effectiveDiscount > 0 ? detail('Rabais appliqué', '-'+chf(effectiveDiscount)) : '';
+  const discountPercentValue = Math.min(100, Math.max(0, num('discountPercent')));
+  const clientDiscountHtml = discountPercentValue > 0 ? `<p class="tq-flow">Rabais accordé : <strong>-${discountPercentValue}%</strong></p>` : '';
   const orgDetailHtml = $('showHourly').checked
     ? `<p class="tq-flow"><strong>${hourText(shoot)}</strong> de prise de vue · préparation ${num('prepHours')} h · trajet ${num('travelHours')} h · tri ${num('sortHours')} h · retouches ${num('editHours')} h — total <strong>${hourText(total)}</strong></p>
        <p class="tq-flow">Déplacement ${num('distanceKm')} km (A/R) à ${num('kmRate').toFixed(2)} CHF/km · livraison : ${textOrDash(val('photosDelivered'))}</p>`
@@ -242,6 +244,7 @@ function update(){
       <span class="tq-eyebrow">Investissement</span>
       <p>Le montant ci-contre couvre l’intégralité de la prestation décrite dans ce devis, déplacement compris.</p>
       ${licenseDiscountHtml}
+      ${clientDiscountHtml}
     </div>
     <div class="tq-price-amount" style="background:${val('priceBgColor')} !important;color:${finalPriceTextColor} !important">
       <span style="color:${val('priceAccentColor')} !important">Total devis</span>
