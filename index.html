@@ -449,6 +449,11 @@
       </a>
 
       <nav class="navlinks">
+        <a class="chip" href="identite.php">Identité</a>
+        <a class="chip" href="portraits.php">Portraits</a>
+        <a class="chip" href="reportages.php">Reportages</a>
+        <a class="chip" href="professionnels.php">Professionnels</a>
+        <a class="chip" href="pourquoi-thal.php">Pourquoi THAL</a>
         <a class="chip" href="galerie.html">Galerie</a>
         <a class="btn" href="#contact">Me contacter</a>
       </nav>
@@ -1290,6 +1295,32 @@
       result.innerHTML = "<p>Erreur réseau. Merci de réessayer ou de me contacter directement.</p>";
     }
   });
+
+  const GAMME_TYPE_MAP = {
+    portraits: "Portrait",
+    reportages: "Événement",
+    professionnels: "Entreprise"
+  };
+  const GAMME_MESSAGE_MAP = {
+    portraits: "Demande envoyée depuis la page Portraits.",
+    reportages: "Demande envoyée depuis la page Reportages.",
+    professionnels: "Demande envoyée depuis la page Professionnels.",
+    identite: "Bonjour, je souhaite une photo d’identité (conforme fedpol / passeport / visa / permis)."
+  };
+  const gamme = new URLSearchParams(location.search).get("gamme");
+  if(gamme && GAMME_MESSAGE_MAP[gamme]){
+    if(gamme === "identite"){
+      const contactForm = document.getElementById("contactForm");
+      const msgField = contactForm ? contactForm.querySelector("textarea[name='message']") : null;
+      if(msgField && !msgField.value) msgField.value = GAMME_MESSAGE_MAP[gamme];
+    }else{
+      const typeSelect = form.querySelector("select[name='type']");
+      if(typeSelect && GAMME_TYPE_MAP[gamme]) typeSelect.value = GAMME_TYPE_MAP[gamme];
+      const messageField = form.querySelector("textarea[name='message']");
+      if(messageField && !messageField.value) messageField.value = GAMME_MESSAGE_MAP[gamme];
+      openModal();
+    }
+  }
 })();
 </script>
 
