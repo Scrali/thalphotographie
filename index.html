@@ -996,6 +996,11 @@
     const sendBtn = document.getElementById("sendBtn");
 
     if(form){
+      const prefill = new URLSearchParams(location.search).get("prefill");
+      if(prefill){
+        const msgField = form.querySelector("textarea[name='message']");
+        if(msgField) msgField.value = prefill;
+      }
       form.addEventListener("submit", async (e)=>{
         e.preventDefault();
 
