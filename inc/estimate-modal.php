@@ -1,14 +1,12 @@
 <?php
 /**
- * Bouton flottant "Obtenir une estimation" + modale, partagés par les pages de gamme.
+ * Modale de demande de devis, partagée par les pages de gamme.
  * Tout élément portant [data-thal-estimate-open] ouvre la modale ; un attribut
  * data-thal-type="Portrait" présélectionne le type, data-thal-message="..." préremplit le message.
  */
 ?>
 <style>
 /* THAL_ESTIMATE_MODAL_CSS_V070 */
-.thal-estimate-floating{position:fixed;right:18px;bottom:18px;z-index:9998}
-.thal-estimate-open{border:0;border-radius:999px;padding:13px 18px;background:#fff;color:#111;font-weight:900;cursor:pointer;box-shadow:0 14px 36px rgba(0,0,0,.35)}
 .thal-modal[hidden]{display:none}.thal-modal{position:fixed;inset:0;z-index:9999}.thal-modal-backdrop{position:absolute;inset:0;background:rgba(0,0,0,.66);backdrop-filter:blur(8px)}
 .thal-modal-panel{position:relative;width:min(840px,calc(100vw - 28px));max-height:calc(100vh - 32px);overflow:auto;margin:16px auto;background:#111;color:#f5f5f5;border:1px solid rgba(255,255,255,.16);border-radius:24px;padding:24px;box-shadow:0 24px 90px rgba(0,0,0,.55)}
 .thal-modal-close{position:absolute;right:16px;top:14px;border:1px solid rgba(255,255,255,.2);background:#1f1f1f;color:#fff;border-radius:999px;width:36px;height:36px;cursor:pointer}
@@ -27,12 +25,8 @@
 .thal-suggestions li:hover,.thal-suggestions li.active{background:#243235}
 .thal-identite-mode .thal-hide-identite{display:none}
 .thal-identite-hide-inline[hidden]{display:none}
-@media(max-width:720px){.thal-estimate-grid,.thal-radio-row{grid-template-columns:1fr}.thal-estimate-floating{left:14px;right:14px}.thal-estimate-open{width:100%}}
+@media(max-width:720px){.thal-estimate-grid,.thal-radio-row{grid-template-columns:1fr}}
 </style>
-
-<div class="thal-estimate-floating">
-  <button class="thal-estimate-open" type="button" data-thal-estimate-open>Demander un devis</button>
-</div>
 
 <div class="thal-modal" id="thalEstimateModal" hidden>
   <div class="thal-modal-backdrop" data-thal-estimate-close></div>
