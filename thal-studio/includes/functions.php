@@ -282,7 +282,7 @@ function thal_prefill_query(array $client): string {
 
 // ===== Galerie photo =====
 
-const THAL_GALLERY_IGNORE_DIRS = ['scripts', '.git', '.github', '__MACOSX'];
+const THAL_GALLERY_IGNORE_DIRS = ['scripts', '.git', '.github', '__MACOSX', '_thumbs'];
 const THAL_GALLERY_IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
 
 // Alias de genres reconnus dans un nom de fichier pour le tri automatique
@@ -426,26 +426,27 @@ function thal_gallery_save(array $data, ?string $baseDir = null): bool {
 
 const THAL_GALLERY_MAX_DIMENSION = 2400;
 const THAL_GALLERY_JPEG_QUALITY = 85;
+const THAL_GALLERY_THUMB_DIMENSION = 700;
+const THAL_GALLERY_THUMB_DIR_NAME = '_thumbs';
 
-// Redimensionne (et recompresse) une image sur place si elle dépasse THAL_GALLERY_MAX_DIMENSION,
-// sans jamais l'agrandir. Retourne false si l'extension GD n'est pas disponible ou en cas d'échec :
-// dans ce cas le fichier original reste tel quel, l'upload n'est jamais bloqué pour autant.
-function thal_resize_image(string $path, int $maxDimension = THAL_GALLERY_MAX_DIMENSION, int $jpegQuality = THAL_GALLERY_JPEG_QUALITY): bool {
+// Redimensionne (et recompresse) une image vers $destPath si elle dépasse $maxDimension,
+// sans jamais l'agrandir. Retourne false si l'extension GD n'est pas disponible ou en cas d'échec.
+function thal_resize_to_file(string $srcPath, string $destPath, int $maxDimension, int $jpegQuality): bool {
     if (!function_exists('imagecreatefromstring')) {
         return false;
     }
 
-    $info = @getimagesize($path);
+    $info = @getimagesize($srcPath);
     if ($info === false) {
         return false;
     }
     [$width, $height, $type] = $info;
 
     if ($width <= $maxDimension && $height <= $maxDimension) {
-        return true;
+        return $srcPath === $destPath ? true : (@copy($srcPath, $destPath) !== false);
     }
 
-    $raw = @file_get_contents($path);
+    $raw = @file_get_contents($srcPath);
     $src = $raw !== false ? @imagecreatefromstring($raw) : false;
     if ($src === false) {
         return false;
@@ -467,10 +468,10 @@ function thal_resize_image(string $path, int $maxDimension = THAL_GALLERY_MAX_DI
     imagecopyresampled($dst, $src, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
 
     $ok = match ($type) {
-        IMAGETYPE_JPEG => imagejpeg($dst, $path, $jpegQuality),
-        IMAGETYPE_PNG => imagepng($dst, $path, 6),
-        IMAGETYPE_GIF => imagegif($dst, $path),
-        IMAGETYPE_WEBP => function_exists('imagewebp') ? imagewebp($dst, $path, $jpegQuality) : false,
+        IMAGETYPE_JPEG => imagejpeg($dst, $destPath, $jpegQuality),
+        IMAGETYPE_PNG => imagepng($dst, $destPath, 6),
+        IMAGETYPE_GIF => imagegif($dst, $destPath),
+        IMAGETYPE_WEBP => function_exists('imagewebp') ? imagewebp($dst, $destPath, $jpegQuality) : false,
         default => false,
     };
 
@@ -478,4 +479,24 @@ function thal_resize_image(string $path, int $maxDimension = THAL_GALLERY_MAX_DI
     imagedestroy($dst);
 
     return $ok;
+}
+
+// Redimensionne (et recompresse) une image sur place si elle dépasse THAL_GALLERY_MAX_DIMENSION,
+// sans jamais l'agrandir. Dans ce cas le fichier original reste tel quel, l'upload n'est jamais bloqué pour autant.
+function thal_resize_image(string $path, int $maxDimension = THAL_GALLERY_MAX_DIMENSION, int $jpegQuality = THAL_GALLERY_JPEG_QUALITY): bool {
+    return thal_resize_to_file($path, $path, $maxDimension, $jpegQuality);
+}
+
+function thal_thumbs_dir(?string $baseDir = null): string {
+    return thal_photos_dir($baseDir) . '/' . THAL_GALLERY_THUMB_DIR_NAME;
+}
+
+// Génère une vignette légère (~700px) pour l'affichage en grille, séparée du fichier principal
+// (qui reste utilisé pour l'aperçu plein écran). Ignorée par thal_gallery_scan via THAL_GALLERY_IGNORE_DIRS.
+function thal_generate_thumbnail(string $srcPath, string $category, string $filename, ?string $baseDir = null, int $maxDimension = THAL_GALLERY_THUMB_DIMENSION, int $jpegQuality = THAL_GALLERY_JPEG_QUALITY): bool {
+    $destDir = thal_thumbs_dir($baseDir) . '/' . $category;
+    if (!is_dir($destDir) && !mkdir($destDir, 0755, true) && !is_dir($destDir)) {
+        return false;
+    }
+    return thal_resize_to_file($srcPath, $destDir . '/' . $filename, $maxDimension, $jpegQuality);
 }

@@ -65,6 +65,10 @@ if ($action === 'delete') {
     if (is_dir($dir)) {
         @rmdir($dir);
     }
+    $thumbDir = thal_thumbs_dir(__DIR__) . '/' . $name;
+    if (is_dir($thumbDir)) {
+        @rmdir($thumbDir);
+    }
     unset($data[$name]);
 
     thal_gallery_save($data, __DIR__);

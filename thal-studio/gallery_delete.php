@@ -35,6 +35,11 @@ if (is_file($path)) {
     unlink($path);
 }
 
+$thumbPath = thal_thumbs_dir(__DIR__) . '/' . $category . '/' . $file;
+if (is_file($thumbPath)) {
+    unlink($thumbPath);
+}
+
 if (isset($data[$category])) {
     $data[$category] = array_values(array_filter($data[$category], fn($f) => $f !== $file));
 }
