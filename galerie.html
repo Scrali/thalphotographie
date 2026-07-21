@@ -621,7 +621,8 @@
             type:m.type || cat,
             lieu:m.lieu || "",
             tags:m.tags || [],
-            src:`photos/${encodeURIComponent(cat)}/${encodeURIComponent(file)}`
+            src:`photos/${encodeURIComponent(cat)}/${encodeURIComponent(file)}`,
+            thumbSrc:`photos/_thumbs/${encodeURIComponent(cat)}/${encodeURIComponent(file)}`
           };
           p.universe = universeForPhoto(p);
           photos.push(p);
@@ -650,13 +651,14 @@
 
       cards.forEach(u=>{
         const list = u.id === "tous" ? PHOTOS : PHOTOS.filter(p=>p.universe === u.id);
-        const cover = (u.id === "tous" ? randomPhoto(list) : list[0])?.src || "";
+        const coverPhoto = u.id === "tous" ? randomPhoto(list) : list[0];
+        const cover = coverPhoto?.thumbSrc || "";
         const card = document.createElement("button");
         card.type = "button";
         card.dataset.universe = u.id;
         card.className = "universCard" + (u.id === CURRENT_UNIVERSE ? " active" : "");
         card.innerHTML = `
-          ${cover ? `<img class="universBg" src="${cover}" alt="">` : `<div class="universBg"></div>`}
+          ${cover ? `<img class="universBg" src="${cover}" onerror="this.onerror=null;this.src='${coverPhoto.src}'" alt="">` : `<div class="universBg"></div>`}
           <div class="universText">
             <span>${escapeHtml(u.label)}</span>
             <h2>${escapeHtml(u.title)}</h2>
@@ -690,7 +692,7 @@
         img.style.opacity = ".25";
 
         setTimeout(()=>{
-          img.src = nextPhoto.src;
+          img.src = nextPhoto.thumbSrc;
           img.style.opacity = ".78";
         }, 180);
       }, 5000);
@@ -782,7 +784,7 @@
         const d = document.createElement("div");
         d.className = "shot";
         const details = [p.cat, p.type, p.lieu].filter(Boolean).join(" • ");
-        d.innerHTML = `<img loading="lazy" src="${p.src}" alt="${escapeHtml(p.cat)}"><div class="cap">${escapeHtml(details)}</div>`;
+        d.innerHTML = `<img loading="lazy" src="${p.thumbSrc}" onerror="this.onerror=null;this.src='${p.src}'" alt="${escapeHtml(p.cat)}"><div class="cap">${escapeHtml(details)}</div>`;
         d.addEventListener("click", ()=>openLightbox(idx));
         grid.appendChild(d);
       });

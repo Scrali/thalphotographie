@@ -98,6 +98,9 @@ for ($i = 0; $i < $count; $i++) {
     // Redimensionne côté serveur si l'image dépasse la taille utile pour le site (GD requis).
     thal_resize_image($destDir . '/' . $finalName);
 
+    // Génère une vignette légère pour l'affichage en grille de la galerie publique.
+    thal_generate_thumbnail($destDir . '/' . $finalName, $category, $finalName, __DIR__);
+
     if (!isset($data[$category])) {
         $data[$category] = [];
     }

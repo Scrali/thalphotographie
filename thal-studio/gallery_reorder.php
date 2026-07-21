@@ -64,6 +64,16 @@ if ($fromCategory !== $toCategory) {
     if (is_file($srcPath)) {
         rename($srcPath, $destDir . '/' . $finalName);
     }
+
+    $thumbSrcPath = thal_thumbs_dir(__DIR__) . '/' . $fromCategory . '/' . $file;
+    $thumbDestDir = thal_thumbs_dir(__DIR__) . '/' . $toCategory;
+    if (is_file($thumbSrcPath)) {
+        if (!is_dir($thumbDestDir) && !mkdir($thumbDestDir, 0755, true) && !is_dir($thumbDestDir)) {
+            // Pas bloquant : la vignette sera simplement absente, la galerie retombera sur l'image principale.
+        } else {
+            rename($thumbSrcPath, $thumbDestDir . '/' . $finalName);
+        }
+    }
 }
 
 if (!isset($data[$toCategory])) {
