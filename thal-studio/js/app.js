@@ -37,7 +37,7 @@ const LOGO_SVG = `<svg class="thal-inline-svg" id="Calque_1" data-name="Calque 1
   </g>
 </svg>`;
 const ids=[
-'quoteNumber','quoteDate','validUntil','clientName','clientEmail','clientPhone','clientAddress',
+'docType','quoteNumber','quoteDate','validUntil','serviceDoneDate','depositAmount','depositDate','clientName','clientEmail','clientPhone','clientAddress',
 'serviceType','eventDate','eventPlace','startTime','endTime','photosDelivered','deliveryDelay',
 'description','distanceKm','kmRate','prepHours','travelHours','sortHours','editHours','deliveryHours','hourlyRate','gearCost','overtimeRate','priceMode','packagePrice','discountPercent','rounding','licenseType','licenseCommercialPrice','licenseCommercialWaived','showHourly',
 'included','terms','legalIpClause','legalImageRightsClause','vatNoteText','compactMode','docScale','pagePadding','blockGap','logoWidth','logoDarken','logoOffsetX','logoTop','logoColorMode','logoTintColor','logoTint','headerGap',
@@ -96,6 +96,8 @@ function checkA4(){
 function update(){
   labels();
   if($('quickModeToggle')) $('quickModeToggle').textContent = $('showHourly').checked ? 'Mode interne' : 'Mode client';
+  const isInvoice = val('docType')==='facture';
+  document.body.classList.toggle('doctype-facture',isInvoice);
   document.body.classList.toggle('relaxed',val('compactMode')==='off');
   document.documentElement.style.setProperty('--main',val('mainColor'));
   document.documentElement.style.setProperty('--paper',val('paperColor'));
@@ -126,6 +128,11 @@ function update(){
   const discountedCost=calculatedCost*(1-discount/100);
   const autoPrice=Math.round(discountedCost/roundingStep)*roundingStep;
   const price=val('priceMode')==='auto' ? Math.max(0,autoPrice) : num('packagePrice');
+  const depositAmount = isInvoice ? Math.max(0,num('depositAmount')) : 0;
+  const balanceDue = Math.max(0, price-depositAmount);
+  const depositHtml = depositAmount > 0
+    ? `<p class="tq-flow">Acompte reçu le <strong>${dateFr(val('depositDate'))}</strong> : <strong>-${chf(depositAmount)}</strong></p>`
+    : '';
   const effectiveDiscount=Math.max(0,calculatedCost-price);
   const effectiveRate=total>0 ? price/total : 0;
   const profitability=calculatedCost>0 ? (price/calculatedCost)*100 : 100;
@@ -190,7 +197,7 @@ function update(){
 
   $('dashNumber').textContent=val('quoteNumber');
   $('dashClient').textContent=val('clientName');
-  $('dashTotal').textContent=chf(price);
+  $('dashTotal').textContent=chf(isInvoice && depositAmount>0 ? balanceDue : price);
   $('dashDate').textContent=dateFr(val('eventDate'));
   $('document').style.fontSize=val('bodySize')+'px';
 
@@ -202,14 +209,16 @@ function update(){
       ${logoHtml}
     </div>
     <div class="tq-heading" style="transform:translate(${val('titleOffsetX')}px, ${val('titleOffsetY')||0}px)">
-      <span class="tq-eyebrow">Proposition photographique</span>
-      <h1 class="tq-title" style="font-size:${val('titleSize')}px">Devis</h1>
+      <span class="tq-eyebrow">${isInvoice ? 'Facture' : 'Proposition photographique'}</span>
+      <h1 class="tq-title" style="font-size:${val('titleSize')}px">${isInvoice ? 'Facture' : 'Devis'}</h1>
       <p class="tq-subtitle" style="font-size:${val('subtitleSize')}px">${textOrDash(val('serviceType'))}</p>
     </div>
     <div class="tq-refs">
       <div><span>N°</span><strong>${textOrDash(val('quoteNumber'))}</strong></div>
       <div><span>Date</span><strong>${dateFr(val('quoteDate'))}</strong></div>
-      <div><span>Valable jusqu’au</span><strong>${dateFr(val('validUntil'))}</strong></div>
+      ${isInvoice
+        ? `<div><span>Date prestation</span><strong>${dateFr(val('serviceDoneDate'))}</strong></div>`
+        : `<div><span>Valable jusqu’au</span><strong>${dateFr(val('validUntil'))}</strong></div>`}
     </div>
   </header>
 
@@ -242,13 +251,14 @@ function update(){
   <section class="tq-price">
     <div class="tq-price-copy">
       <span class="tq-eyebrow">Investissement</span>
-      <p>Le montant ci-contre couvre l’intégralité de la prestation décrite dans ce devis, déplacement compris.</p>
+      <p>Le montant ci-contre couvre l’intégralité de la prestation décrite dans ${isInvoice ? 'cette facture' : 'ce devis'}, déplacement compris.</p>
       ${licenseDiscountHtml}
       ${clientDiscountHtml}
+      ${depositHtml}
     </div>
     <div class="tq-price-amount" style="background:${val('priceBgColor')} !important;color:${finalPriceTextColor} !important">
-      <span style="color:${val('priceAccentColor')} !important">Total devis</span>
-      <strong style="color:${finalPriceTextColor} !important">${chf(price)}</strong>
+      <span style="color:${val('priceAccentColor')} !important">${isInvoice ? (depositAmount>0 ? 'Solde à payer' : 'Total facture') : 'Total devis'}</span>
+      <strong style="color:${finalPriceTextColor} !important">${chf(isInvoice && depositAmount>0 ? balanceDue : price)}</strong>
       <span style="color:${val('priceAccentColor')} !important">Tout compris</span>
     </div>
   </section>
@@ -307,8 +317,43 @@ async function saveQuoteServer(){
     }else{
       if(status) status.textContent='Erreur : '+(result.error||'sauvegarde impossible');
     }
+    return result;
   }catch(e){
     if(status) status.textContent='Erreur serveur pendant la sauvegarde.';
+    return {ok:false,error:'network'};
+  }
+}
+
+async function convertToInvoice(){
+  const status=$('invoiceConvertStatus');
+  if(val('docType')==='facture'){
+    if(status) status.textContent='Ce document est déjà une facture.';
+    return;
+  }
+  if(!confirm('Convertir ce devis en facture ?\n\nUne nouvelle facture sera créée à partir des données actuelles (le devis d’origine reste inchangé).')) return;
+
+  if(status) status.textContent='Enregistrement du devis avant conversion...';
+  const saveResult = await saveQuoteServer();
+  if(!saveResult || !saveResult.ok){
+    if(status) status.textContent='Impossible d’enregistrer le devis avant conversion.';
+    return;
+  }
+
+  if(status) status.textContent='Conversion en facture...';
+  try{
+    const response = await fetch('invoice_convert.php', {
+      method:'POST',
+      headers:{'Content-Type':'application/json','X-CSRF-Token':window.THAL_CSRF_TOKEN||''},
+      body:JSON.stringify({id:saveResult.id})
+    });
+    const result = await response.json();
+    if(result.ok && result.id){
+      location.href='devis.php?q='+encodeURIComponent(result.id);
+    }else{
+      if(status) status.textContent='Erreur : '+(result.error||'conversion impossible');
+    }
+  }catch(e){
+    if(status) status.textContent='Erreur réseau pendant la conversion.';
   }
 }
 function exportPdfNamed(){
@@ -464,6 +509,7 @@ window.addEventListener('resize',()=>{
 setDates();update();
 
 if($('saveQuoteServer')) $('saveQuoteServer').addEventListener('click',saveQuoteServer);
+if($('convertToInvoice')) $('convertToInvoice').addEventListener('click',convertToInvoice);
 if($('exportPdf')) $('exportPdf').addEventListener('click',exportPdfNamed);
 if($('quickModeToggle')) $('quickModeToggle').addEventListener('click',()=>{
   $('showHourly').checked = !$('showHourly').checked;

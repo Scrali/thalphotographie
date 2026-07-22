@@ -82,6 +82,8 @@ if ($studioVersion === '') {
       <button id="loadJson">Charger JSON</button>
       <input id="loadFile" type="file" accept=".json" hidden>
       <p id="quoteSaveStatus" class="slot-status"></p>
+      <button type="button" id="convertToInvoice">Convertir en facture</button>
+      <p id="invoiceConvertStatus" class="slot-status"></p>
       <button type="button" id="quickModeToggle">Mode client</button>
       <button class="primary" id="exportPdf">Exporter PDF</button>
       <a class="logout-link" href="dashboard.php">Tableau de bord</a>
@@ -105,10 +107,14 @@ if ($studioVersion === '') {
 
     <section id="devis" class="panel">
       <h2>Informations devis</h2>
+      <input type="hidden" id="docType" value="devis">
       <div class="form-grid">
         <label>Numéro devis<input id="quoteNumber" value="DEV-2026-001"></label>
         <label>Date devis<input id="quoteDate" type="date"></label>
         <label>Valable jusqu’au<input id="validUntil" type="date"></label>
+        <label class="facture-only">Date prestation réalisée<input id="serviceDoneDate" type="date"></label>
+        <label class="facture-only">Acompte déjà reçu CHF<input id="depositAmount" type="number" step="10" value="0"></label>
+        <label class="facture-only">Date de l’acompte<input id="depositDate" type="date"></label>
         <label>Client<input id="clientName" value="Orchestre — prestation privée"></label>
         <label>Email client<input id="clientEmail" placeholder="email@client.ch"></label>
         <label>Téléphone client<input id="clientPhone" placeholder="+41 ..."></label>
