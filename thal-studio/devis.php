@@ -259,6 +259,8 @@ Téléchargement HD</textarea></label>
         <label>Adresse / mention<input id="companyAddress" value="Suisse romande"></label>
         <label>Mention TVA (vide pour masquer)<input id="vatNoteText" value="TVA non applicable"></label>
         <label>Message final<input id="finalNote" value="Merci pour votre confiance."></label>
+        <label>Version des CGV en vigueur<input id="cgvVersionDate" type="date" value="2026-08-01"></label>
+        <label>Lien vers les CGV<input id="cgvUrl" value="thalphotographie.ch/cgv.php"></label>
       </div>
     </section>
   </main>
