@@ -42,7 +42,7 @@ const ids=[
 'description','distanceKm','kmRate','prepHours','travelHours','sortHours','editHours','deliveryHours','hourlyRate','gearCost','overtimeRate','priceMode','packagePrice','discountPercent','rounding','licenseType','licenseCommercialPrice','licenseCommercialWaived','showHourly',
 'included','terms','legalIpClause','legalImageRightsClause','vatNoteText','compactMode','docScale','pagePadding','blockGap','logoWidth','logoDarken','logoOffsetX','logoTop','logoColorMode','logoTintColor','logoTint','headerGap',
 'titleSize','titleOffsetX','titleOffsetY','subtitleSize','bodySize','smallTextSize','contactSize','mainColor','paperColor','documentTextColor','fieldLabelColor','lineColor','priceBgColor','priceTextPreset','priceTextColor','priceAccentColor',
-'companyName','companyEmail','companyPhone','companyWebsite','companyAddress','finalNote'
+'companyName','companyEmail','companyPhone','companyWebsite','companyAddress','finalNote','cgvVersionDate','cgvUrl'
 ];
 const layoutFields=[
   'compactMode','docScale','pagePadding','blockGap',
@@ -177,6 +177,15 @@ function update(){
     <p class="tq-legal">${htmlOrDash(val('legalIpClause'))}</p>
     <p class="tq-legal">${htmlOrDash(val('legalImageRightsClause'))}</p>
   `;
+  const cgvVersionLabel = dateFr(val('cgvVersionDate'));
+  const cgvUrlText = (val('cgvUrl') || 'thalphotographie.ch/cgv.php').trim();
+  const cgvClauseHtml = isInvoice
+    ? `<p class="tq-flow">Prestation soumise aux Conditions générales de vente et de prestation de THAL Photographie, acceptées lors de la validation du devis.</p>`
+    : `<section class="tq-section tq-cgv">
+         <span class="tq-eyebrow">Conditions contractuelles</span>
+         <p>En signant le présent devis, le Client confirme avoir reçu, lu et accepté sans réserve les Conditions générales de vente et de prestation de THAL Photographie, version du ${cgvVersionLabel}, annexées au présent devis et disponibles à l’adresse ${esc(cgvUrlText)}.</p>
+         <p class="tq-cgv-check">☐ J’ai lu et j’accepte les Conditions générales de vente et de prestation.</p>
+       </section>`;
   const vatNoteHtml = val('vatNoteText').trim() ? `<p class="tq-muted" style="text-align:center;margin-top:2px">${textOrDash(val('vatNoteText'))}</p>` : '';
   const calculationHtml = $('showHourly').checked ? `
     <section class="tq-section tq-calc">
@@ -272,6 +281,8 @@ function update(){
     ${overtimeHtml}
     ${legalHtml}
   </section>
+
+  ${cgvClauseHtml}
 
   <section class="tq-sign">
     <div>

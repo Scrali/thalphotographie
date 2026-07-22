@@ -10,5 +10,6 @@ if ($id !== '') {
     $file = __DIR__ . '/data/quotes/' . $id . '.json';
     if (is_file($file)) unlink($file);
 }
-header('Location: quotes.php');
+$redirect = ($_POST['redirect'] ?? '') === 'factures.php' ? 'factures.php' : 'quotes.php';
+header('Location: ' . $redirect);
 exit;

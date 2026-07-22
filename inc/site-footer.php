@@ -16,6 +16,8 @@ $footerDisclaimer = $footerDisclaimer ?? '';
     <button class="footerLink" type="button" data-modal="mentions">Mentions légales</button>
     <span>•</span>
     <button class="footerLink" type="button" data-modal="conditions">Conditions d’utilisation</button>
+    <span>•</span>
+    <a class="footerLink" href="cgv.php">Conditions générales de vente</a>
   </div>
 </div>
 

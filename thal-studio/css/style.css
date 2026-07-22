@@ -363,6 +363,10 @@ input[type="date"], input[type="time"]{
 .tq-flow strong{
   color:var(--main);
 }
+.tq-cgv-check{
+  margin:8px 0 0;
+  font-weight:700;
+}
 .tq-price{
   display:grid;
   grid-template-columns:1fr auto;
