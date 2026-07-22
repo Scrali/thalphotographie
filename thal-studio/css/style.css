@@ -205,6 +205,12 @@ input[type="date"], input[type="time"]{
 .search-form{display:flex;gap:8px;margin-bottom:18px}.search-form input{flex:1;background:#0f0f0f;color:#fff;border:1px solid #333;border-radius:12px;padding:12px}
 .search-form button{border:0;border-radius:999px;background:#fff;color:#111;padding:10px 16px;font-weight:700}
 .slot-status{color:#9ba3a6;font-size:12px;margin:8px 0 0}
+.pack-editor{border:1px solid #303030;border-radius:14px;padding:14px;margin-bottom:12px;display:flex;flex-direction:column;gap:10px}
+.pack-editor h4{margin:0;color:#f5f5f5}
+.checkbox-row{flex-direction:row !important;align-items:center;gap:8px !important;text-transform:none;letter-spacing:0;font-size:13px}
+.checkbox-row input{width:auto}
+.convert-form{display:flex;gap:6px;align-items:center}
+.convert-form select{max-width:220px;padding:7px 9px;font-size:13px}
 
 /* V0.4.0 — slots sécurisés */
 .slot-row{grid-template-columns:1.2fr .75fr .65fr !important;}

@@ -1,28 +1,60 @@
 <?php
+function thal_pack_gammes(): array {
+    return [
+        'identite'=>'Identité',
+        'portraits'=>'Portraits',
+        'reportages'=>'Reportages',
+        'professionnels'=>'Professionnels',
+    ];
+}
+
+function thal_pack_id_slug(string $gamme, string $name): string {
+    $value = $gamme . ' ' . $name;
+    $converted = @iconv('UTF-8', 'ASCII//TRANSLIT//IGNORE', $value);
+    if ($converted !== false) $value = $converted;
+    $value = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '_', $value));
+    $value = trim((string)$value, '_');
+    return substr($value ?: ($gamme . '_pack'), 0, 60);
+}
+
 function thal_pack_settings(?string $baseDir = null): array {
     $baseDir = $baseDir ?: dirname(__DIR__);
     $file = $baseDir . '/data/settings/packs.json';
     $defaults = [
-        'home_address'=>'Sainte-Croix, VD, Suisse',
-        'home_lat'=>46.8225,
-        'home_lon'=>6.5019,
-        'ors_api_key'=>'',
-        'google_calendar_ical_url'=>'',
-        'distance_margin_percent'=>15,
-        'km_included'=>30,
-        'km_rate'=>0.60,
-        'commercial_percent'=>30,
         'range_percent'=>10,
         'rounding'=>10,
         'packs'=>[
-            ['id'=>'pack_1','name'=>'Essentiel 1 heure','duration_hours'=>1,'base_price'=>250,'photos'=>20,'features'=>['Galerie privée','Livraison HD','Sauvegarde 1 an']],
-            ['id'=>'pack_2','name'=>'Essentiel 2 heures','duration_hours'=>2,'base_price'=>390,'photos'=>40,'features'=>['Galerie privée','Livraison HD','Sauvegarde 1 an']],
-            ['id'=>'pack_3','name'=>'Premium 4 heures','duration_hours'=>4,'base_price'=>790,'photos'=>80,'features'=>['Galerie privée','Livraison HD','Sauvegarde 1 an']],
+            ['id'=>'identite_photo','gamme'=>'identite','name'=>'Photo passeport / permis','details'=>'1 photo officielle (fedpol, passeport, visa, permis)','price'=>35,'photos'=>1,'custom'=>false,'features'=>['Tirage papier au format officiel','Version numérique haute définition']],
+            ['id'=>'identite_supplement','gamme'=>'identite','name'=>'Photo supplémentaire','details'=>'Par photo additionnelle, même séance','price'=>25,'photos'=>1,'custom'=>false,'features'=>[]],
+            ['id'=>'portrait_individuel','gamme'=>'portraits','name'=>'Individuel','details'=>'45 minutes','price'=>195,'photos'=>10,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
+            ['id'=>'portrait_duo','gamme'=>'portraits','name'=>'Duo / Grossesse','details'=>'1 heure','price'=>245,'photos'=>15,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
+            ['id'=>'portrait_famille','gamme'=>'portraits','name'=>'Famille','details'=>'1 heure 30','price'=>325,'photos'=>20,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
+            ['id'=>'reportage_essentiel','gamme'=>'reportages','name'=>'Essentiel','details'=>'2 heures de couverture','price'=>390,'photos'=>0,'custom'=>false,'features'=>['Tri et sélection des meilleures images','Retouche professionnelle','Galerie privée en ligne','Téléchargement HD']],
+            ['id'=>'reportage_demi_journee','gamme'=>'reportages','name'=>'Demi-journée','details'=>'4 heures de couverture','price'=>690,'photos'=>0,'custom'=>false,'features'=>['Tri et sélection des meilleures images','Retouche professionnelle','Galerie privée en ligne','Téléchargement HD']],
+            ['id'=>'reportage_etendu','gamme'=>'reportages','name'=>'Étendu','details'=>'6 heures de couverture','price'=>990,'photos'=>0,'custom'=>false,'features'=>['Tri et sélection des meilleures images','Retouche professionnelle','Galerie privée en ligne','Téléchargement HD']],
+            ['id'=>'reportage_mariage','gamme'=>'reportages','name'=>'Mariage — journée complète','details'=>'Préparatifs à la soirée','price'=>0,'photos'=>0,'custom'=>true,'features'=>[]],
+            ['id'=>'pro_artisan','gamme'=>'professionnels','name'=>'Artisan','details'=>'Portrait, atelier, équipe','price'=>490,'photos'=>0,'custom'=>false,'features'=>['Portrait professionnel','Images d’atelier','Photos d’équipe']],
+            ['id'=>'pro_pme','gamme'=>'professionnels','name'=>'PME','details'=>'Collaborateurs, locaux, communication','price'=>890,'photos'=>0,'custom'=>false,'features'=>['Portraits des collaborateurs','Images des locaux','Contenu pour votre communication']],
+            ['id'=>'pro_corporate','gamme'=>'professionnels','name'=>'Corporate / multi-sites','details'=>'Plusieurs sites ou équipes','price'=>0,'photos'=>0,'custom'=>true,'features'=>['Coordination sur mesure','Contenu de communication complet']],
         ],
     ];
     if (!is_file($file)) return $defaults;
     $data = json_decode((string)file_get_contents($file), true);
-    return is_array($data) ? array_merge($defaults, $data) : $defaults;
+    if (!is_array($data)) return $defaults;
+    $merged = array_merge($defaults, $data);
+    if (empty($merged['packs'])) $merged['packs'] = $defaults['packs'];
+    return $merged;
+}
+
+function thal_pack_settings_by_gamme(array $settings): array {
+    $byGamme = [];
+    foreach (array_keys(thal_pack_gammes()) as $gKey) $byGamme[$gKey] = [];
+    foreach ($settings['packs'] as $pack) {
+        $gKey = (string)($pack['gamme'] ?? '');
+        if (!isset($byGamme[$gKey])) $byGamme[$gKey] = [];
+        $byGamme[$gKey][] = $pack;
+    }
+    return $byGamme;
 }
 
 function thal_round_to(float $value, float $step): float {
@@ -30,63 +62,49 @@ function thal_round_to(float $value, float $step): float {
     return round($value / $step) * $step;
 }
 
-function thal_select_pack(float $requestedHours, array $packs): array {
-    usort($packs, fn($a, $b) => ((float)$a['duration_hours']) <=> ((float)$b['duration_hours']));
+function thal_find_pack(string $packId, array $packs): ?array {
     foreach ($packs as $pack) {
-        if ((float)$pack['duration_hours'] >= $requestedHours) return $pack;
+        if ((string)($pack['id'] ?? '') === $packId) return $pack;
     }
-    return end($packs);
+    return null;
 }
 
-function thal_pack_calculate(array $input, array $settings): array {
-    $requestedHours = max(0.5, (float)($input['onsite_hours'] ?? 2));
-    $roundtripKm = max(0, (float)($input['roundtrip_km'] ?? 0));
-    $usage = (string)($input['usage'] ?? 'private');
-
-    $pack = thal_select_pack($requestedHours, $settings['packs']);
-    $basePrice = (float)$pack['base_price'];
-
-    $extraKm = max(0, $roundtripKm - (float)$settings['km_included']);
-    $kmCost = $extraKm * (float)$settings['km_rate'];
-
-    $commercialFee = 0;
-    if ($usage === 'commercial') {
-        $commercialFee = ($basePrice + $kmCost) * ((float)$settings['commercial_percent'] / 100);
-    }
-
-    $recommended = thal_round_to($basePrice + $kmCost + $commercialFee, (float)$settings['rounding']);
+function thal_pack_calculate(array $pack, array $settings): array {
+    $basePrice = (float)($pack['price'] ?? 0);
+    $recommended = $basePrice;
     $range = max(0, (float)$settings['range_percent']) / 100;
 
     return [
         'pack_id'=>(string)($pack['id'] ?? ''),
-        'pack_name'=>(string)$pack['name'],
-        'pack_duration'=>(float)$pack['duration_hours'],
-        'requested_hours'=>$requestedHours,
-        'included_photos'=>(int)$pack['photos'],
+        'pack_name'=>(string)($pack['name'] ?? ''),
+        'pack_gamme'=>(string)($pack['gamme'] ?? ''),
+        'pack_details'=>(string)($pack['details'] ?? ''),
+        'included_photos'=>(int)($pack['photos'] ?? 0),
         'features'=>array_values($pack['features'] ?? []),
+        'is_custom'=>!empty($pack['custom']),
         'base_price'=>(int)$basePrice,
-        'roundtrip_km'=>round($roundtripKm, 1),
-        'km_included'=>(float)$settings['km_included'],
-        'extra_km'=>round($extraKm, 1),
-        'km_rate'=>(float)$settings['km_rate'],
-        'km_cost'=>(int)thal_round_to($kmCost, (float)$settings['rounding']),
-        'commercial_fee'=>(int)thal_round_to($commercialFee, (float)$settings['rounding']),
-        'commercial_percent'=>(float)$settings['commercial_percent'],
         'price_recommended'=>(int)$recommended,
         'price_min'=>(int)thal_round_to($recommended * (1 - $range), (float)$settings['rounding']),
         'price_max'=>(int)thal_round_to($recommended * (1 + $range), (float)$settings['rounding']),
-        'usage'=>$usage,
     ];
 }
 
 function thal_estimation_to_quote(array $estimate, array $pricing, array $settings): array {
-    $start = '14:00';
-    $end = date('H:i', strtotime($start) + ((float)$pricing['pack_duration'] * 3600));
     $clientName = trim((string)($estimate['name'] ?? 'Client'));
     if ($clientName === '') $clientName = 'Client';
 
-    $features = array_merge([$pricing['included_photos'] . ' photos retouchées'], $pricing['features'] ?? []);
+    $features = $pricing['included_photos'] > 0
+        ? array_merge([$pricing['included_photos'] . ' photos retouchées'], $pricing['features'] ?? [])
+        : ($pricing['features'] ?? []);
     $included = implode("\n", array_map(fn($f) => "- " . $f, $features));
+
+    $descriptionParts = [];
+    if (!empty($pricing['pack_name'])) {
+        $descriptionParts[] = "Formule retenue : {$pricing['pack_name']}" . ($pricing['pack_details'] ? " ({$pricing['pack_details']})" : '');
+    }
+    if (!empty($estimate['message'])) {
+        $descriptionParts[] = "Message du client :\n" . $estimate['message'];
+    }
 
     return [
         'quoteNumber'=>'DEV-' . date('Y') . '-' . date('His'),
@@ -96,17 +114,17 @@ function thal_estimation_to_quote(array $estimate, array $pricing, array $settin
         'clientEmail'=>(string)($estimate['email'] ?? ''),
         'clientPhone'=>(string)($estimate['phone'] ?? ''),
         'clientAddress'=>'',
-        'serviceType'=>(string)($estimate['type'] ?? 'Prestation photographique'),
+        'serviceType'=>(string)($pricing['pack_name'] ?: 'Prestation photographique'),
         'eventDate'=>(string)($estimate['event_date'] ?? ''),
         'eventPlace'=>(string)($estimate['location'] ?? ''),
-        'startTime'=>$start,
-        'endTime'=>$end,
-        'photosDelivered'=>$pricing['included_photos'] . ' photos retouchées incluses',
-        'deliveryDelay'=>'1 semaine',
-        'description'=>"Pack recommandé : {$pricing['pack_name']}\nUsage : " . ($pricing['usage'] === 'commercial' ? 'Utilisation commerciale' : 'Cadre privé') . "\nBudget estimatif initial : entre {$pricing['price_min']} CHF et {$pricing['price_max']} CHF.",
-        'distanceKm'=>(string)$pricing['roundtrip_km'],
-        'kmRate'=>(string)$pricing['km_rate'],
-        'prepHours'=>'0.5',
+        'startTime'=>'',
+        'endTime'=>'',
+        'photosDelivered'=>$pricing['included_photos'] > 0 ? $pricing['included_photos'] . ' photos retouchées incluses' : '',
+        'deliveryDelay'=>'2 à 3 semaines',
+        'description'=>implode("\n\n", $descriptionParts),
+        'distanceKm'=>'',
+        'kmRate'=>'',
+        'prepHours'=>'0',
         'travelHours'=>'0',
         'sortHours'=>'0',
         'editHours'=>'0',
@@ -117,15 +135,9 @@ function thal_estimation_to_quote(array $estimate, array $pricing, array $settin
         'packagePrice'=>(string)$pricing['price_recommended'],
         'discountPercent'=>'0',
         'rounding'=>(string)$settings['rounding'],
-        'showCommercialRights'=>$pricing['usage'] === 'commercial',
-        'commercialRightsFee'=>(string)$pricing['commercial_fee'],
-        'commercialRightsLabel'=>'Utilisation commerciale',
         'showHourly'=>false,
         'included'=>$included,
         'terms'=>"Devis valable jusqu’à la date indiquée. Paiement à réception du devis validé ou au plus tard le jour de la prestation, sauf accord contraire.",
-        '_meta'=>['source'=>'estimation','sourceId'=>(string)($estimate['_id'] ?? ''),'pricingEngine'=>'pack-v0.7.0'],
+        '_meta'=>['source'=>'estimation','sourceId'=>(string)($estimate['_id'] ?? ''),'pricingEngine'=>'pack-v1.0'],
     ];
 }
-
-function thal_pricing_settings(?string $baseDir = null): array { return thal_pack_settings($baseDir); }
-function thal_pricing_calculate(array $input, array $settings): array { return thal_pack_calculate($input, $settings); }

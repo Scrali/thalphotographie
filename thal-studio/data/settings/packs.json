@@ -1,73 +1,164 @@
 {
-  "home_address": "Sainte-Croix, VD, Suisse",
-  "home_lat": 46.8225,
-  "home_lon": 6.5019,
-  "ors_api_key": "",
-  "km_included": 30,
-  "km_rate": 0.6,
-  "commercial_percent": 30,
-  "range_percent": 10,
-  "rounding": 10,
-  "packs": [
-    {
-      "id": "pack_1",
-      "name": "Essentiel 1 heure",
-      "duration_hours": 1,
-      "base_price": 250,
-      "photos": 20,
-      "features": [
-        "Galerie privée",
-        "Livraison HD",
-        "Sauvegarde 1 an"
-      ]
-    },
-    {
-      "id": "pack_2",
-      "name": "Essentiel 2 heures",
-      "duration_hours": 2,
-      "base_price": 390,
-      "photos": 40,
-      "features": [
-        "Galerie privée",
-        "Livraison HD",
-        "Sauvegarde 1 an"
-      ]
-    },
-    {
-      "id": "pack_3",
-      "name": "Premium 4 heures",
-      "duration_hours": 4,
-      "base_price": 790,
-      "photos": 80,
-      "features": [
-        "Galerie privée",
-        "Livraison HD",
-        "Sauvegarde 1 an"
-      ]
-    },
-    {
-      "id": "pack_4",
-      "name": "Prestige 6 heures",
-      "duration_hours": 6,
-      "base_price": 1190,
-      "photos": 130,
-      "features": [
-        "Galerie privée",
-        "Livraison HD",
-        "Sauvegarde 1 an"
-      ]
-    },
-    {
-      "id": "pack_5",
-      "name": "Journée 8 heures",
-      "duration_hours": 8,
-      "base_price": 1590,
-      "photos": 180,
-      "features": [
-        "Galerie privée",
-        "Livraison HD",
-        "Sauvegarde 1 an"
-      ]
-    }
-  ]
+    "range_percent": 10,
+    "rounding": 10,
+    "packs": [
+        {
+            "id": "identite_photo",
+            "gamme": "identite",
+            "name": "Photo passeport \/ permis",
+            "details": "1 photo officielle (fedpol, passeport, visa, permis)",
+            "price": 35,
+            "photos": 1,
+            "custom": false,
+            "features": [
+                "Tirage papier au format officiel",
+                "Version numérique haute définition"
+            ]
+        },
+        {
+            "id": "identite_supplement",
+            "gamme": "identite",
+            "name": "Photo supplémentaire",
+            "details": "Par photo additionnelle, même séance",
+            "price": 25,
+            "photos": 1,
+            "custom": false,
+            "features": []
+        },
+        {
+            "id": "portrait_individuel",
+            "gamme": "portraits",
+            "name": "Individuel",
+            "details": "45 minutes",
+            "price": 195,
+            "photos": 10,
+            "custom": false,
+            "features": [
+                "Sélection accompagnée",
+                "Galerie privée en ligne"
+            ]
+        },
+        {
+            "id": "portrait_duo",
+            "gamme": "portraits",
+            "name": "Duo \/ Grossesse",
+            "details": "1 heure",
+            "price": 245,
+            "photos": 15,
+            "custom": false,
+            "features": [
+                "Sélection accompagnée",
+                "Galerie privée en ligne"
+            ]
+        },
+        {
+            "id": "portrait_famille",
+            "gamme": "portraits",
+            "name": "Famille",
+            "details": "1 heure 30",
+            "price": 325,
+            "photos": 20,
+            "custom": false,
+            "features": [
+                "Sélection accompagnée",
+                "Galerie privée en ligne"
+            ]
+        },
+        {
+            "id": "reportage_essentiel",
+            "gamme": "reportages",
+            "name": "Essentiel",
+            "details": "2 heures de couverture",
+            "price": 390,
+            "photos": 0,
+            "custom": false,
+            "features": [
+                "Tri et sélection des meilleures images",
+                "Retouche professionnelle",
+                "Galerie privée en ligne",
+                "Téléchargement HD"
+            ]
+        },
+        {
+            "id": "reportage_demi_journee",
+            "gamme": "reportages",
+            "name": "Demi-journée",
+            "details": "4 heures de couverture",
+            "price": 690,
+            "photos": 0,
+            "custom": false,
+            "features": [
+                "Tri et sélection des meilleures images",
+                "Retouche professionnelle",
+                "Galerie privée en ligne",
+                "Téléchargement HD"
+            ]
+        },
+        {
+            "id": "reportage_etendu",
+            "gamme": "reportages",
+            "name": "Étendu",
+            "details": "6 heures de couverture",
+            "price": 990,
+            "photos": 0,
+            "custom": false,
+            "features": [
+                "Tri et sélection des meilleures images",
+                "Retouche professionnelle",
+                "Galerie privée en ligne",
+                "Téléchargement HD"
+            ]
+        },
+        {
+            "id": "reportage_mariage",
+            "gamme": "reportages",
+            "name": "Mariage — journée complète",
+            "details": "Préparatifs à la soirée",
+            "price": 0,
+            "photos": 0,
+            "custom": true,
+            "features": []
+        },
+        {
+            "id": "pro_artisan",
+            "gamme": "professionnels",
+            "name": "Artisan",
+            "details": "Portrait, atelier, équipe",
+            "price": 490,
+            "photos": 0,
+            "custom": false,
+            "features": [
+                "Portrait professionnel",
+                "Images d’atelier",
+                "Photos d’équipe"
+            ]
+        },
+        {
+            "id": "pro_pme",
+            "gamme": "professionnels",
+            "name": "PME",
+            "details": "Collaborateurs, locaux, communication",
+            "price": 890,
+            "photos": 0,
+            "custom": false,
+            "features": [
+                "Portraits des collaborateurs",
+                "Images des locaux",
+                "Contenu pour votre communication"
+            ]
+        },
+        {
+            "id": "pro_corporate",
+            "gamme": "professionnels",
+            "name": "Corporate \/ multi-sites",
+            "details": "Plusieurs sites ou équipes",
+            "price": 0,
+            "photos": 0,
+            "custom": true,
+            "features": [
+                "Coordination sur mesure",
+                "Contenu de communication complet"
+            ]
+        }
+    ]
 }
