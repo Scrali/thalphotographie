@@ -51,7 +51,7 @@ function thal_mail_safe(string $v): string {
 }
 
 function thal_notify_new_lead(array $entry): void {
-    $to = 'contact@thalphotographie.ch';
+    $to = 'thalphotographie@bluewin.ch';
     $subject = 'Nouvelle demande sur le site — ' . thal_mail_safe((string)($entry['name'] ?: 'Contact'));
 
     $lines = [
