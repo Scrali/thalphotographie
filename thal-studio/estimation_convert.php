@@ -25,11 +25,9 @@ if (!is_array($estimate)) { header('Location: estimations.php'); exit; }
 
 $estimate['_id'] = basename($file);
 $settings = thal_pack_settings(__DIR__);
-$pricing = $estimate['pricing'] ?? thal_pack_calculate([
-    'onsite_hours'=>$estimate['onsite_hours'] ?? 1,
-    'roundtrip_km'=>$estimate['roundtrip_km'] ?? 0,
-    'usage'=>$estimate['usage'] ?? 'private',
-], $settings);
+$packId = (string)($_POST['pack_id'] ?? '');
+$pack = $packId !== '' ? thal_find_pack($packId, $settings['packs']) : null;
+$pricing = thal_pack_calculate($pack ?? ['id'=>'','name'=>'','details'=>'','price'=>0,'photos'=>0,'features'=>[],'custom'=>true], $settings);
 
 $quote = thal_estimation_to_quote($estimate, $pricing, $settings);
 $quoteId = thal_slug($quote['quoteNumber'] . '_' . $quote['clientName']);
@@ -43,6 +41,10 @@ file_put_contents($quoteDir . '/' . $quoteId . '.json', json_encode($quote, JSON
 $estimate['status'] = 'converted';
 $estimate['convertedQuoteId'] = $quoteId;
 $estimate['convertedAt'] = date('c');
+$estimate['pack_name'] = $pricing['pack_name'];
+$estimate['price_min'] = $pricing['price_min'];
+$estimate['price_max'] = $pricing['price_max'];
+$estimate['price_recommended'] = $pricing['price_recommended'];
 file_put_contents($file, json_encode($estimate, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE), LOCK_EX);
 
 header('Location: devis.php?q=' . urlencode($quoteId));

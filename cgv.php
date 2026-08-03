@@ -25,6 +25,8 @@ $footerDisclaimer = '';
     .cgvTable th{color:#d3edf5; background:rgba(255,255,255,.04); font-weight:800;}
     .cgvDoc hr{border:0; border-top:1px solid rgba(255,255,255,.10); margin:30px 0;}
     .cgvFoot{color:var(--muted2); font-size:13px; font-style:italic;}
+    .cgvHead{display:flex; align-items:flex-start; justify-content:space-between; gap:16px;}
+    .cgvClose{flex:0 0 auto; width:42px; height:42px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.055); color:var(--text); font-size:22px; cursor:pointer; text-decoration:none; display:flex; align-items:center; justify-content:center; line-height:1;}
   </style>
 </head>
 <body>
@@ -32,9 +34,14 @@ $footerDisclaimer = '';
     <?php include __DIR__ . '/inc/site-nav.php'; ?>
 
     <main>
-      <section class="card cgvDoc reveal">
-        <h1>Conditions générales de vente et de prestation</h1>
-        <p class="cgvMeta"><strong>THAL Photographie</strong> — Sainte-Croix (VD), Suisse<br>Version 1.0 — en vigueur au 1<sup>er</sup> août 2026</p>
+      <section class="card cgvDoc">
+        <div class="cgvHead">
+          <div>
+            <h1>Conditions générales de vente et de prestation</h1>
+            <p class="cgvMeta"><strong>THAL Photographie</strong> — Sainte-Croix (VD), Suisse<br>Version 1.0 — en vigueur au 1<sup>er</sup> août 2026</p>
+          </div>
+          <a href="index.html" class="cgvClose" id="cgvClose" aria-label="Fermer">×</a>
+        </div>
 
         <h2>1. Champ d’application</h2>
         <p>Les présentes conditions générales (ci-après « CG ») régissent l’ensemble des prestations photographiques fournies par THAL Photographie (ci-après « le Photographe ») à ses clients (ci-après « le Client »).</p>
@@ -116,5 +123,13 @@ $footerDisclaimer = '';
 
     <?php include __DIR__ . '/inc/site-footer.php'; ?>
   </div>
+  <script>
+    document.getElementById('cgvClose').addEventListener('click', function (e) {
+      if (window.history.length > 1) {
+        e.preventDefault();
+        window.history.back();
+      }
+    });
+  </script>
 </body>
 </html>
