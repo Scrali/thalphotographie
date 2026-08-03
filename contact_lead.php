@@ -1,5 +1,6 @@
 <?php
 header('Content-Type: application/json; charset=utf-8');
+require_once __DIR__ . '/thal-studio/includes/notifications.php';
 
 function clean($v) { return trim((string)$v); }
 
@@ -42,6 +43,15 @@ $ok = file_put_contents($dir . '/' . $id . '.json', json_encode($entry, JSON_PRE
 
 if ($ok) {
     thal_notify_new_lead($entry);
+
+    $pushMessage = trim((string)$entry['message']) !== '' ? mb_strimwidth($entry['message'], 0, 200, '…') : 'Nouveau message depuis le site.';
+    if ($entry['email'] !== '') $pushMessage .= "\n" . $entry['email'];
+    thal_send_ntfy_notification(
+        'Nouvelle demande — ' . thal_mail_safe((string)($entry['name'] ?: 'Contact')),
+        $pushMessage,
+        __DIR__ . '/thal-studio',
+        'https://thalphotographie.ch/thal-studio/estimations.php'
+    );
 }
 
 echo json_encode(['ok' => $ok, 'id' => $id]);

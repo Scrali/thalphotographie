@@ -9,6 +9,11 @@ require __DIR__ . '/includes/header.php';
     <strong>Changer le mot de passe</strong>
     <p>Modifier le mot de passe de connexion sans générer de hash à la main.</p>
   </a>
+  <a class="card" href="notifications_settings.php">
+    <span>🔔</span>
+    <strong>Notifications</strong>
+    <p>Recevoir une alerte sur ton téléphone à chaque nouvelle demande sur le site.</p>
+  </a>
   <div class="card">
     <span>👤</span>
     <strong>Utilisateur</strong>
