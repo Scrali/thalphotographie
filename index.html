@@ -892,7 +892,7 @@
       if(items.length <= 1) return;
 
       if(root._timer) clearInterval(root._timer);
-      root._timer = setInterval(()=>bounceStep(root), AUTO_MS);
+      root._timer = setInterval(()=>next(root), AUTO_MS);
     }
 
     function prev(root){
@@ -913,22 +913,6 @@
       update(root);
     }
 
-    function bounceStep(root){
-      const items = root._items || [];
-      if(items.length <= 1) return;
-
-      let idx = Number(root.dataset.idx || 0);
-      let dir = Number(root.dataset.dir || 1);
-
-      if(idx >= items.length - 1) dir = -1;
-      else if(idx <= 0) dir = 1;
-
-      idx += dir;
-
-      root.dataset.idx = String(idx);
-      root.dataset.dir = String(dir);
-      update(root);
-    }
 
     function update(root){
       const idx = Number(root.dataset.idx || 0);
