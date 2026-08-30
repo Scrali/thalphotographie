@@ -5,3 +5,4 @@ thal-studio/data/quotes/*.json
 thal-studio/data/estimations/*.json
 thal-studio/data/layouts/*.json
 thal-studio/data/security/*.json
+maintenance.lock

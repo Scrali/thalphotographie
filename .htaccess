@@ -17,3 +17,17 @@ RedirectMatch 404 /\.env
 RedirectMatch 404 /\.ht
 RedirectMatch 404 /Thumbs\.db$
 RedirectMatch 404 /_Thumbs\.db$
+
+# Mode maintenance : la clé secrète pose un cookie de prévisualisation valable ~100 jours.
+RewriteCond %{QUERY_STRING} (^|&)preview_key=2e8fa5c75617ded9b873b33c8dc15040b5d48e72(&|$)
+RewriteRule ^ - [CO=thal_preview:1:%{HTTP_HOST}:8640000:/;HttpOnly,L]
+
+# Mode maintenance : bloque le site public pour tout le monde sauf Thal Studio
+# et les visiteurs munis du cookie de prévisualisation ou de la clé secrète.
+RewriteCond %{DOCUMENT_ROOT}/maintenance.lock -f
+RewriteCond %{HTTP_COOKIE} !thal_preview=1
+RewriteCond %{QUERY_STRING} !(^|&)preview_key=2e8fa5c75617ded9b873b33c8dc15040b5d48e72(&|$)
+RewriteCond %{REQUEST_URI} !^/thal-studio
+RewriteCond %{REQUEST_URI} !^/maintenance\.php$
+RewriteCond %{REQUEST_URI} !^/(assets|photos)/
+RewriteRule ^ /maintenance.php [L]
