@@ -21,6 +21,7 @@ $recentClients = array_slice($clients, 0, 5);
   <div class="heading-actions">
     <a class="button" href="devis.php">Nouveau devis</a>
     <a class="button muted" href="estimation_settings.php">Packs & tarifs</a>
+    <a class="button muted" href="maintenance_settings.php">Mode maintenance</a>
   </div>
 </div>
 

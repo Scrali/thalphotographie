@@ -14,6 +14,11 @@ require __DIR__ . '/includes/header.php';
     <strong>Notifications</strong>
     <p>Recevoir une alerte sur ton téléphone à chaque nouvelle demande sur le site.</p>
   </a>
+  <a class="card" href="maintenance_settings.php">
+    <span>🚧</span>
+    <strong>Mode maintenance</strong>
+    <p>Mettre le site hors ligne pour les visiteurs pendant que tu fais des modifications.</p>
+  </a>
   <div class="card">
     <span>👤</span>
     <strong>Utilisateur</strong>
