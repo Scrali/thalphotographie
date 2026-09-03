@@ -24,9 +24,8 @@ function thal_pack_settings(?string $baseDir = null): array {
         'range_percent'=>10,
         'rounding'=>10,
         'packs'=>[
-            ['id'=>'identite_photo','gamme'=>'identite','name'=>'Photo passeport / permis','details'=>'1 photo officielle (fedpol, passeport, visa, permis)','price'=>35,'photos'=>1,'custom'=>false,'features'=>['Tirage papier au format officiel','Version numérique haute définition']],
-            ['id'=>'identite_supplement','gamme'=>'identite','name'=>'Photo supplémentaire','details'=>'Par photo additionnelle, même séance','price'=>25,'photos'=>1,'custom'=>false,'features'=>[]],
-            ['id'=>'identite_domicile','gamme'=>'identite','name'=>'Service à domicile','details'=>'4 photos imprimées sur place, zone 10-15 km incluse, +0.75 CHF/km au-delà','price'=>45,'photos'=>4,'custom'=>false,'features'=>['Impression sur place','Zone 10 à 15 km incluse','0.75 CHF/km au-delà']],
+            ['id'=>'identite_photo','gamme'=>'identite','name'=>'Photo d’identité à domicile','details'=>'1 personne, 4 photos, zone 10 à 15 km incluse, +0.75 CHF/km au-delà','price'=>45,'photos'=>4,'custom'=>false,'features'=>['Impression sur place','Zone 10 à 15 km incluse','Tirage papier au format officiel','Version numérique haute définition']],
+            ['id'=>'identite_supplement','gamme'=>'identite','name'=>'Personne supplémentaire','details'=>'Même passage, tarif réduit','price'=>25,'photos'=>4,'custom'=>false,'features'=>[]],
             ['id'=>'portrait_individuel','gamme'=>'portraits','name'=>'Individuel','details'=>'45 minutes','price'=>195,'photos'=>10,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
             ['id'=>'portrait_duo','gamme'=>'portraits','name'=>'Duo / Grossesse','details'=>'1 heure','price'=>245,'photos'=>15,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
             ['id'=>'portrait_famille','gamme'=>'portraits','name'=>'Famille','details'=>'1 heure 30','price'=>325,'photos'=>20,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
