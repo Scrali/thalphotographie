@@ -22,7 +22,7 @@
             "gamme": "identite",
             "name": "Personne supplémentaire",
             "details": "Même passage, tarif réduit",
-            "price": 25,
+            "price": 15,
             "photos": 4,
             "custom": false,
             "features": []

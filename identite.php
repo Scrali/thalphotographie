@@ -36,7 +36,7 @@ $footerDisclaimer = 'Service à domicile, zone 10 à 15 km incluse. Au-delà : 0
             <div class="lbl">1 personne, 4 photos<br>zone 10 à 15 km incluse</div>
           </div>
           <div class="identityPriceItem">
-            <div class="val">25 CHF</div>
+            <div class="val">15 CHF</div>
             <div class="lbl">dès la 2ᵉ personne<br>(même passage)</div>
           </div>
         </div>
