@@ -26,6 +26,20 @@
             "features": []
         },
         {
+            "id": "identite_domicile",
+            "gamme": "identite",
+            "name": "Service à domicile",
+            "details": "4 photos imprimées sur place, zone 10-15 km incluse, +0.75 CHF\/km au-delà",
+            "price": 45,
+            "photos": 4,
+            "custom": false,
+            "features": [
+                "Impression sur place",
+                "Zone 10 à 15 km incluse",
+                "0.75 CHF\/km au-delà"
+            ]
+        },
+        {
             "id": "portrait_individuel",
             "gamme": "portraits",
             "name": "Individuel",

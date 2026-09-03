@@ -56,6 +56,26 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
       </section>
 
       <section class="card reveal" style="padding:22px">
+        <h3 style="margin:0 0 8px; font-size:19px; color:#d3edf5">Service à domicile</h3>
+        <p style="margin:0 0 14px; color:var(--muted); line-height:1.6">
+          Vous ne pouvez pas vous déplacer ? Je viens chez vous avec le matériel d’impression : photo prise et imprimée sur place, dans un rayon de 10 à 15 km autour de Sainte-Croix.
+        </p>
+        <div class="identityPrices">
+          <div class="identityPriceItem">
+            <div class="val">45 CHF</div>
+            <div class="lbl">4 photos imprimées<br>zone 10–15 km incluse</div>
+          </div>
+          <div class="identityPriceItem">
+            <div class="val">0.75 CHF/km</div>
+            <div class="lbl">au-delà de la zone incluse</div>
+          </div>
+        </div>
+        <div class="actions" style="margin-top:14px">
+          <a class="btn" href="index.html?prefill=<?= urlencode('Bonjour, je souhaite une photo d’identité à domicile.') ?>#contact">Demander ce service</a>
+        </div>
+      </section>
+
+      <section class="card reveal" style="padding:22px">
         <h3 style="margin:0 0 8px; font-size:19px; color:#d3edf5">Entreprise ou groupe ?</h3>
         <p style="margin:0 0 14px; color:var(--muted); line-height:1.6">
           Pour une équipe, une école ou un groupe nombreux, un devis personnalisé permet d’organiser les séances selon vos contraintes d’horaire et de lieu.
