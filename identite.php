@@ -7,7 +7,7 @@ $footerDisclaimer = 'Service à domicile, zone 10 à 15 km incluse. Au-delà : 0
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Photos d’identité conformes — THAL Photographie</title>
+  <title>Photo d’identité à domicile — THAL Photographie</title>
   <meta name="description" content="Photo d’identité conforme aux normes fedpol (passeport, carte d’identité, visa, permis), prise et imprimée à domicile dans le Nord vaudois. Résultat fiable, accepté du premier coup." />
   <meta name="theme-color" content="#070b16" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
@@ -19,7 +19,7 @@ $footerDisclaimer = 'Service à domicile, zone 10 à 15 km incluse. Au-delà : 0
     <main>
       <section class="card pageHero reveal">
         <span class="pageKicker">Photos d’identité</span>
-        <h1>Une photo d’identité conforme,<br>prise chez vous.</h1>
+        <h1>Photo d’identité à domicile</h1>
         <p class="lead">
           Format et fond conformes aux exigences fedpol pour passeport, carte d’identité, visa et permis de séjour.
           Je me déplace à votre domicile avec le matériel de prise de vue et d’impression : photo prise et imprimée
