@@ -36,7 +36,7 @@ $footerDisclaimer = 'Service à domicile, zone 15 km incluse (depuis Sainte-Croi
             <div class="lbl">1 personne, 4 photos<br>zone 15 km incluse</div>
           </div>
           <div class="identityPriceItem">
-            <div class="val">15 CHF</div>
+            <div class="val">20 CHF</div>
             <div class="lbl">2ᵉ personne<br>(même passage)</div>
           </div>
           <div class="identityPriceItem">

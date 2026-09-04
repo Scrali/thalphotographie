@@ -25,7 +25,7 @@ function thal_pack_settings(?string $baseDir = null): array {
         'rounding'=>10,
         'packs'=>[
             ['id'=>'identite_photo','gamme'=>'identite','name'=>'Photo d’identité à domicile','details'=>'1 personne, 4 photos, zone 15 km incluse (depuis Sainte-Croix), +0.75 CHF/km au-delà','price'=>45,'photos'=>4,'custom'=>false,'features'=>['Impression sur place','Zone 15 km incluse','Tirage papier au format officiel','Version numérique haute définition']],
-            ['id'=>'identite_supplement_2','gamme'=>'identite','name'=>'2ᵉ personne','details'=>'Même passage, tarif réduit','price'=>15,'photos'=>4,'custom'=>false,'features'=>[]],
+            ['id'=>'identite_supplement_2','gamme'=>'identite','name'=>'2ᵉ personne','details'=>'Même passage, tarif réduit','price'=>20,'photos'=>4,'custom'=>false,'features'=>[]],
             ['id'=>'identite_supplement_3plus','gamme'=>'identite','name'=>'3ᵉ personne et suivantes','details'=>'Même passage, tarif réduit','price'=>10,'photos'=>4,'custom'=>false,'features'=>[]],
             ['id'=>'portrait_individuel','gamme'=>'portraits','name'=>'Individuel','details'=>'45 minutes','price'=>195,'photos'=>10,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
             ['id'=>'portrait_duo','gamme'=>'portraits','name'=>'Duo / Grossesse','details'=>'1 heure','price'=>245,'photos'=>15,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
