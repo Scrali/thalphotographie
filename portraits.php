@@ -75,6 +75,15 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
       <p class="cardNote reveal">
         Chaque séance comprend la sélection, la retouche professionnelle et la livraison via galerie privée en ligne.
       </p>
+
+      <div class="highlightBlock reveal">
+        <h3>Grand groupe</h3>
+        <p>
+          Pour une école, un groupe d’amis ou une famille élargie, un devis personnalisé permet d’organiser la séance
+          selon vos contraintes d’horaire et de lieu.
+        </p>
+        <a class="btn" href="index.html?prefill=<?= urlencode('Demande de devis groupe (école, amis, famille élargie).') ?>#contact">Demander un devis groupe</a>
+      </div>
     </main>
 
     <?php include __DIR__ . '/inc/site-footer.php'; ?>
