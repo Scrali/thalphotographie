@@ -25,10 +25,12 @@ function thal_pack_settings(?string $baseDir = null): array {
         'rounding'=>10,
         'packs'=>[
             ['id'=>'identite_photo','gamme'=>'identite','name'=>'Photo d’identité à domicile','details'=>'1 personne, 4 photos, zone 15 km incluse (depuis Sainte-Croix), +0.75 CHF/km au-delà','price'=>45,'photos'=>4,'custom'=>false,'features'=>['Impression sur place','Zone 15 km incluse','Tirage papier au format officiel','Version numérique haute définition']],
-            ['id'=>'identite_supplement','gamme'=>'identite','name'=>'Personne supplémentaire','details'=>'Même passage, tarif réduit','price'=>15,'photos'=>4,'custom'=>false,'features'=>[]],
+            ['id'=>'identite_supplement_2','gamme'=>'identite','name'=>'2ᵉ personne','details'=>'Même passage, tarif réduit','price'=>15,'photos'=>4,'custom'=>false,'features'=>[]],
+            ['id'=>'identite_supplement_3plus','gamme'=>'identite','name'=>'3ᵉ personne et suivantes','details'=>'Même passage, tarif réduit','price'=>10,'photos'=>4,'custom'=>false,'features'=>[]],
             ['id'=>'portrait_individuel','gamme'=>'portraits','name'=>'Individuel','details'=>'45 minutes','price'=>195,'photos'=>10,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
             ['id'=>'portrait_duo','gamme'=>'portraits','name'=>'Duo / Grossesse','details'=>'1 heure','price'=>245,'photos'=>15,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
             ['id'=>'portrait_famille','gamme'=>'portraits','name'=>'Famille','details'=>'1 heure 30','price'=>325,'photos'=>20,'custom'=>false,'features'=>['Sélection accompagnée','Galerie privée en ligne']],
+            ['id'=>'portrait_groupe','gamme'=>'portraits','name'=>'Grand groupe','details'=>'École, amis, famille élargie','price'=>0,'photos'=>0,'custom'=>true,'features'=>[]],
             ['id'=>'reportage_essentiel','gamme'=>'reportages','name'=>'Essentiel','details'=>'2 heures de couverture','price'=>390,'photos'=>0,'custom'=>false,'features'=>['Tri et sélection des meilleures images','Retouche professionnelle','Galerie privée en ligne','Téléchargement HD']],
             ['id'=>'reportage_demi_journee','gamme'=>'reportages','name'=>'Demi-journée','details'=>'4 heures de couverture','price'=>690,'photos'=>0,'custom'=>false,'features'=>['Tri et sélection des meilleures images','Retouche professionnelle','Galerie privée en ligne','Téléchargement HD']],
             ['id'=>'reportage_etendu','gamme'=>'reportages','name'=>'Étendu','details'=>'6 heures de couverture','price'=>990,'photos'=>0,'custom'=>false,'features'=>['Tri et sélection des meilleures images','Retouche professionnelle','Galerie privée en ligne','Téléchargement HD']],

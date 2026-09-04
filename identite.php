@@ -37,7 +37,11 @@ $footerDisclaimer = 'Service à domicile, zone 15 km incluse (depuis Sainte-Croi
           </div>
           <div class="identityPriceItem">
             <div class="val">15 CHF</div>
-            <div class="lbl">dès la 2ᵉ personne<br>(même passage)</div>
+            <div class="lbl">2ᵉ personne<br>(même passage)</div>
+          </div>
+          <div class="identityPriceItem">
+            <div class="val">10 CHF</div>
+            <div class="lbl">dès la 3ᵉ personne<br>(même passage)</div>
           </div>
         </div>
 
@@ -60,14 +64,6 @@ $footerDisclaimer = 'Service à domicile, zone 15 km incluse (depuis Sainte-Croi
         <div class="actions">
           <a class="btn" href="index.html?prefill=<?= urlencode('Bonjour, je souhaite prendre rendez-vous pour une photo d’identité à domicile.') ?>#contact">Prendre rendez-vous</a>
         </div>
-      </section>
-
-      <section class="card reveal" style="padding:22px">
-        <h3 style="margin:0 0 8px; font-size:19px; color:#d3edf5">Entreprise ou groupe ?</h3>
-        <p style="margin:0 0 14px; color:var(--muted); line-height:1.6">
-          Pour une équipe, une école ou un groupe nombreux, un devis personnalisé permet d’organiser les séances selon vos contraintes d’horaire et de lieu.
-        </p>
-        <a class="ghost" href="index.html?prefill=<?= urlencode('Demande de devis groupe / entreprise pour des photos d’identité.') ?>#contact">Demander un devis groupe</a>
       </section>
     </main>
 

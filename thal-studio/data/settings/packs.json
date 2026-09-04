@@ -18,11 +18,21 @@
             ]
         },
         {
-            "id": "identite_supplement",
+            "id": "identite_supplement_2",
             "gamme": "identite",
-            "name": "Personne supplémentaire",
+            "name": "2ᵉ personne",
             "details": "Même passage, tarif réduit",
             "price": 15,
+            "photos": 4,
+            "custom": false,
+            "features": []
+        },
+        {
+            "id": "identite_supplement_3plus",
+            "gamme": "identite",
+            "name": "3ᵉ personne et suivantes",
+            "details": "Même passage, tarif réduit",
+            "price": 10,
             "photos": 4,
             "custom": false,
             "features": []
@@ -65,6 +75,16 @@
                 "Sélection accompagnée",
                 "Galerie privée en ligne"
             ]
+        },
+        {
+            "id": "portrait_groupe",
+            "gamme": "portraits",
+            "name": "Grand groupe",
+            "details": "École, amis, famille élargie",
+            "price": 0,
+            "photos": 0,
+            "custom": true,
+            "features": []
         },
         {
             "id": "reportage_essentiel",

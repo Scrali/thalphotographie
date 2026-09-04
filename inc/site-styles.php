@@ -182,7 +182,7 @@
     .cardNote{margin:14px 2px 0; color:var(--muted2); font-size:14px; line-height:1.55;}
 
     .identityBox{padding:clamp(22px,4vw,34px); display:grid; gap:20px;}
-    .identityPrices{display:grid; grid-template-columns:repeat(2,1fr); gap:14px;}
+    .identityPrices{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
     .identityPriceItem{padding:18px; border-radius:16px; border:1px solid rgba(255,255,255,.09); background:rgba(255,255,255,.04); text-align:center;}
     .identityPriceItem .val{font-size:30px; font-weight:900; color:#d3edf5;}
     .identityPriceItem .lbl{color:var(--muted); font-size:14px; margin-top:4px;}
