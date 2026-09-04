@@ -27,8 +27,6 @@ $footerDisclaimer = 'Service à domicile, zone 15 km incluse (depuis Sainte-Croi
         </p>
       </section>
 
-      <?php $carouselCategory = 'Portraits'; $carouselLabel = 'Photos d’identité'; include __DIR__ . '/inc/photo-carousel.php'; ?>
-
       <section class="card identityBox reveal">
         <div class="identityPrices">
           <div class="identityPriceItem">
