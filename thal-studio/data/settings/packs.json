@@ -6,13 +6,13 @@
             "id": "identite_photo",
             "gamme": "identite",
             "name": "Photo d’identité à domicile",
-            "details": "1 personne, 4 photos, zone 10 à 15 km incluse, +0.75 CHF\/km au-delà",
+            "details": "1 personne, 4 photos, zone 15 km incluse (depuis Sainte-Croix), +0.75 CHF\/km au-delà",
             "price": 45,
             "photos": 4,
             "custom": false,
             "features": [
                 "Impression sur place",
-                "Zone 10 à 15 km incluse",
+                "Zone 15 km incluse",
                 "Tirage papier au format officiel",
                 "Version numérique haute définition"
             ]

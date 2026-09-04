@@ -1,6 +1,6 @@
 <?php
 $activeNav = 'identite';
-$footerDisclaimer = 'Service à domicile, zone 10 à 15 km incluse. Au-delà : 0.75 CHF/km. Devis personnalisé gratuit sous 48h. TVA non applicable.';
+$footerDisclaimer = 'Service à domicile, zone 15 km incluse (depuis Sainte-Croix). Au-delà : 0.75 CHF/km. Devis personnalisé gratuit sous 48h. TVA non applicable.';
 ?>
 <!doctype html>
 <html lang="fr">
@@ -33,7 +33,7 @@ $footerDisclaimer = 'Service à domicile, zone 10 à 15 km incluse. Au-delà : 0
         <div class="identityPrices">
           <div class="identityPriceItem">
             <div class="val">45 CHF</div>
-            <div class="lbl">1 personne, 4 photos<br>zone 10 à 15 km incluse</div>
+            <div class="lbl">1 personne, 4 photos<br>zone 15 km incluse</div>
           </div>
           <div class="identityPriceItem">
             <div class="val">15 CHF</div>
@@ -42,8 +42,13 @@ $footerDisclaimer = 'Service à domicile, zone 10 à 15 km incluse. Au-delà : 0
         </div>
 
         <p class="cardNote" style="margin:0">
-          Au-delà de la zone incluse : 0.75 CHF/km. Idéal pour les familles : chaque personne supplémentaire
-          photographiée durant le même passage bénéficie du tarif réduit.
+          Zone incluse : 15 km depuis Sainte-Croix. Au-delà : 0.75 CHF/km —
+          <a href="https://www.google.com/maps/dir/?api=1&amp;origin=Sainte-Croix,+VD,+Suisse" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:underline;">vérifiez votre distance sur Google Maps</a>,
+          ou indiquez simplement votre localité dans le message de contact : je confirme le tarif exact avant de valider le rendez-vous.
+        </p>
+
+        <p class="cardNote" style="margin:0">
+          Idéal pour les familles : chaque personne supplémentaire photographiée durant le même passage bénéficie du tarif réduit.
         </p>
 
         <ul class="identityIncluded">
