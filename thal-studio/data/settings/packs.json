@@ -5,12 +5,14 @@
         {
             "id": "identite_photo",
             "gamme": "identite",
-            "name": "Photo passeport \/ permis",
-            "details": "1 photo officielle (fedpol, passeport, visa, permis)",
-            "price": 35,
-            "photos": 1,
+            "name": "Photo d’identité à domicile",
+            "details": "1 personne, 4 photos, zone 10 à 15 km incluse, +0.75 CHF\/km au-delà",
+            "price": 45,
+            "photos": 4,
             "custom": false,
             "features": [
+                "Impression sur place",
+                "Zone 10 à 15 km incluse",
                 "Tirage papier au format officiel",
                 "Version numérique haute définition"
             ]
@@ -18,10 +20,10 @@
         {
             "id": "identite_supplement",
             "gamme": "identite",
-            "name": "Photo supplémentaire",
-            "details": "Par photo additionnelle, même séance",
-            "price": 25,
-            "photos": 1,
+            "name": "Personne supplémentaire",
+            "details": "Même passage, tarif réduit",
+            "price": 15,
+            "photos": 4,
             "custom": false,
             "features": []
         },

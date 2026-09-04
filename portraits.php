@@ -22,7 +22,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
         <h1>Des portraits qui vous ressemblent.</h1>
         <p class="lead">
           Trois formules pensées pour un portrait individuel, un moment à deux ou une séance en famille — avec un résultat
-          livré prêt à partager.
+          livré prêt à partager. La séance a lieu chez vous ou sur le lieu de votre choix : je me déplace avec mon matériel.
         </p>
       </section>
 

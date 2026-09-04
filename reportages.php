@@ -23,6 +23,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
         <p class="lead">
           Mariage, concert, anniversaire, événement associatif : la nature de l’événement ne change pas la formule —
           seuls les exemples diffèrent. Ce qui compte, c’est la durée de couverture et le soin apporté au résultat.
+          Je me déplace directement sur le lieu de votre événement.
         </p>
       </section>
 

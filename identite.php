@@ -1,14 +1,14 @@
 <?php
 $activeNav = 'identite';
-$footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis personnalisé gratuit sous 48h. TVA non applicable.';
+$footerDisclaimer = 'Service à domicile, zone 10 à 15 km incluse. Au-delà : 0.75 CHF/km. Devis personnalisé gratuit sous 48h. TVA non applicable.';
 ?>
 <!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Photos d’identité conformes — THAL Photographie</title>
-  <meta name="description" content="Photo d’identité conforme aux normes fedpol (passeport, carte d’identité, visa, permis), à Sainte-Croix (VD). Résultat fiable, accepté du premier coup." />
+  <title>Photo d’identité à domicile — THAL Photographie</title>
+  <meta name="description" content="Photo d’identité conforme aux normes fedpol (passeport, carte d’identité, visa, permis), prise et imprimée à domicile dans le Nord vaudois. Résultat fiable, accepté du premier coup." />
   <meta name="theme-color" content="#070b16" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
 </head>
@@ -19,10 +19,11 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
     <main>
       <section class="card pageHero reveal">
         <span class="pageKicker">Photos d’identité</span>
-        <h1>Une photo d’identité conforme,<br>acceptée du premier coup.</h1>
+        <h1>Photo d’identité à domicile</h1>
         <p class="lead">
           Format et fond conformes aux exigences fedpol pour passeport, carte d’identité, visa et permis de séjour.
-          Prise de vue soignée, contrôle qualité avant impression : zéro mauvaise surprise au guichet.
+          Je me déplace à votre domicile avec le matériel de prise de vue et d’impression : photo prise et imprimée
+          sur place, contrôle qualité inclus — zéro mauvaise surprise au guichet.
         </p>
       </section>
 
@@ -31,27 +32,28 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
       <section class="card identityBox reveal">
         <div class="identityPrices">
           <div class="identityPriceItem">
-            <div class="val">35 CHF</div>
-            <div class="lbl">1 personne</div>
+            <div class="val">45 CHF</div>
+            <div class="lbl">1 personne, 4 photos<br>zone 10 à 15 km incluse</div>
           </div>
           <div class="identityPriceItem">
-            <div class="val">25 CHF</div>
-            <div class="lbl">dès la 2ᵉ personne<br>(même séance)</div>
+            <div class="val">15 CHF</div>
+            <div class="lbl">dès la 2ᵉ personne<br>(même passage)</div>
           </div>
         </div>
 
         <p class="cardNote" style="margin:0">
-          Idéal pour les familles : chaque personne supplémentaire photographiée durant la même séance bénéficie du tarif réduit.
+          Au-delà de la zone incluse : 0.75 CHF/km. Idéal pour les familles : chaque personne supplémentaire
+          photographiée durant le même passage bénéficie du tarif réduit.
         </p>
 
         <ul class="identityIncluded">
           <li>Prise de vue conforme aux normes en vigueur (fedpol / passeport / visa / permis)</li>
-          <li>Tirage papier au format officiel</li>
+          <li>Impression sur place, format officiel</li>
           <li>Version numérique haute définition remise après la séance</li>
         </ul>
 
         <div class="actions">
-          <a class="btn" href="index.html?prefill=<?= urlencode('Bonjour, je souhaite prendre rendez-vous pour une photo d’identité.') ?>#contact">Prendre rendez-vous</a>
+          <a class="btn" href="index.html?prefill=<?= urlencode('Bonjour, je souhaite prendre rendez-vous pour une photo d’identité à domicile.') ?>#contact">Prendre rendez-vous</a>
         </div>
       </section>
 

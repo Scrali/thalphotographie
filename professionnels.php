@@ -22,7 +22,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
         <h1>Des images qui représentent votre entreprise.</h1>
         <p class="lead">
           Portraits d’équipe, images de vos locaux, contenu pour votre communication : un résultat prêt à l’emploi,
-          avec les droits d’utilisation qui vont avec.
+          avec les droits d’utilisation qui vont avec. La séance se déroule directement dans vos locaux.
         </p>
       </section>
 
