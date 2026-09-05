@@ -1,11 +1,25 @@
 <?php
 /**
  * Carrousel photo réutilisable pour les pages de gamme.
- * Attend $carouselCategory (nom de catégorie dans photos/gallery.auto.json)
- * et $carouselLabel (texte affiché au-dessus + badge sur les photos).
+ * Attend $carouselCategory (nom de catégorie dans photos/gallery.auto.json, utilisé
+ * comme valeur par défaut) et $carouselLabel (texte affiché au-dessus + badge sur les photos).
+ * $carouselKey (optionnel, ex: 'portraits') permet à Thal Studio (Paramètres > Carrousels)
+ * de rediriger vers une autre catégorie sans toucher au code, si la galerie a été
+ * réorganisée depuis la gestion en ligne.
  */
 $carouselCategory = $carouselCategory ?? 'Accueil';
 $carouselLabel = $carouselLabel ?? 'Aperçu';
+
+if (!empty($carouselKey)) {
+    $carouselMapFile = __DIR__ . '/../thal-studio/data/settings/carousel_map.json';
+    if (is_file($carouselMapFile)) {
+        $carouselMapData = json_decode((string)file_get_contents($carouselMapFile), true);
+        if (is_array($carouselMapData) && !empty($carouselMapData[$carouselKey])) {
+            $carouselCategory = (string)$carouselMapData[$carouselKey];
+        }
+    }
+}
+
 $carouselId = 'thalCarousel_' . preg_replace('/[^a-zA-Z0-9]/', '', $carouselCategory);
 ?>
 <style>

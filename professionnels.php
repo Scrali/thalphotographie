@@ -26,20 +26,21 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
         </p>
       </section>
 
-      <?php $carouselCategory = 'Commandes professionnelles'; $carouselLabel = 'Professionnels'; include __DIR__ . '/inc/photo-carousel.php'; ?>
+      <?php $carouselKey = 'professionnels'; $carouselCategory = 'Commandes professionnelles'; $carouselLabel = 'Professionnels'; include __DIR__ . '/inc/photo-carousel.php'; ?>
 
       <section class="priceGrid">
         <article class="priceCard reveal">
           <h3>Artisan</h3>
           <div class="priceValue">dès <small>CHF</small> 490</div>
           <ul>
+            <li>15 photos retouchées</li>
             <li>Portrait professionnel</li>
             <li>Images d’atelier</li>
             <li>Photos d’équipe</li>
           </ul>
           <span class="priceBadge">Licence commerciale Web &amp; réseaux sociaux (2 ans) incluse</span>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Artisan (portrait, atelier, équipe) — dès 490 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Artisan (portrait, atelier, équipe, 15 photos) — dès 490 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -47,13 +48,14 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           <h3>PME</h3>
           <div class="priceValue">dès <small>CHF</small> 890</div>
           <ul>
+            <li>25 photos retouchées</li>
             <li>Portraits des collaborateurs</li>
             <li>Images des locaux</li>
             <li>Contenu pour votre communication</li>
           </ul>
           <span class="priceBadge">Licence commerciale Web &amp; réseaux sociaux (2 ans) incluse</span>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule PME (collaborateurs, locaux, communication) — dès 890 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule PME (collaborateurs, locaux, communication, 25 photos) — dès 890 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 

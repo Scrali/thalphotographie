@@ -35,8 +35,8 @@ function thal_pack_settings(?string $baseDir = null): array {
             ['id'=>'reportage_demi_journee','gamme'=>'reportages','name'=>'Demi-journée','details'=>'4 heures de couverture','price'=>690,'photos'=>0,'custom'=>false,'features'=>['Tri et sélection des meilleures images','Retouche professionnelle','Galerie privée en ligne','Téléchargement HD']],
             ['id'=>'reportage_etendu','gamme'=>'reportages','name'=>'Étendu','details'=>'6 heures de couverture','price'=>990,'photos'=>0,'custom'=>false,'features'=>['Tri et sélection des meilleures images','Retouche professionnelle','Galerie privée en ligne','Téléchargement HD']],
             ['id'=>'reportage_mariage','gamme'=>'reportages','name'=>'Mariage — journée complète','details'=>'Préparatifs à la soirée','price'=>0,'photos'=>0,'custom'=>true,'features'=>[]],
-            ['id'=>'pro_artisan','gamme'=>'professionnels','name'=>'Artisan','details'=>'Portrait, atelier, équipe','price'=>490,'photos'=>0,'custom'=>false,'features'=>['Portrait professionnel','Images d’atelier','Photos d’équipe']],
-            ['id'=>'pro_pme','gamme'=>'professionnels','name'=>'PME','details'=>'Collaborateurs, locaux, communication','price'=>890,'photos'=>0,'custom'=>false,'features'=>['Portraits des collaborateurs','Images des locaux','Contenu pour votre communication']],
+            ['id'=>'pro_artisan','gamme'=>'professionnels','name'=>'Artisan','details'=>'Portrait, atelier, équipe','price'=>490,'photos'=>15,'custom'=>false,'features'=>['Portrait professionnel','Images d’atelier','Photos d’équipe']],
+            ['id'=>'pro_pme','gamme'=>'professionnels','name'=>'PME','details'=>'Collaborateurs, locaux, communication','price'=>890,'photos'=>25,'custom'=>false,'features'=>['Portraits des collaborateurs','Images des locaux','Contenu pour votre communication']],
             ['id'=>'pro_corporate','gamme'=>'professionnels','name'=>'Corporate / multi-sites','details'=>'Plusieurs sites ou équipes','price'=>0,'photos'=>0,'custom'=>true,'features'=>['Coordination sur mesure','Contenu de communication complet']],
         ],
     ];

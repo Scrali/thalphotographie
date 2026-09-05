@@ -147,7 +147,7 @@
             "name": "Artisan",
             "details": "Portrait, atelier, équipe",
             "price": 490,
-            "photos": 0,
+            "photos": 15,
             "custom": false,
             "features": [
                 "Portrait professionnel",
@@ -161,7 +161,7 @@
             "name": "PME",
             "details": "Collaborateurs, locaux, communication",
             "price": 890,
-            "photos": 0,
+            "photos": 25,
             "custom": false,
             "features": [
                 "Portraits des collaborateurs",
