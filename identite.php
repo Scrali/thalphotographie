@@ -56,7 +56,6 @@ $footerDisclaimer = 'Service à domicile, zone 15 km incluse (depuis Sainte-Croi
         <ul class="identityIncluded">
           <li>Prise de vue conforme aux normes en vigueur (fedpol / passeport / visa / permis)</li>
           <li>Impression sur place, format officiel</li>
-          <li>Version numérique haute définition remise après la séance</li>
         </ul>
 
         <div class="actions">
