@@ -26,7 +26,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
         </p>
       </section>
 
-      <?php $carouselCategory = 'Commandes professionnelles'; $carouselLabel = 'Professionnels'; include __DIR__ . '/inc/photo-carousel.php'; ?>
+      <?php $carouselKey = 'professionnels'; $carouselCategory = 'Commandes professionnelles'; $carouselLabel = 'Professionnels'; include __DIR__ . '/inc/photo-carousel.php'; ?>
 
       <section class="priceGrid">
         <article class="priceCard reveal">

@@ -19,6 +19,11 @@ require __DIR__ . '/includes/header.php';
     <strong>Mode maintenance</strong>
     <p>Mettre le site hors ligne pour les visiteurs pendant que tu fais des modifications.</p>
   </a>
+  <a class="card" href="carousel_settings.php">
+    <span>🖼️</span>
+    <strong>Carrousels du site</strong>
+    <p>Choisir quelle catégorie de la galerie alimente le carrousel de chaque page.</p>
+  </a>
   <div class="card">
     <span>👤</span>
     <strong>Utilisateur</strong>
