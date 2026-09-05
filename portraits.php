@@ -8,7 +8,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Portraits — THAL Photographie</title>
-  <meta name="description" content="Séances portrait individuel, duo, grossesse ou famille. Sélection, retouche professionnelle et galerie privée en ligne incluses." />
+  <meta name="description" content="Séances portrait individuel, duo, grossesse ou famille. Sélection, retouche professionnelle et livraison privée sécurisée incluses." />
   <meta name="theme-color" content="#070b16" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
 </head>
@@ -36,7 +36,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           <ul>
             <li>10 photos retouchées</li>
             <li>Sélection accompagnée</li>
-            <li>Galerie privée en ligne</li>
+            <li>Livraison privée sécurisée</li>
           </ul>
           <div class="priceCta">
             <a class="btn" href="index.html?prefill=<?= urlencode('Formule Individuel (45 min, 10 photos) — dès 195 CHF.') ?>#contact">Demander un devis</a>
@@ -50,7 +50,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           <ul>
             <li>15 photos retouchées</li>
             <li>Sélection accompagnée</li>
-            <li>Galerie privée en ligne</li>
+            <li>Livraison privée sécurisée</li>
           </ul>
           <div class="priceCta">
             <a class="btn" href="index.html?prefill=<?= urlencode('Formule Duo / Grossesse (1 h, 15 photos) — dès 245 CHF.') ?>#contact">Demander un devis</a>
@@ -64,7 +64,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           <ul>
             <li>20 photos retouchées</li>
             <li>Sélection accompagnée</li>
-            <li>Galerie privée en ligne</li>
+            <li>Livraison privée sécurisée</li>
           </ul>
           <div class="priceCta">
             <a class="btn" href="index.html?prefill=<?= urlencode('Formule Famille (1 h 30, 20 photos) — dès 325 CHF.') ?>#contact">Demander un devis</a>
@@ -73,7 +73,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
       </section>
 
       <p class="cardNote reveal">
-        Chaque séance comprend la sélection, la retouche professionnelle et la livraison via galerie privée en ligne.
+        Chaque séance comprend la sélection, la retouche professionnelle et la livraison privée sécurisée via SwissTransfer.
       </p>
 
       <div class="highlightBlock reveal">

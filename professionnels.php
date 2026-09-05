@@ -73,7 +73,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
       </section>
 
       <p class="cardNote reveal">
-        Chaque formule inclut le tri, la retouche professionnelle et la livraison via galerie privée en ligne.
+        Chaque formule inclut le tri, la retouche professionnelle et la livraison privée sécurisée via SwissTransfer.
       </p>
     </main>
 

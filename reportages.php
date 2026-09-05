@@ -8,7 +8,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Reportages — THAL Photographie</title>
-  <meta name="description" content="Reportage photo pour mariages, concerts, anniversaires ou événements associatifs. Tri, retouche, galerie privée et téléchargement HD inclus." />
+  <meta name="description" content="Reportage photo pour mariages, concerts, anniversaires ou événements associatifs. Tri, retouche, livraison privée sécurisée et téléchargement HD inclus." />
   <meta name="theme-color" content="#070b16" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
 </head>
@@ -37,7 +37,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           <ul>
             <li>Tri et sélection des meilleures images</li>
             <li>Retouche professionnelle</li>
-            <li>Galerie privée en ligne</li>
+            <li>Livraison privée sécurisée</li>
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
@@ -52,7 +52,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           <ul>
             <li>Tri et sélection des meilleures images</li>
             <li>Retouche professionnelle</li>
-            <li>Galerie privée en ligne</li>
+            <li>Livraison privée sécurisée</li>
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
@@ -67,7 +67,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           <ul>
             <li>Tri et sélection des meilleures images</li>
             <li>Retouche professionnelle</li>
-            <li>Galerie privée en ligne</li>
+            <li>Livraison privée sécurisée</li>
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
