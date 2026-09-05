@@ -82,7 +82,7 @@ $footerDisclaimer = '';
         <p>Le Client s’engage à faciliter le bon déroulement de la prestation : accès aux lieux, respect des horaires convenus, information des personnes présentes. Tout dépassement horaire à la demande du Client est facturé au tarif horaire indiqué au devis.</p>
 
         <h2>6. Livraison et conservation</h2>
-        <p>Les images sélectionnées et retouchées sont livrées via une <strong>galerie privée en ligne</strong> permettant le téléchargement en haute définition.</p>
+        <p>Les images sélectionnées et retouchées sont livrées via un service de transfert privé et sécurisé (<strong>SwissTransfer</strong>) permettant le téléchargement en haute définition.</p>
         <p>Le délai de livraison est indiqué au devis. À défaut, il est de <strong>2 à 3 semaines</strong> à compter de la prestation.</p>
         <p><strong>Conservation</strong> — Le Photographe conserve les fichiers livrés pendant <strong>12 mois</strong> à compter de la livraison. Passé ce délai, aucune restitution ne peut être garantie. <strong>Il appartient au Client d’effectuer ses propres sauvegardes.</strong> Les fichiers non retenus lors de la sélection ne sont pas conservés et ne peuvent être réclamés.</p>
         <p><strong>Retouches</strong> — Les prestations comprennent une retouche standard (exposition, colorimétrie, cadrage, corrections mineures). Toute retouche complémentaire ou demande de modification substantielle fait l’objet d’un devis séparé.</p>
