@@ -5,6 +5,7 @@ function thal_carousel_map_settings(?string $baseDir = null): array {
     $defaults = [
         'accueil' => '',
         'portraits' => '',
+        'animaux' => '',
         'reportages' => '',
         'professionnels' => '',
     ];
@@ -17,6 +18,7 @@ function thal_carousel_page_labels(): array {
     return [
         'accueil' => 'Pourquoi THAL (carrousel "THAL Photographie")',
         'portraits' => 'Portraits',
+        'animaux' => 'Animaux de compagnie',
         'reportages' => 'Reportages',
         'professionnels' => 'Professionnels',
     ];
@@ -26,6 +28,7 @@ function thal_carousel_page_defaults(): array {
     return [
         'accueil' => 'Accueil',
         'portraits' => 'Portraits',
+        'animaux' => 'Animaux',
         'reportages' => 'Evenements',
         'professionnels' => 'Commandes professionnelles',
     ];
