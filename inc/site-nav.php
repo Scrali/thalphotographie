@@ -9,6 +9,7 @@ $activeNav = $activeNav ?? '';
 $thalPrestationItems = [
   'identite'       => ['href' => 'identite.php',      'label' => 'Identité'],
   'portraits'      => ['href' => 'portraits.php',      'label' => 'Portraits'],
+  'animaux'        => ['href' => 'animaux.php',        'label' => 'Animaux de compagnie'],
   'reportages'     => ['href' => 'reportages.php',     'label' => 'Reportages'],
   'professionnels' => ['href' => 'professionnels.php', 'label' => 'Professionnels'],
 ];
