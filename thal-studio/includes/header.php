@@ -30,6 +30,7 @@ $version = trim((string)@file_get_contents(__DIR__ . '/../VERSION')) ?: '0.7.0';
     <a href="factures.php">Mes factures</a>
     <a href="clients.php">Clients</a>
     <a href="estimations.php">Estimations</a>
+    <a href="visits_stats.php">Statistiques</a>
     <a href="gallery.php">Galerie</a>
     <a href="settings.php">Paramètres</a>
     <a href="estimation_settings.php">Packs & tarifs</a>

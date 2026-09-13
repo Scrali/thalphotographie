@@ -117,4 +117,6 @@ $footerDisclaimer = $footerDisclaimer ?? '';
     const a = e.target.closest("a,button");
     if(a) a.blur();
   }, { passive:true });
+
+  fetch("/visit_track.php", { credentials:"same-origin", cache:"no-store", keepalive:true }).catch(()=>{});
 </script>
