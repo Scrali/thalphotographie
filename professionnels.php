@@ -7,7 +7,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Photographie pour professionnels — THAL Photographie</title>
+  <title>Photographie pour professionnels • THAL Photographie</title>
   <meta name="description" content="Portraits d’équipe, images de locaux et de communication pour artisans, PME et groupes multi-sites. Licence commerciale Web & réseaux sociaux incluse." />
   <meta name="theme-color" content="#070b16" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
@@ -40,7 +40,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           </ul>
           <span class="priceBadge">Licence commerciale Web &amp; réseaux sociaux (2 ans) incluse</span>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Artisan (portrait, atelier, équipe, 15 photos) — dès 490 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Artisan (portrait, atelier, équipe, 15 photos), dès 490 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -55,7 +55,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           </ul>
           <span class="priceBadge">Licence commerciale Web &amp; réseaux sociaux (2 ans) incluse</span>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule PME (collaborateurs, locaux, communication, 25 photos) — dès 890 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule PME (collaborateurs, locaux, communication, 25 photos), dès 890 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -69,7 +69,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
           </ul>
           <span class="priceBadge">Licence commerciale Web &amp; réseaux sociaux (2 ans) incluse</span>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Corporate / multi-sites — devis personnalisé.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Corporate / multi-sites, devis personnalisé.') ?>#contact">Demander un devis</a>
           </div>
         </article>
       </section>

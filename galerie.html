@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>THAL — Galerie</title>
-  <meta name="description" content="Galerie THAL Photographie — concerts, portraits, famille et explorations." />
+  <title>THAL Galerie</title>
+  <meta name="description" content="Galerie THAL Photographie : concerts, portraits, famille et explorations." />
   <meta name="theme-color" content="#070b16" />
 
   <style>
@@ -481,7 +481,7 @@
       <div class="masonry" id="grid"></div>
       <div id="emptyMsg" class="empty" style="display:none;">Aucune photo pour cette combinaison.</div>
 
-      <div class="footer">© <span id="y"></span> THAL — Photographie · <a href="cgv.php" style="color:inherit; text-decoration:underline; text-underline-offset:4px;">Conditions générales de vente</a></div>
+      <div class="footer">© <span id="y"></span> THAL Photographie · <a href="cgv.php" style="color:inherit; text-decoration:underline; text-underline-offset:4px;">Conditions générales de vente</a></div>
     </main>
   </div>
 
@@ -814,7 +814,7 @@
     const lbTitle = $("#lbTitle");
     function openLightbox(idx){ LB_INDEX = idx; updateLightbox(); lb.classList.add("open"); lb.setAttribute("aria-hidden","false"); document.body.style.overflow = "hidden"; }
     function closeLightbox(){ lb.classList.remove("open"); lb.setAttribute("aria-hidden","true"); lbImg.src = ""; document.body.style.overflow = ""; }
-    function updateLightbox(){ const p = FILTERED[LB_INDEX]; if(!p) return; lbImg.src = p.src; lbTitle.textContent = [p.cat, p.type, p.lieu].filter(Boolean).join(" — "); }
+    function updateLightbox(){ const p = FILTERED[LB_INDEX]; if(!p) return; lbImg.src = p.src; lbTitle.textContent = [p.cat, p.type, p.lieu].filter(Boolean).join(" · "); }
     function prev(){ if(!FILTERED.length) return; LB_INDEX = (LB_INDEX - 1 + FILTERED.length) % FILTERED.length; updateLightbox(); }
     function next(){ if(!FILTERED.length) return; LB_INDEX = (LB_INDEX + 1) % FILTERED.length; updateLightbox(); }
     $("#close").addEventListener("click", closeLightbox);

@@ -7,7 +7,7 @@ $footerDisclaimer = 'Service à domicile, zone 15 km incluse (depuis Sainte-Croi
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Photo d’identité à domicile — THAL Photographie</title>
+  <title>Photo d’identité à domicile • THAL Photographie</title>
   <meta name="description" content="Photo d’identité conforme aux normes fedpol (passeport, carte d’identité, visa, permis), prise et imprimée à domicile dans le Nord vaudois. Résultat fiable, accepté du premier coup." />
   <meta name="theme-color" content="#070b16" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
@@ -23,7 +23,7 @@ $footerDisclaimer = 'Service à domicile, zone 15 km incluse (depuis Sainte-Croi
         <p class="lead">
           Format et fond conformes aux exigences fedpol pour passeport, carte d’identité, visa et permis de séjour.
           Je me déplace à votre domicile avec le matériel de prise de vue et d’impression : photo prise et imprimée
-          sur place, contrôle qualité inclus — zéro mauvaise surprise au guichet.
+          sur place, contrôle qualité inclus : zéro mauvaise surprise au guichet.
         </p>
       </section>
 
@@ -44,7 +44,7 @@ $footerDisclaimer = 'Service à domicile, zone 15 km incluse (depuis Sainte-Croi
         </div>
 
         <p class="cardNote" style="margin:0">
-          Zone incluse : 15 km depuis Sainte-Croix. Au-delà : 0.75 CHF/km —
+          Zone incluse : 15 km depuis Sainte-Croix. Au-delà : 0.75 CHF/km :
           <a href="https://www.google.com/maps/dir/?api=1&amp;origin=Sainte-Croix,+VD,+Suisse" target="_blank" rel="noopener" style="color:var(--accent); text-decoration:underline;">vérifiez votre distance sur Google Maps</a>,
           ou indiquez simplement votre localité dans le message de contact : je confirme le tarif exact avant de valider le rendez-vous.
         </p>

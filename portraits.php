@@ -7,7 +7,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Portraits — THAL Photographie</title>
+  <title>Portraits • THAL Photographie</title>
   <meta name="description" content="Séances portrait individuel, duo, grossesse ou famille. Sélection, retouche professionnelle et livraison privée sécurisée incluses." />
   <meta name="theme-color" content="#070b16" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
@@ -21,7 +21,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
         <span class="pageKicker">Portraits</span>
         <h1>Des portraits qui vous ressemblent.</h1>
         <p class="lead">
-          Trois formules pensées pour un portrait individuel, un moment à deux ou une séance en famille — avec un résultat
+          Trois formules pensées pour un portrait individuel, un moment à deux ou une séance en famille, avec un résultat
           livré prêt à partager. La séance a lieu chez vous ou sur le lieu de votre choix : je me déplace avec mon matériel.
         </p>
       </section>
@@ -39,7 +39,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Livraison privée sécurisée</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Individuel (45 min, 10 photos) — dès 195 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Individuel (45 min, 10 photos), dès 195 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -53,7 +53,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Livraison privée sécurisée</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Duo / Grossesse (1 h, 15 photos) — dès 245 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Duo / Grossesse (1 h, 15 photos), dès 245 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -67,7 +67,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Livraison privée sécurisée</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Famille (1 h 30, 20 photos) — dès 325 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Famille (1 h 30, 20 photos), dès 325 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
       </section>

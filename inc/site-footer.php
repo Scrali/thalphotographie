@@ -11,7 +11,7 @@ $footerDisclaimer = $footerDisclaimer ?? '';
 <?php endif; ?>
 
 <div class="footer">
-  <div>© <span id="y"></span> THAL — Photographie</div>
+  <div>© <span id="y"></span> THAL Photographie</div>
   <div class="footerLinks">
     <button class="footerLink" type="button" data-modal="mentions">Mentions légales</button>
     <span>•</span>
@@ -39,13 +39,13 @@ $footerDisclaimer = $footerDisclaimer ?? '';
       title: "Mentions légales",
       html: `
         <h3>Éditeur du site</h3>
-        <p><strong>THAL — Photographie</strong><br>Jonathan<br>Suisse romande</p>
+        <p><strong>THAL Photographie</strong><br>Jonathan<br>Suisse romande</p>
 
         <h3>Contact</h3>
         <p>E-mail : contact@thalphotographie.ch<br>Téléphone / WhatsApp : +41 78 745 72 42</p>
 
         <h3>Responsabilité</h3>
-        <p>Les informations présentes sur ce site sont fournies à titre indicatif. THAL — Photographie s’efforce de maintenir les contenus à jour, sans garantir l’absence totale d’erreurs.</p>
+        <p>Les informations présentes sur ce site sont fournies à titre indicatif. THAL Photographie s’efforce de maintenir les contenus à jour, sans garantir l’absence totale d’erreurs.</p>
 
         <h3>Droits d’auteur</h3>
         <p>Les textes, photographies, logos, images et éléments graphiques présents sur ce site sont protégés. Toute reproduction, modification ou utilisation sans autorisation écrite préalable est interdite.</p>
@@ -55,7 +55,7 @@ $footerDisclaimer = $footerDisclaimer ?? '';
       title: "Conditions d’utilisation",
       html: `
         <h3>Utilisation du site</h3>
-        <p>Ce site présente les prestations, projets et photographies de THAL — Photographie. L’utilisateur s’engage à utiliser le site de manière respectueuse et conforme à la loi.</p>
+        <p>Ce site présente les prestations, projets et photographies de THAL Photographie. L’utilisateur s’engage à utiliser le site de manière respectueuse et conforme à la loi.</p>
 
         <h3>Demandes de contact</h3>
         <p>L’envoi d’un formulaire ou d’un message WhatsApp ne constitue pas une réservation ferme. Chaque projet est confirmé après échange et validation des conditions convenues.</p>

@@ -7,7 +7,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Photos d’animaux de compagnie — THAL Photographie</title>
+  <title>Photos d’animaux de compagnie • THAL Photographie</title>
   <meta name="description" content="Séance photo pour votre chien, chat ou autre compagnon, en intérieur ou en extérieur, chez vous ou sur le lieu de votre choix." />
   <meta name="theme-color" content="#070b16" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
@@ -39,7 +39,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Livraison privée sécurisée</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Essentiel animaux (30 min, 8 photos) — dès 165 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Essentiel animaux (30 min, 8 photos), dès 165 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -53,7 +53,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Livraison privée sécurisée</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Duo / Fratrie animaux (45 min, 12 photos) — dès 225 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Duo / Fratrie animaux (45 min, 12 photos), dès 225 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -67,7 +67,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Livraison privée sécurisée</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Balade extérieure animaux (1 h, 15 photos) — dès 295 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Balade extérieure animaux (1 h, 15 photos), dès 295 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
       </section>

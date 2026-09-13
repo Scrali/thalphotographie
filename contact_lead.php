@@ -47,7 +47,7 @@ if ($ok) {
     $pushMessage = trim((string)$entry['message']) !== '' ? mb_strimwidth($entry['message'], 0, 200, '…') : 'Nouveau message depuis le site.';
     if ($entry['email'] !== '') $pushMessage .= "\n" . $entry['email'];
     thal_send_ntfy_notification(
-        'Nouvelle demande — ' . thal_mail_safe((string)($entry['name'] ?: 'Contact')),
+        'Nouvelle demande : ' . thal_mail_safe((string)($entry['name'] ?: 'Contact')),
         $pushMessage,
         __DIR__ . '/thal-studio',
         'https://thalphotographie.ch/thal-studio/estimations.php'
@@ -62,7 +62,7 @@ function thal_mail_safe(string $v): string {
 
 function thal_notify_new_lead(array $entry): void {
     $to = 'thalphotographie@bluewin.ch';
-    $subject = 'Nouvelle demande sur le site — ' . thal_mail_safe((string)($entry['name'] ?: 'Contact'));
+    $subject = 'Nouvelle demande sur le site : ' . thal_mail_safe((string)($entry['name'] ?: 'Contact'));
 
     $lines = [
         'Nouvelle demande reçue via le formulaire de contact du site.',

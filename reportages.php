@@ -7,7 +7,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Reportages — THAL Photographie</title>
+  <title>Reportages • THAL Photographie</title>
   <meta name="description" content="Reportage photo pour mariages, concerts, anniversaires ou événements associatifs. Tri, retouche, livraison privée sécurisée et téléchargement HD inclus." />
   <meta name="theme-color" content="#070b16" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
@@ -21,7 +21,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
         <span class="pageKicker">Reportages</span>
         <h1>Un reportage à la hauteur de votre événement.</h1>
         <p class="lead">
-          Mariage, concert, anniversaire, événement associatif : la nature de l’événement ne change pas la formule —
+          Mariage, concert, anniversaire, événement associatif : la nature de l’événement ne change pas la formule :
           seuls les exemples diffèrent. Ce qui compte, c’est la durée de couverture et le soin apporté au résultat.
           Je me déplace directement sur le lieu de votre événement.
         </p>
@@ -41,7 +41,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Essentiel (2 h de couverture) — dès 390 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Essentiel (2 h de couverture), dès 390 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -56,7 +56,7 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Demi-journée (4 h de couverture) — dès 690 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Demi-journée (4 h de couverture), dès 690 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
 
@@ -71,18 +71,18 @@ $footerDisclaimer = 'Tarifs de base, hors déplacement au-delà de 20 km. Devis 
             <li>Téléchargement HD</li>
           </ul>
           <div class="priceCta">
-            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Étendu (6 h de couverture) — dès 990 CHF.') ?>#contact">Demander un devis</a>
+            <a class="btn" href="index.html?prefill=<?= urlencode('Formule Étendu (6 h de couverture), dès 990 CHF.') ?>#contact">Demander un devis</a>
           </div>
         </article>
       </section>
 
       <div class="highlightBlock reveal">
-        <h3>Mariage — journée complète</h3>
+        <h3>Mariage, journée complète</h3>
         <p>
           Des préparatifs à la soirée : une couverture continue pensée sur mesure pour votre mariage.
           Formule construite avec vous selon le déroulé de la journée.
         </p>
-        <a class="btn" href="index.html?prefill=<?= urlencode('Mariage journée complète (préparatifs à la soirée) — devis personnalisé.') ?>#contact">Demander un devis personnalisé</a>
+        <a class="btn" href="index.html?prefill=<?= urlencode('Mariage journée complète (préparatifs à la soirée), devis personnalisé.') ?>#contact">Demander un devis personnalisé</a>
       </div>
     </main>
 

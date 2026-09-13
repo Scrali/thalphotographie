@@ -16,7 +16,7 @@ function e($v) { return htmlspecialchars((string)$v, ENT_QUOTES, 'UTF-8'); }
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Site en maintenance — THAL Photographie</title>
+  <title>Site en maintenance • THAL Photographie</title>
   <style>
     :root{ color-scheme: dark; }
     *{ box-sizing:border-box; }
