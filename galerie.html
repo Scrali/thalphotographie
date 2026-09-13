@@ -829,6 +829,8 @@
 
     $("#resetBtn").addEventListener("click", ()=>{ CURRENT_UNIVERSE = "tous"; CURRENT_CAT = "Tous"; CURRENT_TYPE = "Tous"; CURRENT_LIEU = "Tous"; ACTIVE_TAGS.clear(); updateAll(); });
 
+    fetch("/visit_track.php", { credentials:"same-origin", cache:"no-store", keepalive:true }).catch(()=>{});
+
     (async ()=>{
       try{
         PHOTOS = await loadData();
