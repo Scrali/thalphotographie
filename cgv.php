@@ -12,7 +12,7 @@ $footerDisclaimer = '';
   <meta name="theme-color" content="#0a0a0c" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
   <style>
-    .cgvDoc{padding-top:clamp(122px,13vw,166px); padding-bottom:clamp(50px,7vw,88px);}
+    .cgvDoc{padding-top:var(--navspace); padding-bottom:clamp(50px,7vw,88px);}
     .cgvHead{display:flex; align-items:flex-start; justify-content:space-between; gap:20px; margin-bottom:34px;}
     .cgvDoc h1{margin:0 0 10px; font-size:clamp(30px,4.4vw,50px);}
     .cgvMeta{margin:0; color:var(--muted-2); font-size:14px;}

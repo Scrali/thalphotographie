@@ -3,7 +3,7 @@
    Complète assets/site.css : univers, filtres, grille et visionneuse.
    ========================================================================== */
 
-.heroIntro{padding-top:clamp(122px,13vw,166px); padding-bottom:clamp(30px,4vw,44px);}
+.heroIntro{padding-top:var(--navspace); padding-bottom:clamp(30px,4vw,44px);}
 .heroIntro h1{font-size:clamp(34px,5.4vw,64px); margin-bottom:20px;}
 .heroIntro .lead{margin:0; max-width:680px; color:var(--muted); font-size:clamp(15px,1.7vw,18px);}
 .kicker{
@@ -55,7 +55,7 @@
 /* -------------------------------------------------------------- filtres */
 .galleryHead{
   display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap;
-  padding:0 0 22px; border-bottom:1px solid var(--line); scroll-margin-top:clamp(80px,12vw,120px);
+  padding:0 0 22px; border-bottom:1px solid var(--line); scroll-margin-top:var(--navspace);
 }
 .galleryTitle{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;}
 .galleryTitle strong{font-family:"Fraunces", Georgia, serif; font-weight:400; font-size:clamp(22px,3vw,30px);}
