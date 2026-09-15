@@ -30,6 +30,7 @@ $thalPrestationsActive = array_key_exists($activeNav, $thalPrestationItems);
   </a>
 
   <nav class="navlinks" aria-label="Navigation principale">
+    <a class="navlink<?= $activeNav === 'accueil' ? ' active' : '' ?>" href="index.html">Accueil</a>
     <span class="navDropdown">
       <button class="navlink navDropdownToggle<?= $thalPrestationsActive ? ' active' : '' ?>" type="button" aria-haspopup="true" aria-expanded="false">
         Prestations
