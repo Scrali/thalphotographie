@@ -19,6 +19,11 @@ require __DIR__ . '/includes/header.php';
     <strong>Mode maintenance</strong>
     <p>Mettre le site hors ligne pour les visiteurs pendant que tu fais des modifications.</p>
   </a>
+  <a class="card" href="site_images_settings.php">
+    <span>📷</span>
+    <strong>Photos du site</strong>
+    <p>Choisir la photo exacte de chaque emplacement : accueil, bandeaux des prestations, Pourquoi THAL.</p>
+  </a>
   <a class="card" href="carousel_settings.php">
     <span>🖼️</span>
     <strong>Carrousels du site</strong>

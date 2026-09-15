@@ -92,6 +92,75 @@
 })();
 
 /* ==========================================================================
+   Photos du site.
+   thalPhotos() renvoie une promesse { gallery, choices, itemsOf, chosen }.
+   - gallery : le contenu de photos/gallery.auto.json
+   - choices : les photos fixées dans THAL Studio (Paramètres > Photos du site)
+   - itemsOf(categorie) : les photos d'une catégorie, sous forme d'URL
+   - chosen(emplacement) : l'URL fixée pour un emplacement, ou null
+   Les deux fichiers ne sont chargés qu'une fois par page.
+   ========================================================================== */
+window.thalPhotos = (function () {
+  let promise = null;
+
+  const normKey = (s) => String(s || "")
+    .normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+
+  const bust = (path) => {
+    const url = new URL(path, window.location.href);
+    url.searchParams.set("v", Date.now());
+    return url;
+  };
+
+  const readJson = (path) =>
+    fetch(bust(path), { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .catch(() => null);
+
+  return function thalPhotos() {
+    if (promise) return promise;
+
+    promise = Promise.all([
+      readJson("./photos/gallery.auto.json"),
+      readJson("./photos/site_images.json")
+    ]).then(([gallery, choices]) => {
+      gallery = gallery && typeof gallery === "object" ? gallery : {};
+      choices = choices && typeof choices === "object" ? choices : {};
+      const keys = Object.keys(gallery);
+
+      const urlOf = (cat, file) =>
+        "photos/" + encodeURIComponent(cat) + "/" + encodeURIComponent(file);
+
+      const itemsOf = (wanted) => {
+        const key = keys.find((k) => normKey(k) === normKey(wanted));
+        if (!key || !Array.isArray(gallery[key])) return [];
+        return gallery[key]
+          .map((x) => (typeof x === "string" ? x : (x && x.file)))
+          .filter(Boolean)
+          .map((file) => ({ cat: key, file, src: urlOf(key, file) }));
+      };
+
+      /* Une photo fixée n'est retenue que si elle existe encore dans la galerie :
+         si elle a été supprimée, l'emplacement repasse en automatique. */
+      const chosen = (slot) => {
+        const value = typeof choices[slot] === "string" ? choices[slot] : "";
+        if (!value) return null;
+        const cut = value.lastIndexOf("/");
+        if (cut < 1) return null;
+        const cat = value.slice(0, cut);
+        const file = value.slice(cut + 1);
+        const exists = itemsOf(cat).some((item) => item.file === file);
+        return exists ? { cat, file, src: urlOf(cat, file) } : null;
+      };
+
+      return { gallery, choices, keys, itemsOf, chosen };
+    });
+
+    return promise;
+  };
+})();
+
+/* ==========================================================================
    Visionneuse d'images partagée.
    Usage : thalLightbox(listeDeTuiles, indexDeDepart)
    Chaque tuile doit contenir une <img> et, si possible, une <figcaption>.
