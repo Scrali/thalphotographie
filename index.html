@@ -32,6 +32,7 @@
     </a>
 
     <nav class="navlinks" aria-label="Navigation principale">
+      <a class="navlink active" href="index.html">Accueil</a>
       <span class="navDropdown">
         <button class="navlink navDropdownToggle" type="button" aria-haspopup="true" aria-expanded="false">
           Prestations
@@ -324,8 +325,7 @@
   <script>
   /* ------------------------------------------------ grande image + aperçu */
   (() => {
-    const normKey = (s) => String(s || "")
-      .normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+    const run = () => {
 
     const esc = (s) => String(s).replace(/[&<>"']/g,
       (m) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
@@ -339,58 +339,43 @@
       return a;
     };
 
-    const url = new URL("./photos/gallery.auto.json", window.location.href);
-    url.searchParams.set("v", Date.now());
+    window.thalPhotos().then(({ keys, itemsOf, chosen }) => {
+      /* Grande image : la photo fixée dans THAL Studio (Paramètres > Photos du
+         site), sinon une photo au hasard dans la catégorie Accueil. */
+      const accueil = itemsOf("Accueil");
+      const pick = chosen("hero") || (accueil.length ? shuffle(accueil)[0] : null);
+      if (pick) {
+        const heroImg = document.getElementById("heroImg");
+        const probe = new Image();
+        probe.onload = () => { heroImg.src = pick.src; heroImg.style.display = ""; };
+        probe.src = pick.src;
+      }
 
-    fetch(url, { cache: "no-store" })
-      .then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
-      .then((data) => {
-        const keys = Object.keys(data || {});
+      /* Aperçu : huit photos prises dans toutes les catégories. */
+      const all = shuffle(keys.flatMap((k) => itemsOf(k))).slice(0, 8);
+      const teaser = document.getElementById("homeTeaser");
+      if (!teaser || !all.length) return;
 
-        const itemsOf = (wanted) => {
-          const key = keys.find((k) => normKey(k) === normKey(wanted));
-          if (!key || !Array.isArray(data[key])) return [];
-          return data[key]
-            .map((x) => (typeof x === "string" ? x : (x && x.file)))
-            .filter(Boolean)
-            .map((file) => ({
-              cat: key,
-              src: "photos/" + encodeURIComponent(key) + "/" + encodeURIComponent(file)
-            }));
-        };
+      teaser.innerHTML = all.map((item) => `
+        <figure class="tile" role="button" tabindex="0">
+          <img src="${item.src}" alt="${esc(item.cat)}" loading="lazy">
+          <figcaption>${esc(item.cat)}</figcaption>
+        </figure>`).join("");
 
-        /* Grande image : une photo de la catégorie Accueil, gérée dans THAL Studio. */
-        const accueil = itemsOf("Accueil");
-        if (accueil.length) {
-          const pick = accueil[Math.floor(Math.random() * accueil.length)];
-          const heroImg = document.getElementById("heroImg");
-          const probe = new Image();
-          probe.onload = () => { heroImg.src = pick.src; heroImg.style.display = ""; };
-          probe.src = pick.src;
-        }
-
-        /* Aperçu : huit photos prises dans toutes les catégories. */
-        const all = shuffle(keys.flatMap((k) => itemsOf(k))).slice(0, 8);
-        const teaser = document.getElementById("homeTeaser");
-        if (!teaser || !all.length) return;
-
-        teaser.innerHTML = all.map((item) => `
-          <figure class="tile" role="button" tabindex="0">
-            <img src="${item.src}" alt="${esc(item.cat)}" loading="lazy">
-            <figcaption>${esc(item.cat)}</figcaption>
-          </figure>`).join("");
-
-        const tiles = teaser.querySelectorAll(".tile");
-        tiles.forEach((tile) => {
-          tile.addEventListener("click", () => window.thalLightbox(tiles, tile));
-          tile.addEventListener("keydown", (e) => {
-            if (e.key !== "Enter" && e.key !== " ") return;
-            e.preventDefault();
-            window.thalLightbox(tiles, tile);
-          });
+      const tiles = teaser.querySelectorAll(".tile");
+      tiles.forEach((tile) => {
+        tile.addEventListener("click", () => window.thalLightbox(tiles, tile));
+        tile.addEventListener("keydown", (e) => {
+          if (e.key !== "Enter" && e.key !== " ") return;
+          e.preventDefault();
+          window.thalLightbox(tiles, tile);
         });
-      })
-      .catch(() => { /* galerie indisponible : l'aperçu reste vide */ });
+      });
+    });
+    };
+    // site.js est chargé en "defer" : on attend DOMContentLoaded.
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+    else run();
   })();
 
   /* ------------------------------------------------- formulaire de contact */

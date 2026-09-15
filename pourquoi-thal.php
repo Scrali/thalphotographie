@@ -66,7 +66,7 @@ $thalWhy = [
               <h3><?= htmlspecialchars($block['h']) ?></h3>
               <p><?= htmlspecialchars($block['p']) ?></p>
             </div>
-            <div class="whyImg" data-cat="<?= htmlspecialchars($block['cat']) ?>"></div>
+            <div class="whyImg" data-cat="<?= htmlspecialchars($block['cat']) ?>" data-slot="pourquoi_<?= $i + 1 ?>"></div>
           </article>
         <?php endforeach; ?>
       </div>
@@ -85,49 +85,45 @@ $thalWhy = [
   <?php include __DIR__ . '/inc/site-footer.php'; ?>
 
   <script>
-  /* Illustre chaque bloc avec une photo de sa catégorie, prise dans la galerie. */
+  /* Illustre chaque bloc : photo fixée dans THAL Studio (Paramètres > Photos du
+     site), sinon une photo de la catégorie indiquée, sinon n'importe quelle
+     autre photo encore inutilisée. */
   (() => {
+    const run = () => {
     const slots = [...document.querySelectorAll(".whyImg[data-cat]")];
-    if (!slots.length) return;
+    if (!slots.length || !window.thalPhotos) return;
 
-    const normKey = (s) => String(s || "")
-      .normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+    window.thalPhotos().then(({ keys, itemsOf, chosen }) => {
+      const used = new Set();
 
-    const url = new URL("./photos/gallery.auto.json", window.location.href);
-    url.searchParams.set("v", Date.now());
+      const pickFrom = (wanted) => {
+        for (const item of itemsOf(wanted)) {
+          if (!used.has(item.src)) { used.add(item.src); return item.src; }
+        }
+        return null;
+      };
 
-    fetch(url, { cache: "no-store" })
-      .then((res) => { if (!res.ok) throw new Error("HTTP " + res.status); return res.json(); })
-      .then((data) => {
-        const keys = Object.keys(data || {});
-        const used = new Set();
+      slots.forEach((slot) => {
+        let src = null;
 
-        const pick = (wanted) => {
-          const key = keys.find((k) => normKey(k) === normKey(wanted));
-          const pool = key && Array.isArray(data[key]) ? data[key] : [];
-          for (const entry of pool) {
-            const file = typeof entry === "string" ? entry : entry && entry.file;
-            if (!file) continue;
-            const src = "photos/" + encodeURIComponent(key) + "/" + encodeURIComponent(file);
-            if (!used.has(src)) { used.add(src); return src; }
-          }
-          return null;
-        };
+        const fixed = chosen(slot.dataset.slot);
+        if (fixed) { src = fixed.src; used.add(src); }
 
-        // Une photo de la catégorie voulue, sinon n'importe quelle autre non utilisée.
-        const fallbackOrder = keys;
-        slots.forEach((slot) => {
-          let src = pick(slot.dataset.cat);
-          for (let i = 0; !src && i < fallbackOrder.length; i++) src = pick(fallbackOrder[i]);
-          if (!src) return;
-          const img = new Image();
-          img.src = src;
-          img.alt = "";
-          img.loading = "lazy";
-          slot.appendChild(img);
-        });
-      })
-      .catch(() => { /* pas d'image : les blocs restent lisibles */ });
+        if (!src) src = pickFrom(slot.dataset.cat);
+        for (let i = 0; !src && i < keys.length; i++) src = pickFrom(keys[i]);
+        if (!src) return;
+
+        const img = new Image();
+        img.src = src;
+        img.alt = "";
+        img.loading = "lazy";
+        slot.appendChild(img);
+      });
+    });
+    };
+    // site.js est chargé en "defer" : on attend DOMContentLoaded.
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", run);
+    else run();
   })();
   </script>
 </body>
