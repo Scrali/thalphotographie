@@ -9,32 +9,37 @@ $footerDisclaimer = '';
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Conditions générales de vente • THAL Photographie</title>
   <meta name="description" content="Conditions générales de vente et de prestation de THAL Photographie (Sainte-Croix, VD)." />
-  <meta name="theme-color" content="#070b16" />
+  <meta name="theme-color" content="#0a0a0c" />
   <?php include __DIR__ . '/inc/site-styles.php'; ?>
   <style>
-    .cgvDoc{padding:clamp(24px,4.5vw,44px); margin:var(--gap) 0;}
-    .cgvDoc h1{margin:0 0 6px; font-size:clamp(28px,4vw,38px); letter-spacing:-.5px;}
-    .cgvMeta{margin:0 0 28px; color:var(--muted2); font-size:14px;}
-    .cgvDoc h2{margin:30px 0 10px; font-size:19px; color:#d3edf5; letter-spacing:-.2px;}
+    .cgvDoc{padding-top:clamp(122px,13vw,166px); padding-bottom:clamp(50px,7vw,88px);}
+    .cgvHead{display:flex; align-items:flex-start; justify-content:space-between; gap:20px; margin-bottom:34px;}
+    .cgvDoc h1{margin:0 0 10px; font-size:clamp(30px,4.4vw,50px);}
+    .cgvMeta{margin:0; color:var(--muted-2); font-size:14px;}
+    .cgvBody{max-width:78ch;}
+    .cgvDoc h2{margin:38px 0 12px; font-family:"Fraunces", Georgia, serif; font-weight:400; font-size:clamp(20px,2.6vw,26px);}
     .cgvDoc h2:first-of-type{margin-top:0;}
-    .cgvDoc p{margin:0 0 12px; color:var(--muted); line-height:1.7; font-size:15px;}
-    .cgvDoc strong{color:var(--text);}
-    .cgvTableWrap{overflow-x:auto; margin:0 0 16px;}
+    .cgvDoc p{margin:0 0 13px; color:var(--muted); font-size:15px; line-height:1.75;}
+    .cgvDoc strong{color:var(--text); font-weight:600;}
+    .cgvTableWrap{overflow-x:auto; margin:0 0 18px;}
     .cgvTable{width:100%; border-collapse:collapse; font-size:14px;}
-    .cgvTable th,.cgvTable td{padding:10px 14px; border:1px solid rgba(255,255,255,.12); text-align:left; color:var(--muted);}
-    .cgvTable th{color:#d3edf5; background:rgba(255,255,255,.04); font-weight:800;}
-    .cgvDoc hr{border:0; border-top:1px solid rgba(255,255,255,.10); margin:30px 0;}
-    .cgvFoot{color:var(--muted2); font-size:13px; font-style:italic;}
-    .cgvHead{display:flex; align-items:flex-start; justify-content:space-between; gap:16px;}
-    .cgvClose{flex:0 0 auto; width:42px; height:42px; border-radius:999px; border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.055); color:var(--text); font-size:22px; cursor:pointer; text-decoration:none; display:flex; align-items:center; justify-content:center; line-height:1;}
+    .cgvTable th,.cgvTable td{padding:12px 15px; border:1px solid var(--line); text-align:left; color:var(--muted);}
+    .cgvTable th{color:var(--text); background:var(--ink-2); font-weight:600;}
+    .cgvDoc hr{border:0; border-top:1px solid var(--line); margin:34px 0;}
+    .cgvFoot{color:var(--muted-2); font-size:13px;}
+    .cgvClose{
+      flex:none; display:grid; place-items:center; width:46px; height:46px;
+      border:1px solid var(--line-strong); border-radius:2px; color:var(--text);
+      font-size:22px; line-height:1; transition:border-color .3s, color .3s;
+    }
+    .cgvClose:hover{border-color:var(--amber); color:var(--amber);}
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <?php include __DIR__ . '/inc/site-nav.php'; ?>
+  <?php include __DIR__ . '/inc/site-nav.php'; ?>
 
-    <main>
-      <section class="card cgvDoc">
+  <main>
+    <section class="wrap cgvDoc">
         <div class="cgvHead">
           <div>
             <h1>Conditions générales de vente et de prestation</h1>
@@ -42,6 +47,8 @@ $footerDisclaimer = '';
           </div>
           <a href="index.html" class="cgvClose" id="cgvClose" aria-label="Fermer">×</a>
         </div>
+
+        <div class="cgvBody">
 
         <h2>1. Champ d’application</h2>
         <p>Les présentes conditions générales (ci-après « CG ») régissent l’ensemble des prestations photographiques fournies par THAL Photographie (ci-après « le Photographe ») à ses clients (ci-après « le Client »).</p>
@@ -118,11 +125,11 @@ $footerDisclaimer = '';
 
         <hr>
         <p class="cgvFoot">THAL Photographie, Hirschi Jonathan, Rue du Centre 3, 1450 Sainte-Croix · thalphotographie@bluewin.ch · 078 745 72 42</p>
-      </section>
-    </main>
+        </div>
+    </section>
+  </main>
 
-    <?php include __DIR__ . '/inc/site-footer.php'; ?>
-  </div>
+  <?php include __DIR__ . '/inc/site-footer.php'; ?>
   <script>
     document.getElementById('cgvClose').addEventListener('click', function (e) {
       if (window.history.length > 1) {

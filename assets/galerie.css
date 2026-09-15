@@ -1,0 +1,152 @@
+/* ==========================================================================
+   THAL Photographie — styles propres à la page Galerie.
+   Complète assets/site.css : univers, filtres, grille et visionneuse.
+   ========================================================================== */
+
+.heroIntro{padding-top:clamp(122px,13vw,166px); padding-bottom:clamp(30px,4vw,44px);}
+.heroIntro h1{font-size:clamp(34px,5.4vw,64px); margin-bottom:20px;}
+.heroIntro .lead{margin:0; max-width:680px; color:var(--muted); font-size:clamp(15px,1.7vw,18px);}
+.kicker{
+  display:inline-flex; align-items:center; gap:10px; margin-bottom:22px;
+  font-size:11.5px; letter-spacing:.24em; text-transform:uppercase;
+  color:var(--amber); font-weight:600;
+}
+.kicker::before{content:""; width:32px; height:1px; background:var(--amber);}
+
+.sectionTitle{
+  margin:0 0 20px; font-size:11.5px; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--muted-2); font-weight:600;
+}
+
+/* ------------------------------------------------------------- univers */
+.universGrid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; padding:0 0 clamp(40px,6vw,64px);}
+@media(max-width:1000px){.universGrid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.universGrid{grid-template-columns:1fr;}}
+.universCard{
+  position:relative; overflow:hidden; min-height:230px; padding:0; cursor:pointer;
+  display:flex; align-items:flex-end; text-align:left;
+  border:1px solid var(--line); border-radius:3px; background:var(--ink-2);
+  color:var(--text); font-family:inherit;
+  transition:border-color .4s, transform .4s cubic-bezier(.16,1,.3,1);
+}
+.universCard:hover{border-color:rgba(var(--amber-rgb),.42); transform:translateY(-4px);}
+.universBg{
+  position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  opacity:.5; filter:saturate(.85); transition:opacity .5s, transform .8s cubic-bezier(.16,1,.3,1);
+}
+.universCard:hover .universBg{opacity:.66; transform:scale(1.05);}
+.universCard::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg,rgba(10,10,12,.15),rgba(10,10,12,.9));
+}
+.universText{position:relative; z-index:2; padding:22px 20px;}
+.universText span{
+  display:block; margin-bottom:8px; font-size:10.5px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--amber); font-weight:600;
+}
+.universText h2{
+  margin:0 0 6px; font-family:"Fraunces", Georgia, serif; font-weight:400;
+  font-size:22px; line-height:1.15; letter-spacing:-.01em;
+}
+.universText p{margin:0; color:var(--muted); font-size:13.5px; line-height:1.5;}
+.universCard.active{border-color:var(--amber);}
+.universCard.active .universBg{opacity:.62;}
+
+/* -------------------------------------------------------------- filtres */
+.galleryHead{
+  display:flex; align-items:flex-end; justify-content:space-between; gap:20px; flex-wrap:wrap;
+  padding:0 0 22px; border-bottom:1px solid var(--line); scroll-margin-top:clamp(80px,12vw,120px);
+}
+.galleryTitle{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap;}
+.galleryTitle strong{font-family:"Fraunces", Georgia, serif; font-weight:400; font-size:clamp(22px,3vw,30px);}
+.galleryTitle .count{font-size:12px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted-2);}
+.pillRow{display:flex; flex-wrap:wrap; gap:8px;}
+.pill{
+  padding:9px 16px; border:1px solid var(--line); border-radius:2px; background:transparent;
+  font-family:inherit; font-size:12.5px; font-weight:500; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--muted); cursor:pointer; transition:border-color .3s, color .3s, background .3s;
+}
+.pill:hover{color:var(--text); border-color:var(--line-strong);}
+.pill.active{background:var(--amber); border-color:var(--amber); color:var(--ink);}
+
+.filters{margin:24px 0 0; border-bottom:1px solid var(--line);}
+.filters summary{
+  display:flex; align-items:center; gap:10px; padding:18px 4px; list-style:none; cursor:pointer;
+  font-size:12.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--muted-2); font-weight:600;
+  transition:color .3s;
+}
+.filters summary::-webkit-details-marker{display:none;}
+.filters summary::after{content:"+"; margin-left:auto; font-size:16px; transition:transform .3s;}
+.filters[open] summary{color:var(--amber);}
+.filters[open] summary::after{transform:rotate(45deg);}
+.filters summary:hover{color:var(--text);}
+.filterBody{display:grid; gap:22px; padding:6px 4px 28px;}
+.fgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+@media(max-width:620px){.fgrid{grid-template-columns:1fr;}}
+.filterBody label{
+  display:block; margin-bottom:8px; font-size:11px; letter-spacing:.2em;
+  text-transform:uppercase; color:var(--muted-2);
+}
+.filterBody select{
+  width:100%; padding:13px 14px; border:1px solid var(--line); border-radius:2px;
+  background:var(--ink-2); color:var(--text); font-family:inherit; font-size:14.5px;
+}
+.filterBody select:focus{outline:none; border-color:var(--amber);}
+.tags{display:flex; flex-wrap:wrap; gap:8px;}
+.tag{
+  padding:8px 14px; border:1px solid var(--line); border-radius:2px; background:transparent;
+  font-family:inherit; font-size:12.5px; color:var(--muted); cursor:pointer;
+  transition:border-color .3s, color .3s, background .3s;
+}
+.tag:hover{color:var(--text); border-color:var(--line-strong);}
+.tag.on{border-color:var(--amber); color:var(--amber); background:rgba(var(--amber-rgb),.1);}
+.reset{
+  justify-self:start; padding:12px 22px; border:1px solid var(--line-strong); border-radius:2px;
+  background:transparent; color:var(--text); font-family:inherit; font-size:13px; font-weight:600;
+  cursor:pointer; transition:border-color .3s, color .3s;
+}
+.reset:hover{border-color:var(--amber); color:var(--amber);}
+
+/* --------------------------------------------------------------- grille */
+#grid{columns:3; column-gap:14px; padding:clamp(28px,4vw,40px) 0 0;}
+@media(max-width:900px){#grid{columns:2;}}
+.shot{
+  position:relative; display:block; width:100%; margin:0 0 14px; break-inside:avoid;
+  overflow:hidden; border:1px solid var(--line); border-radius:3px; background:var(--ink-2);
+  cursor:zoom-in;
+}
+.shot img{width:100%; height:auto; filter:saturate(.9); transition:transform .8s cubic-bezier(.16,1,.3,1), filter .5s;}
+.shot:hover img{transform:scale(1.05); filter:saturate(1.05);}
+.shot::before{
+  content:""; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(180deg,transparent 50%,rgba(10,10,12,.82));
+  opacity:0; transition:opacity .4s;
+}
+.shot .cap{
+  position:absolute; left:16px; right:16px; bottom:14px; z-index:2;
+  font-size:11.5px; letter-spacing:.16em; text-transform:uppercase; font-weight:600; color:var(--text);
+  opacity:0; transform:translateY(8px); transition:opacity .4s, transform .4s;
+}
+.shot:hover::before{opacity:1;}
+.shot:hover .cap{opacity:1; transform:translateY(0);}
+.empty{padding:50px 0; color:var(--muted-2); font-size:15px; text-align:center;}
+
+/* ---------------------------------------------------------- visionneuse */
+.lightbox{
+  position:fixed; inset:0; z-index:300; display:none; align-items:center; justify-content:center;
+  padding:clamp(16px,5vw,60px); background:rgba(6,6,8,.95);
+  backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);
+}
+.lightbox.open{display:flex;}
+.lbCard{display:flex; flex-direction:column; gap:16px; width:100%; max-width:1100px;}
+.lbTop{display:flex; align-items:center; justify-content:space-between; gap:16px;}
+#lbTitle{font-size:11.5px; letter-spacing:.2em; text-transform:uppercase; color:var(--muted-2);}
+.lbBtns{display:flex; gap:8px;}
+.lbBtn{
+  display:grid; place-items:center; width:46px; height:46px;
+  border:1px solid var(--line); border-radius:2px; background:transparent; color:var(--text);
+  font-size:17px; cursor:pointer; transition:border-color .3s, background .3s, color .3s;
+}
+.lbBtn:hover{border-color:var(--amber); background:rgba(var(--amber-rgb),.12); color:var(--amber);}
+.lbImgWrap{display:flex; align-items:center; justify-content:center;}
+.lbImg{max-width:100%; max-height:74svh; width:auto; height:auto; object-fit:contain; border-radius:3px;}
