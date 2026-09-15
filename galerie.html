@@ -3,405 +3,15 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>THAL — Galerie</title>
-  <meta name="description" content="Galerie THAL Photographie — concerts, portraits, famille et explorations." />
-  <meta name="theme-color" content="#070b16" />
+  <title>THAL Galerie</title>
+  <meta name="description" content="Galerie THAL Photographie : concerts, portraits, famille et explorations." />
+  <meta name="theme-color" content="#0a0a0c" />
 
-  <style>
-    :root{
-      --bg:#050816;
-      --bg2:#0b1224;
-      --panel:rgba(255,255,255,.065);
-      --stroke:rgba(255,255,255,.11);
-      --text:rgba(255,255,255,.96);
-      --muted:rgba(255,255,255,.72);
-      --muted2:rgba(255,255,255,.52);
-      --accent:#7cb8ff;
-      --accent2:#d3edf5;
-      --shadow:0 12px 36px rgba(0,0,0,.30), 0 34px 90px rgba(0,0,0,.46);
-      --radius:20px;
-      --radius2:28px;
-      --max:1180px;
-      --pad:clamp(14px,2.6vw,24px);
-      --gap:clamp(14px,2.4vw,22px);
-      --safe-top:env(safe-area-inset-top,0px);
-      --safe-right:env(safe-area-inset-right,0px);
-      --safe-bottom:env(safe-area-inset-bottom,0px);
-      --safe-left:env(safe-area-inset-left,0px);
-    }
-
-    *{box-sizing:border-box; max-width:100%;}
-    html,body{height:100%;}
-    html{-webkit-text-size-adjust:100%; scroll-behavior:smooth;}
-    body{
-      margin:0;
-      font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
-      color:var(--text);
-      background:
-        radial-gradient(circle at 8% 6%, rgba(124,184,255,.20), transparent 0 32%),
-        radial-gradient(circle at 92% 12%, rgba(211,237,245,.10), transparent 0 28%),
-        radial-gradient(circle at 80% 88%, rgba(37,211,102,.055), transparent 0 26%),
-        radial-gradient(circle at 35% 100%, rgba(124,184,255,.08), transparent 0 36%),
-        linear-gradient(180deg,#020611 0%,#061020 42%,#020611 100%);
-      background-attachment:fixed;
-      overflow-x:hidden;
-      padding-top:var(--safe-top);
-      padding-right:var(--safe-right);
-      padding-bottom:calc(var(--safe-bottom) + 10px);
-      padding-left:var(--safe-left);
-    }
-    body::before{
-      content:"";
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:-1;
-      opacity:.35;
-      background:
-        linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.014) 1px, transparent 1px);
-      background-size:56px 56px;
-      mask-image:radial-gradient(circle at 50% 28%, black, transparent 78%);
-      -webkit-mask-image:radial-gradient(circle at 50% 28%, black, transparent 78%);
-    }
-    a{color:inherit; text-decoration:none;}
-    .wrap{max-width:var(--max); margin:0 auto; padding:var(--pad) var(--pad) 70px;}
-
-    .nav{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:10px 12px;
-      border:1px solid rgba(255,255,255,.11);
-      background:rgba(8,13,28,.62);
-      border-radius:999px;
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      box-shadow:0 14px 45px rgba(0,0,0,.28),0 0 0 1px rgba(124,184,255,.04) inset;
-      position:sticky;
-      top:calc(10px + var(--safe-top));
-      z-index:50;
-    }
-    .brand{display:flex; align-items:center; gap:8px; padding:6px 10px; min-width:0; flex-shrink:0;}
-    .brand img{
-      height:130px;
-      width:auto;
-      display:block;
-      flex-shrink:0;
-      filter:drop-shadow(0 0 15px rgba(124,184,255,.25)) drop-shadow(0 6px 15px rgba(0,0,0,.45));
-    }
-    .brand .name{display:flex; align-items:center; gap:14px; min-width:0; white-space:nowrap;}
-    .brandTitle{color:#d3edf5; font-size:48px; font-weight:900; line-height:1;}
-    .divider{width:1px; height:42px; background:rgba(211,237,245,.35); display:block; position:relative; top:2px;}
-    .subtitle{color:rgba(211,237,245,.75); font-size:18px; font-weight:600; line-height:1; position:relative; top:1px;}
-    .navlinks{display:flex; align-items:center; justify-content:flex-end; gap:10px; padding:6px 8px; flex-wrap:wrap; margin-left:auto;}
-
-    .chip,.btn,.ghost,.pill,.reset,.tag,.lbBtn{
-      min-height:44px;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      border-radius:999px;
-      font-weight:800;
-      font-size:14px;
-      border:1px solid var(--stroke);
-      background:rgba(255,255,255,.045);
-      color:var(--text);
-      cursor:pointer;
-      transition:transform .16s ease, background .2s ease, border-color .2s ease, filter .2s ease, box-shadow .2s ease;
-    }
-    .chip,.ghost{padding:10px 14px; color:var(--muted);}
-    .chip:hover,.ghost:hover,.pill:hover,.tag:hover,.reset:hover{transform:translateY(-1px); background:rgba(255,255,255,.075); border-color:rgba(255,255,255,.20);}
-
-    .navDropdown{position:relative;}
-    .navDropdownToggle{gap:6px; font-family:inherit;}
-    .navDropdownToggle .caret{font-size:10px; transition:transform .2s ease; display:inline-block;}
-    .navDropdownToggle[aria-expanded="true"] .caret{transform:rotate(180deg);}
-    .navDropdownMenu{
-      position:absolute; top:calc(100% + 8px); left:50%; transform:translateX(-50%);
-      min-width:190px; padding:8px; display:none; flex-direction:column; gap:2px;
-      border-radius:16px; border:1px solid rgba(255,255,255,.14);
-      background:rgba(8,13,28,.97); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
-      box-shadow:0 14px 45px rgba(0,0,0,.38); z-index:60;
-    }
-    .navDropdownMenu.open{display:flex;}
-    .navDropdownMenu a{padding:9px 12px; border-radius:10px; color:var(--muted); font-weight:650; font-size:13px; text-align:left; min-height:auto;}
-    .navDropdownMenu a:hover{background:rgba(255,255,255,.06); color:var(--text);}
-    .btn{padding:10px 15px; border-color:rgba(124,184,255,.44); background:linear-gradient(180deg,rgba(124,184,255,.34),rgba(59,130,246,.18)); box-shadow:0 0 30px rgba(124,184,255,.08) inset;}
-    .btn:hover{transform:translateY(-1px); filter:brightness(1.08); border-color:rgba(124,184,255,.72);}
-
-    .heroIntro{
-      margin-top:clamp(22px,4vw,46px);
-      padding:clamp(24px,4vw,44px);
-      border:1px solid rgba(255,255,255,.09);
-      border-radius:var(--radius2);
-      background:
-        radial-gradient(circle at 82% 22%, rgba(124,184,255,.18), transparent 0 28%),
-        linear-gradient(180deg, rgba(255,255,255,.085), rgba(255,255,255,.035));
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(18px);
-      -webkit-backdrop-filter:blur(18px);
-      overflow:hidden;
-      position:relative;
-    }
-    .heroIntro::after{
-      content:"";
-      position:absolute;
-      inset:auto -12% -45% 35%;
-      height:220px;
-      background:radial-gradient(closest-side, rgba(124,184,255,.17), transparent 70%);
-      pointer-events:none;
-    }
-    .kicker{
-      display:inline-flex;
-      margin-bottom:14px;
-      padding:8px 12px;
-      border-radius:999px;
-      border:1px solid rgba(124,184,255,.24);
-      background:rgba(124,184,255,.12);
-      color:#d3edf5;
-      font-size:12px;
-      font-weight:900;
-      letter-spacing:.12em;
-      text-transform:uppercase;
-    }
-    h1{margin:0 0 12px; font-size:clamp(40px,7vw,76px); line-height:.96; letter-spacing:-1.8px; color:#fff;}
-    .lead{margin:0; color:var(--muted); max-width:720px; line-height:1.65; font-size:clamp(16px,2vw,19px); position:relative; z-index:1;}
-
-    .sectionTitle{margin:26px 2px 12px; color:var(--muted); font-weight:900; font-size:13px; letter-spacing:.14em; text-transform:uppercase;}
-
-    .universGrid{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:var(--gap);
-      margin-top:12px;
-    }
-    .universCard{
-      min-height:310px;
-      position:relative;
-      overflow:hidden;
-      border-radius:var(--radius2);
-      border:1px solid rgba(255,255,255,.10);
-      background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.032));
-      box-shadow:0 12px 30px rgba(0,0,0,.24);
-      cursor:pointer;
-      isolation:isolate;
-    }
-    .universCard::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg, rgba(4,8,18,.12), rgba(4,8,18,.76) 72%, rgba(4,8,18,.92));
-      z-index:2;
-      pointer-events:none;
-    }
-    .universCard::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      border-radius:inherit;
-      box-shadow:0 0 0 1px rgba(124,184,255,0) inset, 0 0 60px rgba(124,184,255,0);
-      transition:.25s ease;
-      z-index:4;
-      pointer-events:none;
-    }
-    .universCard:hover{transform:translateY(-3px);}
-    .universCard:hover::after,.universCard.active::after{box-shadow:0 0 0 1px rgba(124,184,255,.48) inset,0 0 46px rgba(124,184,255,.14);}
-    .universBg{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      opacity:.72;
-      transform:scale(1.01);
-      transition:transform .55s ease, opacity .3s ease;
-      z-index:1;
-      background:#050816;
-    }
-    .universCard:hover .universBg{transform:scale(1.07); opacity:.86;}
-    .universText{
-      position:absolute;
-      inset:auto 16px 16px 16px;
-      z-index:3;
-    }
-    .universText span{
-      display:inline-flex;
-      margin-bottom:9px;
-      padding:6px 9px;
-      border-radius:999px;
-      background:rgba(124,184,255,.14);
-      border:1px solid rgba(124,184,255,.25);
-      color:rgba(255,255,255,.88);
-      font-size:11px;
-      font-weight:900;
-      letter-spacing:.1em;
-      text-transform:uppercase;
-    }
-    .universText h2{margin:0 0 8px; font-size:clamp(23px,2.7vw,31px); line-height:1.02; letter-spacing:-.5px; color:#fff;}
-    .universText p{margin:0; color:rgba(255,255,255,.74); font-size:14px; line-height:1.45;}
-
-    .galleryHead{
-      margin-top:var(--gap);
-      padding:16px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      flex-wrap:wrap;
-      border:1px solid rgba(255,255,255,.09);
-      border-radius:var(--radius2);
-      background:linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.03));
-      box-shadow:0 8px 24px rgba(0,0,0,.18);
-      backdrop-filter:blur(16px);
-      -webkit-backdrop-filter:blur(16px);
-    }
-    .galleryTitle{display:grid; gap:4px;}
-    .galleryTitle strong{font-size:20px; color:#d3edf5;}
-    .count{color:var(--muted); font-weight:800; font-size:13px;}
-    .pillRow,.tags{display:flex; gap:8px; flex-wrap:wrap;}
-    .pill,.tag,.reset{min-height:38px; padding:8px 11px; font-size:12px; color:var(--muted); user-select:none;}
-    .pill.active,.tag.on{color:var(--text); border-color:rgba(110,168,255,.55); background:rgba(110,168,255,.12); box-shadow:0 0 24px rgba(124,184,255,.06) inset;}
-
-    details.filters{
-      margin-top:12px;
-      border:1px solid rgba(255,255,255,.09);
-      border-radius:22px;
-      background:rgba(255,255,255,.04);
-      overflow:hidden;
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
-    }
-    details.filters summary{
-      list-style:none;
-      cursor:pointer;
-      padding:14px 16px;
-      color:var(--muted);
-      font-size:13px;
-      font-weight:900;
-      letter-spacing:.08em;
-      text-transform:uppercase;
-    }
-    details.filters summary::-webkit-details-marker{display:none;}
-    .filterBody{padding:0 16px 16px; display:grid; gap:14px;}
-    .fgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
-    label{display:block; font-size:12px; color:var(--muted); font-weight:900; letter-spacing:.08em; text-transform:uppercase; margin:0 0 6px;}
-    select{
-      width:100%;
-      min-height:44px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.12);
-      background-color:rgba(0,0,0,.35);
-      color:#fff;
-      padding:10px 12px;
-      outline:none;
-      font-weight:650;
-    }
-    select option{background-color:#0b1020; color:#fff;}
-    .empty{margin-top:12px; padding:14px; border-radius:16px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.03); color:var(--muted); line-height:1.5;}
-
-    .masonry{
-      margin-top:16px;
-      columns:3 280px;
-      column-gap:16px;
-    }
-    .shot{
-      display:block;
-      break-inside:avoid;
-      margin:0 0 16px;
-      border-radius:18px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.10);
-      background:rgba(255,255,255,.025);
-      position:relative;
-      cursor:pointer;
-      box-shadow:0 10px 26px rgba(0,0,0,.22);
-      transform:translateZ(0);
-    }
-    .shot img{width:100%; height:auto; display:block; object-fit:cover; background:#050816; transition:transform .55s ease, filter .35s ease;}
-    .shot:hover img{transform:scale(1.045); filter:brightness(1.04);}
-    .shot .cap{
-      position:absolute;
-      left:10px;
-      right:10px;
-      bottom:10px;
-      padding:9px 11px;
-      border-radius:14px;
-      background:rgba(0,0,0,.42);
-      border:1px solid rgba(255,255,255,.12);
-      backdrop-filter:blur(10px);
-      -webkit-backdrop-filter:blur(10px);
-      font-size:12px;
-      color:rgba(255,255,255,.84);
-      opacity:0;
-      transform:translateY(8px);
-      transition:.25s ease;
-    }
-    .shot:hover .cap{opacity:1; transform:translateY(0);}
-
-    .lightbox{
-      position:fixed;
-      inset:0;
-      z-index:200;
-      background:rgba(0,0,0,.84);
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:14px;
-      touch-action:none;
-    }
-    .lightbox.open{display:flex;}
-    .lbCard{
-      width:min(1720px,96vw);
-      border-radius:20px;
-      overflow:hidden;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(10,14,24,.86);
-      backdrop-filter:blur(14px);
-      -webkit-backdrop-filter:blur(14px);
-      box-shadow:0 30px 110px rgba(0,0,0,.65);
-    }
-    .lbTop{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:12px 14px; border-bottom:1px solid rgba(255,255,255,.10); font-weight:800; font-size:13px; color:rgba(255,255,255,.85);}
-    .lbBtns{display:flex; gap:8px;}
-    .lbBtn{min-height:42px; padding:9px 12px; border-radius:12px; background:rgba(255,255,255,.04); color:rgba(255,255,255,.92);}
-    .lbImgWrap{background:#000;}
-    .lbImg{width:100%; height:min(90vh,1200px); object-fit:contain; display:block; background:#000;}
-
-    .footer{margin-top:26px; text-align:center; color:var(--muted2); font-size:13px;}
-
-    @media (max-width:980px){
-      .universGrid{grid-template-columns:repeat(2,1fr);}
-      .universCard{min-height:280px;}
-    }
-    @media (max-width:720px){
-      .nav{padding:8px 10px; gap:8px; border-radius:34px;}
-      .brand{gap:6px; padding:4px 6px;}
-      .brand img{height:82px;}
-      .brandTitle{font-size:30px;}
-      .divider{height:28px;}
-      .subtitle{display:none;}
-      .navlinks{gap:7px; padding:4px; flex-wrap:wrap; justify-content:flex-end;}
-      .chip,.btn{min-height:36px; padding:8px 11px; font-size:12px;}
-      .heroIntro{padding:22px;}
-      h1{font-size:clamp(36px,11vw,54px);}
-      .fgrid{grid-template-columns:1fr;}
-      .masonry{columns:2 150px; column-gap:10px;}
-      .shot{margin-bottom:10px; border-radius:14px;}
-      .shot .cap{display:none;}
-    }
-    @media (max-width:560px){
-      .universGrid{grid-template-columns:1fr;}
-      .universCard{min-height:230px;}
-      .brandTitle,.divider{display:none;}
-      .brand img{height:68px;}
-      .galleryHead{align-items:flex-start;}
-    }
-    @media (prefers-reduced-motion:reduce){
-      *{animation-duration:.001ms!important; animation-iteration-count:1!important; transition-duration:.001ms!important; scroll-behavior:auto!important;}
-    }
-
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/site.css">
+  <link rel="stylesheet" href="assets/galerie.css">
 
   <!-- Cloudflare Web Analytics -->
   <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "f1000bfdb7444cf0afc07dcd229b1c23"}'></script><!-- End Cloudflare Web Analytics -->
@@ -409,36 +19,59 @@
 </head>
 
 <body>
-  <div class="wrap">
-    <header class="nav">
-      <a class="brand" href="index.html" aria-label="Accueil">
-        <img src="assets/thal1.png" alt="THAL" />
-        <div class="name">
-          <span class="brandTitle">T•H•A•L</span>
-          <span class="divider"></span>
-          <span class="subtitle">Photographie</span>
-        </div>
-      </a>
+  <!--
+    L'habillage vient de assets/site.css et assets/galerie.css. La barre de
+    navigation est recopiée de inc/site-nav.php : garder les deux alignées.
+    Toute la logique de filtres et la visionneuse plus bas sont inchangées.
+  -->
+  <div class="watermark" aria-hidden="true"></div>
 
-      <nav class="navlinks">
-        <div class="navDropdown">
-          <button class="chip navDropdownToggle" type="button" aria-haspopup="true" aria-expanded="false">
-            Prestations <span class="caret">▾</span>
-          </button>
-          <div class="navDropdownMenu">
-            <a href="identite.php">Identité</a>
-            <a href="portraits.php">Portraits</a>
-            <a href="animaux.php">Animaux de compagnie</a>
-            <a href="reportages.php">Reportages</a>
-            <a href="professionnels.php">Professionnels</a>
-          </div>
-        </div>
-        <a class="chip" href="pourquoi-thal.php">Pourquoi THAL</a>
-        <a class="btn" href="index.html#contact">Me contacter</a>
-      </nav>
-    </header>
+  <header class="nav solid" id="thalNav">
+    <a class="brand" href="index.html" aria-label="Accueil THAL Photographie">
+      <img src="assets/thal1.png" alt="" />
+      <span class="name">
+        <span class="brandTitle">T·H·A·L</span>
+        <span class="subtitle">Photographie</span>
+      </span>
+    </a>
 
-    <main>
+    <nav class="navlinks" aria-label="Navigation principale">
+      <span class="navDropdown">
+        <button class="navlink navDropdownToggle" type="button" aria-haspopup="true" aria-expanded="false">
+          Prestations
+          <svg class="caret" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <span class="navDropdownMenu">
+          <a href="identite.php">Identité</a>
+          <a href="portraits.php">Portraits</a>
+          <a href="animaux.php">Animaux de compagnie</a>
+          <a href="reportages.php">Reportages</a>
+          <a href="professionnels.php">Professionnels</a>
+        </span>
+      </span>
+      <a class="navlink active" href="galerie.html">Galerie</a>
+      <a class="navlink" href="pourquoi-thal.php">Pourquoi THAL</a>
+      <a class="navCta" href="index.html#contact">Demander un devis</a>
+    </nav>
+
+    <button class="burger" type="button" id="thalBurger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="thalMobileMenu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </header>
+
+  <nav class="mobileMenu" id="thalMobileMenu" aria-label="Menu" hidden>
+    <a href="index.html">Accueil</a>
+    <a href="identite.php">Identité</a>
+    <a href="portraits.php">Portraits</a>
+    <a href="animaux.php">Animaux de compagnie</a>
+    <a href="reportages.php">Reportages</a>
+    <a href="professionnels.php">Professionnels</a>
+    <a class="active" href="galerie.html">Galerie</a>
+    <a href="pourquoi-thal.php">Pourquoi THAL</a>
+    <a href="index.html#contact">Demander un devis</a>
+  </nav>
+
+    <main class="wrap">
       <section class="heroIntro">
         <span class="kicker">Galerie</span>
         <h1>Mes univers<br>photographiques.</h1>
@@ -481,9 +114,16 @@
       <div class="masonry" id="grid"></div>
       <div id="emptyMsg" class="empty" style="display:none;">Aucune photo pour cette combinaison.</div>
 
-      <div class="footer">© <span id="y"></span> THAL — Photographie · <a href="cgv.php" style="color:inherit; text-decoration:underline; text-underline-offset:4px;">Conditions générales de vente</a></div>
     </main>
-  </div>
+
+  <footer class="footer">
+    <div class="wrap footInner">
+      <div>© <span id="y"></span> THAL Photographie · Sainte-Croix (VD)</div>
+      <div class="footerLinks">
+        <a class="footerLink" href="cgv.php">Conditions générales de vente</a>
+      </div>
+    </div>
+  </footer>
 
   <div class="lightbox" id="lb" aria-hidden="true">
     <div class="lbCard" role="dialog" aria-modal="true">
@@ -498,6 +138,8 @@
       <div class="lbImgWrap"><img class="lbImg" id="lbImg" alt="" /></div>
     </div>
   </div>
+
+  <script src="assets/site.js" defer></script>
 
   <script>
     document.getElementById("y").textContent = new Date().getFullYear();
@@ -814,7 +456,7 @@
     const lbTitle = $("#lbTitle");
     function openLightbox(idx){ LB_INDEX = idx; updateLightbox(); lb.classList.add("open"); lb.setAttribute("aria-hidden","false"); document.body.style.overflow = "hidden"; }
     function closeLightbox(){ lb.classList.remove("open"); lb.setAttribute("aria-hidden","true"); lbImg.src = ""; document.body.style.overflow = ""; }
-    function updateLightbox(){ const p = FILTERED[LB_INDEX]; if(!p) return; lbImg.src = p.src; lbTitle.textContent = [p.cat, p.type, p.lieu].filter(Boolean).join(" — "); }
+    function updateLightbox(){ const p = FILTERED[LB_INDEX]; if(!p) return; lbImg.src = p.src; lbTitle.textContent = [p.cat, p.type, p.lieu].filter(Boolean).join(" · "); }
     function prev(){ if(!FILTERED.length) return; LB_INDEX = (LB_INDEX - 1 + FILTERED.length) % FILTERED.length; updateLightbox(); }
     function next(){ if(!FILTERED.length) return; LB_INDEX = (LB_INDEX + 1) % FILTERED.length; updateLightbox(); }
     $("#close").addEventListener("click", closeLightbox);
