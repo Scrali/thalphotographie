@@ -17,6 +17,9 @@
   --amber-rgb:217,166,104;
   --max:1240px;
   --pad:clamp(18px,4vw,40px);
+  /* Espace réservé sous la barre fixe : doit rester supérieur à sa hauteur
+     (logo 88px + marges), sinon les titres passent dessous. */
+  --navspace:clamp(148px,14vw,186px);
 
   --safe-top:env(safe-area-inset-top, 0px);
   --safe-right:env(safe-area-inset-right, 0px);
@@ -65,7 +68,7 @@ main,footer{position:relative; z-index:1;}
 .nav{
   position:fixed; top:0; left:0; right:0; z-index:100;
   display:flex; align-items:center; justify-content:space-between; gap:20px;
-  padding:18px var(--pad); padding-top:calc(18px + var(--safe-top));
+  padding:14px var(--pad); padding-top:calc(14px + var(--safe-top));
   border-bottom:1px solid transparent;
   transition:padding .35s cubic-bezier(.4,0,.2,1), background .35s, border-color .35s;
 }
@@ -74,14 +77,15 @@ main,footer{position:relative; z-index:1;}
   backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
   border-bottom-color:var(--line);
 }
-.nav.scrolled{ padding:10px var(--pad); padding-top:calc(10px + var(--safe-top)); }
-.brand{display:flex; align-items:center; gap:15px; flex-shrink:0;}
-.brand img{height:62px; width:auto; flex-shrink:0; transition:height .35s cubic-bezier(.4,0,.2,1);}
-.nav.scrolled .brand img{height:46px;}
+.nav.scrolled{ padding:9px var(--pad); padding-top:calc(9px + var(--safe-top)); }
+.brand{display:flex; align-items:center; gap:17px; flex-shrink:0;}
+.brand img{height:88px; width:auto; flex-shrink:0; transition:height .35s cubic-bezier(.4,0,.2,1);}
+.nav.scrolled .brand img{height:60px;}
 .brand .name{display:flex; flex-direction:column; align-items:flex-start; line-height:1.15;}
-.brandTitle{font-family:"Fraunces", Georgia, "Times New Roman", serif; font-size:25px; letter-spacing:.2em; font-weight:400; white-space:nowrap; transition:font-size .35s;}
-.subtitle{font-size:10.5px; letter-spacing:.34em; text-transform:uppercase; color:var(--muted-2); white-space:nowrap;}
-.nav.scrolled .brandTitle{font-size:21px;}
+.brandTitle{font-family:"Fraunces", Georgia, "Times New Roman", serif; font-size:31px; letter-spacing:.2em; font-weight:400; white-space:nowrap; transition:font-size .35s;}
+.subtitle{font-size:12px; letter-spacing:.34em; text-transform:uppercase; color:var(--muted-2); white-space:nowrap; transition:font-size .35s;}
+.nav.scrolled .brandTitle{font-size:24px;}
+.nav.scrolled .subtitle{font-size:10.5px;}
 
 .navlinks{display:flex; align-items:center; gap:34px;}
 .navlink{
@@ -128,12 +132,17 @@ main,footer{position:relative; z-index:1;}
   display:none; place-items:center; width:46px; height:46px; cursor:pointer;
   border:1px solid var(--line-strong); border-radius:2px; background:none; color:var(--text);
 }
-@media(max-width:1080px){ .navlinks{gap:22px;} .navlink{font-size:14.5px;} }
+@media(max-width:1180px){ .navlinks{gap:22px;} .navlink{font-size:14.5px;} }
+@media(max-width:1040px){ .brand img{height:72px;} .brandTitle{font-size:26px;} }
 @media(max-width:920px){
   .navlinks{display:none;}
   .burger{display:grid;}
-  .brand img{height:50px;} .brandTitle{font-size:21px;}
-  .nav.scrolled .brand img{height:42px;}
+  .brand img{height:70px;} .brandTitle{font-size:25px;}
+  .nav.scrolled .brand img{height:54px;} .nav.scrolled .brandTitle{font-size:21px;}
+}
+@media(max-width:420px){
+  .brand{gap:12px;}
+  .brand img{height:60px;} .brandTitle{font-size:21px;} .subtitle{font-size:10px; letter-spacing:.28em;}
 }
 .mobileMenu{
   position:fixed; inset:0; z-index:99;
@@ -219,13 +228,13 @@ h2:last-child{margin-bottom:0;}
 }
 .eyebrow::before{content:""; width:32px; height:1px; background:var(--amber);}
 
-section{padding:clamp(54px,7vw,88px) 0; scroll-margin-top:clamp(80px,12vw,120px);}
+section{padding:clamp(54px,7vw,88px) 0; scroll-margin-top:var(--navspace);}
 section.tight{padding-top:0;}
 .sectionHead{margin-bottom:clamp(28px,3.6vw,42px); max-width:660px;}
 .sectionHead.row{max-width:none; display:flex; align-items:flex-end; justify-content:space-between; gap:24px; flex-wrap:wrap;}
 .sectionHead p{color:var(--muted); margin:0; font-size:clamp(15px,1.6vw,17px);}
 
-.pageHero{padding-top:clamp(122px,13vw,166px); padding-bottom:clamp(30px,4vw,44px);}
+.pageHero{padding-top:var(--navspace); padding-bottom:clamp(30px,4vw,44px);}
 .pageHero h1{font-size:clamp(34px,5.4vw,64px); margin-bottom:20px;}
 .pageHero .lead{color:var(--muted); max-width:680px; font-size:clamp(15px,1.7vw,18px); margin:0;}
 .pageHeadGrid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.46fr); gap:clamp(24px,4vw,56px); align-items:end;}
