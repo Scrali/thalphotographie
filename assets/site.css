@@ -452,11 +452,10 @@ section.tight{padding-top:0;}
 .why p{margin:0; color:var(--muted); font-size:15.5px;}
 
 /* ------------------------------------------------------------- à propos */
-.about{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.72fr); gap:clamp(32px,5vw,70px); align-items:center;}
-@media(max-width:860px){.about{grid-template-columns:1fr;}}
-.about p{margin:0 0 18px; color:var(--muted);}
-.about .portrait{position:relative; overflow:hidden; border:1px solid var(--line); border-radius:3px; background:var(--ink-2);}
-.about .portrait img{width:100%; height:auto;}
+/* Une seule colonne : le texte est tenu à une largeur lisible, et la bande
+   de repères occupe toute la largeur dessous. */
+.about p{margin:0 0 18px; max-width:68ch; color:var(--muted);}
+.about h2{max-width:20ch;}
 .aboutMeta{display:grid; grid-template-columns:repeat(3,1fr); gap:0; margin-top:34px; border-top:1px solid var(--line);}
 @media(max-width:560px){.aboutMeta{grid-template-columns:1fr;}}
 .aboutMeta div{padding:20px 0; border-bottom:1px solid var(--line);}
